@@ -583,8 +583,23 @@
                 </div>
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
+            } else if (contentType === '191') {
+                var buttonZadaci = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('harpun')">Harpun</button>
+                    <button onclick="changeContent('podmornica')">Podmornica</button>
+                    <button onclick="changeContent('skoljka')">Skoljka</button>
+                    <button onclick="changeContent('hobotnica')">Hobotnica</button>
+                    <button onclick="changeContent('zvijezda')">Zvijezda</button>
+                    <button onclick="changeContent('valovi')">Valovi</button>
+                    <button onclick="changeContent('sifra')">Sifra</button>
+                    <button onclick="changeContent('bijeg')">Bijeg</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
             }
-
+            
+            
             //Zadaci 2015_2016
             if (contentType === 'kursor') {
                 openPage('2015_2016', 1, 2);
@@ -905,6 +920,22 @@
             } else if (contentType === 'putovanje') {
                 openPage('2018_2019', 6, 8);
             } else if (contentType === 'hobbitsort') {
+                openPage('2018_2019', 6, 9);
+            }  else if (contentType === 'harpun') {
+                openPage('2018_2019', 6, 2);
+            } else if (contentType === 'podmornica') {
+                openPage('2018_2019', 6, 3);
+            } else if (contentType === 'skoljka') {
+                openPage('2018_2019', 6, 4);
+            } else if (contentType === 'hobotnica') {
+                openPage('2018_2019', 6, 5);
+            } else if (contentType === 'zvijezda') {
+                openPage('2018_2019', 6, 6);
+            } else if (contentType === 'valovi') {
+                openPage('2018_2019', 6, 7);
+            } else if (contentType === 'sifra') {
+                openPage('2018_2019', 6, 8);
+            } else if (contentType === 'bijeg') {
                 openPage('2018_2019', 6, 9);
             }
         }
