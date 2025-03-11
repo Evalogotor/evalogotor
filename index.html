@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to MySite</title>
+    <style>
+        /* Style for the entire body of the page */
+        body {
+            font-family: Arial, sans-serif; /* Set font type */
+            text-align: center; /* Center align text */
+            background-color: #7b7b7b9c; /* Light gray background color */
+            color: #000000; /* Dark text color */
+            margin: 0; /* Remove default margins */
+            padding: 0; /* Remove default padding */
+            display: flex; /* Use flexbox for layout */
+            justify-content: center; /* Center items vertically */
+            align-items: center; /* Center items horizontally */
+            height: 100vh; /* Set height to full viewport */
+        }
+
+        /* Style for the main container */
+        .container {
+            background-color: #dbdada; /* White background for the rectangle */
+            border-radius: 20px; /* Rounded corners for the rectangle */
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Shadow for floating effect */
+            padding: 80px; /* Space inside the rectangle */
+            text-align: center; /* Center align text inside */
+            width: 80%; /* Width of the rectangle */
+            max-width: 800px; /* Max width to prevent it from getting too large */
+        }
+
+        .highlight {
+            color: rgb(57, 220, 57);
+        }
+
+        /* Style for the main heading */
+        h1 {
+            font-size: 6em; /* Large font size */
+            margin-bottom: 40px; /* Space below the heading */
+            color: #333; /* White text color */
+        }
+
+        /* Style for the button container */
+        .button-container {
+            margin-top: 20px; /* Add space above the buttons */
+        }
+
+        /* Style for the buttons */
+        button {
+            background-color: #007BFF; /* Blue background color */
+            color: white; /* White text color */
+            border: none; /* Remove button border */
+            padding: 10px 20px; /* Add padding inside the button */
+            margin: 10px; /* Space between buttons */
+            font-size: 1em; /* Set font size */
+            cursor: pointer; /* Show pointer on hover */
+            border-radius: 5px; /* Rounded button corners */
+        }
+
+        /* Style for button hover effect */
+        button:hover {
+            background-color: #0056b3; /* Darker blue when hovered */
+        }
+    </style>
+</head>
+<body>
+    <!-- Main container for the content -->
+    <div class="container">
+        <!-- Main heading for the site -->
+        <h1>EVA<span class="highlight">LOGO</span>TOR</h1>
+        <!-- Subtext for additional information -->
+        <p>Najmodernija evaluator za zadatke u FMS Logu</p>
+
+        <!-- Container for the buttons -->
+        <div class="button-container">
+            <!-- Login button redirects to login.html -->
+            <button onclick="location.href='login.html';">Login</button>
+            <!-- Sign Up button redirects to signup.html -->
+            <button onclick="location.href='signup.html';">Sign Up</button>
+        </div>
+    </div>
+</body>
+</html>

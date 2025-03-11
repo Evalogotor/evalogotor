@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registracija</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #7b7b7b9c;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #dbdada;
+            border-radius: 20px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            padding: 80px;
+            text-align: center;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-top: 0px;
+            margin-bottom: 60px;
+            color: #333;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        label {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+            margin-right: 10px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            font-size: 1em;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 300px;
+        }
+
+        input[type="text"]:focus {
+            border-color: #333;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registracija</h1>
+
+        <div class="input-container">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="Upišite email">
+        </div>
+
+        <div class="input-container">
+            <label for="username">Ime</label>
+            <input type="text" id="username" name="username" placeholder="Upišite ime">
+        </div>
+
+        <div class="input-container">
+            <label for="password">Lozinka</label>
+            <input type="text" id="password" name="password" placeholder="Upišite lozinku">
+        </div>
+        <div class="button-container">
+            <button onclick="location.href='zadaci.html';">Nastavi</button>
+        </div>
+    </div>
+</body>
+</html>
