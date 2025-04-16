@@ -30,13 +30,9 @@
             <h2>Reference Logo Program</h2>
             <textarea id="reference-code" readonly>
 ; Advanced reference program
-to test :a :b
-  fd :a-10 rt 90 fd :b
-  circle :a/2
-  repeat 8 [fd :b-50 rt 360/8]
-  for [i 1 10 1][
-    ifelse (remainder :i 2)=0 [print "ok fd :b rt 90][print "mirk fd :a lt 90]
-  ]
+to mirkic :a :b
+repeat 4 [fd :a rt 45 fd :b circle :a-:b rt 45]
+for [i 1 :a 1][print :i]
 end
 
 test :a :b
