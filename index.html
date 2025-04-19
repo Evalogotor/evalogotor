@@ -502,7 +502,7 @@ end
                 this.turtle.y = newY;
             }
             
-            circle(radius) {
+            circle(abs(radius)) {
                 radius = parseFloat(radius);
                 this.ctx.beginPath();
                 this.ctx.arc(this.turtle.x, this.turtle.y, radius, 0, 2 * Math.PI);
