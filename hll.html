@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zadaci</title>
     <style>
-
-        .eval-button {
-          margin-right: 20px;
-        }
         
         .container {
             display: flex;
@@ -118,6 +114,17 @@
 
         .vertical-buttons button:hover {
             background-color: rgb(57, 220, 57); 
+        }
+
+        .eval-basket {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            margin-right: 50px;
+            margin-left: 150px;
+            text-align: center;
         }
         
     </style>
@@ -1030,8 +1037,8 @@
                 bodovi = 30+20*(red-1)
             }
             var zadatak = `
-                <div class="vertical-buttons">
-                    <button class="eval-button">Evaluiraj</button>
+                <div class="eval-basket">
+                    <button>Evaluiraj</button>
                     <h2> 0 / ${bodovi} </h2>
                 </div>
             `;  
