@@ -30,10 +30,14 @@
             <h2>Reference Logo Program</h2>
             <textarea id="reference-code" readonly>
                 
-to mirkic :a :b
-repeat 4 [fd :a rt 45 fd :b circle :a-:b rt 45]
-for [i 1 :a 1][print :i]
+to drawshape :size :sides
+  repeat :sides [
+    fd :size
+    rt 360/:sides
+  ]
 end
+
+drawshape :size :sides
 
             </textarea>
             <div class="param-input">
