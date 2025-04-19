@@ -117,11 +117,23 @@
         }
 
         .eval-basket {
-            position: absolute;     /* Take it out of normal flow */
-            left: 50%;              /* Push it to center of page (you can increase this) */
-            transform: translateX(50%); /* Push it even more to the right */
+            position: absolute;
+            top: 200px;           /* Adjust vertical position */
+            left: 60%;            /* Adjust horizontal position */
+            transform: translateX(-50%);
             text-align: center;
+            z-index: 10;          /* Just in case it gets hidden */
         }
+        
+        .eval-button {
+            margin-bottom: 10px;
+        }
+        
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
         
     </style>
 </head>
@@ -1034,8 +1046,8 @@
             }
             var zadatak = `
                 <div class="eval-basket">
-                    <button>Evaluiraj</button>
-                    <h2> 0 / ${bodovi} </h2>
+                    <button class="eval-button">Evaluiraj</button>
+                    <div class="score"> 0 / ${bodovi} </div>
                 </div>
             `;  
             document.getElementById('zadatak').innerHTML = zadatak;
