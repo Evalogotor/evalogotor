@@ -294,10 +294,14 @@ test :a :b
                         this.left(this.evaluateExpression(args.join(' ')));
                         break;
                     case 'pu':
+                        this.penUp();
+                        break;
                     case 'penup':
                         this.penUp();
                         break;
                     case 'pd':
+                        this.penDown();
+                        break;
                     case 'pendown':
                         this.penDown();
                         break;
