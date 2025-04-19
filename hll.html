@@ -173,6 +173,7 @@
         <button onclick="changeContent('21')">2021/22</button>
         <button onclick="changeContent('22')">2022/23</button>
         <button onclick="changeContent('23')">2023/24</button>
+        <button onclick="changeContent('24')">2024/25</button>
     </div>
 
     <div class="container">
@@ -329,7 +330,21 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
+            } else if (contentType === '24') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('241')">1. kolo</button>
+                    <button onclick="changeContent('242')">2. kolo</button>
+                    <button onclick="changeContent('243')">3. kolo</button>
+                    <button onclick="changeContent('244')">4. kolo</button>
+                    <button onclick="changeContent('245')">5. kolo</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
             }
+
 
             // Za Kola poziv za gumbe i zadatke
             if (contentType === '151') {
