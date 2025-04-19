@@ -33,6 +33,7 @@
 to mirkic :a :b
 repeat 4 [fd :a rt 45 fd :b circle :a-:b rt 45]
 for [i 1 :a 1][print :i]
+fill [255 255 255]
 end
 
             </textarea>
@@ -504,6 +505,7 @@ end
             
             circle(abs(radius)) {
                 radius = parseFloat(radius);
+                radius = abs(radius);
                 this.ctx.beginPath();
                 this.ctx.arc(this.turtle.x, this.turtle.y, radius, 0, 2 * Math.PI);
                 
