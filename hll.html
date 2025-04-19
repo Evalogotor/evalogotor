@@ -175,16 +175,21 @@
     <div class="container">
         <div id="kola"></div>
         <div id="zadaci"></div>
+        <div id="ime_zadatak"></div>
         <div id="zadatak"></div>
     </div>
     
     <script>
+        function capitalizeFirstLetter(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
         var bodovi = 0;
         var buttonskola = '';
         var buttonZadaci = '';
         var zadatak = '';
+        var ime_zadatak = '';
         function changeContent(contentType) {
-            
+            ime_zadatak = capitalizeFirstLetter(contentType);
             const contentDiv = document.getElementById('mainContent');
 
             if (contentType === 'Peti') {
