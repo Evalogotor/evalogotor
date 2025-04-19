@@ -29,16 +29,17 @@
         <div class="panel">
             <h2>Reference Logo Program</h2>
             <textarea id="reference-code" readonly>
-                
-to drawshape :size :sides
-  repeat :sides [
-    fd :size
-    rt 360/:sides
+; Advanced reference program
+to test :a :b
+  fd :a-10 rt 90 fd :b
+  circle :a/2
+  repeat 8 [fd :b-50 rt 360/8]
+  for [i 1 10 1] [
+    ifelse (remainder :i 2)=0 [print "ok fd :b rt 90] [print "mirk fd :a lt 90]
   ]
 end
 
-drawshape :size :sides
-
+test :a :b
             </textarea>
             <div class="param-input">
                 <label for="ref-a">a:</label>
@@ -506,9 +507,8 @@ drawshape :size :sides
                 this.turtle.y = newY;
             }
             
-            circle(abs(radius)) {
+            circle(radius) {
                 radius = parseFloat(radius);
-                radius = abs(radius);
                 this.ctx.beginPath();
                 this.ctx.arc(this.turtle.x, this.turtle.y, radius, 0, 2 * Math.PI);
                 
