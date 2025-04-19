@@ -119,11 +119,11 @@
 
         .eval-basket {
             position: absolute;
-            margin-top: 15%;           /* Adjust vertical position */
-            left: 60%;            /* Adjust horizontal position */
+            margin-top: 15%;
+            left: 60%;
             transform: translateX(-50%);
             text-align: center;
-            z-index: 10;          /* Just in case it gets hidden */
+            pointer-events: none;
         }
         
         .eval-button {
@@ -135,6 +135,7 @@
             background-color: #333;
             color: white;
             cursor: pointer;
+            pointer-events: auto;
         }
         
         .score {
