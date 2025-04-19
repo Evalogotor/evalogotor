@@ -118,7 +118,7 @@
 
         .eval-basket {
             position: absolute;
-            top: 500px;           /* Adjust vertical position */
+            top: 200px;           /* Adjust vertical position */
             left: 60%;            /* Adjust horizontal position */
             transform: translateX(-50%);
             text-align: center;
@@ -126,7 +126,14 @@
         }
         
         .eval-button {
-            margin-bottom: 10px;
+            margin: 5px;
+            padding: 10px 15px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
         }
         
         .score {
@@ -1041,8 +1048,12 @@
             window.open('https://logoliga.hsin.hr/arhiva/'+strGod+'/kolo'+kolo+'_zadaci.pdf#page='+str, '_blank');
             if (red === 1){
                 bodovi = 20;
+            }else if (red === 2){
+                bodovi = 30;
+            }else if (red === 3){
+                bodovi = 50;
             }else{
-                bodovi = 30+20*(red-1)
+                bodovi = 80+20*(red-4)
             }
             var zadatak = `
                 <div class="eval-basket">
