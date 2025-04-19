@@ -151,6 +151,7 @@
     </div>
     
     <script>
+        var bodovi = 0;
         var buttonskola = '';
         var buttonZadaci = '';
         var zadatak = '';
@@ -630,394 +631,406 @@
             
             //Zadaci 2015_2016
             if (contentType === 'kursor') {
-                openPage('2015_2016', 1, 2);
+                openPage('2015_2016', 1, 2, 1);
             } else if (contentType === 'mobitel') {
-                openPage('2015_2016', 1, 3);
+                openPage('2015_2016', 1, 3, 2);
             } else if (contentType === 'devet') {
-                openPage('2015_2016', 1, 4);
+                openPage('2015_2016', 1, 4, 3);
             } else if (contentType === 'lopta') {
-                openPage('2015_2016', 1, 5);
+                openPage('2015_2016', 1, 5, 4);
             } else if (contentType === 'antene') {
-                openPage('2015_2016', 1, 6);
+                openPage('2015_2016', 1, 6, 5);
             } else if (contentType === 'lepeza') {
-                openPage('2015_2016', 1, 7);
+                openPage('2015_2016', 1, 7, 6);
             } else if (contentType === 'prozori') {
-                openPage('2015_2016', 1, 8);
+                openPage('2015_2016', 1, 8, 7);
             } else if (contentType === 'biljka') {
-                openPage('2015_2016', 1, 9);
+                openPage('2015_2016', 1, 9, 8);
             } else if (contentType === 'poklon') {
-                openPage('2015_2016', 2, 2);
+                openPage('2015_2016', 2, 2, 1);
             } else if (contentType === 'kosarka') {
-                openPage('2015_2016', 2, 3);
+                openPage('2015_2016', 2, 3, 2);
             } else if (contentType === 'buba') {
-                openPage('2015_2016', 2, 4);
+                openPage('2015_2016', 2, 4, 3);
             } else if (contentType === 'talos') {
-                openPage('2015_2016', 2, 5);
+                openPage('2015_2016', 2, 5, 4);
             } else if (contentType === 'kormilo') {
-                openPage('2015_2016', 2, 6);
+                openPage('2015_2016', 2, 6, 5);
             } else if (contentType === 'zmija') {
-                openPage('2015_2016', 2, 7);
+                openPage('2015_2016', 2, 7, 6);
             } else if (contentType === 'spoji') {
-                openPage('2015_2016', 2, 8);
+                openPage('2015_2016', 2, 8, 7);
             } else if (contentType === 'kuglice') {
-                openPage('2015_2016', 2, 9);
+                openPage('2015_2016', 2, 9, 8);
             } else if (contentType === 'razocaran') {
-                openPage('2016_2017', 1, 2);
+                openPage('2016_2017', 1, 2, 1);
             } else if (contentType === 'logotipican') {
-                openPage('2016_2017', 1, 3);
+                openPage('2016_2017', 1, 3, 2);
             } else if (contentType === 'magican') {
-                openPage('2016_2017', 1, 4);
+                openPage('2016_2017', 1, 4, 3);
             } else if (contentType === 'rasplesan') {
-                openPage('2016_2017', 1, 5);
+                openPage('2016_2017', 1, 5, 4);
             } else if (contentType === 'dosadan') {
-                openPage('2016_2017', 1, 6);
+                openPage('2016_2017', 1, 6, 5);
             } else if (contentType === 'pravokutan') {
-                openPage('2016_2017', 1, 7);
+                openPage('2016_2017', 1, 7, 6);
             } else if (contentType === 'sumovit') {
-                openPage('2016_2017', 1, 8);
+                openPage('2016_2017', 1, 8, 7);
             } else if (contentType === 'zanimljiv') {
-                openPage('2016_2017', 1, 9);
+                openPage('2016_2017', 1, 9, 8);
             } else if (contentType === 'sigma') {
-                openPage('2016_2017', 2, 2);
+                openPage('2016_2017', 2, 2, 1);
             } else if (contentType === 'golub') {
-                openPage('2016_2017', 2, 3);
+                openPage('2016_2017', 2, 3, 2);
             } else if (contentType === 'raketa') {
-                openPage('2016_2017', 2, 4);
+                openPage('2016_2017', 2, 4, 3);
             } else if (contentType === 'bombon') {
-                openPage('2016_2017', 2, 5);
+                openPage('2016_2017', 2, 5, 4);
             } else if (contentType === 'krom') {
-                openPage('2016_2017', 2, 6);
+                openPage('2016_2017', 2, 6, 5);
             } else if (contentType === 'gljiva') {
-                openPage('2016_2017', 2, 7);
+                openPage('2016_2017', 2, 7, 6);
             } else if (contentType === 'kornjace') {
-                openPage('2016_2017', 2, 8);
+                openPage('2016_2017', 2, 8, 7);
             } else if (contentType === 'baloni') {
-                openPage('2016_2017', 2, 9);
+                openPage('2016_2017', 2, 9, 8);
             } else if (contentType === 'zastava') {
-                openPage('2016_2017', 3, 2);
+                openPage('2016_2017', 3, 2, 1);
             } else if (contentType === 'iluzija') {
-                openPage('2016_2017', 3, 3);
+                openPage('2016_2017', 3, 3, 2);
             } else if (contentType === 'ukras') {
-                openPage('2016_2017', 3, 4);
+                openPage('2016_2017', 3, 4, 3);
             } else if (contentType === 'cijena') {
-                openPage('2016_2017', 3, 5);
+                openPage('2016_2017', 3, 5, 4);
             } else if (contentType === 'drvca') {
-                openPage('2016_2017', 3, 6);
+                openPage('2016_2017', 3, 6, 5);
             } else if (contentType === 'josip') {
-                openPage('2016_2017', 3, 7);
+                openPage('2016_2017', 3, 7, 6);
             } else if (contentType === 'zvrlja') {
-                openPage('2016_2017', 3, 8);
+                openPage('2016_2017', 3, 8, 7);
             } else if (contentType === 'sudoku') {
-                openPage('2016_2017', 3, 9);
+                openPage('2016_2017', 3, 9, 8);
             } else if (contentType === 'trigonometrija') {
-                openPage('2016_2017', 4, 2);
+                openPage('2016_2017', 4, 2, 1);
             } else if (contentType === 'znak') {
-                openPage('2016_2017', 4, 3);
+                openPage('2016_2017', 4, 3, 2);
             } else if (contentType === 'cepelin') {
-                openPage('2016_2017', 4, 4);
+                openPage('2016_2017', 4, 4, 3);
             } else if (contentType === 'paket') {
-                openPage('2016_2017', 4, 5);
+                openPage('2016_2017', 4, 5, 4);
             } else if (contentType === 'barkod') {
-                openPage('2016_2017', 4, 6);
+                openPage('2016_2017', 4, 6, 5);
             } else if (contentType === 'odbijanac') {
-                openPage('2016_2017', 4, 7);
+                openPage('2016_2017', 4, 7, 6);
             } else if (contentType === 'burza') {
-                openPage('2016_2017', 4, 8);
+                openPage('2016_2017', 4, 8, 7);
             } else if (contentType === 'vaga') {
-                openPage('2016_2017', 4, 9);
+                openPage('2016_2017', 4, 9, 8);
             } else if (contentType === 'igra') {
-                openPage('2016_2017', 5, 2);
+                openPage('2016_2017', 5, 2, 1);
             } else if (contentType === 'pizza') {
-                openPage('2016_2017', 5, 3);
+                openPage('2016_2017', 5, 3, 2);
             } else if (contentType === 'srca') {
-                openPage('2016_2017', 5, 4);
+                openPage('2016_2017', 5, 4, 3);
             } else if (contentType === 'masna') {
-                openPage('2016_2017', 5, 5);
+                openPage('2016_2017', 5, 5, 4);
             } else if (contentType === 'utrka') {
-                openPage('2016_2017', 5, 6);
+                openPage('2016_2017', 5, 6, 5);
             } else if (contentType === 'dobre') {
-                openPage('2016_2017', 5, 7);
+                openPage('2016_2017', 5, 7, 6);
             } else if (contentType === 'connect') {
-                openPage('2016_2017', 5, 8);
+                openPage('2016_2017', 5, 8, 7);
             } else if (contentType === 'labirint') {
-                openPage('2016_2017', 5, 10);
+                openPage('2016_2017', 5, 10, 8);
             } else if (contentType === 'parking') {
-                openPage('2016_2017', 6, 2);
+                openPage('2016_2017', 6, 2, 1);
             } else if (contentType === 'mlin') {
-                openPage('2016_2017', 6, 3);
+                openPage('2016_2017', 6, 3, 2);
             } else if (contentType === 'obelisk') {
-                openPage('2016_2017', 6, 4);
+                openPage('2016_2017', 6, 4, 3);
             } else if (contentType === 'kula') {
-                openPage('2016_2017', 6, 5);
+                openPage('2016_2017', 6, 5, 4);
             } else if (contentType === 'kuhinja') {
-                openPage('2016_2017', 6, 6);
+                openPage('2016_2017', 6, 6, 5);
             } else if (contentType === 'polica') {
-                openPage('2016_2017', 6, 7);
+                openPage('2016_2017', 6, 7, 6);
             } else if (contentType === 'punokut') {
-                openPage('2016_2017', 6, 9);
+                openPage('2016_2017', 6, 9, 7);
             } else if (contentType === 'malokut') {
-                openPage('2016_2017', 6, 11);
+                openPage('2016_2017', 6, 11, 8);
             } else if (contentType === 'merkur') {
-                openPage('2017_2018', 1, 3);
+                openPage('2017_2018', 1, 3, 1);
             } else if (contentType === 'venera') {
-                openPage('2017_2018', 1, 4);
+                openPage('2017_2018', 1, 4, 2);
             } else if (contentType === 'zemlja') {
-                openPage('2017_2018', 1, 5);
+                openPage('2017_2018', 1, 5, 3);
             } else if (contentType === 'mars') {
-                openPage('2017_2018', 1, 6);
+                openPage('2017_2018', 1, 6, 4);
             } else if (contentType === 'jupiter') {
-                openPage('2017_2018', 1, 7);
+                openPage('2017_2018', 1, 7, 5);
             } else if (contentType === 'saturn') {
-                openPage('2017_2018', 1, 8);
+                openPage('2017_2018', 1, 8, 6);
             } else if (contentType === 'uran') {
-                openPage('2017_2018', 1, 9);
+                openPage('2017_2018', 1, 9, 7);
             } else if (contentType === 'neptun') {
-                openPage('2017_2018', 1, 11);
+                openPage('2017_2018', 1, 11, 8);
             } else if (contentType === 'uco') {
-                openPage('2017_2018', 2, 3);
+                openPage('2017_2018', 2, 3, 1);
             } else if (contentType === 'ljutko') {
-                openPage('2017_2018', 2, 4);
+                openPage('2017_2018', 2, 4, 2);
             } else if (contentType === 'srecko') {
-                openPage('2017_2018', 2, 5);
+                openPage('2017_2018', 2, 5, 3);
             } else if (contentType === 'pospanko') {
-                openPage('2017_2018', 2, 6);
+                openPage('2017_2018', 2, 6, 4);
             } else if (contentType === 'stidljivko') {
-                openPage('2017_2018', 2, 7);
+                openPage('2017_2018', 2, 7, 5);
             } else if (contentType === 'kihavko') {
-                openPage('2017_2018', 2, 8);
+                openPage('2017_2018', 2, 8, 6);
             } else if (contentType === 'glupko') {
-                openPage('2017_2018', 2, 9);
+                openPage('2017_2018', 2, 9, 7);
             } else if (contentType === 'snjeguljica') {
-                openPage('2017_2018', 2, 10);
+                openPage('2017_2018', 2, 10, 8);
             } else if (contentType === 'fantom') {
-                openPage('2017_2018', 3, 3);
+                openPage('2017_2018', 3, 3, 1);
             } else if (contentType === 'klon') {
-                openPage('2017_2018', 3, 4);
+                openPage('2017_2018', 3, 4, 2);
             } else if (contentType === 'sith') {
-                openPage('2017_2018', 3, 5);
+                openPage('2017_2018', 3, 5, 3);
             } else if (contentType === 'nada') {
-                openPage('2017_2018', 3, 6);
+                openPage('2017_2018', 3, 6, 4);
             } else if (contentType === 'udarac') {
-                openPage('2017_2018', 3, 7);
+                openPage('2017_2018', 3, 7, 5);
             } else if (contentType === 'jedi') {
-                openPage('2017_2018', 3, 8);
+                openPage('2017_2018', 3, 8, 6);
             } else if (contentType === 'sila') {
-                openPage('2017_2018', 3, 9);
+                openPage('2017_2018', 3, 9, 7);
             } else if (contentType === 'posljednji') {
-                openPage('2017_2018', 3, 10);
+                openPage('2017_2018', 3, 10, 8);
             } else if (contentType === 'naocale') {
-                openPage('2017_2018', 4, 2);
+                openPage('2017_2018', 4, 2, 1);
             } else if (contentType === 'erised') {
-                openPage('2017_2018', 4, 3);
+                openPage('2017_2018', 4, 3, 2);
             } else if (contentType === 'zvrcka') {
-                openPage('2017_2018', 4, 4);
+                openPage('2017_2018', 4, 4, 3);
             } else if (contentType === 'vremokret') {
-                openPage('2017_2018', 4, 5);
+                openPage('2017_2018', 4, 5, 4);
             } else if (contentType === 'simbol') {
-                openPage('2017_2018', 4, 6);
+                openPage('2017_2018', 4, 6, 5);
             } else if (contentType === 'bodovi') {
-                openPage('2017_2018', 4, 7);
+                openPage('2017_2018', 4, 7, 6);
             } else if (contentType === 'hogsmeade') {
-                openPage('2017_2018', 4, 9);
+                openPage('2017_2018', 4, 9, 7);
             } else if (contentType === 'tajna') {
-                openPage('2017_2018', 4, 10);
+                openPage('2017_2018', 4, 10, 8);
             } else if (contentType === 'lula') {
-                openPage('2017_2018', 5, 3);
+                openPage('2017_2018', 5, 3, 1);
             } else if (contentType === 'brkovi') {
-                openPage('2017_2018', 5, 4);
+                openPage('2017_2018', 5, 4, 2);
             } else if (contentType === 'london') {
-                openPage('2017_2018', 5, 5);
+                openPage('2017_2018', 5, 5, 3);
             } else if (contentType === 'povecalo') {
-                openPage('2017_2018', 5, 6);
+                openPage('2017_2018', 5, 6, 4);
             } else if (contentType === 'musgrave') {
-                openPage('2017_2018', 5, 7);
+                openPage('2017_2018', 5, 7, 5);
             } else if (contentType === 'arthur') {
-                openPage('2017_2018', 5, 8);
+                openPage('2017_2018', 5, 8, 6);
             } else if (contentType === 'lozinka') {
-                openPage('2017_2018', 5, 9);
+                openPage('2017_2018', 5, 9, 7);
             } else if (contentType === 'zamka') {
-                openPage('2017_2018', 5, 10);
+                openPage('2017_2018', 5, 10, 8);
             } else if (contentType === 'london1') {
-                openPage('2017_2018', 6, 2);
+                openPage('2017_2018', 6, 2, 1);
             } else if (contentType === 'pariz') {
-                openPage('2017_2018', 6, 3);
+                openPage('2017_2018', 6, 3, 2);
             } else if (contentType === 'suez') {
-                openPage('2017_2018', 6, 4);
+                openPage('2017_2018', 6, 4, 3);
             } else if (contentType === 'indija') {
-                openPage('2017_2018', 6, 5);
+                openPage('2017_2018', 6, 5, 4);
             } else if (contentType === 'jamajka') {
-                openPage('2017_2018', 6, 6);
+                openPage('2017_2018', 6, 6, 5);
             } else if (contentType === 'kuba') {
-                openPage('2017_2018', 6, 7);
+                openPage('2017_2018', 6, 7, 6);
             } else if (contentType === 'sanfrancisco') {
-                openPage('2017_2018', 6, 8);
+                openPage('2017_2018', 6, 8, 7);
             } else if (contentType === 'henrietta') {
-                openPage('2017_2018', 6, 9);
+                openPage('2017_2018', 6, 9, 8);
             } else if (contentType === 'zid') {
-                openPage('2018_2019', 1, 2);
+                openPage('2018_2019', 1, 2, 1);
             } else if (contentType === 'pauza') {
-                openPage('2018_2019', 1, 3);
+                openPage('2018_2019', 1, 3, 2);
             } else if (contentType === 'pizza') {
-                openPage('2018_2019', 1, 4);
+                openPage('2018_2019', 1, 4, 3);
             } else if (contentType === 'stroj') {
-                openPage('2018_2019', 1, 5);
+                openPage('2018_2019', 1, 5, 4);
             } else if (contentType === 'kristal') {
-                openPage('2018_2019', 1, 7);
+                openPage('2018_2019', 1, 7, 5);
             } else if (contentType === 'riba') {
-                openPage('2018_2019', 1, 8);
+                openPage('2018_2019', 1, 8, 6);
             } else if (contentType === 'logol') {
-                openPage('2018_2019', 1, 10);
+                openPage('2018_2019', 1, 10, 7);
             } else if (contentType === 'prevoditelj') {
-                openPage('2018_2019', 1, 11);
+                openPage('2018_2019', 1, 11, 8);
             } else if (contentType === 'hawkeye') {
-                openPage('2018_2019', 2, 3);
+                openPage('2018_2019', 2, 3, 1);
             } else if (contentType === 'thor') {
-                openPage('2018_2019', 2, 4);
+                openPage('2018_2019', 2, 4, 2);
             } else if (contentType === 'crna_udovica') {
-                openPage('2018_2019', 2, 5);
+                openPage('2018_2019', 2, 5, 3);
             } else if (contentType === 'wonder_woman') {
-                openPage('2018_2019', 2, 6);
+                openPage('2018_2019', 2, 6, 4);
             } else if (contentType === 'spiderman') {
-                openPage('2018_2019', 2, 7);
+                openPage('2018_2019', 2, 7, 5);
             } else if (contentType === 'stark') {
-                openPage('2018_2019', 2, 8);
+                openPage('2018_2019', 2, 8, 6);
             } else if (contentType === 'magneto') {
-                openPage('2018_2019', 2, 9);
+                openPage('2018_2019', 2, 9, 7);
             } else if (contentType === 'milano') {
-                openPage('2018_2019', 2, 10);
+                openPage('2018_2019', 2, 10, 8);
             } else if (contentType === 'triforce') {
-                openPage('2018_2019', 3, 2);
+                openPage('2018_2019', 3, 2, 1);
             } else if (contentType === 'rupy') {
-                openPage('2018_2019', 3, 3);
+                openPage('2018_2019', 3, 3, 2);
             } else if (contentType === 'joypad') {
-                openPage('2018_2019', 3, 4);
+                openPage('2018_2019', 3, 4, 3);
             } else if (contentType === 'upitnik') {
-                openPage('2018_2019', 3, 5);
+                openPage('2018_2019', 3, 5, 4);
             } else if (contentType === 'nepoznato') {
-                openPage('2018_2019', 3, 6);
+                openPage('2018_2019', 3, 6, 5);
             } else if (contentType === 'staza') {
-                openPage('2018_2019', 3, 7);
+                openPage('2018_2019', 3, 7, 6);
             } else if (contentType === 'mario') {
-                openPage('2018_2019', 3, 8);
+                openPage('2018_2019', 3, 8, 7);
             } else if (contentType === 'breskva') {
-                openPage('2018_2019', 3, 9);
+                openPage('2018_2019', 3, 9, 8);
             } else if (contentType === 'ragbi') {
-                openPage('2018_2019', 4, 2);
+                openPage('2018_2019', 4, 2, 1);
             } else if (contentType === 'curling') {
-                openPage('2018_2019', 4, 3);
+                openPage('2018_2019', 4, 3, 2);
             } else if (contentType === 'kuglanje') {
-                openPage('2018_2019', 4, 4);
+                openPage('2018_2019', 4, 4, 3);
             } else if (contentType === 'rukomet') {
-                openPage('2018_2019', 4, 5);
+                openPage('2018_2019', 4, 5, 4);
             } else if (contentType === 'veslanje') {
-                openPage('2018_2019', 4, 6);
+                openPage('2018_2019', 4, 6, 5);
             } else if (contentType === 'tenis') {
-                openPage('2018_2019', 4, 7);
+                openPage('2018_2019', 4, 7, 6);
             } else if (contentType === 'sah') {
-                openPage('2018_2019', 4, 8);
+                openPage('2018_2019', 4, 8, 7);
             } else if (contentType === 'vaterpolo') {
-                openPage('2018_2019', 4, 9);
+                openPage('2018_2019', 4, 9, 8);
             } else if (contentType === 'meltan') {
-                openPage('2018_2019', 5, 2);
+                openPage('2018_2019', 5, 2, 1);
             } else if (contentType === 'sunflora') {
-                openPage('2018_2019', 5, 3);
+                openPage('2018_2019', 5, 3, 2);
             } else if (contentType === 'voltorb') {
-                openPage('2018_2019', 5, 4);
+                openPage('2018_2019', 5, 4, 3);
             } else if (contentType === 'staryu') {
-                openPage('2018_2019', 5, 5);
+                openPage('2018_2019', 5, 5, 4);
             } else if (contentType === 'koffing') {
-                openPage('2018_2019', 5, 6);
+                openPage('2018_2019', 5, 6, 5);
             } else if (contentType === 'plusminus') {
-                openPage('2018_2019', 5, 7);
+                openPage('2018_2019', 5, 7, 6);
             } else if (contentType === 'ditto') {
-                openPage('2018_2019', 5, 8);
+                openPage('2018_2019', 5, 8, 7);
             } else if (contentType === 'hypno') {
-                openPage('2018_2019', 5, 10);
+                openPage('2018_2019', 5, 10, 8);
             } else if (contentType === 'prsten') {
-                openPage('2018_2019', 6, 2);
+                openPage('2018_2019', 6, 2, 1);
             } else if (contentType === 'gandalf') {
-                openPage('2018_2019', 6, 3);
+                openPage('2018_2019', 6, 3, 2);
             } else if (contentType === 'sauron') {
-                openPage('2018_2019', 6, 4);
+                openPage('2018_2019', 6, 4, 3);
             } else if (contentType === 'evenstar') {
-                openPage('2018_2019', 6, 5);
+                openPage('2018_2019', 6, 5, 4);
             } else if (contentType === 'tirit') {
-                openPage('2018_2019', 6, 6);
+                openPage('2018_2019', 6, 6, 5);
             } else if (contentType === 'bree') {
-                openPage('2018_2019', 6, 7);
+                openPage('2018_2019', 6, 7, 6);
             } else if (contentType === 'putovanje') {
-                openPage('2018_2019', 6, 8);
+                openPage('2018_2019', 6, 8, 7);
             } else if (contentType === 'hobbitsort') {
-                openPage('2018_2019', 6, 9);
+                openPage('2018_2019', 6, 9, 8);
             }  else if (contentType === 'harpun') {
-                openPage('2019_2020', 1, 2);
+                openPage('2019_2020', 1, 2, 1);
             } else if (contentType === 'podmornica') {
-                openPage('2019_2020', 1, 3);
+                openPage('2019_2020', 1, 3, 2);
             } else if (contentType === 'skoljka') {
-                openPage('2019_2020', 1, 4);
+                openPage('2019_2020', 1, 4, 3);
             } else if (contentType === 'hobotnica') {
-                openPage('2019_2020', 1, 5);
+                openPage('2019_2020', 1, 5, 4);
             } else if (contentType === 'zvijezda') {
-                openPage('2019_2020', 1, 6);
+                openPage('2019_2020', 1, 6, 5);
             } else if (contentType === 'valovi') {
-                openPage('2019_2020', 1, 7);
+                openPage('2019_2020', 1, 7, 6);
             } else if (contentType === 'sifra') {
-                openPage('2019_2020', 1, 8);
+                openPage('2019_2020', 1, 8, 7);
             } else if (contentType === 'bijeg') {
-                openPage('2019_2020', 1, 9);
+                openPage('2019_2020', 1, 9, 8);
             } else if (contentType === 'vandetta') {
-                openPage('2019_2020', 2, 2);
+                openPage('2019_2020', 2, 2, 1);
             } else if (contentType === 'manhattan') {
-                openPage('2019_2020', 2, 3);
+                openPage('2019_2020', 2, 3, 2);
             } else if (contentType === 'lampa') {
-                openPage('2019_2020', 2, 4);
+                openPage('2019_2020', 2, 4, 3);
             } else if (contentType === 'catwoman') {
-                openPage('2019_2020', 2, 5);
+                openPage('2019_2020', 2, 5, 4);
             } else if (contentType === 'flash') {
-                openPage('2019_2020', 2, 6);
+                openPage('2019_2020', 2, 6, 5);
             } else if (contentType === 'watchmen') {
-                openPage('2019_2020', 2, 7);
+                openPage('2019_2020', 2, 7, 6);
             } else if (contentType === 'batmobil') {
-                openPage('2019_2020', 2, 9);
+                openPage('2019_2020', 2, 9, 7);
             } else if (contentType === 'haljordan') {
-                openPage('2019_2020', 2, 11);
+                openPage('2019_2020', 2, 11, 8);
             } else if (contentType === 'poklon') {
-                openPage('2019_2020', 3, 2);
+                openPage('2019_2020', 3, 2, 1);
             } else if (contentType === 'zvono') {
-                openPage('2019_2020', 3, 3);
+                openPage('2019_2020', 3, 3, 2);
             } else if (contentType === 'pahulja') {
-                openPage('2019_2020', 3, 4);
+                openPage('2019_2020', 3, 4, 3);
             } else if (contentType === 'kapa') {
-                openPage('2019_2020', 3, 5);
+                openPage('2019_2020', 3, 5, 4);
             } else if (contentType === 'jelka') {
-                openPage('2019_2020', 3, 6);
+                openPage('2019_2020', 3, 6, 5);
             } else if (contentType === 'stapic') {
-                openPage('2019_2020', 3, 7);
+                openPage('2019_2020', 3, 7, 6);
             } else if (contentType === 'kuglice1') {
-                openPage('2019_2020', 3, 8);
+                openPage('2019_2020', 3, 8, 7);
             } else if (contentType === 'kolaci') {
-                openPage('2019_2020', 3, 9);
+                openPage('2019_2020', 3, 9, 8);
             }  else if (contentType === 'album') {
-                openPage('2019_2020', 4, 2);
+                openPage('2019_2020', 4, 2, 1);
             } else if (contentType === 'nota') {
-                openPage('2019_2020', 4, 3);
+                openPage('2019_2020', 4, 3, 2);
             } else if (contentType === 'cd') {
-                openPage('2019_2020', 4, 4);
+                openPage('2019_2020', 4, 4, 3);
             } else if (contentType === 'gramofon') {
-                openPage('2019_2020', 4, 5);
+                openPage('2019_2020', 4, 5, 4);
             } else if (contentType === 'flauta') {
-                openPage('2019_2020', 4, 6);
+                openPage('2019_2020', 4, 6, 5);
             } else if (contentType === 'melodija') {
-                openPage('2019_2020', 4, 7);
+                openPage('2019_2020', 4, 7, 6);
             } else if (contentType === 'spotify') {
-                openPage('2019_2020', 4, 9);
+                openPage('2019_2020', 4, 9, 7);
             } else if (contentType === 'abc') {
-                openPage('2019_2020', 4, 11);
+                openPage('2019_2020', 4, 11, 8);
             }
         }
 
-        function openPage(strGod, kolo, str) {
+        function openPage(strGod, kolo, str, red) {
             window.open('https://logoliga.hsin.hr/arhiva/'+strGod+'/kolo'+kolo+'_zadaci.pdf#page='+str, '_blank');
+            if (red === 1){
+                bodovi = 20;
+            }else{
+                bodovi = 30+20*(red-1)
+            }
+            var zadatak = `
+                <div class="vertical-buttons">
+                    <button onclick="">Evaluiraj</button>
+                    <h2> 0 / ${bodovi} </h2>
+                </div>
+            `;  
+            document.getElementById('zadatak').innerHTML = zadatak;
         }
     </script>
 </body>
