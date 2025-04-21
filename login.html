@@ -150,6 +150,7 @@
         
         function filledYet(){
             warn = '';
+            document.getElementById('warning').innerHTML = warn;
             const UserName = document.getElementById("username").value;
             const password = document.getElementById("password").value;
             if (UserName.trim() !== "" && password.trim() !== ""){
