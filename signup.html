@@ -142,7 +142,7 @@
     </div>
     <script>
         function notFilled(fill1, fill2, fill3){
-            let warn = '<div class = "container">';
+            let warn = '';
             if (fill1.trim() === ""){
                 warn += '<div class="warning"><span class="warning-icon">⚠️</span> Molim vas unesite email</div>'
             }
@@ -152,7 +152,7 @@
             if (fill3.trim() === ""){
                 warn += '<div class="warning"><span class="warning-icon">⚠️</span> Molim vas unesite lozinku</div>'
             }
-            warn += '</div>'
+            warn += ''
             document.getElementById('warning').innerHTML = warn;
         }
         
