@@ -142,8 +142,9 @@
         <div id="warning"></div>
     </div>
     <script>
+        let warn = '';
         function notFilled(fill1, fill2, fill3){
-            let warn = '';
+            warn = '';
             if (fill1.trim() === ""){
                 warn += '<div class="warning"><span class="warning-icon">⚠️</span> Molim vas unesite email</div>'
             }
@@ -162,6 +163,8 @@
         }
         
         function filledYet(){
+            warn = '';
+            document.getElementById('warning').innerHTML = warn;
             const email = document.getElementById("email").value;
             const UserName = document.getElementById("username").value;
             const password = document.getElementById("password").value;
