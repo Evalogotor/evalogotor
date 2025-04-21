@@ -94,6 +94,27 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        .warning {
+          background-color: #fff4f4;
+          color: #d32f2f;
+          border: 1px solid #f8d7da;
+          padding: 12px 16px;
+          border-radius: 16px;
+          margin: 10px 0;
+          font-family: system-ui, sans-serif;
+          font-size: 15px;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          max-width: 400px;
+        }
+        
+        .warning-icon {
+          font-size: 18px;
+        }
+
     </style>
 </head>
 <body>
@@ -115,11 +136,39 @@
             <input type="password" id="password" name="password" placeholder="Upišite lozinku">
         </div>
         <div class="button-container">
-            <button onclick="location.href='zadaci.html';">Nastavi</button>
+            <button onclick="filledYet()">Nastavi</button>
         </div>
     </div>
+    <div class = "container"><div id="warning"></div></div>
+    <script>
+        function notFilled(fill1, fill2, fill3){
+            let warn = '';
+            if (fill1.trim() === ""){
+                warn += '<div class="warning"><span class="warning-icon">⚠️</span> Molim vas unesite email</div>'
+            }
+            if (fill2.trim() === ""){
+                warn += '<div class="warning"><span class="warning-icon">⚠️</span> Molim vas unesite Ime koje biste htjeli imati</div>'
+            }
+            if (fill3.trim() === ""){
+                warn += '<div class="warning"><span class="warning-icon">⚠️</span> Molim vas unesite lozinku</div>'
+            }
+            document.getElementById('warning').innerHTML = warn;
+        }
+        
+        function addToDatabase(){
+            
+        }
+        
+        function filledYet(){
+            const email = document.getElementById("email").value;
+            const UserName = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            if (email.trim() !== "" && UserName.trim() !== "" && password.trim() !== ""){
+                
+            }else{
+                notFilled(email, UserName, password);
+            }
+        }
+    </script>
 </body>
 </html>
-<script>
-    
-</script>
