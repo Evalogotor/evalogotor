@@ -130,6 +130,16 @@ test :a :b
                 for (let line of lines) {
                     line = line.trim();
                     one_single_line = line;
+                    for(let cha = line.lenght-1; line>-1; cha--){
+                            if (line[cha] === ";"){
+                                break;
+                            }
+                            one_single_line= one_single_line.slice(0, -1);
+                        }
+                    }
+                    if ((line.lenght) !== (one_single_line.lenght) && (o)){
+                            line = one_single_line;
+                    }
                     
                     if (line.startsWith('to ')) {
                         inProcedure = true;
@@ -150,18 +160,7 @@ test :a :b
                         currentProcedure = null;
                         procedureLines = [];
                     } else if (inProcedure) {
-                        for(let cha = line.lenght-1; line>-1; cha--){
-                            if (line[cha] === ";"){
-                                one_single_line= one_single_line.slice(0, -1);
-                                break;
-                            }
-                            one_single_line= one_single_line.slice(0, -1);
-                        }
-                        if ((line.lenght) !== (one_single_line.lenght)){
-                            procedureLines.push(one_single_line);
-                        }else{
-                            procedureLines.push(line);
-                        }
+                        procedureLines.push(line);
                     }
                 }
             }
