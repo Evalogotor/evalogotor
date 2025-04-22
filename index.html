@@ -122,12 +122,14 @@ test :a :b
             
             extractProcedures(code) {
                 const lines = code.split('\n');
+                const one_single_line = '';
                 let inProcedure = false;
                 let currentProcedure = null;
                 let procedureLines = [];
                 
                 for (let line of lines) {
                     line = line.trim();
+                    one_single_line = line;
                     
                     if (line.startsWith('to ')) {
                         inProcedure = true;
@@ -148,7 +150,18 @@ test :a :b
                         currentProcedure = null;
                         procedureLines = [];
                     } else if (inProcedure) {
-                        procedureLines.push(line);
+                        for(let cha = line.lenght-1; line>-1; cha--){
+                            if (line[cha] === ";"){
+                                one_single_line= one_single_line.slice(0, -1);
+                                break;
+                            }
+                            one_single_line= one_single_line.slice(0, -1);
+                        }
+                        if ((line.lenght) !== (one_single_line.lenght)){
+                            procedureLines.push(one_single_line);
+                        }else{
+                            procedureLines.push(line);
+                        }
                     }
                 }
             }
