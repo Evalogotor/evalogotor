@@ -123,25 +123,13 @@ test :a :b
             
             extractProcedures(code) {
                 const lines = code.split('\n');
-                const one_single_line = '';
                 let inProcedure = false;
                 let currentProcedure = null;
                 let procedureLines = [];
                 
                 for (let line of lines) {
                     line = line.trim();
-                    let one_single_line = line;
-
-                    for (let cha = line.length - 1; cha > -1; cha--) {
-                        if (line[cha] === ";") {
-                            break;
-                        }
-                        one_single_line = one_single_line.slice(0, -1);
-                    }
-
-                    if (one_single_line[one_single_line.length - 1] === ';') {
-                        line = one_single_line.slice(0, -1);
-                    }
+                    line = line.trim().split(";")[0].trim();
                     
                     if (line.startsWith('to ')) {
                         inProcedure = true;
