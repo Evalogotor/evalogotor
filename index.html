@@ -128,7 +128,6 @@ test :a :b
                 let procedureLines = [];
                 
                 for (let line of lines) {
-                    line = line.trim();
                     line = line.trim().split(";")[0].trim();
                     
                     if (line.startsWith('to ')) {
