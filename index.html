@@ -264,6 +264,7 @@ test :a :b
             
             executeCommand(cmd) {
                 if (!cmd.trim()) return;
+                cmd = cmd.split(";")[0].trim();
                 
                 const tokens = this.tokenize(cmd);
                 if (tokens.length === 0) return;
