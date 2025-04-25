@@ -130,7 +130,7 @@ test :a :b
                 
                 for (let line of lines) {
                     line = line.trim();
-                    one_single_line = line;
+                    one_single_line = one_single_line.copy(line);
                     for(let cha = line.lenght-1; line>-1; cha--){
                         if (line[cha] === ";"){
                             break;
