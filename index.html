@@ -122,9 +122,24 @@ test :a :b
             
             extractProcedures(code) {
                 const lines = code.split('\n');
+                const one_single_line = '';
                 let inProcedure = false;
                 let currentProcedure = null;
                 let procedureLines = [];
+                
+                for (let line of lines) {
+                    line = line.trim();
+                    one_single_line = line;
+                    for(let cha = line.lenght-1; line>-1; cha--){
+                        if (line[cha] === ";"){
+                            break;
+                        }
+                        one_single_line= one_single_line.slice(0, -1);
+                    }
+                    if ((one_single_line[(one_single_line.lenght)-1] === ';'){
+                            line = one_single_line.slice(0, -1);
+                    }
+                }
                 
                 for (let line of lines) {
                     line = line.trim();
