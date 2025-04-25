@@ -32,7 +32,6 @@
 to test :a :b
   fd :a-10 rt 90 fd :b
   circle :a/2
-  ;fill
   repeat 8 [fd :b-50 rt 360/8]
   for [i 1 10 1] [
     ifelse (remainder :i 2)=0 [print "ok fd :b rt 90][print "mirk fd :a lt 90]
@@ -137,7 +136,7 @@ to test :a :b
                             one_single_line= one_single_line.slice(0, -1);
                     }
                     if ((one_single_line[(one_single_line.lenght)-1] === ';'){
-                            line = one_single_line;
+                            line = one_single_line.slice(0, -1);
                     }
                     
                     if (line.startsWith('to ')) {
