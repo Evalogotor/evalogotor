@@ -128,7 +128,17 @@ test :a :b
                 let procedureLines = [];
                 
                 for (let line of lines) {
-                    line = line.trim().split(";")[0].trim();
+                    let one_single_line = line;
+                    for (let cha = line.length - 1; cha >= 0; cha--) {
+                        if (line[cha] === ";") {
+                              // Cut everything from the semicolon on
+                             break;
+                        }
+                        one_single_line = one_single_line.slice(0, cha);
+                    }
+                    if (one_single_line[one_single_line.length - 1] === ';') {
+                        line = one_single_line.slice(0, -1);
+                    }
                     
                     if (line.startsWith('to ')) {
                         inProcedure = true;
