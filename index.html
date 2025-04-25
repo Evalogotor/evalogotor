@@ -29,11 +29,17 @@
         <div class="panel">
             <h2>Reference Logo Program</h2>
             <textarea id="reference-code" readonly>
+; Advanced reference program
 to test :a :b
-  setpc "black
   fd :a-10 rt 90 fd :b
   circle :a/2
+  repeat 8 [fd :b-50 rt 360/8]
+  for [i 1 10 1] [
+    ifelse (remainder :i 2)=0 [print "ok fd :b rt 90] [print "mirk fd :a lt 90]
+  ]
 end
+
+test :a :b
             </textarea>
             <div class="param-input">
                 <label for="ref-a">a:</label>
@@ -116,23 +122,12 @@ end
             
             extractProcedures(code) {
                 const lines = code.split('\n');
-                const one_single_line = '';
                 let inProcedure = false;
                 let currentProcedure = null;
                 let procedureLines = [];
                 
                 for (let line of lines) {
                     line = line.trim();
-                    one_single_line = line;
-                    for(let cha = line.lenght-1; line>-1; cha--){
-                            if (line[cha] === ";"){
-                                break;
-                            }
-                            one_single_line= one_single_line.slice(0, -1);
-                    }
-                    if ((one_single_line[(one_single_line.lenght)-1] === ';'){
-                            line = one_single_line.slice(0, -1);
-                    }
                     
                     if (line.startsWith('to ')) {
                         inProcedure = true;
@@ -283,26 +278,18 @@ end
                         this.handleIfElse(args);
                         break;
                     case 'fd':
-                        this.forward(this.evaluateExpression(args.join(' ')));
-                        break;
                     case 'forward':
                         this.forward(this.evaluateExpression(args.join(' ')));
                         break;
                     case 'bk':
-                        this.forward(-this.evaluateExpression(args.join(' ')));
-                        break;
                     case 'back':
                         this.forward(-this.evaluateExpression(args.join(' ')));
                         break;
                     case 'rt':
-                        this.right(this.evaluateExpression(args.join(' ')));
-                        break;
                     case 'right':
                         this.right(this.evaluateExpression(args.join(' ')));
                         break;
                     case 'lt':
-                        this.left(this.evaluateExpression(args.join(' ')));
-                        break;
                     case 'left':
                         this.left(this.evaluateExpression(args.join(' ')));
                         break;
@@ -319,13 +306,6 @@ end
                         this.penDown();
                         break;
                     case 'print':
-                        this.print(args.map(arg => {
-                            if (arg.startsWith('"') || arg.startsWith("'")) {
-                                return arg.slice(1, -1);
-                            }
-                            return this.evaluateExpression(arg);
-                        }).join(' '));
-                        break;
                     case 'show':
                         this.print(args.map(arg => {
                             if (arg.startsWith('"') || arg.startsWith("'")) {
@@ -338,8 +318,6 @@ end
                         this.circle(this.evaluateExpression(args.join(' ')));
                         break;
                     case 'setpc':
-                        this.setPenColor(args[0]);
-                        break;
                     case 'setpencolor':
                         this.setPenColor(args[0]);
                         break;
