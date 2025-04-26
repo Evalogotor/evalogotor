@@ -128,6 +128,7 @@ test :a :b
                 let procedureLines = [];
                 
                 for (let line of lines) {
+                    line = line.trim();
                     let one_single_line = line;
                     for (let cha = line.length - 1; cha >= 0; cha--) {
                         if (line[cha] === ";") {
