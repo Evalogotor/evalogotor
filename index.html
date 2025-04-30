@@ -32,12 +32,14 @@
 ; Advanced reference program
 to test :a :b
   fd :a-10 rt 90 fd :b
+  repeat 4 [
   circle :a/2
   repeat 8 [fd :b-50 rt 360/8]
   for [i 1 10 1] [
     ifelse (remainder :i 2)=0 [print "ok fd :b rt 90] [print "mirk fd :a lt 90]
   ]
   fd :a ;rt 90 fd :b*1000
+  ]
 end
 
 test :a :b
