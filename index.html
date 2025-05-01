@@ -31,8 +31,12 @@
             <textarea id="reference-code" readonly>
 ; Advanced reference program
 to test :a :b
+  repeat 6 [
   repeat 4 [
-    fd :a rt 90 circle :b
+  fd :a rt 90 circle :b
+  ]
+  fd :a
+  rt 60
   ]
 end
 
