@@ -30,18 +30,18 @@
             <h2>Reference Logo Program</h2>
             <textarea id="reference-code" readonly>
 ; Advanced reference program
-to test :a :b :c
+to test :a :b
   pr "Bok
   repeat 6 [
   repeat 4 [
   fd :a rt 90 circle :b
   ]
-  fd :c
+  fd :a
   rt 60
   ]
 end
 
-test :a :b :c
+test :a :b
             </textarea>
             <div class="param-input">
                 <label for="ref-a">a:</label>
