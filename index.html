@@ -319,13 +319,6 @@ test :a :b :c
                         this.penDown();
                         break;
                     case 'print':
-                        this.print(args.map(arg => {
-                            if (arg.startsWith('"')) {
-                                return arg.slice(1);
-                            }
-                            return this.evaluateExpression(arg);
-                        }).join(' '));
-                        break;
                     case 'pr':
                         this.print(args.map(arg => {
                             if (arg.startsWith('"') || arg.startsWith("'")) {
