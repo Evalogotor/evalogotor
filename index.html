@@ -38,6 +38,7 @@ to test :a :b :c
   fd :c
   rt 60
   ]
+  pr "hello
 end
 
 test :a :b :c
@@ -322,7 +323,7 @@ test :a :b :c
                     case 'pr':
                         this.print(args.map(arg => {
                             if (arg.startsWith('"') || arg.startsWith("'")) {
-                                return arg.slice(1, -1);
+                                return arg.slice(1);
                             }
                             return this.evaluateExpression(arg);
                         }).join(' '));
@@ -330,7 +331,7 @@ test :a :b :c
                     case 'show':
                         this.print(args.map(arg => {
                             if (arg.startsWith('"') || arg.startsWith("'")) {
-                                return arg.slice(1, -1);
+                                return arg.slice(1);
                             }
                             return this.evaluateExpression(arg);
                         }).join(' '));
