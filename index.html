@@ -472,20 +472,31 @@ test :a :b :c
             
             evaluateExpression(expr) {
                 if (!expr) return 0;
-                
+
                 try {
-                    // Replace variables
-                    expr = expr.toString();
+                    expr = expr.toString().trim();
+
+        // If it's a quoted word (FMSLogo-style like "hello), return as-is without the quote
+                    if (expr.startsWith('"')) {
+                        return expr.slice(1);
+                    }
+
+        // If it's a plain word (no math operators), treat it as a string
+                    if (!/[0-9+\-*/()%]/.test(expr) && !expr.startsWith(':')) {
+                        return expr;
+                    }
+
+        // Replace variables like :a with their values
                     expr = expr.replace(/:([a-zA-Z]\w*)/g, (match, varName) => {
                         return this.variables[varName] !== undefined ? this.variables[varName] : 0;
                     });
-                    
-                    // Replace Logo operators with JS equivalents
+
+        // Replace Logo operators with JS equivalents
                     expr = expr.replace(/mod/g, '%')
                                .replace(/remainder/g, '%')
                                .replace(/\^/g, '**');
-                    
-                    // Handle parentheses
+
+        // Handle parentheses
                     while (expr.includes('(') && expr.includes(')')) {
                         const start = expr.lastIndexOf('(');
                         const end = expr.indexOf(')', start);
@@ -493,13 +504,14 @@ test :a :b :c
                         const result = this.evaluateSimpleExpression(subExpr);
                         expr = expr.substring(0, start) + result + expr.substring(end + 1);
                     }
-                    
+
                     return this.evaluateSimpleExpression(expr);
                 } catch (e) {
                     this.output.push(`Error evaluating: ${expr}`);
                     return 0;
                 }
             }
+}
             
             evaluateSimpleExpression(expr) {
                 try {
