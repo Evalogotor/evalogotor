@@ -514,12 +514,13 @@ test :a :b :c
             
             evaluateSimpleExpression(expr) {
                 try {
-                    // Safe evaluation - only allow math operations
-                    const fn = new Function(`return ${expr}`);
-                    const result = fn();
-                    return typeof result === 'number' ? result : 0;
+                    // Sanitize input: only allow numbers and operators
+                    if (!/^[\d+\-*/%.() ]+$/.test(expr)) {
+                        throw new Error(`Invalid expression: ${expr}`);
+                    }
+                    return Function('"use strict"; return (' + expr + ')')();
                 } catch (e) {
-                    this.output.push(`Error evaluating: ${expr}`);
+                    this.output.push(`Math error in expression: ${expr}`);
                     return 0;
                 }
             }
