@@ -150,8 +150,12 @@
         }
         
         .button-line button.active {
-          background-color: rgb(57, 220, 57);
-        }        
+          background-color: rgb(37, 132, 242);
+        }
+        
+        .vertical-buttons button.active {
+          background-color: rgb(37, 132, 242);
+        }
 
     </style>
 </head>
@@ -190,9 +194,19 @@
     </div>
     
     <script>
-        const buttons = document.querySelectorAll('.button-line button');
+        const hbuttons = document.querySelectorAll('.vertical-buttons button');
+        const vbuttons = document.querySelectorAll('.button-line button');
 
-        buttons.forEach(button => {
+        hbuttons.forEach(button => {
+          button.addEventListener('click', () => {
+            // Remove 'active' from all buttons
+            buttons.forEach(btn => btn.classList.remove('active'));
+            // Add 'active' to the clicked button
+            button.classList.add('active');
+          });
+        });
+        
+        vbuttons.forEach(button => {
           button.addEventListener('click', () => {
             // Remove 'active' from all buttons
             buttons.forEach(btn => btn.classList.remove('active'));
