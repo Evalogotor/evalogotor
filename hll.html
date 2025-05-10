@@ -125,6 +125,31 @@
             background-color: rgb(57, 220, 57);
         }
 
+        .task-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            margin-right: 50px;
+            text-align: center;
+        }
+
+        .task-buttons button {
+            margin: 5px 0;
+            padding: 10px 15px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+
+        .task-buttons button:hover {
+            background-color: rgb(57, 220, 57);
+        }
+        
         .eval-basket {
             position: absolute;
             top: 15%;
@@ -158,6 +183,10 @@
         }
 
         .vertical-buttons button.active {
+            background-color: #2584F2;
+        }
+        
+        .task-buttons button.active {
             background-color: #2584F2;
         }
         
@@ -201,6 +230,7 @@
         
         const buttons = document.querySelectorAll('.button-line button');
         const vbuttons = document.querySelectorAll('.vertical-buttons button');
+        const tbuttons = document.querySelectorAll('.task-buttons button');
 
         buttons.forEach(button => {
           button.addEventListener('click', () => {
@@ -215,6 +245,15 @@
           button.addEventListener('click', () => {
             // Remove 'active' from all buttons
             vbuttons.forEach(btn => btn.classList.remove('active'));
+            // Add 'active' to the clicked button
+            button.classList.add('active');
+          });
+        });
+
+        tbuttons.forEach(button => {
+          button.addEventListener('click', () => {
+            // Remove 'active' from all buttons
+            tbuttons.forEach(btn => btn.classList.remove('active'));
             // Add 'active' to the clicked button
             button.classList.add('active');
           });
@@ -407,7 +446,7 @@
             // Za Kola poziv za gumbe i zadatke
             if (contentType === '151') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('kursor')">Kursor</button>
                     <button onclick="changeContent('mobitel')">Mobitel</button>
                     <button onclick="changeContent('devet')">Devet</button>
@@ -423,7 +462,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '152') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('poklon')">Poklon</button>
                     <button onclick="changeContent('kosarka')">Kosarka</button>
                     <button onclick="changeContent('buba')">Buba</button>
@@ -439,7 +478,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '161') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('razocaran')">Razočaran</button>
                     <button onclick="changeContent('logotipican')">Logotipičan</button>
                     <button onclick="changeContent('magican')">Magičan</button>
@@ -455,7 +494,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '162') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('sigma')">Sigma</button>
                     <button onclick="changeContent('golub')">Golub</button>
                     <button onclick="changeContent('raketa')">Raketa</button>
@@ -471,7 +510,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '163') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('zastava')">Zastava</button>
                     <button onclick="changeContent('iluzija')">Iluzija</button>
                     <button onclick="changeContent('ukras')">Ukras</button>
@@ -487,7 +526,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '164') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('trigonometrija')">Trigonometrija</button>
                     <button onclick="changeContent('znak')">Znak</button>
                     <button onclick="changeContent('cepelin')">Cepelin</button>
@@ -503,7 +542,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '165') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('igra')">Igra</button>
                     <button onclick="changeContent('pizza')">Pizza</button>
                     <button onclick="changeContent('srca')">Srca</button>
@@ -519,7 +558,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '166') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('parking')">Parking</button>
                     <button onclick="changeContent('mlin')">Mlin</button>
                     <button onclick="changeContent('obelisk')">Obelisk</button>
@@ -535,7 +574,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '171') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('merkur')">Merkur</button>
                     <button onclick="changeContent('venera')">Venera</button>
                     <button onclick="changeContent('zemlja')">Zemlja</button>
@@ -551,7 +590,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '172') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('uco')">Učo</button>
                     <button onclick="changeContent('ljutko')">Ljutko</button>
                     <button onclick="changeContent('srecko')">Srećko</button>
@@ -567,7 +606,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '173') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('fantom')">Fantom</button>
                     <button onclick="changeContent('klon')">Klon</button>
                     <button onclick="changeContent('sith')">Sith</button>
@@ -583,7 +622,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '174') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('naocale')">Naočale</button>
                     <button onclick="changeContent('erised')">Erised</button>
                     <button onclick="changeContent('zvrcka')">Zvrčka</button>
@@ -599,7 +638,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '175') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('lula')">Lula</button>
                     <button onclick="changeContent('brkovi')">Brkovi</button>
                     <button onclick="changeContent('london')">London</button>
@@ -615,7 +654,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '176') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('london1')">London</button>
                     <button onclick="changeContent('pariz')">Pariz</button>
                     <button onclick="changeContent('suez')">Suez</button>
@@ -631,7 +670,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '181') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('zid')">Zid</button>
                     <button onclick="changeContent('pauza')">Pauza</button>
                     <button onclick="changeContent('pizza')">Pizza</button>
@@ -647,7 +686,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '182') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('hawkeye')">Hawkeye</button>
                     <button onclick="changeContent('thor')">Thor</button>
                     <button onclick="changeContent('crna_udovica')">Crna Udovica</button>
@@ -663,7 +702,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '183') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('triforce')">Triforce</button>
                     <button onclick="changeContent('rupy')">Rupy</button>
                     <button onclick="changeContent('joypad')">Joypad</button>
@@ -679,7 +718,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '184') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('ragbi')">Ragbi</button>
                     <button onclick="changeContent('curling')">Curling</button>
                     <button onclick="changeContent('kuglanje')">Kuglanje</button>
@@ -695,7 +734,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '185') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('meltan')">Meltan</button>
                     <button onclick="changeContent('sunflora')">Sunflora</button>
                     <button onclick="changeContent('voltorb')">Voltorb</button>
@@ -711,7 +750,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '186') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('prsten')">Prsten</button>
                     <button onclick="changeContent('gandalf')">Gandalf</button>
                     <button onclick="changeContent('sauron')">Sauron</button>
@@ -727,7 +766,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '191') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('harpun')">Harpun</button>
                     <button onclick="changeContent('podmornica')">Podmornica</button>
                     <button onclick="changeContent('skoljka')">Skoljka</button>
@@ -743,7 +782,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '192') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('vandetta')">Vandetta</button>
                     <button onclick="changeContent('manhattan')">Manhattan</button>
                     <button onclick="changeContent('lampa')">Lampa</button>
@@ -759,7 +798,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '193') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('poklon19')">Poklon</button>
                     <button onclick="changeContent('zvono')">Zvono</button>
                     <button onclick="changeContent('pahulja')">Pahulja</button>
@@ -775,7 +814,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '194') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('album')">Album</button>
                     <button onclick="changeContent('nota')">Nota</button>
                     <button onclick="changeContent('cd')">CD</button>
@@ -791,7 +830,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '195') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('tresnje')">Trešnje</button>
                     <button onclick="changeContent('jagoda')">Jagoda</button>
                     <button onclick="changeContent('karambola')">Karambola</button>
@@ -807,7 +846,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '196') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('putovnica')">Putovnica</button>
                     <button onclick="changeContent('karta')">Karta</button>
                     <button onclick="changeContent('dvorac')">Dvorac</button>
@@ -823,7 +862,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '206') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('pecanje')">Pecanje</button>
                     <button onclick="changeContent('pjevanje')">Pjevanje</button>
                     <button onclick="changeContent('sviranje')">Sviranje</button>
@@ -839,7 +878,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '201') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('chip')">Chip</button>
                     <button onclick="changeContent('vijak')">Vijak</button>
                     <button onclick="changeContent('mbot')">Mbot</button>
@@ -855,7 +894,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '202') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('stupic')">Stupic</button>
                     <button onclick="changeContent('raskrizje')">Raskrižje</button>
                     <button onclick="changeContent('zebra')">Zebra</button>
@@ -871,7 +910,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '203') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('puz')">Puž</button>
                     <button onclick="changeContent('jez')">Jež</button>
                     <button onclick="changeContent('bubamara')">Bubamara</button>
@@ -887,7 +926,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '204') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('ljekarna')">Ljekarna</button>
                     <button onclick="changeContent('stetoskop')">Stetoskop</button>
                     <button onclick="changeContent('vitamini')">Vitamini</button>
@@ -903,7 +942,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '205') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('lijevak')">Lijevak</button>
                     <button onclick="changeContent('h2o')">H2O</button>
                     <button onclick="changeContent('mikroskop')">Mikroskop</button>
@@ -919,7 +958,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '215') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('baloni21')">Baloni</button>
                     <button onclick="changeContent('maske')">Maske</button>
                     <button onclick="changeContent('kapa21')">Kapa</button>
@@ -935,7 +974,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '211') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('frank')">Frank</button>
                     <button onclick="changeContent('vjestica')">Vjestica</button>
                     <button onclick="changeContent('sismis')">Sismis</button>
@@ -951,7 +990,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '212') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('nemo')">Nemo</button>
                     <button onclick="changeContent('alan')">Alan</button>
                     <button onclick="changeContent('miki')">Miki</button>
@@ -967,7 +1006,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '213') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('kaba')">Kaba</button>
                     <button onclick="changeContent('lubanja')">Lubanja</button>
                     <button onclick="changeContent('perec')">Perec</button>
@@ -983,7 +1022,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '214') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('zastavaj')">Zastava</button>
                     <button onclick="changeContent('fuji')">Fuji</button>
                     <button onclick="changeContent('yugioh')">Yugioh</button>
@@ -999,7 +1038,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '216') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('nlo')">NLO</button>
                     <button onclick="changeContent('odasiljac')">Odasiljac</button>
                     <button onclick="changeContent('austronaut')">Austronaut</button>
@@ -1015,7 +1054,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '221') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('doodle')">Doodle</button>
                     <button onclick="changeContent('invader')">Invader</button>
                     <button onclick="changeContent('pacman')">Pacman</button>
@@ -1031,7 +1070,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '222') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('kvalifikacije')">Kvalifikacije</button>
                     <button onclick="changeContent('kopacka')">Kopacka</button>
                     <button onclick="changeContent('lopta22')">Lopta</button>
@@ -1047,7 +1086,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '223') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('sangaj')">Sangaj</button>
                     <button onclick="changeContent('atena')">Atena</button>
                     <button onclick="changeContent('pariz22')">Pariz</button>
@@ -1063,7 +1102,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '224') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('snjeguljica22')">Snjeguljica</button>
                     <button onclick="changeContent('walle')">Walle</button>
                     <button onclick="changeContent('pepeljuga')">Pepeljuga</button>
@@ -1079,7 +1118,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '225') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('uzorak')">Uzorak</button>
                     <button onclick="changeContent('pisac')">Pisac</button>
                     <button onclick="changeContent('ap')">AP</button>
@@ -1095,7 +1134,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '231') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('zubar')">Zubar</button>
                     <button onclick="changeContent('vrtlar')">Vrtlar</button>
                     <button onclick="changeContent('vatrogasac')">Vatrogasac</button>
@@ -1111,7 +1150,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '232') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('oscar')">Oscar</button>
                     <button onclick="changeContent('ulaznica')">Ulaznica</button>
                     <button onclick="changeContent('projektor')">Projektor</button>
@@ -1127,7 +1166,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '233') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('srce')">Srce</button>
                     <button onclick="changeContent('kost')">Kost</button>
                     <button onclick="changeContent('flex')">Flex</button>
@@ -1143,7 +1182,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '234') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('alien23')">Alien</button>
                     <button onclick="changeContent('komarac')">Komarac</button>
                     <button onclick="changeContent('igre_gladi')">Igre Gladi</button>
@@ -1159,7 +1198,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '235') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('friends')">Friends</button>
                     <button onclick="changeContent('kapsula')">Kapsula</button>
                     <button onclick="changeContent('zilet')">Zilet</button>
@@ -1175,7 +1214,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '241') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('periodni24')">Periodni</button>
                     <button onclick="changeContent('stativ')">Stativ</button>
                     <button onclick="changeContent('pipeta')">Pipeta</button>
@@ -1191,7 +1230,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '242') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('kafka')">Kafka</button>
                     <button onclick="changeContent('orwell')">Orwell</button>
                     <button onclick="changeContent('pero')">Pero</button>
@@ -1207,7 +1246,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '243') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('radni_stol')">Radni Stol</button>
                     <button onclick="changeContent('kuhinja24')">Kuhinja</button>
                     <button onclick="changeContent('krevet')">Krevet</button>
@@ -1223,7 +1262,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '244') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('youtube')">Youtube</button>
                     <button onclick="changeContent('komentar')">Komentar</button>
                     <button onclick="changeContent('snapchat')">Snapchat</button>
@@ -1239,7 +1278,7 @@
                 attachVerticalButtonListeners();
             } else if (contentType === '245') {
                 var buttonZadaci = `
-                <div class="vertical-buttons">
+                <div class="task-buttons">
                     <button onclick="changeContent('vatromet')">Vatromet</button>
                     <button onclick="changeContent('stapici')">Štapići</button>
                     <button onclick="changeContent('panda')">Panda</button>
