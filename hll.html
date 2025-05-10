@@ -263,11 +263,21 @@
             return str.charAt(0).toUpperCase() + str.slice(1);
         }
 
-        function attachVerticalButtonListeners() {
+        function attachTaskButtonListeners() {
             const newVButtons = document.querySelectorAll('.vertical-buttons button');
             newVButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     newVButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
+        }
+        
+        function attachVerticalButtonListeners() {
+            const newTButtons = document.querySelectorAll('.task-buttons button');
+            newTButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    newTButtons.forEach(btn => btn.classList.remove('active'));
                     button.classList.add('active');
                 });
             });
@@ -307,7 +317,7 @@
             `;
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
-                attachVerticalButtonListeners();
+                attachTaskButtonListeners();
             } else if (contentType === '16') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -322,7 +332,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
-                attachVerticalButtonListeners();
+                attachTaskButtonListeners();
             } else if (contentType === '17') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -337,7 +347,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
-                attachVerticalButtonListeners();
+                attachTaskButtonListeners();
             } else if (contentType === '18') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -352,7 +362,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
-                attachVerticalButtonListeners();
+                attachTaskButtonListeners();
             } else if (contentType === '19') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -367,7 +377,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
-                attachVerticalButtonListeners();
+                attachTaskButtonListeners();
             } else if (contentType === '20') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -382,7 +392,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
-                attachVerticalButtonListeners();
+                attachTaskButtonListeners();
             } else if (contentType === '21') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -397,7 +407,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
-                attachVerticalButtonListeners();
+                attachTaskButtonListeners();
             } else if (contentType === '22') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -411,7 +421,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
-                attachVerticalButtonListeners();
+                attachTaskButtonListeners();
             } else if (contentType === '23') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -425,7 +435,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
-                attachVerticalButtonListeners();
+                attachTaskButtonListeners();
             } else if (contentType === '24') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -439,7 +449,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
-                attachVerticalButtonListeners();
+                attachTaskButtonListeners();
             }
 
 
