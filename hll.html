@@ -118,7 +118,7 @@
         }
 
         .vertical-buttons button:hover {
-            background-color: rgb(57, 220, 57); 
+            background-color: rgb(37, 132, 242); 
         }
 
         .eval-basket {
@@ -195,9 +195,8 @@
     
     <script>
         const hbuttons = document.querySelectorAll('.vertical-buttons button');
-        const vbuttons = document.querySelectorAll('.button-line button');
 
-        hbuttons.forEach(button => {
+        buttons.forEach(button => {
           button.addEventListener('click', () => {
             // Remove 'active' from all buttons
             buttons.forEach(btn => btn.classList.remove('active'));
@@ -205,8 +204,10 @@
             button.classList.add('active');
           });
         });
+
+        const vbuttons = document.querySelectorAll('.button-line button');
         
-        vbuttons.forEach(button => {
+        buttons.forEach(button => {
           button.addEventListener('click', () => {
             // Remove 'active' from all buttons
             buttons.forEach(btn => btn.classList.remove('active'));
