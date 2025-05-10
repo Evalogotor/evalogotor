@@ -148,8 +148,12 @@
             font-size: 40px;
             font-weight: bold;
         }
-
         
+        .button.active {
+          background-color: #4CAF50; /* Green when active */
+          color: white;
+        }        
+
     </style>
 </head>
 <body>
@@ -187,6 +191,17 @@
     </div>
     
     <script>
+        const buttons = document.querySelectorAll('.color-btn');
+
+        buttons.forEach(button => {
+          button.addEventListener('click', () => {
+            // Remove 'active' from all buttons
+            buttons.forEach(btn => btn.classList.remove('active'));
+            // Add 'active' to the clicked button
+            button.classList.add('active');
+          });
+        });
+        
         function capitalizeFirstLetter(str) {
             return str.charAt(0).toUpperCase() + str.slice(1);
         }
