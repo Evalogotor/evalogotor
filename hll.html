@@ -96,6 +96,10 @@
             background-color: rgb(57, 220, 57); 
         }
 
+        .eval-button:hover {
+            background-color: rgb(57, 220, 57); 
+        }
+
         .vertical-buttons {
             display: flex;
             flex-direction: column;
@@ -219,6 +223,17 @@
         function capitalizeFirstLetter(str) {
             return str.charAt(0).toUpperCase() + str.slice(1);
         }
+
+        function attachVerticalButtonListeners() {
+            const newVButtons = document.querySelectorAll('.vertical-buttons button');
+            newVButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    newVButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
+        }
+        
         var bodovi = 0;
         var buttonskola = '';
         var buttonZadaci = '';
@@ -253,6 +268,7 @@
             `;
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '16') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -267,6 +283,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '17') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -281,6 +298,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '18') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -295,6 +313,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '19') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -309,6 +328,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '20') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -323,6 +343,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '21') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -337,6 +358,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '22') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -350,6 +372,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '23') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -363,6 +386,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '24') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -376,6 +400,7 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             }
 
 
@@ -395,6 +420,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '152') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -410,6 +436,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '161') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -425,6 +452,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '162') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -440,6 +468,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '163') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -455,6 +484,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '164') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -470,6 +500,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '165') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -485,6 +516,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '166') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -500,6 +532,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '171') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -515,6 +548,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '172') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -530,6 +564,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '173') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -545,6 +580,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '174') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -560,6 +596,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '175') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -575,6 +612,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '176') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -590,6 +628,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '181') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -605,6 +644,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '182') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -620,6 +660,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '183') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -635,6 +676,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '184') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -650,6 +692,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '185') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -665,6 +708,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '186') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -680,6 +724,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '191') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -695,6 +740,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '192') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -710,6 +756,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '193') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -725,6 +772,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '194') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -740,6 +788,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '195') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -755,6 +804,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '196') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -770,6 +820,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '206') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -785,6 +836,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '201') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -800,6 +852,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '202') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -815,6 +868,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '203') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -830,6 +884,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '204') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -845,6 +900,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '205') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -860,6 +916,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '215') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -875,6 +932,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '211') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -890,6 +948,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '212') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -905,6 +964,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '213') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -920,6 +980,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '214') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -935,6 +996,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '216') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -950,6 +1012,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '221') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -965,6 +1028,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '222') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -980,6 +1044,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '223') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -995,6 +1060,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '224') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -1010,6 +1076,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '225') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -1025,6 +1092,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '231') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -1040,6 +1108,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '232') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -1055,6 +1124,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '233') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -1070,6 +1140,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '234') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -1085,6 +1156,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '235') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -1100,6 +1172,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '241') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -1115,6 +1188,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '242') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -1130,6 +1204,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '243') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -1145,6 +1220,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '244') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -1160,6 +1236,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             } else if (contentType === '245') {
                 var buttonZadaci = `
                 <div class="vertical-buttons">
@@ -1175,6 +1252,7 @@
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             }
             
             //Zadaci
