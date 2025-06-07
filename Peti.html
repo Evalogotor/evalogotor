@@ -232,15 +232,6 @@
         var buttonZadaci = '';
         var zadatak = '';
         var ime_zadatak = '';
-
-        function forceDownload(url, filename) {
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
         
         function changeContent(contentType) {
 
@@ -262,13 +253,14 @@
             } else if (contentType === '11') {
                 var buttonskola = `
                 <div class="vertical-buttons">
-                    <button onclick="forceDownload('https://informatika.azoo.hr/natjecanje/dogadjaj/93/rezultati/Zadaci.pdf', 'Zadaci_2011_Skolsko.pdf')">Školsko</button>
+                    <button onclick="changeContent('11s')">Školsko</button>
                     <button onclick="changeContent('11z')">Županijsko</button>
                     <button onclick="changeContent('11d')">Državno</button>
                 </div>
             `;
                 document.getElementById('razina').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
             } else if (contentType === '12') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -279,6 +271,7 @@
             `;
                 document.getElementById('razina').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
             }  else if (contentType === '13') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -289,6 +282,7 @@
             `;
                 document.getElementById('razina').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
             } else if (contentType === '14') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -299,6 +293,7 @@
             `;
                 document.getElementById('razina').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
             } else if (contentType === '15') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -309,6 +304,7 @@
             `;
                 document.getElementById('razina').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
             } else if (contentType === '16') {
                 var buttonskola = `
                 <div class="vertical-buttons">
@@ -411,11 +407,34 @@
             }
 
             if (contentType === '11s') {
-                
+                var buttonZadaci = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('Leptir')">Leptir</button>
+                    <button onclick="changeContent('Ormar')">Ormar</button>
+                    <button onclick="changeContent('Trokuti')">Trokuti</button>
+                </div>
+            `;
+                document.getElementById('zadatak').innerHTML = '';
             } else if (contentType === '11z') {
-                
+                var buttonZadaci = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('Val')">Leptir</button>
+                    <button onclick="changeContent('Utezi')">Ormar</button>
+                    <button onclick="changeContent('Cvijet')">Trokuti</button>
+                    <button onclick="changeContent('Pruga')">Trokuti</button>
+                </div>
+            `;
+                document.getElementById('zadatak').innerHTML = '';
             } else if (contentType === '11d') {
-                
+                var buttonZadaci = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('Zvizspir')">Leptir</button>
+                    <button onclick="changeContent('Rabac')">Ormar</button>
+                    <button onclick="changeContent('Cvijet1')">Trokuti</button>
+                    <button onclick="changeContent('Note')">Trokuti</button>
+                </div>
+            `;
+                document.getElementById('zadatak').innerHTML = '';
             }
         }
     </script>
