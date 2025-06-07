@@ -232,6 +232,16 @@
         var buttonZadaci = '';
         var zadatak = '';
         var ime_zadatak = '';
+
+        function forceDownload(url, filename) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+        
         function changeContent(contentType) {
 
             if (contentType === 'HLL') {
@@ -252,7 +262,7 @@
             } else if (contentType === '11') {
                 var buttonskola = `
                 <div class="vertical-buttons">
-                    <a href="https://informatika.azoo.hr/natjecanje/dogadjaj/93/rezultati/Zadaci.pdf" download><button onclick="changeContent('11s')">Školsko</button></a>
+                    <button onclick="forceDownload('https://informatika.azoo.hr/natjecanje/dogadjaj/93/rezultati/Zadaci.pdf', 'Zadaci_2011_Skolsko.pdf')">Školsko</button>
                     <button onclick="changeContent('11z')">Županijsko</button>
                     <button onclick="changeContent('11d')">Državno</button>
                 </div>
