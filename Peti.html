@@ -10,7 +10,6 @@
             justify-content: center;
             flex-wrap: wrap;
             text-align: center;
-            margin-right:555px
         }
 
         body {
@@ -234,20 +233,18 @@
         var ime_zadatak = '';
         function changeContent(contentType) {
             ime_zadatak = capitalizeFirstLetter(contentType);
-            
-            const contentDiv = document.getElementById('mainContent');
 
             if (contentType === 'HLL') {
                 location.href='hll.html';
             
             } else if (contentType === 'Sesti') {
-                location.href='6raz.html';
+                location.href='esti.html';
 
             } else if (contentType === 'Sedmi') {
-                location.href='7raz.html';
+                location.href='Sedmi.html';
 
             } else if (contentType === 'Osmi') {
-                location.href='8raz.html';
+                location.href='Osmi.html';
 
             } else if (contentType === 'HLOŽ') {
                 location.href='hloz.html';
