@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            text-align: center;
+            margin-right:555px
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #7b7b7b9c;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .hotbar {
+            position: fixed; 
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            background-color: #333; 
+            color: white; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 10px 20px; 
+            height: 60px; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+            z-index: 1000; 
+        }
+
+        .logo {
+            position: absolute;
+            left: 20px;
+        }
+        
+        .hotbar a {
+            text-decoration: none; 
+            color: white; 
+            margin: 0 10px; 
+            font-size: 1.1em; 
+        }
+
+        .hotbar a:hover {
+            color:rgb(57, 220, 57);
+        }
+
+        .highlight {
+            color: rgb(57, 220, 57);
+        }
+
+        .text {
+            text-align: center;
+            font-size: 2em;
+        }
+
+        .button-line {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 150px; 
+            text-align: center;
+        }
+
+        .button-line button {
+            margin: 5px;
+            padding: 10px 15px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+
+        .button-line button:hover {
+            background-color: rgb(57, 220, 57); 
+        }
+
+        .eval-button:hover {
+            background-color: rgb(57, 220, 57); 
+        }
+
+        .vertical-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            margin-right: 50px;
+            text-align: center;
+        }
+
+        .vertical-buttons button {
+            margin: 5px 0;
+            padding: 10px 15px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+
+        .vertical-buttons button:hover {
+            background-color: rgb(57, 220, 57);
+        }
+
+        .task-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            margin-right: 50px;
+            text-align: center;
+        }
+
+        .task-buttons button {
+            margin: 5px 0;
+            padding: 10px 15px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+
+        .task-buttons button:hover {
+            background-color: rgb(57, 220, 57);
+        }
+        
+        .eval-basket {
+            position: absolute;
+            top: 15%;
+            left: 60%;
+            transform: translateX(-50%);
+            text-align: center;
+            pointer-events: none;
+        }
+        
+        .eval-button {
+            margin: 5px;
+            padding: 25px 45px;
+            font-size: 50px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+        
+        .score {
+            margin-top: 80px;
+            margin-bottom: 40px;
+            font-size: 40px;
+            font-weight: bold;
+        }
+        
+        .button-line button.active {
+            background-color: #2584F2;
+        }
+
+        .vertical-buttons button.active {
+            background-color: #2584F2;
+        }
+        
+        .task-buttons button.active {
+            background-color: #2584F2;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="hotbar">
+        <!-- Logo or site name -->
+        <div class="logo">
+            <a href="#">EVA<span class="highlight">LOGO</span>TOR</a>
+        </div>
+        <!-- Navigation links -->
+        <div class="nav-links">
+            <a href="#HLL" onclick="changeContent('HLL')">HLL</a>
+            <a href="#Peti" onclick="changeContent('Peti')">5. razred</a>
+            <a href="#sesti" onclick="changeContent('Sesti')">6. razred</a>
+            <a href="#sedmi" onclick="changeContent('Sedmi')">7. razred</a>
+            <a href="#osmi" onclick="changeContent('Osmi')">8. razred</a>
+            <a href="#HLOŽ" onclick="changeContent('HLOŽ')">HLOŽ</a>
+        </div>
+    </div>
+
+    <div class="button-line">
+        <button onclick="changeContent('11')">2011</button>
+        <button onclick="changeContent('12')">2012</button>
+        <button onclick="changeContent('13')">2013</button>
+        <button onclick="changeContent('14')">2014</button>
+        <button onclick="changeContent('15')">2015</button>
+        <button onclick="changeContent('16')">2016</button>
+        <button onclick="changeContent('17')">2017</button>
+        <button onclick="changeContent('18')">2018</button>
+        <button onclick="changeContent('19')">2019</button>
+        <button onclick="changeContent('20')">2020</button>
+        <button onclick="changeContent('21')">2021</button>
+        <button onclick="changeContent('22')">2022</button>
+        <button onclick="changeContent('23')">2023</button>
+        <button onclick="changeContent('24')">2024</button>
+    </div>
+
+    <div class="container">
+        <div id="razina"></div>
+        <div id="zadaci"></div>
+        <div id="zadatak"></div>
+    </div>
+
+    <script>
+        var bodovi = 0;
+        var buttonskola = '';
+        var buttonZadaci = '';
+        var zadatak = '';
+        var ime_zadatak = '';
+        function changeContent(contentType) {
+            ime_zadatak = capitalizeFirstLetter(contentType);
+            
+            const contentDiv = document.getElementById('mainContent');
+
+            if (contentType === 'Peti') {
+                location.href='5raz.html';
+            
+            } else if (contentType === 'Sesti') {
+                location.href='6raz.html';
+
+            } else if (contentType === 'Sedmi') {
+                location.href='7raz.html';
+
+            } else if (contentType === 'Osmi') {
+                location.href='8raz.html';
+
+            } else if (contentType === 'HLOŽ') {
+                location.href='hloz.html';
+
+            } else if (contentType === '11') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('11s')">Školsko</button>
+                    <button onclick="changeContent('11z')">Županijsko</button>
+                    <button onclick="changeContent('11d')">Državno</button>
+                </div>
+            `;
+                document.getElementById('razina').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+            } else if (contentType === '12') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('12s')"Školsko</button>
+                    <button onclick="changeContent('12z')">Županijsko</button>
+                    <button onclick="changeContent('12d')">Državno</button>
+                </div>
+            `;
+                document.getElementById('razina').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+            }  else if (contentType === '13') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('13s')"Školsko</button>
+                    <button onclick="changeContent('13z')">Županijsko</button>
+                    <button onclick="changeContent('13d')">Državno</button>
+                </div>
+            `;
+                document.getElementById('razina').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+            } else if (contentType === '14') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('14s')"Školsko</button>
+                    <button onclick="changeContent('14z')">Županijsko</button>
+                    <button onclick="changeContent('14d')">Državno</button>
+                </div>
+            `;
+                document.getElementById('razina').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+            } else if (contentType === '15') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('15s')"Školsko</button>
+                    <button onclick="changeContent('15z')">Županijsko</button>
+                    <button onclick="changeContent('15d')">Državno</button>
+                </div>
+            `;
+                document.getElementById('razina').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+            } else if (contentType === '16') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('16s')"Školsko</button>
+                    <button onclick="changeContent('16z')">Županijsko</button>
+                    <button onclick="changeContent('16d')">Državno</button>
+                </div>
+            `;
+                document.getElementById('razina').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+            } else if (contentType === '17') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('17s')"Školsko</button>
+                    <button onclick="changeContent('17z')">Županijsko</button>
+                    <button onclick="changeContent('17d')">Državno</button>
+                </div>
+            `;
+                document.getElementById('razina').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+            } else if (contentType === '18') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('18s')"Školsko</button>
+                    <button onclick="changeContent('18z')">Županijsko</button>
+                    <button onclick="changeContent('18d')">Državno</button>
+                </div>
+            `;
+                document.getElementById('razina').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+            } else if (contentType === '19') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('19s')"Školsko</button>
+                    <button onclick="changeContent('19z')">Županijsko</button>
+                    <button onclick="changeContent('19d')">Državno</button>
+                </div>
+            `;
+                document.getElementById('razina').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+            } else if (contentType === '20') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('20s')"Školsko</button>
+                    <button onclick="changeContent('20z')">Županijsko</button>
+                    <button onclick="changeContent('20d')">Državno</button>
+                </div>
+            `;
+                document.getElementById('razina').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+            } else if (contentType === '21') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('21s')"Školsko</button>
+                    <button onclick="changeContent('21z')">Županijsko</button>
+                    <button onclick="changeContent('21d')">Državno</button>
+                </div>
+            `;
+                document.getElementById('razina').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+            } else if (contentType === '22') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('22s')"Školsko</button>
+                    <button onclick="changeContent('22z')">Županijsko</button>
+                    <button onclick="changeContent('22d')">Državno</button>
+                </div>
+            `;
+                document.getElementById('razina').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+            } else if (contentType === '23') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('23s')"Školsko</button>
+                    <button onclick="changeContent('23z')">Županijsko</button>
+                    <button onclick="changeContent('23d')">Državno</button>
+                </div>
+            `;
+                document.getElementById('razina').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+            } else if (contentType === '24') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('24s')"Školsko</button>
+                    <button onclick="changeContent('24z')">Županijsko</button>
+                    <button onclick="changeContent('24d')">Državno</button>
+                </div>
+            `;
+                document.getElementById('razina').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+            }
+        }
+    </script>
+</body>
