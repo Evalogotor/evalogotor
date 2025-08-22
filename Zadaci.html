@@ -121,6 +121,8 @@
         navbar.classList.add("bg-gray-800");
         themeIcon.setAttribute("data-lucide","sun");
         themeLabel.textContent = translations[lang].light;
+        themeToggle.classlist.remove("bg-gray-50","text-gray-900");
+        themeToggle.classList.add("bg-gray-900","text-white");
       } else {
         body.classList.remove("bg-gray-900","text-white");
         body.classList.add("bg-gray-50","text-gray-900");
@@ -161,4 +163,5 @@
   </script>
 </body>
 </html>
+
 
