@@ -9,189 +9,125 @@
     <title>Zadaci</title>
     
     <style>
-        
-        .container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            text-align: center;
-            margin-right:555px
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #7b7b7b9c;
-            color: #000000;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .hotbar {
-            position: fixed; 
-            top: 0; 
-            left: 0;
-            width: 100%; 
-            background-color: #333; 
-            color: white; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            padding: 10px 20px; 
-            height: 60px; 
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
-            z-index: 1000; 
-        }
-
-        .logo {
-            position: absolute;
-            left: 20px;
-            font-size: 20px;
-        }
-        
-        .hotbar a {
-            text-decoration: none; 
-            color: white; 
-            margin: 0 10px; 
-            font-size: 1.1em; 
-        }
-
-        .hotbar a:hover {
-            color:rgb(57, 220, 57);
-        }
-
-        .highlight {
-            color: rgb(57, 220, 57);
-        }
-
-        .text {
-            text-align: center;
-            font-size: 2em;
-        }
-
-        .button-line {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 100px; 
-            text-align: center;
-            z-index: 10;
-        }
-
-        .button-line button {
-            margin: 5px;
-            padding: 10px 15px;
-            font-size: 14px;
-            border: none;
-            border-radius: 5px;
-            background-color: #333;
-            color: white;
-            cursor: pointer;
-        }
-
-        .button-line button:hover {
-            background-color: rgb(57, 220, 57); 
-        }
-
-        .eval-button:hover {
-            background-color: rgb(57, 220, 57); 
-        }
-
-        .vertical-buttons {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-            margin-right: 50px;
-            text-align: center;
-        }
-
-        .vertical-buttons button {
-            margin: 5px 0;
-            padding: 10px 15px;
-            font-size: 14px;
-            border: none;
-            border-radius: 5px;
-            background-color: #333;
-            color: white;
-            cursor: pointer;
-        }
-
-        .vertical-buttons button:hover {
-            background-color: rgb(57, 220, 57);
-        }
-
-        .task-buttons {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-            margin-right: 50px;
-            text-align: center;
-        }
-
-        .task-buttons button {
-            margin: 5px 0;
-            padding: 10px 15px;
-            font-size: 14px;
-            border: none;
-            border-radius: 5px;
-            background-color: #333;
-            color: white;
-            cursor: pointer;
-        }
-
-        .task-buttons button:hover {
-            background-color: rgb(57, 220, 57);
-        }
-        
-        .eval-basket {
-            position: absolute;
-            top: 15%;
-            left: 60%;
-            transform: translateX(-50%);
-            text-align: center;
-            pointer-events: none;
-        }
-        
-        .eval-button {
-            margin: 5px;
-            padding: 25px 45px;
-            font-size: 50px;
-            border: none;
-            border-radius: 5px;
-            background-color: #333;
-            color: white;
-            cursor: pointer;
-            pointer-events: auto;
-        }
-        
-        .score {
-            margin-top: 80px;
-            margin-bottom: 40px;
-            font-size: 40px;
-            font-weight: bold;
-        }
-        
-        .button-line button.active {
-            background-color: #2584F2;
-        }
-
-        .vertical-buttons button.active {
-            background-color: #2584F2;
-        }
-        
-        .task-buttons button.active {
-            background-color: #2584F2;
-        }
-        
-    </style>
+    .container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      text-align: center;
+      margin-right: 555px;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #7b7b7b9c;
+      color: #000000;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+    }
+    .hotbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #333;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      height: 60px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+    }
+    .logo {
+      position: absolute;
+      left: 20px;
+      font-size: 20px;
+    }
+    .hotbar a {
+      text-decoration: none;
+      color: white;
+      margin: 0 10px;
+      font-size: 1.1em;
+    }
+    .hotbar a:hover {
+      color: rgb(57, 220, 57);
+    }
+    .highlight {
+      color: rgb(57, 220, 57);
+    }
+    .button-line {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 100px;
+      text-align: center;
+      z-index: 10;
+    }
+    .button-line button,
+    .vertical-buttons button,
+    .task-buttons button {
+      margin: 5px;
+      padding: 10px 15px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+    }
+    .button-line button:hover,
+    .vertical-buttons button:hover,
+    .task-buttons button:hover {
+      background-color: rgb(57, 220, 57);
+    }
+    .button-line button.active,
+    .vertical-buttons button.active,
+    .task-buttons button.active {
+      background-color: #2584F2;
+    }
+    .vertical-buttons, .task-buttons {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      margin-right: 50px;
+      text-align: center;
+    }
+    .eval-basket {
+      position: absolute;
+      top: 15%;
+      left: 60%;
+      transform: translateX(-50%);
+      text-align: center;
+      pointer-events: none;
+    }
+    .eval-button {
+      margin: 5px;
+      padding: 25px 45px;
+      font-size: 50px;
+      border: none;
+      border-radius: 5px;
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+    .eval-button:hover {
+      background-color: rgb(57, 220, 57);
+    }
+    .score {
+      margin-top: 80px;
+      margin-bottom: 40px;
+      font-size: 40px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
     <div class="hotbar">
@@ -2180,3 +2116,4 @@
     </script>
 </body>
 </html>
+
