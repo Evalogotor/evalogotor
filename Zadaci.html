@@ -1,146 +1,321 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zadaci</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #7b7b7b9c;
-            color: #000000;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { BarChart3, PenTool, Brain, Sun, Moon, Globe, User } from "lucide-react";
 
-        .hotbar {
-            position: fixed; /* Sticks to the top */
-            top: 0; /* Aligns to the top */
-            left: 0;
-            width: 100%; /* Full width */
-            background-color: #333; /* Dark background */
-            color: white; /* White text */
-            display: flex; /* Flexbox layout */
-            justify-content: center; /* Center items horizontally */
-            align-items: center; /* Center items vertically */
-            padding: 10px 20px; /* Padding inside the hotbar */
-            height: 60px; /* Explicit height for consistent centering */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-            z-index: 1000; /* On top of other elements */
-        }
+// --- FIX: Complete translations for all languages + safe fallbacks ---
+const translations = {
+  en: {
+    welcome: "Welcome to evaLOGOtor!",
+    description:
+      "Hone your FMSLogo skills by completing tasks, getting AI-powered feedback, and climbing the leaderboard.",
+    practice: "Practice FMSLogo",
+    practiceDesc:
+      "Attempt a variety of FMSLogo tasks, from simple shapes to complex patterns.",
+    feedback: "Get AI Feedback",
+    feedbackDesc:
+      "Submit your creations and receive instant, AI-driven evaluations on correctness.",
+    ranks: "Climb the Ranks",
+    ranksDesc:
+      "Earn points for evaluations and see how you stack up on the global scoreboard.",
+    tasks: "Tasks",
+    scoreboard: "Scoreboard",
+    login: "Login",
+    logout: "Logout",
+    dark: "Dark",
+    light: "Light",
+  },
+  de: {
+    welcome: "Willkommen bei evaLOGOtor!",
+    description:
+      "Verbessere deine FMSLogo-Fähigkeiten durch Aufgaben, KI-Feedback und Ranglisten.",
+    practice: "FMSLogo üben",
+    practiceDesc:
+      "Versuche verschiedene FMSLogo-Aufgaben, von einfachen Formen bis zu komplexen Mustern.",
+    feedback: "KI-Feedback erhalten",
+    feedbackDesc:
+      "Reiche deine Kreationen ein und erhalte sofortige KI-Auswertungen.",
+    ranks: "Steige in den Rängen auf",
+    ranksDesc:
+      "Verdiene Punkte und sieh, wie du dich in der Rangliste schlägst.",
+    tasks: "Aufgaben",
+    scoreboard: "Rangliste",
+    login: "Einloggen",
+    logout: "Ausloggen",
+    dark: "Dunkel",
+    light: "Hell",
+  },
+  it: {
+    welcome: "Benvenuto su evaLOGOtor!",
+    description:
+      "Migliora le tue abilità FMSLogo completando compiti, ricevendo feedback AI e scalando la classifica.",
+    practice: "Esercitati con FMSLogo",
+    practiceDesc:
+      "Prova vari compiti FMSLogo, da forme semplici a motivi complessi.",
+    feedback: "Ottieni feedback AI",
+    feedbackDesc:
+      "Invia le tue creazioni e ricevi valutazioni immediate dall'AI.",
+    ranks: "Scala la classifica",
+    ranksDesc:
+      "Guadagna punti e scopri la tua posizione nella classifica globale.",
+    tasks: "Compiti",
+    scoreboard: "Classifica",
+    login: "Accedi",
+    logout: "Esci",
+    dark: "Scuro",
+    light: "Chiaro",
+  },
+  hr: {
+    welcome: "Dobrodošli u evaLOGOtor!",
+    description:
+      "Unaprijedite svoje FMSLogo vještine rješavanjem zadataka, AI povratnim informacijama i penjanjem na ljestvici.",
+    practice: "Vježbaj FMSLogo",
+    practiceDesc:
+      "Isprobaj razne FMSLogo zadatke, od jednostavnih oblika do složenih uzoraka.",
+    feedback: "Dobij AI povratnu informaciju",
+    feedbackDesc:
+      "Predaj svoje kreacije i odmah dobij AI evaluaciju.",
+    ranks: "Penji se na ljestvici",
+    ranksDesc:
+      "Osvoji bodove i vidi gdje se nalaziš na globalnoj ljestvici.",
+    tasks: "Zadaci",
+    scoreboard: "Ljestvica",
+    login: "Prijava",
+    logout: "Odjava",
+    dark: "Tamno",
+    light: "Svijetlo",
+  },
+  fr: {
+    welcome: "Bienvenue sur evaLOGOtor!",
+    description:
+      "Améliorez vos compétences FMSLogo en réalisant des tâches, en recevant des retours IA et en grimpant dans le classement.",
+    practice: "Pratiquer FMSLogo",
+    practiceDesc:
+      "Essayez différentes tâches FMSLogo, des formes simples aux motifs complexes.",
+    feedback: "Obtenez un retour IA",
+    feedbackDesc:
+      "Soumettez vos créations et recevez des évaluations instantanées de l'IA.",
+    ranks: "Grimpez dans les rangs",
+    ranksDesc:
+      "Gagnez des points et voyez où vous vous situez dans le classement global.",
+    tasks: "Tâches",
+    scoreboard: "Classement",
+    login: "Connexion",
+    logout: "Déconnexion",
+    dark: "Sombre",
+    light: "Clair",
+  },
+  ru: {
+    welcome: "Добро пожаловать в evaLOGOtor!",
+    description:
+      "Развивайте навыки FMSLogo, выполняя задания, получая отзывы от ИИ и поднимаясь в рейтинге.",
+    practice: "Практика FMSLogo",
+    practiceDesc:
+      "Попробуйте различные задачи FMSLogo: от простых фигур до сложных узоров.",
+    feedback: "Получите отзыв ИИ",
+    feedbackDesc:
+      "Отправьте свои работы и получите мгновенную оценку от ИИ.",
+    ranks: "Поднимайтесь в рейтинге",
+    ranksDesc:
+      "Зарабатывайте очки и смотрите своё место в мировом рейтинге.",
+    tasks: "Задания",
+    scoreboard: "Рейтинг",
+    login: "Войти",
+    logout: "Выйти",
+    dark: "Тёмный",
+    light: "Светлый",
+  },
+};
 
-        .logo {
-            position: absolute;
-            left: 20px;
-        }
-        
-        .hotbar a {
-            text-decoration: none; /* Remove underline */
-            color: white; /* White text color */
-            margin: 0 10px; /* Space between links */
-            font-size: 1.1em; /* Slightly larger text */
+// Helper: safe translation getter with English fallback per key
+const trFor = (lang) => (key) => {
+  return (translations[lang] && translations[lang][key]) ?? translations.en[key] ?? key;
+};
 
-        }
+// --- Translation tests (keep, and add non-empty assertion) ---
+const REQUIRED_KEYS = [
+  "welcome",
+  "description",
+  "practice",
+  "practiceDesc",
+  "feedback",
+  "feedbackDesc",
+  "ranks",
+  "ranksDesc",
+  "tasks",
+  "scoreboard",
+  "login",
+  "logout",
+  "dark",
+  "light",
+];
 
-        /* Hover effect for links */
-        .hotbar a:hover {
-            color:rgb(57, 220, 57); /* Yellow on hover */
-        }
+function runTranslationTests() {
+  const results = Object.keys(translations).map((lng) => {
+    const missing = REQUIRED_KEYS.filter((k) => !(k in translations[lng]));
+    const empties = REQUIRED_KEYS.filter((k) => translations[lng][k] === "");
+    return { lang: lng, pass: missing.length === 0 && empties.length === 0, missing, empties };
+  });
+  const allPass = results.every((r) => r.pass);
+  if (!allPass) {
+    console.error("[i18n tests] Missing keys detected:", results);
+  } else {
+    console.log("[i18n tests] All translations contain required keys.");
+  }
+  return results;
+}
 
-        .highlight {
-            color: rgb(57, 220, 57);
-        }
+export default function Home() {
+  const [darkMode, setDarkMode] = useState(false);
+  const [lang, setLang] = useState("en");
+  const t = trFor(lang);
 
-        .text {
-            text-align: center; /* Center the text */
-            font-size: 2em;
-        }
+  useEffect(() => {
+    try {
+      const savedMode = localStorage.getItem("darkMode");
+      const savedLang = localStorage.getItem("lang");
+      if (savedMode === null) {
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setDarkMode(prefersDark);
+      } else {
+        setDarkMode(savedMode === "true");
+      }
+      if (savedLang) setLang(savedLang);
+    } catch (e) {
+      console.warn("LocalStorage unavailable, using defaults.");
+    }
+    runTranslationTests();
+  }, []);
 
-        .button-line {
-            display: none;
-            margin-top: 60px;
-            text-align: center;
-        }
+  useEffect(() => {
+    try { localStorage.setItem("darkMode", String(darkMode)); } catch {}
+  }, [darkMode]);
 
-        .button-line button {
-            margin: 5px;
-            padding: 10px 15px;
-            font-size: 14px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-        }
+  useEffect(() => {
+    try { localStorage.setItem("lang", lang); } catch {}
+  }, [lang]);
 
-        .button-line button:hover {
-            background-color: rgb(57, 220, 57); /* Green hover effect */
-        }
-
-    </style>
-</head>
-<body>
-    <!-- Hotbar container -->
-    <div class="hotbar">
-        <!-- Logo or site name -->
-        <div class="logo">
-            <a href="#">EVA<span class="highlight">LOGO</span>TOR</a>
+  return (
+    <div className={`${darkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"} min-h-screen flex flex-col transition-colors`}>
+      {/* Navbar */}
+      <header className={`flex items-center justify-between px-6 py-4 shadow-sm ${darkMode ? "bg-gray-800" : "bg-white"}`}>
+        <div className="flex items-center space-x-2">
+          <span className="font-bold text-xl text-blue-600">evaLOGOtor</span>
         </div>
-        <!-- Navigation links -->
-        <div class="nav-links">
-            <a href="#HLL" onclick="changeContent('HLL')">HLL</a>
-            <a href="#Peti" onclick="changeContent('Peti')">5. razred</a>
-            <a href="#sesti" onclick="changeContent('Sesti')">6. razred</a>
-            <a href="#sedmi" onclick="changeContent('Sedmi')">7. razred</a>
-            <a href="#osmi" onclick="changeContent('Osmi')">8. razred</a>
-            <a href="#HLOŽ" onclick="changeContent('HLOŽ')">HLOŽ</a>
+        <nav className="flex items-center space-x-4">
+          {/* These buttons reflect the theme but do not toggle it */}
+          <button
+            className={`flex items-center space-x-1 rounded-xl px-3 py-1 transition ${darkMode ? "text-gray-200 hover:text-blue-400 hover:bg-gray-700" : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"}`}
+          >
+            <PenTool className="w-4 h-4" /> <span>{t("tasks")}</span>
+          </button>
+          <button
+            className={`flex items-center space-x-1 rounded-xl px-3 py-1 transition ${darkMode ? "text-gray-200 hover:text-blue-400 hover:bg-gray-700" : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"}`}
+          >
+            <BarChart3 className="w-4 h-4" /> <span>{t("scoreboard")}</span>
+          </button>
+
+          {/* Logged-out look */}
+          <Button
+            variant={darkMode ? "secondary" : "outline"}
+            className={`rounded-xl flex items-center transition ${darkMode ? "bg-gray-700 text-white hover:bg-gray-600 border border-gray-600" : "bg-white text-gray-900 hover:bg-gray-100 border border-gray-300"}`}
+          >
+            <User className="w-4 h-4 mr-1" /> {t("login")}
+          </Button>
+
+          {/* Theme toggle */}
+          <Button
+            className={`rounded-xl flex items-center transition ${darkMode ? "bg-gray-700 text-white hover:bg-gray-600 border border-gray-600" : "bg-white text-gray-900 hover:bg-gray-100 border border-gray-300"}`}
+            onClick={() => setDarkMode(!darkMode)}
+          >
+            {darkMode ? <Sun className="w-4 h-4 mr-1" /> : <Moon className="w-4 h-4 mr-1" />} 
+            {darkMode ? t("light") : t("dark")}
+          </Button>
+
+          {/* Language selector (visible in dark mode) */}
+          <div className={`flex items-center rounded-xl px-2 py-1 border ${darkMode ? "border-gray-600 bg-gray-700" : "border-gray-300 bg-white"}`}>
+            <Globe className="w-4 h-4 mr-1" />
+            <select
+              aria-label="Language selector"
+              className={`bg-transparent focus:outline-none ${darkMode ? "text-white" : "text-gray-900"}`}
+              value={lang}
+              onChange={(e) => setLang(e.target.value)}
+            >
+              {/* Note: many browsers ignore styling of <option> in dropdown list */}
+              <option className="text-black" value="en">EN</option>
+              <option className="text-black" value="de">DE</option>
+              <option className="text-black" value="it">IT</option>
+              <option className="text-black" value="hr">HR</option>
+              <option className="text-black" value="fr">FR</option>
+              <option className="text-black" value="ru">RU</option>
+            </select>
+          </div>
+        </nav>
+      </header>
+
+      {/* Hero Section */}
+      <main className="flex-1 flex flex-col items-center text-center px-6 py-12">
+        <h1 className="text-3xl font-bold text-blue-700 mb-2">
+          {t("welcome")}
+        </h1>
+        <p className="max-w-2xl mb-10 text-gray-600 dark:text-gray-300">
+          {t("description")}
+        </p>
+
+        {/* Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl">
+          <Card className={`${darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-900"} rounded-2xl shadow-md hover:shadow-lg transition p-6`}>
+            <CardContent className="flex flex-col items-center text-center">
+              <PenTool className="text-blue-500 w-10 h-10 mb-3" />
+              <h3 className="font-semibold text-lg mb-2">{t("practice")}</h3>
+              <p className={`${darkMode ? "text-gray-300" : "text-gray-600"} text-sm`}>
+                {t("practiceDesc")}
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className={`${darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-900"} rounded-2xl shadow-md hover:shadow-lg transition p-6`}>
+            <CardContent className="flex flex-col items-center text-center">
+              <Brain className="text-purple-500 w-10 h-10 mb-3" />
+              <h3 className="font-semibold text-lg mb-2">{t("feedback")}</h3>
+              <p className={`${darkMode ? "text-gray-300" : "text-gray-600"} text-sm`}>
+                {t("feedbackDesc")}
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className={`${darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-900"} rounded-2xl shadow-md hover:shadow-lg transition p-6`}>
+            <CardContent className="flex flex-col items-center text-center">
+              <BarChart3 className="text-blue-400 w-10 h-10 mb-3" />
+              <h3 className="font-semibold text-lg mb-2">{t("ranks")}</h3>
+              <p className={`${darkMode ? "text-gray-300" : "text-gray-600"} text-sm`}>
+                {t("ranksDesc")}
+              </p>
+            </CardContent>
+          </Card>
         </div>
+
+        {/* Placeholder Image */}
+        <div className={`mt-12 w-[800px] h-[400px] flex items-center justify-center rounded-xl ${darkMode ? "bg-gray-700 text-gray-300" : "bg-gray-200 text-gray-500"}`}>
+          800 × 400
+        </div>
+
+        {/* --- DEV TEST PANEL: translation key status --- */}
+        <details className="mt-8 max-w-5xl w-full">
+          <summary className="cursor-pointer text-sm opacity-70">Developer Tests: translation keys</summary>
+          <div className={`mt-2 text-left text-sm ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+            {Object.keys(translations).map((lng) => {
+              const missing = REQUIRED_KEYS.filter((k) => !(k in translations[lng]));
+              const empties = REQUIRED_KEYS.filter((k) => translations[lng][k] === "");
+              return (
+                <div key={lng} className="py-1">
+                  <span className="font-mono">{lng}</span>: {missing.length === 0 && empties.length === 0 ? "PASS" : `FAIL → missing: ${missing.join(", ")}; empty: ${empties.join(", ")}`}
+                </div>
+              );
+            })}
+          </div>
+        </details>
+      </main>
     </div>
-
-    <div id="buttonContainer" class="button-line"></div>
-
-    <div class="center-text" id="mainContent">
-        <h1>Dobrodošli</h1>
-        <p>Za nalaženje zadataka kliknite na jednu od gore</p>
-        <p>ponuđenih kategorija</p>
-    </div>
-
-    <script>
-        function changeContent(contentType) {
-            const contentDiv = document.getElementById('mainContent');
-
-            // Change content based on which link is clicked
-            if (contentType === 'Peti') {
-
-                location.href='Peti.html';
-            
-            } else if (contentType === 'Sesti') {
-
-                location.href='Sesti.html';
-
-            } else if (contentType === 'Sedmi') {
-
-                location.href='Sedmi.html';
-
-            } else if (contentType === 'Osmi') {
-
-                location.href='Osmi.html';
-
-            } else if (contentType === 'HLOŽ') {
-
-                location.href='hloz.html';
-
-            } else if (contentType === 'HLL') {
-
-                location.href='hll.html';
-
-            }
-        }
-    </script>
-</body>
-</html>
+  );
+}
