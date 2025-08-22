@@ -109,6 +109,7 @@
     const themeIcon = document.getElementById("themeIcon");
     const themeLabel = document.getElementById("themeLabel");
     const langSelect = document.getElementById("langSelect");
+    const loginBtn = document.getElementById("loginBtn");
 
     let darkMode = false;
     let lang = "en";
@@ -123,6 +124,8 @@
         themeLabel.textContent = translations[lang].light;
         themeToggle.classlist.remove("bg-gray-50","text-gray-900");
         themeToggle.classList.add("bg-gray-900","text-white");
+        loginBtn.classlist.remove("bg-gray-50","text-gray-900");
+        loginBtn.classList.add("bg-gray-900","text-white");
       } else {
         body.classList.remove("bg-gray-900","text-white");
         body.classList.add("bg-gray-50","text-gray-900");
@@ -130,6 +133,10 @@
         navbar.classList.add("bg-white");
         themeIcon.setAttribute("data-lucide","moon");
         themeLabel.textContent = translations[lang].dark;
+        themeToggle.classlist.remove("bg-gray-900","text-white");
+        themeToggle.classList.add("bg-gray-50","text-gray-900");
+        loginBtn.classlist.remove("bg-gray-900","text-white");
+        loginBtn.classList.add("bg-gray-50","text-gray-900");
       }
       lucide.createIcons();
     }
@@ -163,5 +170,6 @@
   </script>
 </body>
 </html>
+
 
 
