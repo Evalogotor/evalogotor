@@ -116,6 +116,7 @@
 
     function applyTheme() {
       if (darkMode) {
+        // Body + Navbar
         body.classList.remove("bg-gray-50","text-gray-900");
         body.classList.add("bg-gray-900","text-white");
         navbar.classList.remove("bg-white");
@@ -123,13 +124,31 @@
         themeIcon.setAttribute("data-lucide","sun");
         themeLabel.textContent = translations[lang].light;
     
-        // FIX: Use classList instead of classlist
+        // Buttons
         themeToggle.classList.remove("bg-gray-50","text-gray-900","bg-white");
         themeToggle.classList.add("bg-gray-900","text-white","border-gray-600");
-    
         loginBtn.classList.remove("bg-gray-50","text-gray-900","bg-white");
         loginBtn.classList.add("bg-gray-900","text-white","border-gray-600");
+    
+        // Language selector
+        langSelect.classList.remove("text-gray-900");
+        langSelect.classList.add("text-white");
+        langSelect.parentElement.classList.remove("bg-white","border-gray-300");
+        langSelect.parentElement.classList.add("bg-gray-800","border-gray-600");
+    
+        // Cards
+        document.querySelectorAll(".bg-white").forEach(card => {
+          card.classList.remove("bg-white","text-gray-900");
+          card.classList.add("bg-gray-800","text-white");
+        });
+    
+        // Placeholder window
+        const placeholder = document.querySelector(".mt-12");
+        placeholder.classList.remove("bg-gray-200","text-gray-500");
+        placeholder.classList.add("bg-gray-700","text-gray-300");
+    
       } else {
+        // Body + Navbar
         body.classList.remove("bg-gray-900","text-white");
         body.classList.add("bg-gray-50","text-gray-900");
         navbar.classList.remove("bg-gray-800");
@@ -137,13 +156,30 @@
         themeIcon.setAttribute("data-lucide","moon");
         themeLabel.textContent = translations[lang].dark;
     
-        // FIX: Use classList instead of classlist
+        // Buttons
         themeToggle.classList.remove("bg-gray-900","text-white");
         themeToggle.classList.add("bg-gray-50","text-gray-900","bg-white");
-    
         loginBtn.classList.remove("bg-gray-900","text-white");
         loginBtn.classList.add("bg-gray-50","text-gray-900","bg-white");
+    
+        // Language selector
+        langSelect.classList.remove("text-white");
+        langSelect.classList.add("text-gray-900");
+        langSelect.parentElement.classList.remove("bg-gray-800","border-gray-600");
+        langSelect.parentElement.classList.add("bg-white","border-gray-300");
+    
+        // Cards
+        document.querySelectorAll(".bg-gray-800").forEach(card => {
+          card.classList.remove("bg-gray-800","text-white");
+          card.classList.add("bg-white","text-gray-900");
+        });
+    
+        // Placeholder window
+        const placeholder = document.querySelector(".mt-12");
+        placeholder.classList.remove("bg-gray-700","text-gray-300");
+        placeholder.classList.add("bg-gray-200","text-gray-500");
       }
+    
       lucide.createIcons();
     }
     function applyTranslations() {
@@ -175,6 +211,7 @@
   </script>
 </body>
 </html>
+
 
 
 
