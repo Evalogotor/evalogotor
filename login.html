@@ -116,3 +116,127 @@
     <select id="languageSwitcher" onchange="updateLanguage(this.value)">
       <option value="hr">Hrvatski</option>
       <option value="en">English</option>
+      <option value="de">Deutsch</option>
+      <option value="it">Italiano</option>
+      <option value="fr">Français</option>
+      <option value="ru">Русский</option>
+    </select>
+
+    <h1 id="title">Prijava</h1>
+    <div class="input-container">
+      <label for="username" id="usernameLabel">Ime</label>
+      <input type="text" id="username" name="username" placeholder="Upišite ime">
+    </div>
+    <div class="input-container">
+      <label for="password" id="passwordLabel">Lozinka</label>
+      <input type="password" id="password" name="password" placeholder="Upišite lozinku">
+    </div>
+    <div class="button-container">
+      <button id="continueBtn" onclick="filledYet()">Nastavi</button>
+    </div>
+    <div id="warning"></div>
+  </div>
+
+  <script>
+    const translations = {
+      hr: {
+        title: "Prijava",
+        username: "Ime",
+        password: "Lozinka",
+        placeholderUser: "Upišite ime",
+        placeholderPass: "Upišite lozinku",
+        continue: "Nastavi",
+        warnUser: "Molim vas unesite korisničko ime",
+        warnPass: "Molim vas unesite lozinku"
+      },
+      en: {
+        title: "Login",
+        username: "Username",
+        password: "Password",
+        placeholderUser: "Enter username",
+        placeholderPass: "Enter password",
+        continue: "Continue",
+        warnUser: "Please enter a username",
+        warnPass: "Please enter a password"
+      },
+      de: {
+        title: "Anmeldung",
+        username: "Benutzername",
+        password: "Passwort",
+        placeholderUser: "Benutzernamen eingeben",
+        placeholderPass: "Passwort eingeben",
+        continue: "Weiter",
+        warnUser: "Bitte geben Sie einen Benutzernamen ein",
+        warnPass: "Bitte geben Sie ein Passwort ein"
+      },
+      it: {
+        title: "Accesso",
+        username: "Nome utente",
+        password: "Password",
+        placeholderUser: "Inserisci nome utente",
+        placeholderPass: "Inserisci password",
+        continue: "Continua",
+        warnUser: "Per favore inserisci un nome utente",
+        warnPass: "Per favore inserisci una password"
+      },
+      fr: {
+        title: "Connexion",
+        username: "Nom d'utilisateur",
+        password: "Mot de passe",
+        placeholderUser: "Entrez le nom d'utilisateur",
+        placeholderPass: "Entrez le mot de passe",
+        continue: "Continuer",
+        warnUser: "Veuillez entrer un nom d'utilisateur",
+        warnPass: "Veuillez entrer un mot de passe"
+      },
+      ru: {
+        title: "Вход",
+        username: "Имя пользователя",
+        password: "Пароль",
+        placeholderUser: "Введите имя пользователя",
+        placeholderPass: "Введите пароль",
+        continue: "Продолжить",
+        warnUser: "Пожалуйста, введите имя пользователя",
+        warnPass: "Пожалуйста, введите пароль"
+      }
+    };
+
+    let currentLang = "hr";
+
+    function updateLanguage(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+      document.getElementById("title").textContent = t.title;
+      document.getElementById("usernameLabel").textContent = t.username;
+      document.getElementById("passwordLabel").textContent = t.password;
+      document.getElementById("username").placeholder = t.placeholderUser;
+      document.getElementById("password").placeholder = t.placeholderPass;
+      document.getElementById("continueBtn").textContent = t.continue;
+    }
+
+    function notFilled(username, password) {
+      let warn = "";
+      const t = translations[currentLang];
+      if (username.trim() === "") {
+        warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnUser}</div>`;
+      }
+      if (password.trim() === "") {
+        warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnPass}</div>`;
+      }
+      document.getElementById("warning").innerHTML = warn;
+    }
+
+    function filledYet() {
+      document.getElementById("warning").innerHTML = "";
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      if (username.trim() === "" || password.trim() === "") {
+        notFilled(username, password);
+      } else {
+        // TODO: Handle login success
+        alert("✔️ " + translations[currentLang].title + " successful!");
+      }
+    }
+  </script>
+</body>
+</html>
