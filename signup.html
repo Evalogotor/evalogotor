@@ -306,9 +306,11 @@
         if (email.trim() === "" || username.trim() === "" || password.trim() === "") {
           notFilled(email, username, password);
         } else {
-          alert("✔️ " + translations[currentLang].title + " successful!");
+          alert("✔️ " + translations[currentLang].title + " successful! PLease check your email for info");
+          location.href = 'Zadaci.html';
         }
       }
     </script>
   </body>
 </html>
+
