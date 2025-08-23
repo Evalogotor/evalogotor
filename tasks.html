@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>evaLOGOtor - Tasks</title>
+  <title>EVALOGOTOR</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
@@ -74,7 +74,7 @@
       <!-- Peti razred -->
       <a href="5raz.html" class="rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden">
         <div class="bg-white text-gray-900 p-6 flex flex-col items-center">
-          <h3 class="font-semibold text-lg">Peti razred</h3>
+          <h3 class="font-semibold text-lg" id="card5">Peti razred</h3>
         </div>
         <div class="h-2 bg-blue-500"></div>
       </a>
@@ -82,7 +82,7 @@
       <!-- Šesti razred -->
       <div class="rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden">
         <div class="bg-white text-gray-900 p-6 flex flex-col items-center">
-          <h3 class="font-semibold text-lg">Šesti razred</h3>
+          <h3 class="font-semibold text-lg" id="card6">Šesti razred</h3>
         </div>
         <div class="h-2 bg-green-500"></div>
       </div>
@@ -90,7 +90,7 @@
       <!-- Sedmi razred -->
       <div class="rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden">
         <div class="bg-white text-gray-900 p-6 flex flex-col items-center">
-          <h3 class="font-semibold text-lg">Sedmi razred</h3>
+          <h3 class="font-semibold text-lg" id="card7">Sedmi razred</h3>
         </div>
         <div class="h-2 bg-purple-500"></div>
       </div>
@@ -98,7 +98,7 @@
       <!-- Osmi razred -->
       <div class="rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden">
         <div class="bg-white text-gray-900 p-6 flex flex-col items-center">
-          <h3 class="font-semibold text-lg">Osmi razred</h3>
+          <h3 class="font-semibold text-lg" id="card8">Osmi razred</h3>
         </div>
         <div class="h-2 bg-red-500"></div>
       </div>
@@ -106,7 +106,7 @@
       <!-- HLOŽ -->
       <div class="rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden">
         <div class="bg-white text-gray-900 p-6 flex flex-col items-center">
-          <h3 class="font-semibold text-lg">HLOŽ</h3>
+          <h3 class="font-semibold text-lg" id="cardHLOZ">HLOŽ</h3>
         </div>
         <div class="h-2 bg-yellow-500"></div>
       </div>
@@ -114,7 +114,7 @@
       <!-- HLL -->
       <a href="hll.html" class="rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden">
         <div class="bg-white text-gray-900 p-6 flex flex-col items-center">
-          <h3 class="font-semibold text-lg">HLL</h3>
+          <h3 class="font-semibold text-lg" id="cardHLL">HLL</h3>
         </div>
         <div class="h-2 bg-indigo-500"></div>
       </a>
@@ -133,6 +133,14 @@
     const loginBtn = document.getElementById("loginBtn");
     const instruction = document.getElementById("instruction");
 
+    // Card elements
+    const card5 = document.getElementById("card5");
+    const card6 = document.getElementById("card6");
+    const card7 = document.getElementById("card7");
+    const card8 = document.getElementById("card8");
+    const cardHLOZ = document.getElementById("cardHLOZ");
+    const cardHLL = document.getElementById("cardHLL");
+
     let darkMode = true; // start in dark mode
     let lang = "hr";
 
@@ -143,7 +151,13 @@
         login: "Login",
         themeDark: "Dark",
         themeLight: "Light",
-        instruction: "Choose the desired competition to practice to continue"
+        instruction: "Choose the desired competition to practice to continue",
+        card5: "Fifth Grade",
+        card6: "Sixth Grade",
+        card7: "Seventh Grade",
+        card8: "Eighth Grade",
+        cardHLOZ: "HLOŽ",
+        cardHLL: "HLL"
       },
       de: {
         tasks: "Aufgaben",
@@ -151,7 +165,13 @@
         login: "Anmelden",
         themeDark: "Dunkel",
         themeLight: "Hell",
-        instruction: "Wählen Sie den gewünschten Wettbewerb zum Üben aus, um fortzufahren"
+        instruction: "Wählen Sie den gewünschten Wettbewerb zum Üben aus, um fortzufahren",
+        card5: "Fünfte Klasse",
+        card6: "Sechste Klasse",
+        card7: "Siebte Klasse",
+        card8: "Achte Klasse",
+        cardHLOZ: "HLOŽ",
+        cardHLL: "HLL"
       },
       it: {
         tasks: "Compiti",
@@ -159,7 +179,13 @@
         login: "Accedi",
         themeDark: "Scuro",
         themeLight: "Chiaro",
-        instruction: "Scegli la competizione desiderata per esercitarti e continuare"
+        instruction: "Scegli la competizione desiderata per esercitarti e continuare",
+        card5: "Quinta classe",
+        card6: "Sesta classe",
+        card7: "Settima classe",
+        card8: "Ottava classe",
+        cardHLOZ: "HLOŽ",
+        cardHLL: "HLL"
       },
       hr: {
         tasks: "Zadaci",
@@ -167,7 +193,13 @@
         login: "Prijava",
         themeDark: "Tamno",
         themeLight: "Svijetlo",
-        instruction: "Odaberite željeno natjecanje za vježbu kako biste nastavili"
+        instruction: "Odaberite željeno natjecanje za vježbu kako biste nastavili",
+        card5: "Peti razred",
+        card6: "Šesti razred",
+        card7: "Sedmi razred",
+        card8: "Osmi razred",
+        cardHLOZ: "HLOŽ",
+        cardHLL: "HLL"
       },
       fr: {
         tasks: "Tâches",
@@ -175,7 +207,13 @@
         login: "Connexion",
         themeDark: "Sombre",
         themeLight: "Clair",
-        instruction: "Choisissez la compétition souhaitée pour vous entraîner afin de continuer"
+        instruction: "Choisissez la compétition souhaitée pour vous entraîner afin de continuer",
+        card5: "Cinquième classe",
+        card6: "Sixième classe",
+        card7: "Septième classe",
+        card8: "Huitième classe",
+        cardHLOZ: "HLOŽ",
+        cardHLL: "HLL"
       },
       ru: {
         tasks: "Задачи",
@@ -183,7 +221,13 @@
         login: "Войти",
         themeDark: "Тёмная",
         themeLight: "Светлая",
-        instruction: "Выберите нужное соревнование для практики, чтобы продолжить"
+        instruction: "Выберите нужное соревнование для практики, чтобы продолжить",
+        card5: "Пятый класс",
+        card6: "Шестой класс",
+        card7: "Седьмой класс",
+        card8: "Восьмой класс",
+        cardHLOZ: "HLOŽ",
+        cardHLL: "HLL"
       }
     };
 
@@ -194,6 +238,14 @@
       document.getElementById("login").textContent = t.login;
       instruction.textContent = t.instruction;
       themeLabel.textContent = darkMode ? t.themeLight : t.themeDark;
+
+      // Update card titles
+      card5.textContent = t.card5;
+      card6.textContent = t.card6;
+      card7.textContent = t.card7;
+      card8.textContent = t.card8;
+      cardHLOZ.textContent = t.cardHLOZ;
+      cardHLL.textContent = t.cardHLL;
     }
 
     langSelect.addEventListener("change", (e) => {
@@ -203,14 +255,14 @@
 
     function applyTheme() {
       if (darkMode) {
+        body.classList.add("dark");
+        body.classList.remove("light");
         body.classList.remove("bg-gray-50","text-gray-900");
         body.classList.add("bg-gray-900","text-white");
         navbar.classList.remove("bg-white");
         navbar.classList.add("bg-gray-800");
         themeIcon.setAttribute("data-lucide","sun");
         themeLabel.textContent = translations[lang].themeLight;
-        body.classList.add("light");
-        body.classList.remove("dark");
 
         [themeToggle, loginBtn].forEach(btn => {
           btn.classList.remove("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
@@ -228,14 +280,14 @@
         });
 
       } else {
+        body.classList.add("light");
+        body.classList.remove("dark");
         body.classList.remove("bg-gray-900","text-white");
         body.classList.add("bg-gray-50","text-gray-900");
         navbar.classList.remove("bg-gray-800");
         navbar.classList.add("bg-white");
         themeIcon.setAttribute("data-lucide","moon");
         themeLabel.textContent = translations[lang].themeDark;
-        body.classList.add("light");
-        body.classList.remove("dark");
 
         [themeToggle, loginBtn].forEach(btn => {
           btn.classList.remove("bg-gray-900","text-white","hover:bg-gray-700","hover:text-gray-200");
@@ -258,6 +310,7 @@
     themeToggle.addEventListener("click", () => {
       darkMode = !darkMode;
       applyTheme();
+      updateLanguage(lang);
     });
 
     updateLanguage(lang);
