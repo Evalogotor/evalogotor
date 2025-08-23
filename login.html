@@ -1,177 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prijava</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: rgb(17, 24, 39);
-            color: #000000;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prijava</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: rgb(17, 24, 39);
+      color: #000000;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-        .container {
-            background-color: rgb(31, 41, 55);
-            border-radius: 20px;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-            padding: 80px;
-            text-align: center;
-            width: 80%;
-            max-width: 800px;
-        }
+    .container {
+      background-color: rgb(31, 41, 55);
+      border-radius: 20px;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      text-align: center;
+      width: 80%;
+      max-width: 600px;
+      position: relative;
+    }
 
-        h1 {
-            font-size: 3em;
-            margin-top: 40px;
-            margin-bottom: 40px;
-            color: rgb(107, 104, 97);
-        }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      color: rgb(200, 200, 200);
+    }
 
-        .input-container {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            margin-top: 20px;
-        }
+    .input-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
 
-        label {
-            font-size: 1.2em;
-            margin-bottom: 5px;
-            margin-right: 10px;
-            text-align: center;
-            color: rgb(107, 104, 97);
-        }
+    label {
+      font-size: 1.2em;
+      margin-right: 10px;
+      text-align: center;
+      color: rgb(200, 200, 200);
+    }
 
-        input[type="text"] {
-            font-size: 1em;
-            padding: 10px;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            width: 80%;
-            max-width: 300px;
-            background-color: rgb(55, 65, 81);
-            border-color: rgb(17, 24, 39);
-        }
+    input[type="text"],
+    input[type="password"] {
+      font-size: 1em;
+      padding: 10px;
+      border: 2px solid rgb(17, 24, 39);
+      border-radius: 5px;
+      width: 80%;
+      max-width: 300px;
+      background-color: rgb(55, 65, 81);
+      color: white;
+    }
 
-        input[type="text"]:focus {
-            background-color: rgb(55, 65, 81);
-        }
+    .button-container {
+      margin-top: 20px;
+    }
 
-        input[type="password"] {
-            font-size: 1em;
-            padding: 10px;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            width: 80%;
-            max-width: 300px;
-            background-color: rgb(55, 65, 81);
-            border-color: rgb(17, 24, 39);
-        }
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 5px;
+    }
 
-        input[type="password"]:focus {
-            border-color: #333;
-        }
-        
-        .button-container {
-            margin-top: 20px;
-        }
+    button:hover {
+      background-color: #0056b3;
+    }
 
-        button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 10px;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+    .warning {
+      background-color: #fff4f4;
+      color: #d32f2f;
+      border: 1px solid #f8d7da;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin: 10px auto;
+      font-family: system-ui, sans-serif;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 400px;
+    }
 
-        .warning {
-          background-color: #fff4f4;
-          color: #d32f2f;
-          border: 1px solid #f8d7da;
-          padding: 12px 16px;
-          border-radius: 16px;
-          margin: 10px 0;
-          font-family: system-ui, sans-serif;
-          font-size: 15px;
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          max-width: 400px;
-        }
-        
-        .warning-icon {
-          font-size: 18px;
-        }
-        
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    .warning-icon {
+      font-size: 18px;
+    }
+
+    select {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 5px;
+      border-radius: 5px;
+      border: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Prijava</h1>
-        <div class="input-container">
-            <label for="username">Ime</label><input type="text" id="username" name="username" placeholder="Upišite ime">
-        </div>
-        <div class="input-container">
-            <label for="password">Lozinka</label>
-            <input type="password" id="password" name="password" placeholder="Upišite lozinku" class="background-color: rgb(55, 65, 81);">
-        </div>
-        <div class="button-container">
-            <button onclick="filledYet()">Nastavi</button>
-        </div>
-        <div id="warning"></div>
-    </div>
-    <script>
-        let warn = '';
-        function notFilled(fill2, fill3){
-            warn = '';
-            if (fill2.trim() === ""){
-                warn += '<div class="warning"><span class="warning-icon">⚠️</span> Molim vas unesite Korisničko Ime</div>';
-            }
-            if (fill3.trim() === ""){
-                warn += '<div class="warning"><span class="warning-icon">⚠️</span> Molim vas unesite lozinku</div>';
-            }
-            document.getElementById('warning').innerHTML = warn;
-        }
-        
-        function addToDatabase(){
-            
-        }
-        
-        function filledYet(){
-            warn = '';
-            document.getElementById('warning').innerHTML = warn;
-            const UserName = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-            if (UserName.trim() !== "" && password.trim() !== ""){
-                
-            }else{
-                notFilled(UserName, password);
-            }
-        }
-    </script>
-</body>
-</html>
-
-
-
-
-
-
-
-
+  <div class="container">
+    <!-- Language Selector -->
+    <select id="languageSwitcher" onchange="updateLanguage(this.value)">
+      <option value="hr">Hrvatski</option>
+      <option value="en">English</option>
