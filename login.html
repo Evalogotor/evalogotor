@@ -113,9 +113,10 @@
 <body>
   <div class="container">
     <!-- Language Selector -->
-    <div class="relative">
+    <div id="langWrapper" class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white dark:bg-gray-800 dark:border-gray-600">
+      <i data-lucide="globe" class="w-4 h-4 mr-1 text-gray-600 dark:text-gray-300"></i>
       <select id="langSelect"
-        class="appearance-none bg-white border border-gray-300 text-gray-900 rounded-xl px-3 py-1 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        class="bg-transparent focus:outline-none text-gray-900 dark:text-white">
         <option value="en">EN</option>
         <option value="de">DE</option>
         <option value="it">IT</option>
@@ -123,10 +124,6 @@
         <option value="fr">FR</option>
         <option value="ru">RU</option>
       </select>
-      <!-- Custom dropdown arrow -->
-      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-        <i data-lucide="chevron-down" class="w-4 h-4 text-gray-500"></i>
-      </div>
     </div>
 
     <h1 id="title">Prijava</h1>
