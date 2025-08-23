@@ -101,30 +101,42 @@
     }
 
     select {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      padding: 5px;
-      border-radius: 5px;
-      border: none;
-    }
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid rgb(55, 65, 81);
+    background-color: rgb(55, 65, 81); /* Dark background */
+    color: rgb(220, 220, 220); /* Light text */
+    font-size: 0.9em;
+    cursor: pointer;
+    appearance: none; /* removes default arrow */
+  }
+
+  select:focus {
+    outline: none;
+    border-color: #007BFF;
+  }
+
+  select option {
+    background-color: rgb(31, 41, 55);
+    color: rgb(220, 220, 220);
+  }
+</style>
   </style>
 </head>
 <body>
   <div class="container">
     <!-- Language Selector -->
-    <div id="langWrapper" class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white dark:bg-gray-800 dark:border-gray-600">
-      <i data-lucide="globe" class="w-4 h-4 mr-1 text-gray-600 dark:text-gray-300"></i>
-      <select id="langSelect"
-        class="bg-transparent focus:outline-none text-gray-900 dark:text-white">
-        <option value="en">EN</option>
-        <option value="de">DE</option>
-        <option value="it">IT</option>
-        <option value="hr">HR</option>
-        <option value="fr">FR</option>
-        <option value="ru">RU</option>
-      </select>
-    </div>
+    <select id="langSelect" onchange="updateLanguage(this.value)">
+      <option value="en">EN</option>
+      <option value="de">DE</option>
+      <option value="it">IT</option>
+      <option value="hr" selected>HR</option>
+      <option value="fr">FR</option>
+      <option value="ru">RU</option>
+    </select>
 
     <h1 id="title">Prijava</h1>
     <div class="input-container">
@@ -244,6 +256,7 @@
   </script>
 </body>
 </html>
+
 
 
 
