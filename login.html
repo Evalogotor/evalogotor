@@ -100,30 +100,47 @@
       font-size: 18px;
     }
 
+    .redirect {
+      margin-top: 15px;
+    }
+
+    .redirect p {
+      color: rgb(200, 200, 200);
+      font-size: 0.9em;
+    }
+
+    .redirect a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .redirect a:hover {
+      text-decoration: underline;
+    }
+
     select {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 6px 10px;
-    border-radius: 6px;
-    border: 1px solid rgb(55, 65, 81);
-    background-color: rgb(55, 65, 81); /* Dark background */
-    color: rgb(220, 220, 220); /* Light text */
-    font-size: 0.9em;
-    cursor: pointer;
-    appearance: none; /* removes default arrow */
-  }
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid rgb(55, 65, 81);
+      background-color: rgb(55, 65, 81);
+      color: rgb(220, 220, 220);
+      font-size: 0.9em;
+      cursor: pointer;
+      appearance: none;
+    }
 
-  select:focus {
-    outline: none;
-    border-color: #007BFF;
-  }
+    select:focus {
+      outline: none;
+      border-color: #007BFF;
+    }
 
-  select option {
-    background-color: rgb(31, 41, 55);
-    color: rgb(220, 220, 220);
-  }
-</style>
+    select option {
+      background-color: rgb(31, 41, 55);
+      color: rgb(220, 220, 220);
+    }
   </style>
 </head>
 <body>
@@ -149,6 +166,9 @@
     </div>
     <div class="button-container">
       <button id="continueBtn" onclick="filledYet()">Nastavi</button>
+      <div class="redirect">
+        <p id="signupText">Nemaš račun? <a href="signup.html" id="signupLink">Registriraj se</a></p>
+      </div>
     </div>
     <div id="warning"></div>
   </div>
@@ -163,7 +183,9 @@
         placeholderPass: "Upišite lozinku",
         continue: "Nastavi",
         warnUser: "Molim vas unesite korisničko ime",
-        warnPass: "Molim vas unesite lozinku"
+        warnPass: "Molim vas unesite lozinku",
+        signupText: "Nemaš račun?",
+        signupLink: "Registriraj se"
       },
       en: {
         title: "Login",
@@ -173,7 +195,9 @@
         placeholderPass: "Enter password",
         continue: "Continue",
         warnUser: "Please enter a username",
-        warnPass: "Please enter a password"
+        warnPass: "Please enter a password",
+        signupText: "Don't have an account?",
+        signupLink: "Sign up"
       },
       de: {
         title: "Anmeldung",
@@ -183,7 +207,9 @@
         placeholderPass: "Passwort eingeben",
         continue: "Weiter",
         warnUser: "Bitte geben Sie einen Benutzernamen ein",
-        warnPass: "Bitte geben Sie ein Passwort ein"
+        warnPass: "Bitte geben Sie ein Passwort ein",
+        signupText: "Noch kein Konto?",
+        signupLink: "Registrieren"
       },
       it: {
         title: "Accesso",
@@ -193,7 +219,9 @@
         placeholderPass: "Inserisci password",
         continue: "Continua",
         warnUser: "Per favore inserisci un nome utente",
-        warnPass: "Per favore inserisci una password"
+        warnPass: "Per favore inserisci una password",
+        signupText: "Non hai un account?",
+        signupLink: "Registrati"
       },
       fr: {
         title: "Connexion",
@@ -203,7 +231,9 @@
         placeholderPass: "Entrez le mot de passe",
         continue: "Continuer",
         warnUser: "Veuillez entrer un nom d'utilisateur",
-        warnPass: "Veuillez entrer un mot de passe"
+        warnPass: "Veuillez entrer un mot de passe",
+        signupText: "Pas de compte ?",
+        signupLink: "S'inscrire"
       },
       ru: {
         title: "Вход",
@@ -213,7 +243,9 @@
         placeholderPass: "Введите пароль",
         continue: "Продолжить",
         warnUser: "Пожалуйста, введите имя пользователя",
-        warnPass: "Пожалуйста, введите пароль"
+        warnPass: "Пожалуйста, введите пароль",
+        signupText: "Нет аккаунта?",
+        signupLink: "Зарегистрироваться"
       }
     };
 
@@ -228,6 +260,8 @@
       document.getElementById("username").placeholder = t.placeholderUser;
       document.getElementById("password").placeholder = t.placeholderPass;
       document.getElementById("continueBtn").textContent = t.continue;
+      document.getElementById("signupText").childNodes[0].nodeValue = t.signupText + " ";
+      document.getElementById("signupLink").textContent = t.signupLink;
     }
 
     function notFilled(username, password) {
@@ -249,14 +283,9 @@
       if (username.trim() === "" || password.trim() === "") {
         notFilled(username, password);
       } else {
-        // TODO: Handle login success
         alert("✔️ " + translations[currentLang].title + " successful!");
       }
     }
   </script>
 </body>
 </html>
-
-
-
-
