@@ -122,10 +122,13 @@
         navbar.classList.add("bg-gray-800");
         themeIcon.setAttribute("data-lucide","sun");
         themeLabel.textContent = translations[lang].light;
-        themeToggle.classlist.remove("bg-gray-50","text-gray-900");
-        themeToggle.classList.add("bg-gray-900","text-white");
-        loginBtn.classlist.remove("bg-gray-50","text-gray-900");
-        loginBtn.classList.add("bg-gray-900","text-white");
+    
+        // FIX: Use classList instead of classlist
+        themeToggle.classList.remove("bg-gray-50","text-gray-900","bg-white");
+        themeToggle.classList.add("bg-gray-900","text-white","border-gray-600");
+    
+        loginBtn.classList.remove("bg-gray-50","text-gray-900","bg-white");
+        loginBtn.classList.add("bg-gray-900","text-white","border-gray-600");
       } else {
         body.classList.remove("bg-gray-900","text-white");
         body.classList.add("bg-gray-50","text-gray-900");
@@ -133,14 +136,16 @@
         navbar.classList.add("bg-white");
         themeIcon.setAttribute("data-lucide","moon");
         themeLabel.textContent = translations[lang].dark;
-        themeToggle.classlist.remove("bg-gray-900","text-white");
-        themeToggle.classList.add("bg-gray-50","text-gray-900");
-        loginBtn.classlist.remove("bg-gray-900","text-white");
-        loginBtn.classList.add("bg-gray-50","text-gray-900");
+    
+        // FIX: Use classList instead of classlist
+        themeToggle.classList.remove("bg-gray-900","text-white");
+        themeToggle.classList.add("bg-gray-50","text-gray-900","bg-white");
+    
+        loginBtn.classList.remove("bg-gray-900","text-white");
+        loginBtn.classList.add("bg-gray-50","text-gray-900","bg-white");
       }
       lucide.createIcons();
     }
-
     function applyTranslations() {
       document.getElementById("welcome").textContent = translations[lang].welcome;
       document.getElementById("description").textContent = translations[lang].description;
@@ -170,6 +175,7 @@
   </script>
 </body>
 </html>
+
 
 
 
