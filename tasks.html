@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>evaLOGOtor - Tasks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .highlight {
+      color: rgb(57, 220, 57);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors" id="body">
+  <!-- Navbar -->
+  <header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white" id="navbar">
+    <div class="flex items-center space-x-2">
+      <span class="font-bold text-xl text-blue-600">EVA<span class="highlight">LOGO</span>TOR</span>
+    </div>
+    <nav class="flex items-center space-x-4">
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='tasks.html'">
+        <i data-lucide="pen-tool" class="w-4 h-4"></i> <span id="tasks">Tasks</span>
+      </button>
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100">
+        <i data-lucide="bar-chart-3" class="w-4 h-4"></i> <span id="scoreboard">Scoreboard</span>
+      </button>
+
+      <!-- Login -->
+      <button id="loginBtn" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1" onclick="location.href = 'login.html'">
+        <i data-lucide="user" class="w-4 h-4 mr-1"></i> <span id="login">Login</span>
+      </button>
+
+      <!-- Theme toggle -->
+      <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
+        <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span>
+      </button>
+
+      <!-- Language selector -->
+      <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white">
+        <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
+        <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900">
+          <option value="en">EN</option>
+          <option value="de">DE</option>
+          <option value="it">IT</option>
+          <option value="hr">HR</option>
+          <option value="fr">FR</option>
+          <option value="ru">RU</option>
+        </select>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Task Cards -->
+  <main class="flex-1 flex flex-col items-center px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl w-full">
+      <!-- Peti razred -->
+      <a href="5raz.html" class="rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden">
+        <div class="bg-white text-gray-900 p-6 flex flex-col items-center">
+          <h3 class="font-semibold text-lg">Peti razred</h3>
+        </div>
+        <div class="h-2 bg-blue-500"></div>
+      </a>
+
+      <!-- Šesti razred -->
+      <div class="rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden">
+        <div class="bg-white text-gray-900 p-6 flex flex-col items-center">
+          <h3 class="font-semibold text-lg">Šesti razred</h3>
+        </div>
+        <div class="h-2 bg-green-500"></div>
+      </div>
+
+      <!-- Sedmi razred -->
+      <div class="rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden">
+        <div class="bg-white text-gray-900 p-6 flex flex-col items-center">
+          <h3 class="font-semibold text-lg">Sedmi razred</h3>
+        </div>
+        <div class="h-2 bg-purple-500"></div>
+      </div>
+
+      <!-- Osmi razred -->
+      <div class="rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden">
+        <div class="bg-white text-gray-900 p-6 flex flex-col items-center">
+          <h3 class="font-semibold text-lg">Osmi razred</h3>
+        </div>
+        <div class="h-2 bg-red-500"></div>
+      </div>
+
+      <!-- HLOŽ -->
+      <div class="rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden">
+        <div class="bg-white text-gray-900 p-6 flex flex-col items-center">
+          <h3 class="font-semibold text-lg">HLOŽ</h3>
+        </div>
+        <div class="h-2 bg-yellow-500"></div>
+      </div>
+
+      <!-- HLL -->
+      <a href="hll.html" class="rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden">
+        <div class="bg-white text-gray-900 p-6 flex flex-col items-center">
+          <h3 class="font-semibold text-lg">HLL</h3>
+        </div>
+        <div class="h-2 bg-indigo-500"></div>
+      </a>
+    </div>
+  </main>
+
+  <script>
+    lucide.createIcons();
+
+    const body = document.getElementById("body");
+    const navbar = document.getElementById("navbar");
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+    const themeLabel = document.getElementById("themeLabel");
+    const langSelect = document.getElementById("langSelect");
+    const loginBtn = document.getElementById("loginBtn");
+
+    let darkMode = true; // start in dark mode
+    let lang = "en";
+
+    function applyTheme() {
+      if (darkMode) {
+        body.classList.remove("bg-gray-50","text-gray-900");
+        body.classList.add("bg-gray-900","text-white");
+        navbar.classList.remove("bg-white");
+        navbar.classList.add("bg-gray-800");
+        themeIcon.setAttribute("data-lucide","sun");
+        themeLabel.textContent = "Light";
+
+        [themeToggle, loginBtn].forEach(btn => {
+          btn.classList.remove("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
+          btn.classList.add("bg-gray-900","text-white","border-gray-600","hover:bg-gray-700","hover:text-gray-200");
+        });
+
+        langSelect.classList.remove("text-gray-900");
+        langSelect.classList.add("text-white");
+        langSelect.parentElement.classList.remove("bg-white","border-gray-300");
+        langSelect.parentElement.classList.add("bg-gray-800","border-gray-600");
+
+        document.querySelectorAll(".bg-white").forEach(card => {
+          card.classList.remove("bg-white","text-gray-900");
+          card.classList.add("bg-gray-800","text-white");
+        });
+
+      } else {
+        body.classList.remove("bg-gray-900","text-white");
+        body.classList.add("bg-gray-50","text-gray-900");
+        navbar.classList.remove("bg-gray-800");
+        navbar.classList.add("bg-white");
+        themeIcon.setAttribute("data-lucide","moon");
+        themeLabel.textContent = "Dark";
+
+        [themeToggle, loginBtn].forEach(btn => {
+          btn.classList.remove("bg-gray-900","text-white","hover:bg-gray-700","hover:text-gray-200");
+          btn.classList.add("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
+        });
+
+        langSelect.classList.remove("text-white");
+        langSelect.classList.add("text-gray-900");
+        langSelect.parentElement.classList.remove("bg-gray-800","border-gray-600");
+        langSelect.parentElement.classList.add("bg-white","border-gray-300");
+
+        document.querySelectorAll(".bg-gray-800").forEach(card => {
+          card.classList.remove("bg-gray-800","text-white");
+          card.classList.add("bg-white","text-gray-900");
+        });
+      }
+      lucide.createIcons();
+    }
+
+    themeToggle.addEventListener("click", () => {
+      darkMode = !darkMode;
+      applyTheme();
+    });
+
+    applyTheme();
+  </script>
+</body>
+</html>
