@@ -175,77 +175,101 @@
 
   <script>
     const translations = {
-      hr: {
-        title: "Prijava",
+    hr: {
+        title: "Registracija",
+        email: "Email",
         username: "Ime",
         password: "Lozinka",
+        placeholderEmail: "Upišite email",
         placeholderUser: "Upišite ime",
         placeholderPass: "Upišite lozinku",
         continue: "Nastavi",
+        warnEmail: "Molim vas unesite email",
         warnUser: "Molim vas unesite korisničko ime",
         warnPass: "Molim vas unesite lozinku",
-        signupText: "Nemaš račun?",
-        signupLink: "Registriraj se"
+        redirect: 'Već imate račun? <a href="login.html">Prijavite se</a>',
+        sucessful: 'uspješna',
+        sign: 'Molim vas provjerite Vaš E-mail za informacije'
       },
       en: {
-        title: "Login",
+        title: "Sign Up",
+        email: "Email",
         username: "Username",
         password: "Password",
+        placeholderEmail: "Enter email",
         placeholderUser: "Enter username",
         placeholderPass: "Enter password",
         continue: "Continue",
+        warnEmail: "Please enter an email",
         warnUser: "Please enter a username",
         warnPass: "Please enter a password",
-        signupText: "Don't have an account?",
-        signupLink: "Sign up"
+        redirect: 'Already have an account? <a href="login.html">Log in</a>',
+        sucessful: 'successful',
+        sign: 'Please check your E-mail for info'
       },
       de: {
-        title: "Anmeldung",
+        title: "Registrierung",
+        email: "Email",
         username: "Benutzername",
         password: "Passwort",
+        placeholderEmail: "Geben Sie Email ein",
         placeholderUser: "Benutzernamen eingeben",
         placeholderPass: "Passwort eingeben",
         continue: "Weiter",
+        warnEmail: "Bitte geben Sie eine Email ein",
         warnUser: "Bitte geben Sie einen Benutzernamen ein",
         warnPass: "Bitte geben Sie ein Passwort ein",
-        signupText: "Noch kein Konto?",
-        signupLink: "Registrieren"
+        redirect: 'Sie haben schon ein Konto? <a href="login.html">Anmelden</a>',
+        sucessful: 'erfolgreich',
+        sign: 'Bitte überprüfen Sie Ihre E-Mails auf Informationen.'
       },
       it: {
-        title: "Accesso",
+        title: "Registrazione",
+        email: "Email",
         username: "Nome utente",
         password: "Password",
+        placeholderEmail: "Inserisci email",
         placeholderUser: "Inserisci nome utente",
         placeholderPass: "Inserisci password",
         continue: "Continua",
+        warnEmail: "Per favore inserisci un'email",
         warnUser: "Per favore inserisci un nome utente",
         warnPass: "Per favore inserisci una password",
-        signupText: "Non hai un account?",
-        signupLink: "Registrati"
+        redirect: 'Hai già un account? <a href="login.html">Accedi</a>',
+        sucessful: 'riuscito',
+        sign: 'Per favore controlla la tua e-mail per informazioni'
       },
       fr: {
-        title: "Connexion",
+        title: "Inscription",
+        email: "Email",
         username: "Nom d'utilisateur",
         password: "Mot de passe",
-        placeholderUser: "Entrez le nom d'utilisateur",
-        placeholderPass: "Entrez le mot de passe",
+        placeholderEmail: "Entrez un email",
+        placeholderUser: "Entrez un nom d'utilisateur",
+        placeholderPass: "Entrez un mot de passe",
         continue: "Continuer",
+        warnEmail: "Veuillez entrer un email",
         warnUser: "Veuillez entrer un nom d'utilisateur",
         warnPass: "Veuillez entrer un mot de passe",
-        signupText: "Pas de compte ?",
-        signupLink: "S'inscrire"
+        redirect: 'Vous avez déjà un compte ? <a href="login.html">Connexion</a>',
+        sucessful: 'réussi',
+        sign: 'Veuillez vérifier votre e-mail pour plus d´informations'
       },
       ru: {
-        title: "Вход",
+        title: "Регистрация",
+        email: "Эл. почта",
         username: "Имя пользователя",
         password: "Пароль",
+        placeholderEmail: "Введите эл. почту",
         placeholderUser: "Введите имя пользователя",
         placeholderPass: "Введите пароль",
         continue: "Продолжить",
+        warnEmail: "Пожалуйста, введите эл. почту",
         warnUser: "Пожалуйста, введите имя пользователя",
         warnPass: "Пожалуйста, введите пароль",
-        signupText: "Нет аккаунта?",
-        signupLink: "Зарегистрироваться"
+        redirect: 'Уже есть аккаунт? <a href="login.html">Войти</a>',
+        sucessful: 'Успешный',
+        sign: 'Пожалуйста, проверьте свою электронную почту для получения информации.'
       }
     };
 
@@ -283,11 +307,12 @@
       if (username.trim() === "" || password.trim() === "") {
         notFilled(username, password);
       } else {
-        alert("✔️ " + translations[currentLang].title + " successful!");
+        alert("✔️ " + translations[currentLang].title + translations[currentLang].sucessful);
         location.href = 'Zadaci.html';
       }
     }
   </script>
 </body>
 </html>
+
 
