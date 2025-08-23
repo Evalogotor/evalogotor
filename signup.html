@@ -193,7 +193,9 @@
           warnEmail: "Molim vas unesite email",
           warnUser: "Molim vas unesite korisničko ime",
           warnPass: "Molim vas unesite lozinku",
-          redirect: 'Već imate račun? <a href="login.html">Prijavite se</a>'
+          redirect: 'Već imate račun? <a href="login.html">Prijavite se</a>',
+          sucessful: 'uspješna',
+          sign: 'Molim vas provjerite Vaš E-mail za informacije'
         },
         en: {
           title: "Sign Up",
@@ -207,7 +209,9 @@
           warnEmail: "Please enter an email",
           warnUser: "Please enter a username",
           warnPass: "Please enter a password",
-          redirect: 'Already have an account? <a href="login.html">Log in</a>'
+          redirect: 'Already have an account? <a href="login.html">Log in</a>',
+          sucessful: 'successful',
+          sign: 'Please check your E-mail for info'
         },
         de: {
           title: "Registrierung",
@@ -221,7 +225,9 @@
           warnEmail: "Bitte geben Sie eine Email ein",
           warnUser: "Bitte geben Sie einen Benutzernamen ein",
           warnPass: "Bitte geben Sie ein Passwort ein",
-          redirect: 'Sie haben schon ein Konto? <a href="login.html">Anmelden</a>'
+          redirect: 'Sie haben schon ein Konto? <a href="login.html">Anmelden</a>',
+          sucessful: 'erfolgreich',
+          sign: 'Bitte überprüfen Sie Ihre E-Mails auf Informationen.'
         },
         it: {
           title: "Registrazione",
@@ -235,7 +241,9 @@
           warnEmail: "Per favore inserisci un'email",
           warnUser: "Per favore inserisci un nome utente",
           warnPass: "Per favore inserisci una password",
-          redirect: 'Hai già un account? <a href="login.html">Accedi</a>'
+          redirect: 'Hai già un account? <a href="login.html">Accedi</a>',
+          sucessful: 'riuscito',
+          sign: 'Per favore controlla la tua e-mail per informazioni'
         },
         fr: {
           title: "Inscription",
@@ -249,7 +257,9 @@
           warnEmail: "Veuillez entrer un email",
           warnUser: "Veuillez entrer un nom d'utilisateur",
           warnPass: "Veuillez entrer un mot de passe",
-          redirect: 'Vous avez déjà un compte ? <a href="login.html">Connexion</a>'
+          redirect: 'Vous avez déjà un compte ? <a href="login.html">Connexion</a>',
+          sucessful: 'réussi',
+          sign: 'Veuillez vérifier votre e-mail pour plus d´informations'
         },
         ru: {
           title: "Регистрация",
@@ -263,7 +273,9 @@
           warnEmail: "Пожалуйста, введите эл. почту",
           warnUser: "Пожалуйста, введите имя пользователя",
           warnPass: "Пожалуйста, введите пароль",
-          redirect: 'Уже есть аккаунт? <a href="login.html">Войти</a>'
+          redirect: 'Уже есть аккаунт? <a href="login.html">Войти</a>',
+          sucessful: 'Успешный',
+          sign: 'Пожалуйста, проверьте свою электронную почту для получения информации.'
         }
       };
   
@@ -306,11 +318,12 @@
         if (email.trim() === "" || username.trim() === "" || password.trim() === "") {
           notFilled(email, username, password);
         } else {
-          alert("✔️ " + translations[currentLang].title + " successful! PLease check your email for info");
+          alert("✔️ " + translations[currentLang].title + " " + translations[currentLang].sucessful + translations[currentLang].sign);
           location.href = 'Zadaci.html';
         }
       }
     </script>
   </body>
 </html>
+
 
