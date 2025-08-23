@@ -10,6 +10,16 @@
     .highlight {
       color: rgb(57, 220, 57);
     }
+    #langSelect option {
+      background-color: white;
+      color: black;
+    }
+    
+    .dark #langSelect,
+    .dark #langSelect option {
+      background-color: #1f2937;
+      color: white;
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors" id="body">
@@ -123,6 +133,8 @@
         navbar.classList.add("bg-gray-800");
         themeIcon.setAttribute("data-lucide","sun");
         themeLabel.textContent = translations[lang].light;
+        body.classList.add("dark");
+        body.classList.remove("light");
     
         // Buttons (Dark mode)
         [themeToggle, loginBtn].forEach(btn => {
@@ -155,6 +167,8 @@
         navbar.classList.add("bg-white");
         themeIcon.setAttribute("data-lucide","moon");
         themeLabel.textContent = translations[lang].dark;
+        body.classList.add("light");
+        body.classList.remove("dark");
     
         // Buttons (Light mode)
         [themeToggle, loginBtn].forEach(btn => {
@@ -211,6 +225,7 @@
   </script>
 </body>
 </html>
+
 
 
 
