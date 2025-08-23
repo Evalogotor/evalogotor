@@ -1,220 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>evaLOGOtor</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <style>
-    .highlight {
-      color: rgb(57, 220, 57);
-    }
-  </style>
-</head>
-<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors" id="body">
-  <!-- Navbar -->
-  <header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white" id="navbar">
-    <div class="flex items-center space-x-2">
-      <span class="font-bold text-xl text-blue-600">EVA<span class="highlight">LOGO</span>TOR</span>
-    </div>
-    <nav class="flex items-center space-x-4">
-      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100">
-        <i data-lucide="pen-tool" class="w-4 h-4"></i> <span id="tasks">Tasks</span>
-      </button>
-      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100">
-        <i data-lucide="bar-chart-3" class="w-4 h-4"></i> <span id="scoreboard">Scoreboard</span>
-      </button>
+function applyTheme() {
+  if (darkMode) {
+    // Body + Navbar
+    body.classList.remove("bg-gray-50","text-gray-900");
+    body.classList.add("bg-gray-900","text-white");
+    navbar.classList.remove("bg-white");
+    navbar.classList.add("bg-gray-800");
+    themeIcon.setAttribute("data-lucide","sun");
+    themeLabel.textContent = translations[lang].light;
 
-      <!-- Login -->
-      <button id="loginBtn" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
-        <i data-lucide="user" class="w-4 h-4 mr-1"></i> <span id="login">Login</span>
-      </button>
-
-      <!-- Theme toggle -->
-      <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
-        <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span>
-      </button>
-
-      <!-- Language selector -->
-      <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white">
-        <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
-        <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900">
-          <option value="en">EN</option>
-          <option value="de">DE</option>
-          <option value="it">IT</option>
-          <option value="hr">HR</option>
-          <option value="fr">FR</option>
-          <option value="ru">RU</option>
-        </select>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Hero -->
-  <main class="flex-1 flex flex-col items-center text-center px-6 py-12">
-    <h1 class="text-3xl font-bold text-blue-700 mb-2" id="welcome">Welcome to EVA<span class="highlight">LOGO</span>TOR!</h1>
-    <p class="max-w-2xl mb-10 text-gray-600" id="description">
-      Hone your FMSLogo skills by completing tasks, getting AI-powered feedback, and climbing the leaderboard.
-    </p>
-
-    <!-- Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl">
-      <div class="bg-white text-gray-900 rounded-2xl shadow-md hover:shadow-lg transition p-6">
-        <div class="flex flex-col items-center text-center">
-          <i data-lucide="pen-tool" class="text-blue-500 w-10 h-10 mb-3"></i>
-          <h3 class="font-semibold text-lg mb-2" id="practice">Practice FMSLogo</h3>
-          <p class="text-gray-500 text-sm" id="practiceDesc">Attempt a variety of FMSLogo tasks, from simple shapes to complex patterns.</p>
-        </div>
-      </div>
-
-      <div class="bg-white text-gray-900 rounded-2xl shadow-md hover:shadow-lg transition p-6">
-        <div class="flex flex-col items-center text-center">
-          <i data-lucide="brain" class="text-purple-500 w-10 h-10 mb-3"></i>
-          <h3 class="font-semibold text-lg mb-2" id="feedback">Get AI Feedback</h3>
-          <p class="text-gray-500 text-sm" id="feedbackDesc">Submit your creations and receive instant, AI-driven evaluations on correctness.</p>
-        </div>
-      </div>
-
-      <div class="bg-white text-gray-900 rounded-2xl shadow-md hover:shadow-lg transition p-6">
-        <div class="flex flex-col items-center text-center">
-          <i data-lucide="bar-chart-3" class="text-blue-400 w-10 h-10 mb-3"></i>
-          <h3 class="font-semibold text-lg mb-2" id="ranks">Climb the Ranks</h3>
-          <p class="text-gray-500 text-sm" id="ranksDesc">Earn points for evaluations and see how you stack up on the global scoreboard.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Placeholder image -->
-    <div class="mt-12 w-[800px] h-[400px] flex items-center justify-center rounded-xl bg-gray-200 text-gray-500">
-      800 × 400
-    </div>
-  </main>
-
-  <script>
-    lucide.createIcons();
-
-    const translations = {
-      en: { welcome: "Welcome to evaLOGOtor!", description: "Hone your FMSLogo skills by completing tasks, getting AI-powered feedback, and climbing the leaderboard.", practice: "Practice FMSLogo", practiceDesc: "Attempt a variety of FMSLogo tasks, from simple shapes to complex patterns.", feedback: "Get AI Feedback", feedbackDesc: "Submit your creations and receive instant, AI-driven evaluations on correctness.", ranks: "Climb the Ranks", ranksDesc: "Earn points for evaluations and see how you stack up on the global scoreboard.", tasks: "Tasks", scoreboard: "Scoreboard", login: "Login", logout: "Logout", dark: "Dark", light: "Light" },
-      de: { welcome: "Willkommen bei evaLOGOtor!", description: "Verbessere deine FMSLogo-Fähigkeiten durch Aufgaben, KI-Feedback und Ranglisten.", practice: "FMSLogo üben", practiceDesc: "Versuche verschiedene FMSLogo-Aufgaben, von einfachen Formen bis zu komplexen Mustern.", feedback: "KI-Feedback erhalten", feedbackDesc: "Reiche deine Kreationen ein und erhalte sofortige KI-Auswertungen.", ranks: "Steige in den Rängen auf", ranksDesc: "Verdiene Punkte und sieh, wie du dich in der Rangliste schlägst.", tasks: "Aufgaben", scoreboard: "Rangliste", login: "Einloggen", logout: "Ausloggen", dark: "Dunkel", light: "Hell" },
-      it: { welcome: "Benvenuto su evaLOGOtor!", description: "Migliora le tue abilità FMSLogo completando compiti, ricevendo feedback AI e scalando la classifica.", practice: "Esercitati con FMSLogo", practiceDesc: "Prova vari compiti FMSLogo, da forme semplici a motivi complessi.", feedback: "Ottieni feedback AI", feedbackDesc: "Invia le tue creazioni e ricevi valutazioni immediate dall'AI.", ranks: "Scala la classifica", ranksDesc: "Guadagna punti e scopri la tua posizione nella classifica globale.", tasks: "Compiti", scoreboard: "Classifica", login: "Accedi", logout: "Esci", dark: "Scuro", light: "Chiaro" },
-      hr: { welcome: "Dobrodošli u evaLOGOtor!", description: "Unaprijedite svoje FMSLogo vještine rješavanjem zadataka, AI povratnim informacijama i penjanjem na ljestvici.", practice: "Vježbaj FMSLogo", practiceDesc: "Isprobaj razne FMSLogo zadatke, od jednostavnih oblika do složenih uzoraka.", feedback: "Dobij AI povratnu informaciju", feedbackDesc: "Predaj svoje kreacije i odmah dobij AI evaluaciju.", ranks: "Penji se na ljestvici", ranksDesc: "Osvoji bodove i vidi gdje se nalaziš na globalnoj ljestvici.", tasks: "Zadaci", scoreboard: "Ljestvica", login: "Prijava", logout: "Odjava", dark: "Tamno", light: "Svijetlo" },
-      fr: { welcome: "Bienvenue sur evaLOGOtor!", description: "Améliorez vos compétences FMSLogo en réalisant des tâches, en recevant des retours IA et en grimpant dans le classement.", practice: "Pratiquer FMSLogo", practiceDesc: "Essayez différentes tâches FMSLogo, des formes simples aux motifs complexes.", feedback: "Obtenez un retour IA", feedbackDesc: "Soumettez vos créations et recevez des évaluations instantanées de l'IA.", ranks: "Grimpez dans les rangs", ranksDesc: "Gagnez des points et voyez où vous vous situez dans le classement global.", tasks: "Tâches", scoreboard: "Classement", login: "Connexion", logout: "Déconnexion", dark: "Sombre", light: "Clair" },
-      ru: { welcome: "Добро пожаловать в evaLOGOtor!", description: "Развивайте навыки FMSLogo, выполняя задания, получая отзывы от ИИ и поднимаясь в рейтинге.", practice: "Практика FMSLogo", practiceDesc: "Попробуйте различные задачи FMSLogo: от простых фигур до сложных узоров.", feedback: "Получите отзыв ИИ", feedbackDesc: "Отправьте свои работы и получите мгновенную оценку от ИИ.", ranks: "Поднимайтесь в рейтинге", ranksDesc: "Зарабатывайте очки и смотрите своё место в мировом рейтинге.", tasks: "Задания", scoreboard: "Рейтинг", login: "Войти", logout: "Выйти", dark: "Тёмный", light: "Светлый" }
-    };
-
-    const body = document.getElementById("body");
-    const navbar = document.getElementById("navbar");
-    const themeToggle = document.getElementById("themeToggle");
-    const themeIcon = document.getElementById("themeIcon");
-    const themeLabel = document.getElementById("themeLabel");
-    const langSelect = document.getElementById("langSelect");
-    const loginBtn = document.getElementById("loginBtn");
-
-    let darkMode = false;
-    let lang = "en";
-
-    function applyTheme() {
-      if (darkMode) {
-        // Body + Navbar
-        body.classList.remove("bg-gray-50","text-gray-900");
-        body.classList.add("bg-gray-900","text-white");
-        navbar.classList.remove("bg-white");
-        navbar.classList.add("bg-gray-800");
-        themeIcon.setAttribute("data-lucide","sun");
-        themeLabel.textContent = translations[lang].light;
-    
-        // Buttons
-        themeToggle.classList.remove("bg-gray-50","text-gray-900","bg-white");
-        themeToggle.classList.add("bg-gray-900","text-white","border-gray-600");
-        loginBtn.classList.remove("bg-gray-50","text-gray-900","bg-white");
-        loginBtn.classList.add("bg-gray-900","text-white","border-gray-600");
-    
-        // Language selector
-        langSelect.classList.remove("text-gray-900");
-        langSelect.classList.add("text-white");
-        langSelect.parentElement.classList.remove("bg-white","border-gray-300");
-        langSelect.parentElement.classList.add("bg-gray-800","border-gray-600");
-    
-        // Cards
-        document.querySelectorAll(".bg-white").forEach(card => {
-          card.classList.remove("bg-white","text-gray-900");
-          card.classList.add("bg-gray-800","text-white");
-        });
-    
-        // Placeholder window
-        const placeholder = document.querySelector(".mt-12");
-        placeholder.classList.remove("bg-gray-200","text-gray-500");
-        placeholder.classList.add("bg-gray-700","text-gray-300");
-    
-      } else {
-        // Body + Navbar
-        body.classList.remove("bg-gray-900","text-white");
-        body.classList.add("bg-gray-50","text-gray-900");
-        navbar.classList.remove("bg-gray-800");
-        navbar.classList.add("bg-white");
-        themeIcon.setAttribute("data-lucide","moon");
-        themeLabel.textContent = translations[lang].dark;
-    
-        // Buttons
-        themeToggle.classList.remove("bg-gray-900","text-white");
-        themeToggle.classList.add("bg-gray-50","text-gray-900","bg-white");
-        loginBtn.classList.remove("bg-gray-900","text-white");
-        loginBtn.classList.add("bg-gray-50","text-gray-900","bg-white");
-    
-        // Language selector
-        langSelect.classList.remove("text-white");
-        langSelect.classList.add("text-gray-900");
-        langSelect.parentElement.classList.remove("bg-gray-800","border-gray-600");
-        langSelect.parentElement.classList.add("bg-white","border-gray-300");
-    
-        // Cards
-        document.querySelectorAll(".bg-gray-800").forEach(card => {
-          card.classList.remove("bg-gray-800","text-white");
-          card.classList.add("bg-white","text-gray-900");
-        });
-    
-        // Placeholder window
-        const placeholder = document.querySelector(".mt-12");
-        placeholder.classList.remove("bg-gray-700","text-gray-300");
-        placeholder.classList.add("bg-gray-200","text-gray-500");
-      }
-    
-      lucide.createIcons();
-    }
-    function applyTranslations() {
-      document.getElementById("welcome").textContent = translations[lang].welcome;
-      document.getElementById("description").textContent = translations[lang].description;
-      document.getElementById("tasks").textContent = translations[lang].tasks;
-      document.getElementById("scoreboard").textContent = translations[lang].scoreboard;
-      document.getElementById("login").textContent = translations[lang].login;
-      document.getElementById("practice").textContent = translations[lang].practice;
-      document.getElementById("practiceDesc").textContent = translations[lang].practiceDesc;
-      document.getElementById("feedback").textContent = translations[lang].feedback;
-      document.getElementById("feedbackDesc").textContent = translations[lang].feedbackDesc;
-      document.getElementById("ranks").textContent = translations[lang].ranks;
-      document.getElementById("ranksDesc").textContent = translations[lang].ranksDesc;
-      applyTheme();
-    }
-
-    themeToggle.addEventListener("click", () => {
-      darkMode = !darkMode;
-      applyTheme();
+    // Buttons (Dark mode)
+    [themeToggle, loginBtn].forEach(btn => {
+      btn.classList.remove("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
+      btn.classList.add("bg-gray-900","text-white","border-gray-600","hover:bg-gray-700","hover:text-gray-200");
     });
 
-    langSelect.addEventListener("change", (e) => {
-      lang = e.target.value;
-      applyTranslations();
+    // Language selector
+    langSelect.classList.remove("text-gray-900");
+    langSelect.classList.add("text-white");
+    langSelect.parentElement.classList.remove("bg-white","border-gray-300");
+    langSelect.parentElement.classList.add("bg-gray-800","border-gray-600");
+
+    // Cards
+    document.querySelectorAll(".bg-white").forEach(card => {
+      card.classList.remove("bg-white","text-gray-900");
+      card.classList.add("bg-gray-800","text-white");
     });
 
-    applyTranslations();
-  </script>
-</body>
-</html>
+    // Placeholder window
+    const placeholder = document.querySelector(".mt-12");
+    placeholder.classList.remove("bg-gray-200","text-gray-500");
+    placeholder.classList.add("bg-gray-700","text-gray-300");
 
+  } else {
+    // Body + Navbar
+    body.classList.remove("bg-gray-900","text-white");
+    body.classList.add("bg-gray-50","text-gray-900");
+    navbar.classList.remove("bg-gray-800");
+    navbar.classList.add("bg-white");
+    themeIcon.setAttribute("data-lucide","moon");
+    themeLabel.textContent = translations[lang].dark;
 
+    // Buttons (Light mode)
+    [themeToggle, loginBtn].forEach(btn => {
+      btn.classList.remove("bg-gray-900","text-white","hover:bg-gray-700","hover:text-gray-200");
+      btn.classList.add("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
+    });
 
+    // Language selector
+    langSelect.classList.remove("text-white");
+    langSelect.classList.add("text-gray-900");
+    langSelect.parentElement.classList.remove("bg-gray-800","border-gray-600");
+    langSelect.parentElement.classList.add("bg-white","border-gray-300");
 
+    // Cards
+    document.querySelectorAll(".bg-gray-800").forEach(card => {
+      card.classList.remove("bg-gray-800","text-white");
+      card.classList.add("bg-white","text-gray-900");
+    });
 
+    // Placeholder window
+    const placeholder = document.querySelector(".mt-12");
+    placeholder.classList.remove("bg-gray-700","text-gray-300");
+    placeholder.classList.add("bg-gray-200","text-gray-500");
+  }
 
-
+  lucide.createIcons();
+}
