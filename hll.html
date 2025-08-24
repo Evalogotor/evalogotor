@@ -1,164 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-    
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>evaLOGOtor</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-      lucide.createIcons();
-    </script>    
-    <style>
-    .container {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      text-align: center;
-      margin-right: 555px;
-    }
-    .hotbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background-color: #333;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 10px 20px;
-      height: 60px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      z-index: 1000;
-    }
-    .logo {
-      position: absolute;
-      left: 20px;
-      font-size: 20px;
-    }
-    .hotbar a {
-      text-decoration: none;
-      color: white;
-      margin: 0 10px;
-      font-size: 1.1em;
-    }
-    .hotbar a:hover {
-      color: rgb(57, 220, 57);
-    }
-    .highlight {
-      color: rgb(57, 220, 57);
-    }
-    .button-line {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 100px;
-      text-align: center;
-      z-index: 10;
-    }
-    .button-line button,
-    .vertical-buttons button,
-    .task-buttons button {
-      margin: 5px;
-      padding: 10px 15px;
-      font-size: 14px;
-      border: none;
-      border-radius: 5px;
-      background-color: #333;
-      color: white;
-      cursor: pointer;
-    }
-    .button-line button:hover,
-    .vertical-buttons button:hover,
-    .task-buttons button:hover {
-      background-color: rgb(57, 220, 57);
-    }
-    .button-line button.active,
-    .vertical-buttons button.active,
-    .task-buttons button.active {
-      background-color: #2584F2;
-    }
-    .vertical-buttons, .task-buttons {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 20px;
-      margin-right: 50px;
-      text-align: center;
-    }
-    .eval-basket {
-      position: absolute;
-      top: 15%;
-      left: 60%;
-      transform: translateX(-50%);
-      text-align: center;
-      pointer-events: none;
-    }
-    .eval-button {
-      margin: 5px;
-      padding: 25px 45px;
-      font-size: 50px;
-      border: none;
-      border-radius: 5px;
-      background-color: #333;
-      color: white;
-      cursor: pointer;
-      pointer-events: auto;
-    }
-    .eval-button:hover {
-      background-color: rgb(57, 220, 57);
-    }
-    .score {
-      margin-top: 80px;
-      margin-bottom: 40px;
-      font-size: 40px;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors" id="body">
-    <header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white" id="navbar">
-      <div class="flex items-center space-x-2">
-        <span class="font-bold text-xl text-blue-600">EVA<span class="highlight">LOGO</span>TOR</span>
-      </div>
-      <nav class="flex items-center space-x-4">
-        <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='tasks.html'">
-          <i data-lucide="pen-tool" class="w-4 h-4"></i> <span id="tasks">Tasks</span>
-        </button>
-        <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100">
-          <i data-lucide="bar-chart-3" class="w-4 h-4"></i> <span id="scoreboard">Scoreboard</span>
-        </button>
-  
-        <!-- Login -->
-        <button id="loginBtn" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1" onclick="location.href = 'login.html'">
-          <i data-lucide="user" class="w-4 h-4 mr-1"></i> <span id="login">Login</span>
-        </button>
-  
-        <!-- Theme toggle -->
-        <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
-          <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span>
-        </button>
-  
-        <!-- Language selector -->
-        <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white">
-          <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
-          <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900">
-            <option value="en">EN</option>
-            <option value="de">DE</option>
-            <option value="it">IT</option>
-            <option value="hr">HR</option>
-            <option value="fr">FR</option>
-            <option value="ru">RU</option>
-          </select>
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>evaLOGOtor</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script src="https://unpkg.com/lucide@latest"></script>
+      <style>
+        .container {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          text-align: center;
+          margin-right: 555px;
+        }
+        .hotbar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          background-color: #333;
+          color: white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 10px 20px;
+          height: 60px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+          z-index: 1000;
+        }
+        .logo {
+          position: absolute;
+          left: 20px;
+          font-size: 20px;
+        }
+        .hotbar a {
+          text-decoration: none;
+          color: white;
+          margin: 0 10px;
+          font-size: 1.1em;
+        }
+        .hotbar a:hover {
+          color: rgb(57, 220, 57);
+        }
+        .highlight {
+          color: rgb(57, 220, 57);
+        }
+        .button-line {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin-top: 100px;
+          text-align: center;
+          z-index: 10;
+        }
+        .button-line button,
+        .vertical-buttons button,
+        .task-buttons button {
+          margin: 5px;
+          padding: 10px 15px;
+          font-size: 14px;
+          border: none;
+          border-radius: 5px;
+          background-color: #333;
+          color: white;
+          cursor: pointer;
+        }
+        .button-line button:hover,
+        .vertical-buttons button:hover,
+        .task-buttons button:hover {
+          background-color: rgb(57, 220, 57);
+        }
+        .button-line button.active,
+        .vertical-buttons button.active,
+        .task-buttons button.active {
+          background-color: #2584F2;
+        }
+        .vertical-buttons, .task-buttons {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin-top: 20px;
+          margin-right: 50px;
+          text-align: center;
+        }
+        .eval-basket {
+          position: absolute;
+          top: 15%;
+          left: 60%;
+          transform: translateX(-50%);
+          text-align: center;
+          pointer-events: none;
+        }
+        .eval-button {
+          margin: 5px;
+          padding: 25px 45px;
+          font-size: 50px;
+          border: none;
+          border-radius: 5px;
+          background-color: #333;
+          color: white;
+          cursor: pointer;
+          pointer-events: auto;
+        }
+        .eval-button:hover {
+          background-color: rgb(57, 220, 57);
+        }
+        .score {
+          margin-top: 80px;
+          margin-bottom: 40px;
+          font-size: 40px;
+          font-weight: bold;
+        }
+      </style>
+    </head>
+    <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors" id="body">
+      <!-- Navbar -->
+      <header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white" id="navbar">
+        <div class="flex items-center space-x-2">
+          <span class="font-bold text-xl text-blue-600">EVA<span class="highlight">LOGO</span>TOR</span>
         </div>
-      </nav>
-    </header>
-
-    <div class="button-line">
+        <nav class="flex items-center space-x-4">
+          <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='tasks.html'">
+            <i data-lucide="pen-tool" class="w-4 h-4"></i> <span id="tasks">Tasks</span>
+          </button>
+          <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100">
+            <i data-lucide="bar-chart-3" class="w-4 h-4"></i> <span id="scoreboard">Scoreboard</span>
+          </button>
+    
+          <!-- Login -->
+          <button id="loginBtn" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1" onclick="location.href = 'login.html'">
+            <i data-lucide="user" class="w-4 h-4 mr-1"></i> <span id="login">Login</span>
+          </button>
+    
+          <!-- Theme toggle -->
+          <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
+            <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span>
+          </button>
+    
+          <!-- Language selector -->
+          <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white">
+            <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
+            <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900">
+              <option value="en">EN</option>
+              <option value="de">DE</option>
+              <option value="it">IT</option>
+              <option value="hr">HR</option>
+              <option value="fr">FR</option>
+              <option value="ru">RU</option>
+            </select>
+          </div>
+        </nav>
+      </header>
+    
+      <!-- Year buttons -->
+      <div class="button-line">
         <button onclick="changeContent('15')">2015/16</button>
         <button onclick="changeContent('16')">2016/17</button>
         <button onclick="changeContent('17')">2017/18</button>
@@ -169,17 +166,26 @@
         <button onclick="changeContent('22')">2022/23</button>
         <button onclick="changeContent('23')">2023/24</button>
         <button onclick="changeContent('24')">2024/25</button>
-    </div>
-
-    <div class="container">
+      </div>
+    
+      <div class="container">
         <div id="kola"></div>
         <div id="zadaci"></div>
         <div id="zadatak"></div>
-    </div>
+      </div>
     
-    <script>
+      <script>
+        lucide.createIcons();
+    
         let darkMode = true;
-        
+        const body = document.getElementById("body");
+        const navbar = document.getElementById("navbar");
+        const themeToggle = document.getElementById("themeToggle");
+        const themeIcon = document.getElementById("themeIcon");
+        const themeLabel = document.getElementById("themeLabel");
+        const langSelect = document.getElementById("langSelect");
+        const loginBtn = document.getElementById("loginBtn");
+    
         function applyTheme() {
           if (darkMode) {
             // Body + Navbar
@@ -188,22 +194,20 @@
             navbar.classList.remove("bg-white");
             navbar.classList.add("bg-gray-800");
             themeIcon.setAttribute("data-lucide","sun");
-            //themeLabel.textContent = translations[lang].light;
             body.classList.add("dark");
             body.classList.remove("light");
-        
+    
             // Buttons (Dark mode)
             [themeToggle, loginBtn].forEach(btn => {
               btn.classList.remove("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
               btn.classList.add("bg-gray-900","text-white","border-gray-600","hover:bg-gray-700","hover:text-gray-200");
             });
-        
+    
             // Language selector
             langSelect.classList.remove("text-gray-900");
             langSelect.classList.add("text-white");
             langSelect.parentElement.classList.remove("bg-white","border-gray-300");
             langSelect.parentElement.classList.add("bg-gray-800","border-gray-600");
-        
           } else {
             // Body + Navbar
             body.classList.remove("bg-gray-900","text-white");
@@ -211,25 +215,30 @@
             navbar.classList.remove("bg-gray-800");
             navbar.classList.add("bg-white");
             themeIcon.setAttribute("data-lucide","moon");
-            //themeLabel.textContent = translations[lang].dark;
             body.classList.add("light");
             body.classList.remove("dark");
-        
+    
             // Buttons (Light mode)
             [themeToggle, loginBtn].forEach(btn => {
               btn.classList.remove("bg-gray-900","text-white","hover:bg-gray-700","hover:text-gray-200");
               btn.classList.add("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
             });
-        
+    
             // Language selector
             langSelect.classList.remove("text-white");
             langSelect.classList.add("text-gray-900");
             langSelect.parentElement.classList.remove("bg-gray-800","border-gray-600");
             langSelect.parentElement.classList.add("bg-white","border-gray-300");
           }
-        
           lucide.createIcons();
         }
+    
+        themeToggle.addEventListener("click", () => {
+          darkMode = !darkMode;
+          applyTheme();
+        });
+    
+        applyTheme();
 
         
         const buttons = document.querySelectorAll('.button-line button');
@@ -2183,6 +2192,7 @@
     </script>
 </body>
 </html>
+
 
 
 
