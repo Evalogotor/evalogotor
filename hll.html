@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
-  <title>evaLOGOtor</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>evaLOGOtor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      text-align: center;
+      margin-right: 555px;
     }
-
-    /* Hotbar */
     .hotbar {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      background: #333;
+      background-color: #333;
       color: white;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 10px 20px;
       height: 60px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       z-index: 1000;
     }
     .logo {
       position: absolute;
       left: 20px;
       font-size: 20px;
-      font-weight: bold;
     }
     .hotbar a {
       text-decoration: none;
       color: white;
-      margin: 0 12px;
-      font-size: 1rem;
-      transition: 0.2s;
+      margin: 0 10px;
+      font-size: 1.1em;
     }
     .hotbar a:hover {
       color: rgb(57, 220, 57);
@@ -47,144 +47,131 @@
     .highlight {
       color: rgb(57, 220, 57);
     }
-
-    /* Year selector buttons */
     .button-line {
-      margin-top: 90px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-    .button-line button {
-      padding: 10px 18px;
-      border: none;
-      border-radius: 8px;
-      background: #333;
-      color: white;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background 0.25s;
-    }
-    .button-line button:hover {
-      background: rgb(57, 220, 57);
-    }
-    .button-line button.active {
-      background: #2584F2;
-    }
-
-    /* Container for kola / zadaci / zadatak */
-    .content {
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      gap: 40px;
-      margin-top: 40px;
       flex-wrap: wrap;
-      width: 100%;
-      max-width: 1200px;
+      margin-top: 100px;
+      text-align: center;
+      z-index: 10;
     }
-
-    /* Vertical buttons */
-    .vertical-buttons,
-    .task-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    .button-line button,
     .vertical-buttons button,
     .task-buttons button {
-      padding: 8px 14px;
+      margin: 5px;
+      padding: 10px 15px;
+      font-size: 14px;
       border: none;
-      border-radius: 6px;
-      background: #333;
+      border-radius: 5px;
+      background-color: #333;
       color: white;
       cursor: pointer;
-      transition: 0.25s;
     }
+    .button-line button:hover,
     .vertical-buttons button:hover,
     .task-buttons button:hover {
-      background: rgb(57, 220, 57);
+      background-color: rgb(57, 220, 57);
     }
+    .button-line button.active,
     .vertical-buttons button.active,
     .task-buttons button.active {
-      background: #2584F2;
+      background-color: #2584F2;
     }
-
-    /* Task display area */
-    #zadatak {
-      flex: 1;
-      min-width: 300px;
-      padding: 20px;
-      border-radius: 10px;
-      background: white;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    .vertical-buttons, .task-buttons {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      margin-right: 50px;
+      text-align: center;
     }
-
-    /* Score area */
+    .eval-basket {
+      position: absolute;
+      top: 15%;
+      left: 60%;
+      transform: translateX(-50%);
+      text-align: center;
+      pointer-events: none;
+    }
+    .eval-button {
+      margin: 5px;
+      padding: 25px 45px;
+      font-size: 50px;
+      border: none;
+      border-radius: 5px;
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+    .eval-button:hover {
+      background-color: rgb(57, 220, 57);
+    }
     .score {
-      margin-top: 30px;
-      font-size: 1.8rem;
+      margin-top: 80px;
+      margin-bottom: 40px;
+      font-size: 40px;
       font-weight: bold;
     }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors" id="body">
-  <header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white" id="navbar">
-    <div class="flex items-center space-x-2">
-      <span class="font-bold text-xl text-blue-600">EVA<span class="highlight">LOGO</span>TOR</span>
-    </div>
-    <nav class="flex items-center space-x-4">
-      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='tasks.html'">
-        <i data-lucide="pen-tool" class="w-4 h-4"></i> <span id="tasks">Tasks</span>
-      </button>
-      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100">
-        <i data-lucide="bar-chart-3" class="w-4 h-4"></i> <span id="scoreboard">Scoreboard</span>
-      </button>
-
-      <!-- Login -->
-      <button id="loginBtn" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1" onclick="location.href = 'login.html'">
-        <i data-lucide="user" class="w-4 h-4 mr-1"></i> <span id="login">Login</span>
-      </button>
-
-      <!-- Theme toggle -->
-      <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
-        <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span>
-      </button>
-
-      <!-- Language selector -->
-      <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white">
-        <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
-        <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900">
-          <option value="en">EN</option>
-          <option value="de">DE</option>
-          <option value="it">IT</option>
-          <option value="hr">HR</option>
-          <option value="fr">FR</option>
-          <option value="ru">RU</option>
-        </select>
+    <header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white" id="navbar">
+      <div class="flex items-center space-x-2">
+        <span class="font-bold text-xl text-blue-600">EVA<span class="highlight">LOGO</span>TOR</span>
       </div>
-    </nav>
-  </header>
+      <nav class="flex items-center space-x-4">
+        <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='tasks.html'">
+          <i data-lucide="pen-tool" class="w-4 h-4"></i> <span id="tasks">Tasks</span>
+        </button>
+        <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100">
+          <i data-lucide="bar-chart-3" class="w-4 h-4"></i> <span id="scoreboard">Scoreboard</span>
+        </button>
+  
+        <!-- Login -->
+        <button id="loginBtn" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1" onclick="location.href = 'login.html'">
+          <i data-lucide="user" class="w-4 h-4 mr-1"></i> <span id="login">Login</span>
+        </button>
+  
+        <!-- Theme toggle -->
+        <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
+          <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span>
+        </button>
+  
+        <!-- Language selector -->
+        <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white">
+          <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
+          <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900">
+            <option value="en">EN</option>
+            <option value="de">DE</option>
+            <option value="it">IT</option>
+            <option value="hr">HR</option>
+            <option value="fr">FR</option>
+            <option value="ru">RU</option>
+          </select>
+        </div>
+      </nav>
+    </header>
 
-  <div class="button-line">
-    <button onclick="changeContent('15')">2015/16</button>
-    <button onclick="changeContent('16')">2016/17</button>
-    <button onclick="changeContent('17')">2017/18</button>
-    <button onclick="changeContent('18')">2018/19</button>
-    <button onclick="changeContent('19')">2019/20</button>
-    <button onclick="changeContent('20')">2020/21</button>
-    <button onclick="changeContent('21')">2021/22</button>
-    <button onclick="changeContent('22')">2022/23</button>
-    <button onclick="changeContent('23')">2023/24</button>
-    <button onclick="changeContent('24')">2024/25</button>
-  </div>
+    <div class="button-line">
+        <button onclick="changeContent('15')">2015/16</button>
+        <button onclick="changeContent('16')">2016/17</button>
+        <button onclick="changeContent('17')">2017/18</button>
+        <button onclick="changeContent('18')">2018/19</button>
+        <button onclick="changeContent('19')">2019/20</button>
+        <button onclick="changeContent('20')">2020/21</button>
+        <button onclick="changeContent('21')">2021/22</button>
+        <button onclick="changeContent('22')">2022/23</button>
+        <button onclick="changeContent('23')">2023/24</button>
+        <button onclick="changeContent('24')">2024/25</button>
+    </div>
 
-  <div class="content">
-    <div id="kola"></div>
-    <div id="zadaci"></div>
-    <div id="zadatak"></div>
-  </div>
+    <div class="container">
+        <div id="kola"></div>
+        <div id="zadaci"></div>
+        <div id="zadatak"></div>
+    </div>
     
     <script>
         
@@ -2139,6 +2126,3 @@
     </script>
 </body>
 </html>
-
-
-
