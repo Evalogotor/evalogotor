@@ -100,22 +100,30 @@
         .task-buttons button.active {
           background-color: #2584F2;
         }
-        .vertical-buttons, .task-buttons {
+        .vertical-buttons{
           display: flex;
           flex-direction: column;
-          justify-content: center;
-          flex-wrap: wrap;
+          align-items: flex-end; /* pushes to right */
           margin-top: 20px;
-          margin-right: 50px;
-          text-align: center;
+          width: 150px; /* keeps them grouped under that column */
         }
+
+        .task-buttons {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          margin-top: 20px;
+          width: 150px;
+        }
+          
         .eval-basket {
-          position: absolute;
-          top: 15%;
-          left: 60%;
-          transform: translateX(-50%);
+          display: flex;
+          flex-direction: column;
+          align-items: center; /* center horizontally */
+          justify-content: center; /* center vertically if needed */
           text-align: center;
-          pointer-events: none;
+          margin-top: 20px;
+          width: 400px;
         }
         .eval-button {
           margin: 5px;
@@ -2221,6 +2229,7 @@
     </script>
 </body>
 </html>
+
 
 
 
