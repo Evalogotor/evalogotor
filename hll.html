@@ -241,6 +241,11 @@
             langSelect.parentElement.classList.remove("bg-white","border-gray-300");
             langSelect.parentElement.classList.add("bg-gray-900","border-gray-600");
 
+            Array.from(langSelect.options).forEach(opt => {
+              opt.style.backgroundColor = "#1f2937"; // gray-800
+              opt.style.color = "white";
+            });
+
             body.classList.remove("light");
             body.classList.add("dark");
           } else {
@@ -266,6 +271,11 @@
             langSelect.parentElement.classList.add("bg-white","border-gray-300");
             body.classList.remove("dark");
             body.classList.add("light");
+
+            Array.from(langSelect.options).forEach(opt => {
+              opt.style.backgroundColor = "white";
+              opt.style.color = "black";
+            });
           }
           lucide.createIcons();
         }
@@ -2229,6 +2239,7 @@
     </script>
 </body>
 </html>
+
 
 
 
