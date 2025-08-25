@@ -66,6 +66,30 @@
           color: white;
           cursor: pointer;
         }
+        .light .button-line button,
+        .light .vertical-buttons button,
+        .light .task-buttons button {
+          margin: 5px;
+          padding: 10px 15px;
+          font-size: 14px;
+          border: none;
+          border-radius: 5px;
+          background-color: #f3f3f3;
+          color: white;
+          cursor: pointer;
+        }
+        .dark .button-line button,
+        .dark .vertical-buttons button,
+        .dark .task-buttons button {
+          margin: 5px;
+          padding: 10px 15px;
+          font-size: 14px;
+          border: none;
+          border-radius: 5px;
+          background-color: #444;
+          color: white;
+          cursor: pointer;
+        }
         .button-line button:hover,
         .vertical-buttons button:hover,
         .task-buttons button:hover {
@@ -208,6 +232,9 @@
             langSelect.classList.add("text-white");
             langSelect.parentElement.classList.remove("bg-white","border-gray-300");
             langSelect.parentElement.classList.add("bg-gray-800","border-gray-600");
+
+            body.classList.add("light");
+            body.classList.remove("dark");
           } else {
             // Body + Navbar
             body.classList.remove("bg-gray-900","text-white");
@@ -229,6 +256,8 @@
             langSelect.classList.add("text-gray-900");
             langSelect.parentElement.classList.remove("bg-gray-800","border-gray-600");
             langSelect.parentElement.classList.add("bg-white","border-gray-300");
+            body.classList.add("dark");
+            body.classList.remove("light");
           }
           lucide.createIcons();
         }
@@ -2192,6 +2221,7 @@
     </script>
 </body>
 </html>
+
 
 
 
