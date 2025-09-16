@@ -63,7 +63,9 @@
 
   <!-- Hero -->
   <main class="flex-1 flex flex-col items-center text-center px-6 py-12">
-    <h1 class="text-4xl font-bold mb-2" id="welcome">Welcome to <span class="text-blue-600">EVA</span><span class="highlight">LOGO</span>TOR!</h1>
+    <h1 id="welcome">
+      Welcome to <span class="text-blue-600">EVA</span><span class="highlight">LOGO</span>TOR!
+    </h1>
     <p class="max-w-2xl mb-10 text-gray-600" id="description">
       Hone your FMSLogo skills by completing tasks, getting AI-powered feedback, and climbing the leaderboard.
     </p>
@@ -197,7 +199,7 @@
       lucide.createIcons();
     }
     function applyTranslations() {
-      document.getElementById("welcome").textContent = translations[lang].welcome;
+      document.getElementById("welcome").innerHTML = translations[lang].welcome;
       document.getElementById("description").textContent = translations[lang].description;
       document.getElementById("tasks").textContent = translations[lang].tasks;
       document.getElementById("scoreboard").textContent = translations[lang].scoreboard;
@@ -225,6 +227,7 @@
   </script>
 </body>
 </html>
+
 
 
 
