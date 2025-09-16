@@ -215,5 +215,87 @@
   <!-- Your existing Peti button logic -->
   <script src="peti-logic.js"></script>
 </body>
+<script>
+    lucide.createIcons();
+
+    let darkMode = true;
+    const body = document.getElementById("body");
+    const navbar = document.getElementById("navbar");
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+    const themeLabel = document.getElementById("themeLabel");
+    const langSelect = document.getElementById("langSelect");
+    const loginBtn = document.getElementById("loginBtn");
+
+    function applyTheme() {
+      if (darkMode) {
+        // Body + Navbar
+        body.classList.remove("bg-gray-50","text-gray-900");
+        body.classList.add("bg-gray-900","text-white");
+        navbar.classList.remove("bg-white");
+        navbar.classList.add("bg-gray-800");
+        themeIcon.setAttribute("data-lucide","sun");
+        body.classList.add("dark");
+        body.classList.remove("light");
+
+        // Buttons (Dark mode)
+        [themeToggle, loginBtn].forEach(btn => {
+          btn.classList.remove("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
+          btn.classList.add("bg-gray-900","text-white","border-gray-600","hover:bg-gray-700","hover:text-gray-200");
+        });
+
+        // Language selector
+        langSelect.classList.remove("text-gray-900");
+        langSelect.classList.add("text-white");
+        langSelect.parentElement.classList.remove("bg-white","border-gray-300");
+        langSelect.parentElement.classList.add("bg-gray-900","border-gray-600");
+
+        Array.from(langSelect.options).forEach(opt => {
+          opt.style.backgroundColor = "#1f2937"; // gray-800
+          opt.style.color = "white";
+        });
+
+        body.classList.remove("light");
+        body.classList.add("dark");
+      } else {
+        // Body + Navbar
+        body.classList.remove("bg-gray-900","text-white");
+        body.classList.add("bg-gray-50","text-gray-900");
+        navbar.classList.remove("bg-gray-800");
+        navbar.classList.add("bg-white");
+        themeIcon.setAttribute("data-lucide","moon");
+        body.classList.add("light");
+        body.classList.remove("dark");
+
+        // Buttons (Light mode)
+        [themeToggle, loginBtn].forEach(btn => {
+          btn.classList.remove("bg-gray-900","text-white","hover:bg-gray-700","hover:text-gray-200");
+          btn.classList.add("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
+        });
+
+        // Language selector
+        langSelect.classList.remove("text-white");
+        langSelect.classList.add("text-gray-900");
+        langSelect.parentElement.classList.remove("bg-gray-900","border-gray-600");
+        langSelect.parentElement.classList.add("bg-white","border-gray-300");
+        body.classList.remove("dark");
+        body.classList.add("light");
+
+        Array.from(langSelect.options).forEach(opt => {
+          opt.style.backgroundColor = "white";
+          opt.style.color = "black";
+        });
+      }
+      lucide.createIcons();
+    }
+
+    themeToggle.addEventListener("click", () => {
+      darkMode = !darkMode;
+      applyTheme();
+    });
+
+    applyTheme();
+</script>
 </html>
+
 
