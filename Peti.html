@@ -10,6 +10,7 @@
       margin: 0;
       background-color: #f4f4f4;
       color: #111;
+      transition: background 0.3s, color 0.3s;
     }
 
     /* Navbar */
@@ -45,16 +46,47 @@
       color: rgb(57, 220, 57);
     }
 
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
     .nav-links a {
       text-decoration: none;
       color: white;
-      margin: 0 12px;
-      font-size: 1.1em;
+      font-size: 1.05em;
       transition: color 0.2s;
     }
 
     .nav-links a:hover {
       color: rgb(57, 220, 57);
+    }
+
+    .nav-controls {
+      position: absolute;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-controls select,
+    .nav-controls button {
+      padding: 5px 10px;
+      border: 1px solid #aaa;
+      border-radius: 5px;
+      background: white;
+      color: #111;
+      cursor: pointer;
+    }
+
+    .nav-controls select {
+      appearance: none;
+    }
+
+    .nav-controls button:hover {
+      background: #eee;
     }
 
     /* Year buttons row */
@@ -98,7 +130,7 @@
     .task-buttons {
       display: flex;
       flex-direction: column;
-      align-items: flex-end; /* right align */
+      align-items: flex-end;
       gap: 8px;
     }
 
@@ -112,7 +144,7 @@
       cursor: pointer;
       transition: background 0.2s;
       width: 140px;
-      text-align: right; /* keep text right-aligned */
+      text-align: right;
     }
 
     .vertical-buttons button:hover,
@@ -138,6 +170,39 @@
       font-size: 32px;
       font-weight: bold;
     }
+
+    /* --- Dark mode --- */
+    body.dark {
+      background-color: #1e1e1e;
+      color: #eee;
+    }
+
+    body.dark .hotbar {
+      background-color: #222;
+    }
+
+    body.dark .logo a,
+    body.dark .nav-links a {
+      color: white;
+    }
+
+    body.dark .nav-controls select,
+    body.dark .nav-controls button {
+      background: #333;
+      color: white;
+      border-color: #555;
+    }
+
+    body.dark .nav-controls button:hover {
+      background: #444;
+    }
+
+    body.dark .button-line button,
+    body.dark .vertical-buttons button,
+    body.dark .task-buttons button {
+      background-color: #444;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -145,6 +210,7 @@
     <div class="logo">
       <a href="#">EVA<span class="highlight">LOGO</span>TOR</a>
     </div>
+
     <div class="nav-links">
       <a href="#HLL" onclick="changeContent('HLL')">HLL</a>
       <a href="#Peti" onclick="changeContent('Peti')">5. razred</a>
@@ -152,6 +218,18 @@
       <a href="#Sedmi" onclick="changeContent('Sedmi')">7. razred</a>
       <a href="#Osmi" onclick="changeContent('Osmi')">8. razred</a>
       <a href="#HLOŽ" onclick="changeContent('HLOŽ')">HLOŽ</a>
+    </div>
+
+    <div class="nav-controls">
+      <select id="langSelect">
+        <option value="en">EN</option>
+        <option value="de">DE</option>
+        <option value="it">IT</option>
+        <option value="hr">HR</option>
+        <option value="fr">FR</option>
+        <option value="ru">RU</option>
+      </select>
+      <button id="themeToggle">Dark</button>
     </div>
   </div>
 
@@ -179,6 +257,29 @@
   </div>
 
   <script>
+    // Theme toggle
+    const themeBtn = document.getElementById("themeToggle");
+    const body = document.body;
+    let darkMode = false;
+
+    themeBtn.addEventListener("click", () => {
+      darkMode = !darkMode;
+      if (darkMode) {
+        body.classList.add("dark");
+        themeBtn.textContent = "Light";
+      } else {
+        body.classList.remove("dark");
+        themeBtn.textContent = "Dark";
+      }
+    });
+
+    // Example language switch (just console logging for now)
+    const langSelect = document.getElementById("langSelect");
+    langSelect.addEventListener("change", () => {
+      console.log("Language switched to:", langSelect.value);
+      // Ovdje kasnije možeš dodati prijevode teksta
+    });
+
     function changeContent(type) {
       if (type === "11") {
         document.getElementById("razina").innerHTML = `
