@@ -1,297 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EVA<span class="highlight">LOGO</span>TOR</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #f4f4f4;
-      color: #111;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    /* Navbar */
-    .hotbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background-color: #333;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 60px;
-      padding: 0 20px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      z-index: 1000;
-    }
-
-    .logo {
-      position: absolute;
-      left: 20px;
-      font-weight: bold;
-      font-size: 20px;
-    }
-
-    .logo a {
-      color: white;
-      text-decoration: none;
-    }
-
-    .highlight {
-      color: rgb(57, 220, 57);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: white;
-      font-size: 1.05em;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: rgb(57, 220, 57);
-    }
-
-    .nav-controls {
-      position: absolute;
-      right: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .nav-controls select,
-    .nav-controls button {
-      padding: 5px 10px;
-      border: 1px solid #aaa;
-      border-radius: 5px;
-      background: white;
-      color: #111;
-      cursor: pointer;
-    }
-
-    .nav-controls select {
-      appearance: none;
-    }
-
-    .nav-controls button:hover {
-      background: #eee;
-    }
-
-    /* Year buttons row */
-    .button-line {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 100px;
-      gap: 6px;
-    }
-
-    .button-line button {
-      padding: 8px 14px;
-      border: none;
-      border-radius: 5px;
-      background-color: #333;
-      color: white;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .button-line button:hover {
-      background-color: rgb(57, 220, 57);
-    }
-
-    .button-line button.active {
-      background-color: #2584f2;
-    }
-
-    /* Layout for side buttons + task view */
-    .container {
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
-      margin-top: 40px;
-      gap: 40px;
-      padding: 0 80px;
-    }
-
-    .vertical-buttons,
-    .task-buttons {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 8px;
-    }
-
-    .vertical-buttons button,
-    .task-buttons button {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      background-color: #333;
-      color: white;
-      cursor: pointer;
-      transition: background 0.2s;
-      width: 140px;
-      text-align: right;
-    }
-
-    .vertical-buttons button:hover,
-    .task-buttons button:hover {
-      background-color: rgb(57, 220, 57);
-    }
-
-    .vertical-buttons button.active,
-    .task-buttons button.active {
-      background-color: #2584f2;
-    }
-
-    /* Task view section */
-    #zadatak {
-      flex: 1;
-      text-align: center;
-      margin-top: 20px;
-      font-size: 1.2em;
-    }
-
-    .score {
-      margin-top: 40px;
-      font-size: 32px;
-      font-weight: bold;
-    }
-
-    /* --- Dark mode --- */
-    body.dark {
-      background-color: #1e1e1e;
-      color: #eee;
-    }
-
-    body.dark .hotbar {
-      background-color: #222;
-    }
-
-    body.dark .logo a,
-    body.dark .nav-links a {
-      color: white;
-    }
-
-    body.dark .nav-controls select,
-    body.dark .nav-controls button {
-      background: #333;
-      color: white;
-      border-color: #555;
-    }
-
-    body.dark .nav-controls button:hover {
-      background: #444;
-    }
-
-    body.dark .button-line button,
-    body.dark .vertical-buttons button,
-    body.dark .task-buttons button {
-      background-color: #444;
-      color: white;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peti razred</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="light">
+  <!-- Hotbar -->
   <div class="hotbar">
     <div class="logo">
-      <a href="#">EVA<span class="highlight">LOGO</span>TOR</a>
+      <a href="index.html">EVA<span class="highlight">LOGO</span>TOR</a>
     </div>
-
     <div class="nav-links">
-      <a href="#HLL" onclick="changeContent('HLL')">HLL</a>
-      <a href="#Peti" onclick="changeContent('Peti')">5. razred</a>
-      <a href="#Sesti" onclick="changeContent('Sesti')">6. razred</a>
-      <a href="#Sedmi" onclick="changeContent('Sedmi')">7. razred</a>
-      <a href="#Osmi" onclick="changeContent('Osmi')">8. razred</a>
-      <a href="#HLOŽ" onclick="changeContent('HLOŽ')">HLOŽ</a>
+      <a href="hll.html">HLL</a>
+      <a href="peti.html" class="active">5. razred</a>
+      <a href="sesti.html">6. razred</a>
+      <a href="sedmi.html">7. razred</a>
+      <a href="osmi.html">8. razred</a>
+      <a href="hloz.html">HLOŽ</a>
     </div>
-
-    <div class="nav-controls">
+    <div class="controls">
+      <!-- Language select -->
       <select id="langSelect">
-        <option value="en">EN</option>
-        <option value="de">DE</option>
-        <option value="it">IT</option>
-        <option value="hr">HR</option>
-        <option value="fr">FR</option>
-        <option value="ru">RU</option>
+        <option value="en">English</option>
+        <option value="de">Deutsch</option>
+        <option value="it">Italiano</option>
+        <option value="hr">Hrvatski</option>
+        <option value="fr">Français</option>
+        <option value="ru">Русский</option>
       </select>
-      <button id="themeToggle">Dark</button>
+      <!-- Theme toggle -->
+      <button id="themeToggle">🌙</button>
     </div>
   </div>
 
-  <div class="button-line">
-    <button onclick="changeContent('11')">2011</button>
-    <button onclick="changeContent('12')">2012</button>
-    <button onclick="changeContent('13')">2013</button>
-    <button onclick="changeContent('14')">2014</button>
-    <button onclick="changeContent('15')">2015</button>
-    <button onclick="changeContent('16')">2016</button>
-    <button onclick="changeContent('17')">2017</button>
-    <button onclick="changeContent('18')">2018</button>
-    <button onclick="changeContent('19')">2019</button>
-    <button onclick="changeContent('20')">2020</button>
-    <button onclick="changeContent('21')">2021</button>
-    <button onclick="changeContent('22')">2022</button>
-    <button onclick="changeContent('23')">2023</button>
-    <button onclick="changeContent('24')">2024</button>
-  </div>
-
+  <!-- Gumbi iz Peti.html (ostaju tvoji) -->
   <div class="container">
-    <div id="razina"></div>
-    <div id="zadaci"></div>
-    <div id="zadatak">Odaberi godinu, kolo i zadatak</div>
+    <!-- Ovdje dolaze tvoji gumbi -->
+    <button>Peti primjer 1</button>
+    <button>Peti primjer 2</button>
+    <button>Peti primjer 3</button>
   </div>
 
-  <script>
-    // Theme toggle
-    const themeBtn = document.getElementById("themeToggle");
-    const body = document.body;
-    let darkMode = false;
-
-    themeBtn.addEventListener("click", () => {
-      darkMode = !darkMode;
-      if (darkMode) {
-        body.classList.add("dark");
-        themeBtn.textContent = "Light";
-      } else {
-        body.classList.remove("dark");
-        themeBtn.textContent = "Dark";
-      }
-    });
-
-    // Example language switch (just console logging for now)
-    const langSelect = document.getElementById("langSelect");
-    langSelect.addEventListener("change", () => {
-      console.log("Language switched to:", langSelect.value);
-      // Ovdje kasnije možeš dodati prijevode teksta
-    });
-
-    function changeContent(type) {
-      if (type === "11") {
-        document.getElementById("razina").innerHTML = `
-          <div class="vertical-buttons">
-            <button>Školsko</button>
-            <button>Županijsko</button>
-            <button>Državno</button>
-          </div>`;
-        document.getElementById("zadaci").innerHTML = "";
-        document.getElementById("zadatak").innerText = "Odaberi kolo";
-      }
-    }
-  </script>
+  <script src="theme-lang.js"></script>
 </body>
 </html>
