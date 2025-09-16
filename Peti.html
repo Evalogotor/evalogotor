@@ -5,9 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Peti razred</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 120px; /* leaves space for fixed hotbar */
+      text-align: center;
+    }
+
+    /* Buttons (years, razina, zadatak) */
+    .button-line button,
+    .vertical-buttons button,
+    .task-buttons button {
+      margin: 5px;
+      padding: 10px 15px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+    }
+
+    .button-line button:hover,
+    .vertical-buttons button:hover,
+    .task-buttons button:hover {
+      background-color: rgb(57, 220, 57);
+    }
+
+    .button-line button.active,
+    .vertical-buttons button.active,
+    .task-buttons button.active {
+      background-color: #2584F2;
+    }
+  </style>
 </head>
 <body class="light">
-  <!-- Hotbar -->
+  <!-- Hotbar (same as hll.html) -->
   <div class="hotbar">
     <div class="logo">
       <a href="index.html">EVA<span class="highlight">LOGO</span>TOR</a>
@@ -21,7 +61,7 @@
       <a href="hloz.html">HLOŽ</a>
     </div>
     <div class="controls">
-      <!-- Language select -->
+      <!-- Language -->
       <select id="langSelect">
         <option value="en">English</option>
         <option value="de">Deutsch</option>
@@ -30,19 +70,38 @@
         <option value="fr">Français</option>
         <option value="ru">Русский</option>
       </select>
-      <!-- Theme toggle -->
+      <!-- Theme -->
       <button id="themeToggle">🌙</button>
     </div>
   </div>
 
-  <!-- Gumbi iz Peti.html (ostaju tvoji) -->
-  <div class="container">
-    <!-- Ovdje dolaze tvoji gumbi -->
-    <button>Peti primjer 1</button>
-    <button>Peti primjer 2</button>
-    <button>Peti primjer 3</button>
+  <!-- Buttons from Peti.html (kept same) -->
+  <div class="button-line">
+    <button onclick="changeContent('11')">2011</button>
+    <button onclick="changeContent('12')">2012</button>
+    <button onclick="changeContent('13')">2013</button>
+    <button onclick="changeContent('14')">2014</button>
+    <button onclick="changeContent('15')">2015</button>
+    <button onclick="changeContent('16')">2016</button>
+    <button onclick="changeContent('17')">2017</button>
+    <button onclick="changeContent('18')">2018</button>
+    <button onclick="changeContent('19')">2019</button>
+    <button onclick="changeContent('20')">2020</button>
+    <button onclick="changeContent('21')">2021</button>
+    <button onclick="changeContent('22')">2022</button>
+    <button onclick="changeContent('23')">2023</button>
+    <button onclick="changeContent('24')">2024</button>
   </div>
 
+  <div class="container">
+    <div id="razina"></div>
+    <div id="zadaci"></div>
+    <div id="zadatak"></div>
+  </div>
+
+  <!-- Shared scripts for theme + lang -->
   <script src="theme-lang.js"></script>
+  <!-- Your existing Peti button logic -->
+  <script src="peti-logic.js"></script>
 </body>
 </html>
