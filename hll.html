@@ -226,6 +226,14 @@
           fr: { eval: 'évaluer', description: "Améliorez vos compétences FMSLogo en réalisant des tâches, en recevant des retours IA et en grimpant dans le classement.", practice: "Pratiquer FMSLogo", practiceDesc: "Essayez différentes tâches FMSLogo, des formes simples aux motifs complexes.", feedback: "Obtenez un retour IA", feedbackDesc: "Soumettez vos créations et recevez des évaluations instantanées de l'IA.", ranks: "Grimpez dans les rangs", ranksDesc: "Gagnez des points et voyez où vous vous situez dans le classement global.", tasks: "Tâches", scoreboard: "Classement", login: "Connexion", logout: "Déconnexion", dark: "Sombre", light: "Clair" },
           ru: { eval: 'оценивать', description: "Развивайте навыки FMSLogo, выполняя задания, получая отзывы от ИИ и поднимаясь в рейтинге.", practice: "Практика FMSLogo", practiceDesc: "Попробуйте различные задачи FMSLogo: от простых фигур до сложных узоров.", feedback: "Получите отзыв ИИ", feedbackDesc: "Отправьте свои работы и получите мгновенную оценку от ИИ.", ranks: "Поднимайтесь в рейтинге", ranksDesc: "Зарабатывайте очки и смотрите своё место в мировом рейтинге.", tasks: "Задания", scoreboard: "Рейтинг", login: "Войти", logout: "Выйти", dark: "Тёмный", light: "Светлый" }
         };
+
+
+        let lang = "en"; // Default language
+        
+        langSelect.addEventListener("change", (e) => {
+          lang = e.target.value;
+          applyTranslations();
+        });
           
         function applyTranslations() {
           document.getElementById("tasks").textContent = translations[lang].tasks;
@@ -2258,6 +2266,7 @@
     </script>
 </body>
 </html>
+
 
 
 
