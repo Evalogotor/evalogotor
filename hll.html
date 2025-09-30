@@ -248,6 +248,12 @@
           document.getElementById("tasks").textContent = translations[lang].tasks;
           document.getElementById("scoreboard").textContent = translations[lang].scoreboard;
           document.getElementById("login").textContent = translations[lang].login;
+
+            const evalBtn = document.getElementById("evalbtn");
+            const inpBtn = document.getElementById("inp");
+            
+            if (evalBtn) evalBtn.textContent = translations[lang].eval;
+            if (inpBtn) inpBtn.textContent = translations[lang].inp;
           applyTheme();
         }
     
@@ -2284,6 +2290,7 @@
     </script>
 </body>
 </html>
+
 
 
 
