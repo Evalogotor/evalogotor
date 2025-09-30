@@ -210,7 +210,6 @@
         lucide.createIcons();
     
         let darkMode = true;
-        applyTheme();
         const body = document.getElementById("body");
         const navbar = document.getElementById("navbar");
         const themeToggle = document.getElementById("themeToggle");
@@ -218,8 +217,6 @@
         const themeLabel = document.getElementById("themeLabel");
         const langSelect = document.getElementById("langSelect");
         const loginBtn = document.getElementById("loginBtn");
-        const evalbtn = document.getElementById("evalbtn");
-        const inp = document.getElementById("inp");
 
         const translations = {
           en: { inp: 'Select file', eval: 'Evaluate', description: "Hone your FMSLogo skills by completing tasks, getting AI-powered feedback, and climbing the leaderboard.", practice: "Practice FMSLogo", practiceDesc: "Attempt a variety of FMSLogo tasks, from simple shapes to complex patterns.", feedback: "Get AI Feedback", feedbackDesc: "Submit your creations and receive instant, AI-driven evaluations on correctness.", ranks: "Climb the Ranks", ranksDesc: "Earn points for evaluations and see how you stack up on the global scoreboard.", tasks: "Tasks", scoreboard: "Scoreboard", login: "Login", logout: "Logout", dark: "Dark", light: "Light" },
@@ -232,7 +229,17 @@
 
 
         let lang = localStorage.getItem("lang") || "en"; // Default language
-        langSelect.value = lang; // Set the dropdown to the saved language
+        const langSelect = document.getElementById("langSelect");
+        if (langSelect) {
+          langSelect.value = lang; // Set the dropdown to the saved language
+          applyTranslations();
+        
+          langSelect.addEventListener("change", (e) => {
+            lang = e.target.value;
+            localStorage.setItem("lang", lang);
+            applyTranslations();
+          });
+        }// Set the dropdown to the saved language
         applyTranslations();
         
         langSelect.addEventListener("change", (e) => {
@@ -2271,6 +2278,7 @@
     </script>
 </body>
 </html>
+
 
 
 
