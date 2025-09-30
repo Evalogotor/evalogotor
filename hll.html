@@ -2217,7 +2217,6 @@
         }
 
         function openPage(strGod, kolo, str, red) {
-            window.open('https://logoliga.hsin.hr/arhiva/'+strGod+'/kolo'+kolo+'_zadaci.pdf#page='+str, '_blank');
             if (red === 1){
                 bodovi = 20;
             }else if (red === 2){
@@ -2230,6 +2229,9 @@
             var zadatak = `
                 <div class="eval-basket">
                     <div class="score">${ime_zadatak}</div>
+                    <div class="vertical-buttons">
+                        <button class="" onclick="window.open('https://logoliga.hsin.hr/arhiva/'+strGod+'/kolo'+kolo+'_zadaci.pdf#page='+str, '_blank');"></button>
+                    </div>
                     <button class="eval-button">Evaluiraj</button>
                     <div class="score"> 0 / ${bodovi} </div>
                 </div>
@@ -2239,6 +2241,7 @@
     </script>
 </body>
 </html>
+
 
 
 
