@@ -2252,29 +2252,41 @@
             }
         }
 
-        function openPage(strGod, kolo, str, red) {
-            if (red === 1){
+        function openPage(strGod, kolo, page, red) {
+            // Set points based on 'red'
+            if (red === 1) {
                 bodovi = 20;
-            }else if (red === 2){
+            } else if (red === 2) {
                 bodovi = 30;
-            }else if (red === 3){
+            } else if (red === 3) {
                 bodovi = 50;
-            }else{
-                bodovi = 80+20*(red-4);
+            } else {
+                bodovi = 80 + 20 * (red - 4);
             }
+        
+            // Compose content with meaningful button labels
             var zadatak = `
                 <div class="eval-basket">
                     <div class="score">${ime_zadatak}</div>
-                    <button class="vertical-buttons" id="inp" onclick="window.open('https://logoliga.hsin.hr/arhiva/'+strGod+'/kolo'+kolo+'_zadaci.pdf#page='+str, '_blank');"></button>
-                    <button class="eval-button" id="evalbtn"></button>
-                    <div class="score"> 0 / ${bodovi} </div>
+                    <button id="inp" onclick="window.open('https://logoliga.hsin.hr/arhiva/${strGod}/kolo${kolo}_zadaci.pdf#page=${page}', '_blank');">
+                        Open PDF Page ${page}
+                    </button>
+                    <button class="eval-button" id="evalbtn">Evaluate</button>
+                    <div class="score">0 / ${bodovi}</div>
                 </div>
-            `;  
-            document.getElementById('zadatak').innerHTML = zadatak;
+            `;
+        
+            const zadatakDiv = document.getElementById('zadatak');
+            if (zadatakDiv) {
+                zadatakDiv.innerHTML = zadatak;
+            } else {
+                console.error("Element with id 'zadatak' not found");
+            }
         }
     </script>
 </body>
 </html>
+
 
 
 
