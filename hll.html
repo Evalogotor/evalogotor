@@ -228,10 +228,11 @@
         };
 
 
-        let lang = localStorage.getItem("lang") || "en"; // Default language
         const langSelect = document.getElementById("langSelect");
+        let lang = localStorage.getItem("lang") || "en"; // Default language
+        
         if (langSelect) {
-          langSelect.value = lang; // Set the dropdown to the saved language
+          langSelect.value = lang; // Set dropdown to saved language
           applyTranslations();
         
           langSelect.addEventListener("change", (e) => {
@@ -239,14 +240,10 @@
             localStorage.setItem("lang", lang);
             applyTranslations();
           });
-        }// Set the dropdown to the saved language
-        applyTranslations();
-        
-        langSelect.addEventListener("change", (e) => {
-          lang = e.target.value;
-          localStorage.setItem("lang", lang);
+        } else {
+          // If no langSelect found, just call applyTranslations with default lang
           applyTranslations();
-        });
+        }
           
         function applyTranslations() {
           document.getElementById("tasks").textContent = translations[lang].tasks;
@@ -2278,6 +2275,7 @@
     </script>
 </body>
 </html>
+
 
 
 
