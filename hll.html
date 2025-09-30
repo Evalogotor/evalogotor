@@ -249,8 +249,6 @@
           document.getElementById("tasks").textContent = translations[lang].tasks;
           document.getElementById("scoreboard").textContent = translations[lang].scoreboard;
           document.getElementById("login").textContent = translations[lang].login;
-          document.getElementById("evalbtn").textContent = translations[lang].eval;
-          document.getElementById("inp").textContent = translations[lang].inp;
           applyTheme();
         }
     
@@ -2269,9 +2267,9 @@
                 <div class="eval-basket">
                     <div class="score">${ime_zadatak}</div>
                     <button id="inp" onclick="window.open('https://logoliga.hsin.hr/arhiva/${strGod}/kolo${kolo}_zadaci.pdf#page=${page}', '_blank');">
-                        Open PDF Page ${page}
+                        ${translations[lang].inp}
                     </button>
-                    <button class="eval-button" id="evalbtn">Evaluate</button>
+                    <button class="eval-button" id="evalbtn">${translations[lang].eval}</button>
                     <div class="score">0 / ${bodovi}</div>
                 </div>
             `;
@@ -2286,6 +2284,7 @@
     </script>
 </body>
 </html>
+
 
 
 
