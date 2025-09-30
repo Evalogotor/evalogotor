@@ -218,8 +218,13 @@
       applyTheme();
     });
 
+    let lang = localStorage.getItem("lang") || "en"; // Default language
+    langSelect.value = lang; // Set the dropdown to the saved language
+    applyTranslations();
+    
     langSelect.addEventListener("change", (e) => {
       lang = e.target.value;
+      localStorage.setItem("lang", lang);
       applyTranslations();
     });
 
@@ -227,6 +232,7 @@
   </script>
 </body>
 </html>
+
 
 
 
