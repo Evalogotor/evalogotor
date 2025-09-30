@@ -2271,7 +2271,12 @@
             var zadatak = `
                 <div class="eval-basket">
                     <div class="score">${ime_zadatak}</div>
-                    <div class="button-line">
+                    <div class="display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin-top: 20px;
+          text-align: center;
+          z-index: 10;">
                         <button id="inp" onclick="window.open('https://logoliga.hsin.hr/arhiva/${strGod}/kolo${kolo}_zadaci.pdf#page=${page}', '_blank');">
                             ${translations[lang].inp}
                         </button>
@@ -2291,6 +2296,7 @@
     </script>
 </body>
 </html>
+
 
 
 
