@@ -67,6 +67,14 @@
           color: white;
           cursor: pointer;
         }
+        .zadatak_struk {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin-top: 20px;
+          text-align: center;
+          z-index: 10;
+        }
         .light .button-line button,
         .light .vertical-buttons button,
         .light .task-buttons button {
@@ -2271,14 +2279,9 @@
             var zadatak = `
                 <div class="eval-basket">
                     <div class="score">${ime_zadatak}</div>
-                    <div class="display: flex;
-          justify-content: center;
-          flex-wrap: wrap;
-          margin-top: 20px;
-          text-align: center;
-          z-index: 10;">
+                    <div class="zadatak_struk">
                         <button id="inp" onclick="window.open('https://logoliga.hsin.hr/arhiva/${strGod}/kolo${kolo}_zadaci.pdf#page=${page}', '_blank');">
-                            ${translations[lang].inp}
+                            <span class="text-blue-600">${translations[lang].inp}</span>
                         </button>
                     </div>
                     <button class="eval-button" id="evalbtn">${translations[lang].eval}</button>
@@ -2296,43 +2299,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
