@@ -261,7 +261,7 @@
             const inpBtn = document.getElementById("inp");
             
             if (evalBtn) evalBtn.textContent = translations[lang].eval;
-            if (inpBtn) inpBtn.textContent = '<span class="zadatak_struk">translations[lang].inp</span>';
+            if (inpBtn) inpBtn.textContent = translations[lang].inp;
           applyTheme();
         }
     
@@ -2280,8 +2280,8 @@
                 <div class="eval-basket">
                     <div class="score">${ime_zadatak}</div>
                     <div class="zadatak_struk">
-                        <button id="inp" onclick="window.open('https://logoliga.hsin.hr/arhiva/${strGod}/kolo${kolo}_zadaci.pdf#page=${page}', '_blank');">
-                            <span class="text-blue-600">${translations[lang].inp}</span>
+                        <button class="text-blue-600" id="inp" onclick="window.open('https://logoliga.hsin.hr/arhiva/${strGod}/kolo${kolo}_zadaci.pdf#page=${page}', '_blank');">
+                            ${translations[lang].inp}
                         </button>
                     </div>
                     <button class="eval-button" id="evalbtn">${translations[lang].eval}</button>
@@ -2299,5 +2299,6 @@
     </script>
 </body>
 </html>
+
 
 
