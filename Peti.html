@@ -202,6 +202,7 @@
     <button onclick="changeContent('22')">2022</button>
     <button onclick="changeContent('23')">2023</button>
     <button onclick="changeContent('24')">2024</button>
+    <button onclick="changeContent('25')">2025</button>
   </div>
 
   <div class="container">
@@ -295,7 +296,264 @@
     });
 
     applyTheme();
-</script>
+     
+        const buttons = document.querySelectorAll('.button-line button');
+        const vbuttons = document.querySelectorAll('.vertical-buttons button');
+        const tbuttons = document.querySelectorAll('.task-buttons button');
+
+        buttons.forEach(button => {
+          button.addEventListener('click', () => {
+            // Remove 'active' from all buttons
+            buttons.forEach(btn => btn.classList.remove('active'));
+            // Add 'active' to the clicked button
+            button.classList.add('active');
+          });
+        });
+
+        vbuttons.forEach(button => {
+          button.addEventListener('click', () => {
+            // Remove 'active' from all buttons
+            vbuttons.forEach(btn => btn.classList.remove('active'));
+            // Add 'active' to the clicked button
+            button.classList.add('active');
+          });
+        });
+
+        tbuttons.forEach(button => {
+          button.addEventListener('click', () => {
+            // Remove 'active' from all buttons
+            tbuttons.forEach(btn => btn.classList.remove('active'));
+            // Add 'active' to the clicked button
+            button.classList.add('active');
+          });
+        });
+        
+        function capitalizeFirstLetter(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function attachTaskButtonListeners() {
+            const newVButtons = document.querySelectorAll('.vertical-buttons button');
+            newVButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    newVButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
+        }
+        
+        function attachVerticalButtonListeners() {
+            const newTButtons = document.querySelectorAll('.task-buttons button');
+            newTButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    newTButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
+        }
+        
+        var bodovi = 0;
+        var buttonskola = '';
+        var buttonZadaci = '';
+        var zadatak = '';
+        var ime_zadatak = '';
+        function changeContent(contentType) {
+            ime_zadatak = capitalizeFirstLetter(contentType);
+            
+            const contentDiv = document.getElementById('mainContent');
+
+            if (contentType === 'Peti') {
+                location.href='Peti.html';
+            
+            } else if (contentType === 'Sesti') {
+                location.href='6raz.html';
+
+            } else if (contentType === 'Sedmi') {
+                location.href='7raz.html';
+
+            } else if (contentType === 'Osmi') {
+                location.href='8raz.html';
+
+            } else if (contentType === 'HLOŽ') {
+                location.href='hloz.html';
+
+            } else if (contentType === '15') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('111')">Školsko</button>
+                    <button onclick="changeContent('112')">Županijsko</button>
+                    <button onclick="changeContent('113')">Državno</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                attachTaskButtonListeners();
+            } else if (contentType === '12') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('121')">Školsko</button>
+                    <button onclick="changeContent('122')">Županijsko</button>
+                    <button onclick="changeContent('123')">Državno</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                attachTaskButtonListeners();
+            } else if (contentType === '13') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('131')">Školsko</button>
+                    <button onclick="changeContent('132')">Županijsko</button>
+                    <button onclick="changeContent('133')">Državno</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                attachTaskButtonListeners();
+            } else if (contentType === '14') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('141')">Školsko</button>
+                    <button onclick="changeContent('142')">Županijsko</button>
+                    <button onclick="changeContent('143')">Državno</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                attachTaskButtonListeners();
+            } else if (contentType === '15') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('151')">Školsko</button>
+                    <button onclick="changeContent('152')">Županijsko</button>
+                    <button onclick="changeContent('153')">Državno</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                attachTaskButtonListeners();
+            } else if (contentType === '16') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('161')">Školsko</button>
+                    <button onclick="changeContent('162')">Županijsko</button>
+                    <button onclick="changeContent('163')">Državno</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+                attachTaskButtonListeners();
+            } else if (contentType === '17') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('171')">Školsko</button>
+                    <button onclick="changeContent('172')">Županijsko</button>
+                    <button onclick="changeContent('173')">Državno</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+                attachTaskButtonListeners();
+            } else if (contentType === '18') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('181')">Školsko</button>
+                    <button onclick="changeContent('182')">Županijsko</button>
+                    <button onclick="changeContent('183')">Državno</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+                attachTaskButtonListeners();
+            } else if (contentType === '19') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('191')">Školsko</button>
+                    <button onclick="changeContent('192')">Županijsko</button>
+                    <button onclick="changeContent('193')">Državno</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+                attachTaskButtonListeners();
+            } else if (contentType === '20') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('201')">Školsko</button>
+                    <button onclick="changeContent('202')">Županijsko</button>
+                    <button onclick="changeContent('203')">Državno</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+                attachTaskButtonListeners();
+            } else if (contentType === '21') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('211')">Školsko</button>
+                    <button onclick="changeContent('212')">Županijsko</button>
+                    <button onclick="changeContent('213')">Državno</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+                attachTaskButtonListeners();
+            } else if (contentType === '22') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('221')">Školsko</button>
+                    <button onclick="changeContent('222')">Županijsko</button>
+                    <button onclick="changeContent('223')">Državno</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+                attachTaskButtonListeners();
+            } else if (contentType === '23') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('231')">Školsko</button>
+                    <button onclick="changeContent('232')">Županijsko</button>
+                    <button onclick="changeContent('233')">Državno</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+                attachTaskButtonListeners();
+            } else if (contentType === '24') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('241')">Školsko</button>
+                    <button onclick="changeContent('242')">Županijsko</button>
+                    <button onclick="changeContent('243')">Državno</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+                attachTaskButtonListeners();
+            } else if (contentType === '25') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('251')">Školsko</button>
+                    <button onclick="changeContent('252')">Županijsko</button>
+                    <button onclick="changeContent('253')">Državno</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                attachTaskButtonListeners();
+            }
+    </script>
 </html>
+
 
 
