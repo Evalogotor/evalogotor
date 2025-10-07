@@ -275,6 +275,7 @@
             themeIcon.setAttribute("data-lucide","sun");
             body.classList.add("dark");
             body.classList.remove("light");
+            themeLabel.textContent = translations[lang].light;
     
             // Buttons (Dark mode)
             [themeToggle, loginBtn].forEach(btn => {
@@ -304,6 +305,7 @@
             themeIcon.setAttribute("data-lucide","moon");
             body.classList.add("light");
             body.classList.remove("dark");
+              themeLabel.textContent = translations[lang].dark;
     
             // Buttons (Light mode)
             [themeToggle, loginBtn].forEach(btn => {
@@ -2299,6 +2301,7 @@
     </script>
 </body>
 </html>
+
 
 
 
