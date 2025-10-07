@@ -274,8 +274,6 @@
         navbar.classList.remove("bg-white");
         navbar.classList.add("bg-gray-800");
         themeIcon.setAttribute("data-lucide","sun");
-        body.classList.add("dark");
-        body.classList.remove("light");
 
         // Buttons (Dark mode)
         [themeToggle, loginBtn].forEach(btn => {
@@ -303,8 +301,6 @@
         navbar.classList.remove("bg-gray-800");
         navbar.classList.add("bg-white");
         themeIcon.setAttribute("data-lucide","moon");
-        body.classList.add("light");
-        body.classList.remove("dark");
 
         // Buttons (Light mode)
         [themeToggle, loginBtn].forEach(btn => {
@@ -317,8 +313,8 @@
         langSelect.classList.add("text-gray-900");
         langSelect.parentElement.classList.remove("bg-gray-900","border-gray-600");
         langSelect.parentElement.classList.add("bg-white","border-gray-300");
-        body.classList.remove("dark");
-        body.classList.add("light");
+        body.classList.remove("light");
+        body.classList.add("dark");
 
         Array.from(langSelect.options).forEach(opt => {
           opt.style.backgroundColor = "white";
@@ -700,6 +696,7 @@
         }
     </script>
 </html>
+
 
 
 
