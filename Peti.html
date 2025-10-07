@@ -275,7 +275,7 @@
         navbar.classList.remove("bg-white");
         navbar.classList.add("bg-gray-800");
         themeIcon.setAttribute("data-lucide","sun");
-        themeLabel.textContent = translations[lang].themeLight;
+        themeLabel.textContent = translations[lang].light;
 
         [themeToggle, loginBtn].forEach(btn => {
           btn.classList.remove("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
@@ -300,7 +300,7 @@
         navbar.classList.remove("bg-gray-800");
         navbar.classList.add("bg-white");
         themeIcon.setAttribute("data-lucide","moon");
-        themeLabel.textContent = translations[lang].themeDark;
+        themeLabel.textContent = translations[lang].dark;
 
         [themeToggle, loginBtn].forEach(btn => {
           btn.classList.remove("bg-gray-900","text-white","hover:bg-gray-700","hover:text-gray-200");
@@ -692,6 +692,7 @@
         }
     </script>
 </html>
+
 
 
 
