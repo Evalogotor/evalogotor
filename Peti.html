@@ -550,9 +550,75 @@
                 document.getElementById('zadaci').innerHTML = '';
                 attachTaskButtonListeners();
             }
+
+            // Za Kola poziv za gumbe i zadatke
+            if (contentType === '111') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('leptir')">Leptir</button>
+                    <button onclick="changeContent('ormar')">Ormar</button>
+                    <button onclick="changeContent('trokuti')">Trokuti</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '112') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('val')">Val</button>
+                    <button onclick="changeContent('utezi')">Utezi</button>
+                    <button onclick="changeContent('cvijet')">Cvijet</button>
+                    <button onclick="changeContent('pruga')">Pruga</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '113') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('zvizspir')">Zvizspir</button>
+                    <button onclick="changeContent('rabac')">Rabac</button>
+                    <button onclick="changeContent('cvijet11')">Cvijet</button>
+                    <button onclick="changeContent('note')">Note</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            }
+
+
+            
+            //Zadaci
+            if (contentType === 'leptir') {
+                openPage('93', 1);
+            } else if (contentType === 'ormar') {
+                openPage('93', 2);
+            } else if (contentType === 'trokuti') {
+                openPage('93', 3);
+            }else if (contentType === 'val') {
+                openPage('111', 1);
+            } else if (contentType === 'utezi') {
+                openPage('111', 2);
+            } else if (contentType === 'cvijet') {
+                openPage('111', 3);
+            } else if (contentType === 'pruga') {
+                openPage('111', 3);
+            }else if (contentType === 'zvizspir') {
+                openPage('129', 1);
+            } else if (contentType === 'rabac') {
+                openPage('129', 2);
+            } else if (contentType === 'cvijet11') {
+                openPage('129', 3);
+            } else if (contentType === 'note') {
+                openPage('129', 3);
+            }
         }
     </script>
 </html>
+
 
 
 
