@@ -627,6 +627,41 @@
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
                 attachVerticalButtonListeners();
+            } else if (contentType === '121') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('pravokut')">Prvokut</button>
+                    <button onclick="changeContent('srce')">Srce</button>
+                    <button onclick="changeContent('cirkular')">Cirkular</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '122') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('ntri')">Ntri</button>
+                    <button onclick="changeContent('zvijezda')">Zvijezda</button>
+                    <button onclick="changeContent('dijeli')">Dijeli</button>
+                    <button onclick="changeContent('zaprega')">Zaprega</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '123') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('valovi')">Valovi</button>
+                    <button onclick="changeContent('fib')">Fib</button>
+                    <button onclick="changeContent('bilijar')">Bilijar</button>
+                    <button onclick="changeContent('cvijet12')">Cvijet</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             }
 
 
@@ -645,7 +680,7 @@
             } else if (contentType === 'cvijet') {
                 openPage('111', 3, 2);
             } else if (contentType === 'pruga') {
-                openPage('111', 3, 2);
+                openPage('111', 4, 2);
             }else if (contentType === 'zvizspir') {
                 openPage('129', 1, 2);
             } else if (contentType === 'rabac') {
@@ -653,7 +688,29 @@
             } else if (contentType === 'cvijet11') {
                 openPage('129', 3, 2);
             } else if (contentType === 'note') {
-                openPage('129', 3, 2);
+                openPage('129', 4, 2);
+            } else if (contentType === 'pravokut') {
+                openPage('155', 1, 1);
+            } else if (contentType === 'srce') {
+                openPage('155', 2, 1);
+            } else if (contentType === 'cirkular') {
+                openPage('155', 3, 1);
+            }else if (contentType === 'ntri') {
+                openPage('169', 1, 1);
+            } else if (contentType === 'zvijezda') {
+                openPage('169', 2, 2);
+            } else if (contentType === 'dijeli') {
+                openPage('169', 3, 2);
+            } else if (contentType === 'zaprega') {
+                openPage('169', 4, 2);
+            }else if (contentType === 'valovi') {
+                openPage('185', 1, 2);
+            } else if (contentType === 'fib') {
+                openPage('185', 2, 2);
+            } else if (contentType === 'bilijar') {
+                openPage('185', 3, 2);
+            } else if (contentType === 'cvijet12') {
+                openPage('185', 3, 2);
             }
         }
 
