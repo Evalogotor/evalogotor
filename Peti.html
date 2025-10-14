@@ -268,53 +268,63 @@
 
     function applyTheme() {
       if (darkMode) {
-        body.classList.add("dark");
-        body.classList.remove("light");
+        // Body + Navbar
         body.classList.remove("bg-gray-50","text-gray-900");
         body.classList.add("bg-gray-900","text-white");
         navbar.classList.remove("bg-white");
         navbar.classList.add("bg-gray-800");
         themeIcon.setAttribute("data-lucide","sun");
+        body.classList.add("dark");
+        body.classList.remove("light");
         themeLabel.textContent = translations[lang].light;
 
+        // Buttons (Dark mode)
         [themeToggle, loginBtn].forEach(btn => {
           btn.classList.remove("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
           btn.classList.add("bg-gray-900","text-white","border-gray-600","hover:bg-gray-700","hover:text-gray-200");
         });
 
+        // Language selector
         langSelect.classList.remove("text-gray-900");
         langSelect.classList.add("text-white");
         langSelect.parentElement.classList.remove("bg-white","border-gray-300");
-        langSelect.parentElement.classList.add("bg-gray-800","border-gray-600");
+        langSelect.parentElement.classList.add("bg-gray-900","border-gray-600");
 
-        document.querySelectorAll(".bg-white").forEach(card => {
-          card.classList.remove("bg-white","text-gray-900");
-          card.classList.add("bg-gray-800","text-white");
+        Array.from(langSelect.options).forEach(opt => {
+          opt.style.backgroundColor = "#1f2937"; // gray-800
+          opt.style.color = "white";
         });
 
+        body.classList.remove("light");
+        body.classList.add("dark");
       } else {
-        body.classList.add("light");
-        body.classList.remove("dark");
+        // Body + Navbar
         body.classList.remove("bg-gray-900","text-white");
         body.classList.add("bg-gray-50","text-gray-900");
         navbar.classList.remove("bg-gray-800");
         navbar.classList.add("bg-white");
         themeIcon.setAttribute("data-lucide","moon");
-        themeLabel.textContent = translations[lang].dark;
+        body.classList.add("light");
+        body.classList.remove("dark");
+          themeLabel.textContent = translations[lang].dark;
 
+        // Buttons (Light mode)
         [themeToggle, loginBtn].forEach(btn => {
           btn.classList.remove("bg-gray-900","text-white","hover:bg-gray-700","hover:text-gray-200");
           btn.classList.add("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
         });
 
+        // Language selector
         langSelect.classList.remove("text-white");
         langSelect.classList.add("text-gray-900");
-        langSelect.parentElement.classList.remove("bg-gray-800","border-gray-600");
+        langSelect.parentElement.classList.remove("bg-gray-900","border-gray-600");
         langSelect.parentElement.classList.add("bg-white","border-gray-300");
+        body.classList.remove("dark");
+        body.classList.add("light");
 
-        document.querySelectorAll(".bg-gray-800").forEach(card => {
-          card.classList.remove("bg-gray-800","text-white");
-          card.classList.add("bg-white","text-gray-900");
+        Array.from(langSelect.options).forEach(opt => {
+          opt.style.backgroundColor = "white";
+          opt.style.color = "black";
         });
       }
       lucide.createIcons();
@@ -692,6 +702,7 @@
         }
     </script>
 </html>
+
 
 
 
