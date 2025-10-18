@@ -662,6 +662,41 @@
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
                 attachVerticalButtonListeners();
+            } else if (contentType === '131') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('slovos')">Slovos</button>
+                    <button onclick="changeContent('broj3')">Broj3</button>
+                    <button onclick="changeContent('pravokutnici')">Pravokutnici</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '132') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('mac')">Mac</button>
+                    <button onclick="changeContent('zgrada')">Zgrada</button>
+                    <button onclick="changeContent('piramida')">Piramida</button>
+                    <button onclick="changeContent('cvijet13')">Cvijet</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '133') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('lopta')">Lopta</button>
+                    <button onclick="changeContent('sablja')">Sablja</button>
+                    <button onclick="changeContent('zbroj')">Zbroj</button>
+                    <button onclick="changeContent('pravi')">Pravi</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             }
 
 
@@ -711,6 +746,28 @@
                 openPage('185', 3, 2);
             } else if (contentType === 'cvijet12') {
                 openPage('185', 3, 2);
+            } else if (contentType === 'slovos') {
+                openPage('199', 1, 1);
+            } else if (contentType === 'broj3') {
+                openPage('199', 2, 1);
+            } else if (contentType === 'pravokutnici') {
+                openPage('199', 3, 1);
+            }else if (contentType === 'mac') {
+                openPage('211', 1, 1);
+            } else if (contentType === 'zgrada') {
+                openPage('211', 2, 2);
+            } else if (contentType === 'piramida') {
+                openPage('211', 3, 2);
+            } else if (contentType === 'cvijet13') {
+                openPage('211', 4, 2);
+            }else if (contentType === 'lopta') {
+                openPage('211', 1, 2);
+            } else if (contentType === 'sablja') {
+                openPage('211', 2, 2);
+            } else if (contentType === 'zbroj') {
+                openPage('211', 3, 2);
+            } else if (contentType === 'pravi') {
+                openPage('185', 3, 2);
             }
         }
 
@@ -759,18 +816,3 @@
         }
     </script>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
