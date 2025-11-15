@@ -837,6 +837,41 @@
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
                 attachVerticalButtonListeners();
+            } else if (contentType === '181') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('trozubac')">Trozubac</button>
+                    <button onclick="changeContent('cvijet_18')">Cvijet</button>
+                    <button onclick="changeContent('uzorak')">Uzorak</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '182') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('puzzle')">Puzzle</button>
+                    <button onclick="changeContent('cvijet')">Cvijet</button>
+                    <button onclick="changeContent('dijagonale')">Dijagonale</button>
+                    <button onclick="changeContent('domino')">Domino</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '183') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('strijela')">Strijela</button>
+                    <button onclick="changeContent('nanoputanac')">Nanoputanac</button>
+                    <button onclick="changeContent('Puzzle_18')">Puzzle</button>
+                    <button onclick="changeContent('spirala')">Spirala</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             }
 
 
@@ -996,6 +1031,28 @@
                 openPage('1418', 3, 2);
             } else if (contentType === 'sunce') {
                 openPage('1418', 3, 2);
+            } else if (contentType === 'trozubac') {
+                openPage('1476', 1, 1);
+            } else if (contentType === 'cvijet_18') {
+                openPage('1476', 2, 1);
+            } else if (contentType === 'uzorak') {
+                openPage('1476', 3, 1);
+            } else if (contentType === 'puzzle') {
+                openPage('1573', 1, 1);
+            } else if (contentType === 'cvijet_18zup') {
+                openPage('1573', 2, 2);
+            } else if (contentType === 'dijagonale') {
+                openPage('1573', 3, 2);
+            } else if (contentType === 'domino') {
+                openPage('1573', 4, 2);
+            }else if (contentType === 'strijela') {
+                openPage('1657', 1, 2);
+            } else if (contentType === 'nanoputanac') {
+                openPage('1657', 2, 2);
+            } else if (contentType === 'puzzle_18') {
+                openPage('1657', 3, 2);
+            } else if (contentType === 'spirala') {
+                openPage('1657', 3, 2);
             }
         }
 
@@ -1044,6 +1101,7 @@
         }
     </script>
 </html>
+
 
 
 
