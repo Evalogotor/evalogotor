@@ -865,8 +865,43 @@
                 <div class="task-buttons">
                     <button onclick="changeContent('strijela')">Strijela</button>
                     <button onclick="changeContent('nanoputanac')">Nanoputanac</button>
-                    <button onclick="changeContent('Puzzle_18')">Puzzle</button>
+                    <button onclick="changeContent('puzzle_18')">Puzzle</button>
                     <button onclick="changeContent('spirala')">Spirala</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '191') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('zastavica')">Zastavica</button>
+                    <button onclick="changeContent('smjerokaz')">Smjerokaz</button>
+                    <button onclick="changeContent('suriken')">Suriken</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '192') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('klavir')">Klavir</button>
+                    <button onclick="changeContent('motor')">Motor</button>
+                    <button onclick="changeContent('vjetro')">Vjetro</button>
+                    <button onclick="changeContent('igra')">Igra</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '193') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('semafor')">Semafor</button>
+                    <button onclick="changeContent('petlja')">Petlja</button>
+                    <button onclick="changeContent('analiza')">Analiza</button>
+                    <button onclick="changeContent('labirint')">Labirint</button>
                 </div>
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
@@ -1053,6 +1088,28 @@
                 openPage('1657', 3, 2);
             } else if (contentType === 'spirala') {
                 openPage('1657', 3, 2);
+            } else if (contentType === 'zastavica') {
+                openPage('1718', 1, 1);
+            } else if (contentType === 'smjerokaz') {
+                openPage('1718', 2, 1);
+            } else if (contentType === 'suriken') {
+                openPage('1718', 3, 1);
+            } else if (contentType === 'klavir') {
+                openPage('1811', 1, 1);
+            } else if (contentType === 'motor') {
+                openPage('1811', 2, 2);
+            } else if (contentType === 'vjetro') {
+                openPage('1811', 3, 2);
+            } else if (contentType === 'igra') {
+                openPage('1811', 4, 2);
+            }else if (contentType === 'semafor') {
+                openPage('1881', 1, 2);
+            } else if (contentType === 'petlja') {
+                openPage('1881', 2, 2);
+            } else if (contentType === 'analiza') {
+                openPage('1881', 3, 2);
+            } else if (contentType === 'labirint') {
+                openPage('1881', 3, 2);
             }
         }
 
@@ -1101,6 +1158,7 @@
         }
     </script>
 </html>
+
 
 
 
