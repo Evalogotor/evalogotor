@@ -595,9 +595,9 @@ applyTheme();
         if (contentType === '111') {
             var buttonZadaci = `
             <div class="task-buttons">
-                <button onclick="changeContent('leptir')">Leptir</button>
                 <button onclick="changeContent('ormar')">Ormar</button>
-                <button onclick="changeContent('trokuti')">Trokuti</button>
+                <button onclick="changeContent('zbroj')">Zbroj</button>
+                <button onclick="changeContent('guzda')">Guzda</button>
             </div>
             `;  
             document.getElementById('zadaci').innerHTML = buttonZadaci;
@@ -606,9 +606,9 @@ applyTheme();
         } else if (contentType === '112') {
             var buttonZadaci = `
             <div class="task-buttons">
-                <button onclick="changeContent('val')">Val</button>
-                <button onclick="changeContent('utezi')">Utezi</button>
+                <button onclick="changeContent('trokspir')">Trokspir</button>
                 <button onclick="changeContent('cvijet')">Cvijet</button>
+                <button onclick="changeContent('kovanice')">Kovanice</button>
                 <button onclick="changeContent('pruga')">Pruga</button>
             </div>
             `;  
@@ -618,9 +618,9 @@ applyTheme();
         } else if (contentType === '113') {
             var buttonZadaci = `
             <div class="task-buttons">
-                <button onclick="changeContent('zvizspir')">Zvizspir</button>
                 <button onclick="changeContent('rabac')">Rabac</button>
-                <button onclick="changeContent('cvijet11')">Cvijet</button>
+                <button onclick="changeContent('spoji')">Spoji</button>
+                <button onclick="changeContent('broš')">Broš</button>
                 <button onclick="changeContent('note')">Note</button>
             </div>
             `;  
@@ -632,25 +632,25 @@ applyTheme();
 
         
         //Zadaci
-        if (contentType === 'leptir') {
+        if (contentType === 'ormar') {
             openPage('93', 1, 1);
-        } else if (contentType === 'ormar') {
+        } else if (contentType === 'zbroj') {
             openPage('93', 2, 1);
-        } else if (contentType === 'trokuti') {
+        } else if (contentType === 'guzda') {
             openPage('93', 3, 1);
-        }else if (contentType === 'val') {
+        }else if (contentType === 'trokspir') {
             openPage('111', 1, 2);
-        } else if (contentType === 'utezi') {
-            openPage('111', 2, 2);
         } else if (contentType === 'cvijet') {
+            openPage('111', 2, 2);
+        } else if (contentType === 'kovanice') {
             openPage('111', 3, 2);
         } else if (contentType === 'pruga') {
             openPage('111', 3, 2);
-        }else if (contentType === 'zvizspir') {
+        }else if (contentType === 'rabac') {
             openPage('129', 1, 2);
-        } else if (contentType === 'rabac') {
+        } else if (contentType === 'spoji') {
             openPage('129', 2, 2);
-        } else if (contentType === 'cvijet11') {
+        } else if (contentType === 'broš') {
             openPage('129', 3, 2);
         } else if (contentType === 'note') {
             openPage('129', 3, 2);
