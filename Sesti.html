@@ -596,8 +596,8 @@
                 var buttonZadaci = `
                 <div class="task-buttons">
                     <button onclick="changeContent('leptir')">Leptir</button>
-                    <button onclick="changeContent('ormar')">Ormar</button>
                     <button onclick="changeContent('trokuti')">Trokuti</button>
+                    <button onclick="changeContent('zbroj')">Zbroj</button>
                 </div>
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
@@ -607,7 +607,7 @@
                 var buttonZadaci = `
                 <div class="task-buttons">
                     <button onclick="changeContent('val')">Val</button>
-                    <button onclick="changeContent('utezi')">Utezi</button>
+                    <button onclick="changeContent('kvadkrug')">Kvadkrug</button>
                     <button onclick="changeContent('cvijet')">Cvijet</button>
                     <button onclick="changeContent('pruga')">Pruga</button>
                 </div>
@@ -620,8 +620,218 @@
                 <div class="task-buttons">
                     <button onclick="changeContent('zvizspir')">Zvizspir</button>
                     <button onclick="changeContent('rabac')">Rabac</button>
-                    <button onclick="changeContent('cvijet11')">Cvijet</button>
+                    <button onclick="changeContent('broš')">Broš</button>
                     <button onclick="changeContent('note')">Note</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '121') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('godina')">Godina</button>
+                    <button onclick="changeContent('srce')">Srce</button>
+                    <button onclick="changeContent('cirkular')">cirkular</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '122') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('ntri')">Ntri</button>
+                    <button onclick="changeContent('kula')">Kula</button>
+                    <button onclick="changeContent('dijeli')">Dijeli</button>
+                    <button onclick="changeContent('zaprega')">Zaprega</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '123') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('Zbroj')">Zbroj</button>
+                    <button onclick="changeContent('fib')">Fib</button>
+                    <button onclick="changeContent('diskovi')">Diskovi</button>
+                    <button onclick="changeContent('Cvijet')">Cvijet</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '131') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('broj3')">Broj3</button>
+                    <button onclick="changeContent('pravokutnici')">Pravokutnici</button>
+                    <button onclick="changeContent('Trokuti')">Trokuti</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '132') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('zgrada')">Zgrada</button>
+                    <button onclick="changeContent('piramida')">Piramida</button>
+                    <button onclick="changeContent('prosti')">Prosti</button>
+                    <button onclick="changeContent('cvijet ')">Cvijet</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '133') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('zarulja')">Zarulja</button>
+                    <button onclick="changeContent('sablja')">Sablja</button>
+                    <button onclick="changeContent('glatki')">Glatki</button>
+                    <button onclick="changeContent('pravi')">Pravi</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '141') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('slovoe')">Slovoe</button>
+                    <button onclick="changeContent('seste')">Seste</button>
+                    <button onclick="changeContent('stube')">Stube</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '142') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('puz')">Puz</button>
+                    <button onclick="changeContent('ptica')">Ptica</button>
+                    <button onclick="changeContent('slovoo')">Slovoo</button>
+                    <button onclick="changeContent('parket')">Parket</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '143') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('abakus')">Abakus</button>
+                    <button onclick="changeContent('mercedes')">Mercedes</button>
+                    <button onclick="changeContent('zaledje')">Zaledje</button>
+                    <button onclick="changeContent('tok')">Tok</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '151') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('sampanjac')">Sampanjac</button>
+                    <button onclick="changeContent('kvadrati')">Kvadrati</button>
+                    <button onclick="changeContent('zgrade')">Zgrade</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '152') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('mreža')">Mreža</button>
+                    <button onclick="changeContent('kišobran')">Kišobran</button>
+                    <button onclick="changeContent('mikado')">Mikado</button>
+                    <button onclick="changeContent('dvorac')">Dvorac</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '153') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('med')">Med</button>
+                    <button onclick="changeContent('meta')">Meta</button>
+                    <button onclick="changeContent('palacinke')">Palacinke</button>
+                    <button onclick="changeContent('krizaljka')">Krizaljka</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '161') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('zmaj')">Zmaj</button>
+                    <button onclick="changeContent('Liga Prvaka')">Liga Prvaka</button>
+                    <button onclick="changeContent('lik')">Lik</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '162') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('karneval')">Karneval</button>
+                    <button onclick="changeContent('romb')">Romb</button>
+                    <button onclick="changeContent('babuške')">Babuške</button>
+                    <button onclick="changeContent('period')">Period</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '163') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('hashtag')">Hashtag</button>
+                    <button onclick="changeContent('munja')">Munja</button>
+                    <button onclick="changeContent('cezar')">Cezar</button>
+                    <button onclick="changeContent('poligon')">Poligon</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '171') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('zmaj')">Fotelja</button>
+                    <button onclick="changeContent('Liga Prvaka')">Insta</button>
+                    <button onclick="changeContent('Trokuti ')">Trokuti</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '172') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('trešnja')">Trešnja</button>
+                    <button onclick="changeContent('asklepije')">Asklepije</button>
+                    <button onclick="changeContent('zvijezde')">Zvijezde</button>
+                    <button onclick="changeContent('riječ')">Riječ</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '173') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('lista')">Lista</button>
+                    <button onclick="changeContent('portal')">Portal</button>
+                    <button onclick="changeContent('plakat')">Plakat</button>
+                    <button onclick="changeContent('slagalica')">Slagalica</button>
                 </div>
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
@@ -633,27 +843,159 @@
             
             //Zadaci
             if (contentType === 'leptir') {
-                openPage('93', 1, 1);
-            } else if (contentType === 'ormar') {
-                openPage('93', 2, 1);
+                openPage('28', 1, 1);
             } else if (contentType === 'trokuti') {
-                openPage('93', 3, 1);
+                openPage('28', 2, 1);
+            } else if (contentType === 'zbroj') {
+                openPage('28', 3, 1);
             }else if (contentType === 'val') {
-                openPage('111', 1, 2);
-            } else if (contentType === 'utezi') {
-                openPage('111', 2, 2);
+                openPage('127', 1, 2);
+            } else if (contentType === 'kvadkrug') {
+                openPage('127', 2, 2);
             } else if (contentType === 'cvijet') {
-                openPage('111', 3, 2);
+                openPage('127', 3, 2);
             } else if (contentType === 'pruga') {
-                openPage('111', 3, 2);
+                openPage('127', 3, 2);
             }else if (contentType === 'zvizspir') {
-                openPage('129', 1, 2);
+                openPage('218', 1, 2);
             } else if (contentType === 'rabac') {
-                openPage('129', 2, 2);
-            } else if (contentType === 'cvijet11') {
-                openPage('129', 3, 2);
+                openPage('218', 2, 2);
+            } else if (contentType === 'broš') {
+                openPage('218', 3, 2);
             } else if (contentType === 'note') {
-                openPage('129', 3, 2);
+                openPage('218', 3, 2);
+            } else if (contentType === 'godina') {
+                openPage('258', 1, 1);
+            } else if (contentType === 'srce') {
+                openPage('258', 2, 1);
+            } else if (contentType === 'cirkular') {
+                openPage('258', 3, 1);
+            }else if (contentType === 'ntri') {
+                openPage('296', 1, 2);
+            } else if (contentType === 'kula') {
+                openPage('296', 2, 2);
+            } else if (contentType === 'dijeli') {
+                openPage('296', 3, 2);
+            } else if (contentType === 'zaprega') {
+                openPage('296', 3, 2);
+            }else if (contentType === 'Zbroj') {
+                openPage('385', 1, 2);
+            } else if (contentType === 'fib') {
+                openPage('385', 2, 2);
+            } else if (contentType === 'diskovi') {
+                openPage('385', 3, 2);
+            } else if (contentType === 'Cvijet') {
+                openPage('385', 3, 2);
+            } else if (contentType === 'broj3') {
+                openPage('434', 1, 1);
+            } else if (contentType === 'pravokutnici') {
+                openPage('434', 2, 1);
+            } else if (contentType === 'Trokuti') {
+                openPage('434', 3, 1);
+            }else if (contentType === 'zgrada') {
+                openPage('559', 1, 2);
+            } else if (contentType === 'piramida') {
+                openPage('559', 2, 2);
+            } else if (contentType === 'prosti') {
+                openPage('559', 3, 2);
+            } else if (contentType === 'cvijet ') {
+                openPage('559', 3, 2);
+            }else if (contentType === 'zarulja') {
+                openPage('586', 1, 2);
+            } else if (contentType === 'sablja') {
+                openPage('586', 2, 2);
+            } else if (contentType === 'glatki') {
+                openPage('586', 3, 2);
+            } else if (contentType === 'pravi') {
+                openPage('586', 3, 2);
+            } else if (contentType === 'slovoe') {
+                openPage('660', 1, 1);
+            } else if (contentType === 'seste') {
+                openPage('660', 2, 1);
+            } else if (contentType === 'stube') {
+                openPage('660', 3, 1);
+            }else if (contentType === 'puz') {
+                openPage('703', 1, 2);
+            } else if (contentType === 'ptica') {
+                openPage('703', 2, 2);
+            } else if (contentType === 'slovoo') {
+                openPage('703', 3, 2);
+            } else if (contentType === 'parket') {
+                openPage('703', 3, 2);
+            }else if (contentType === 'abakus') {
+                openPage('807', 1, 2);
+            } else if (contentType === 'mercedes') {
+                openPage('807', 2, 2);
+            } else if (contentType === 'zaledje') {
+                openPage('807', 3, 2);
+            } else if (contentType === 'tok') {
+                openPage('807', 3, 2);
+            } else if (contentType === 'sampanjac') {
+                openPage('836', 1, 1);
+            } else if (contentType === 'kvadrati') {
+                openPage('836', 2, 1);
+            } else if (contentType === 'zgrade') {
+                openPage('836', 3, 1);
+            }else if (contentType === 'mreža') {
+                openPage('906', 1, 2);
+            } else if (contentType === 'kišobran') {
+                openPage('906', 2, 2);
+            } else if (contentType === 'mikado') {
+                openPage('906', 3, 2);
+            } else if (contentType === 'dvorac') {
+                openPage('906', 3, 2);
+            }else if (contentType === 'med') {
+                openPage('981', 1, 2);
+            } else if (contentType === 'meta') {
+                openPage('981', 2, 2);
+            } else if (contentType === 'palacinke') {
+                openPage('981', 3, 2);
+            } else if (contentType === 'krizaljka') {
+                openPage('981', 3, 2);
+            } else if (contentType === 'zmaj') {
+                openPage('1026', 1, 1);
+            } else if (contentType === 'Liga Prvaka') {
+                openPage('1026', 2, 1);
+            } else if (contentType === 'lik') {
+                openPage('1026', 3, 1);
+            }else if (contentType === 'karneval') {
+                openPage('1152', 1, 2);
+            } else if (contentType === 'romb') {
+                openPage('1152', 2, 2);
+            } else if (contentType === 'babuške') {
+                openPage('1152', 3, 2);
+            } else if (contentType === 'period') {
+                openPage('1152', 3, 2);
+            }else if (contentType === 'hashtag') {
+                openPage('1217', 1, 2);
+            } else if (contentType === 'munja') {
+                openPage('1217', 2, 2);
+            } else if (contentType === 'cezar') {
+                openPage('1217', 3, 2);
+            } else if (contentType === 'poligon') {
+                openPage('1217', 3, 2);
+            } else if (contentType === 'fotelja') {
+                openPage('1292', 1, 1);
+            } else if (contentType === 'insta') {
+                openPage('1292', 2, 1);
+            } else if (contentType === 'Trokuti ') {
+                openPage('1292', 3, 1);
+            }else if (contentType === 'trešnja') {
+                openPage('1368', 1, 2);
+            } else if (contentType === 'asklepije') {
+                openPage('1368', 2, 2);
+            } else if (contentType === 'zvijezde') {
+                openPage('1368', 3, 2);
+            } else if (contentType === 'riječ') {
+                openPage('1368', 3, 2);
+            }else if (contentType === 'lista') {
+                openPage('1419', 1, 2);
+            } else if (contentType === 'portal') {
+                openPage('1419', 2, 2);
+            } else if (contentType === 'plakat') {
+                openPage('1419', 3, 2);
+            } else if (contentType === 'slagalica') {
+                openPage('1419', 3, 2);
             }
         }
 
@@ -684,7 +1026,7 @@
                 <div class="eval-basket">
                     <div class="score">${ime_zadatak}</div>
                     <div class="zadatak_struk">
-                        <button class="text-blue-600" id="inp" onclick="window.open('https://informatika.azoo.hr/natjecanje/dogadjaj/${strGod}/rezultati', '_blank');">
+                        <button class="text-blue-600" id="inp" onclick="window.open('https://informatika.azoo.hr/natjecanje/dobavi-dokument/${strGod}', '_blank');">
                             ${translations[lang].inp}
                         </button>
                     </div>
