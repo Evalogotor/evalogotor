@@ -1038,6 +1038,41 @@
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
                 attachVerticalButtonListeners();
+            } else if (contentType === '241') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('cincile')">Činčile</button>
+                    <button onclick="changeContent('vanzemaljac')">Vanzemaljac</button>
+                    <button onclick="changeContent('pitanje')">Pitanje</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '242') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('tipkovnica')">Tipkovnica</button>
+                    <button onclick="changeContent('sir')">Sir</button>
+                    <button onclick="changeContent('ključ')">Ključ</button>
+                    <button onclick="changeContent('aurora')">Aurora</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '243') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('renault')">Renault</button>
+                    <button onclick="changeContent('cokolada')">Čokolada</button>
+                    <button onclick="changeContent('bus')">Bus</button>
+                    <button onclick="changeContent('hihistogram')">Hihistogram</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             }
 
 
@@ -1307,8 +1342,7 @@
                 openPage('2447', 3, 2);
             } else if (contentType === 'zone') {
                 openPage('2447', 3, 2);
-            }
-             else if (contentType === 'valjak') {
+            }else if (contentType === 'valjak') {
                 openPage('2520', 1, 1);
             } else if (contentType === 'spremnici') {
                 openPage('2520', 2, 1);
@@ -1322,6 +1356,28 @@
                 openPage('2594', 3, 2);
             } else if (contentType === 'rimski') {
                 openPage('2594', 3, 2);
+            } else if (contentType === 'cincile') {
+                openPage('', 1, 1);
+            } else if (contentType === 'vanzemaljac') {
+                openPage('', 2, 1);
+            } else if (contentType === 'pitanje') {
+                openPage('', 3, 1);
+            }else if (contentType === 'tipkovnica') {
+                openPage('', 1, 2);
+            } else if (contentType === 'sir') {
+                openPage('', 2, 2);
+            } else if (contentType === 'ključ') {
+                openPage('', 3, 2);
+            } else if (contentType === 'aurora') {
+                openPage('', 3, 2);
+            }else if (contentType === 'renault') {
+                openPage('', 1, 2);
+            } else if (contentType === 'cokolada') {
+                openPage('', 2, 2);
+            } else if (contentType === 'bus') {
+                openPage('', 3, 2);
+            } else if (contentType === 'hihistogram') {
+                openPage('', 3, 2);
             }
         }
 
