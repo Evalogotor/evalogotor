@@ -1047,6 +1047,41 @@
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
                 attachVerticalButtonListeners();
+            } else if (contentType === '241') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('slušalice')">Slušalice</button>
+                    <button onclick="changeContent('lampa')">Lampa</button>
+                    <button onclick="changeContent('ploice')">Police</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '242') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('mobitel')">Mobitel</button>
+                    <button onclick="changeContent('mač')">Mač</button>
+                    <button onclick="changeContent('mnogokuti')">Mnogokuti</button>
+                    <button onclick="changeContent('ormarić')">Ormarić</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '243') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('autocesta')">Autocesta</button>
+                    <button onclick="changeContent('vodice')">Vodice</button>
+                    <button onclick="changeContent('Luster')">Luster</button>
+                    <button onclick="changeContent('Saće')">Saće</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             }
 
 
@@ -1338,6 +1373,28 @@
                 openPage('', 3, 2);
             } else if (contentType === '') {
                 openPage('', 3, 2);
+            }  else if (contentType === 'slušalice') {
+                openPage('', 1, 1);
+            } else if (contentType === 'lampa') {
+                openPage('', 2, 1);
+            } else if (contentType === 'polica') {
+                openPage('', 3, 1);
+            } else if (contentType === 'mobitel') {
+                openPage('', 1, 1);
+            } else if (contentType === 'mač') {
+                openPage('', 2, 2);
+            } else if (contentType === 'mnogokuti') {
+                openPage('', 3, 2);
+            } else if (contentType === 'ormarić') {
+                openPage('', 4, 2);
+            }else if (contentType === 'autocesta') {
+                openPage('', 1, 2);
+            } else if (contentType === 'vodice') {
+                openPage('', 2, 2);
+            } else if (contentType === 'Luster') {
+                openPage('', 3, 2);
+            } else if (contentType === 'saće') {
+                openPage('', 3, 2);
             }
         }
 
@@ -1386,6 +1443,7 @@
         }
     </script>
 </html>
+
 
 
 
