@@ -627,6 +627,76 @@ applyTheme();
             document.getElementById('zadaci').innerHTML = buttonZadaci;
             document.getElementById('zadatak').innerHTML = '';
             attachVerticalButtonListeners();
+        } else if (contentType === '121') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('godina')">Godina</button>
+                <button onclick="changeContent('lepeza')">Lepeza</button>
+                <button onclick="changeContent('parni')">Parni</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '122') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('okreni')">Okreni</button>
+                <button onclick="changeContent('zvijezda')">Zvijezda</button>
+                <button onclick="changeContent('dijeli')">Dijeli</button>
+                <button onclick="changeContent('zaprega')">Zaprega</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '123') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('trokuti')">Trokuti</button>
+                <button onclick="changeContent('Lepeza')">Lepeza</button>
+                <button onclick="changeContent('nepraz')">Nepraz</button>
+                <button onclick="changeContent('hanoi')">Hanoi</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '131') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('pravokutnici')">Pravokutnici</button>
+                <button onclick="changeContent('Trokuti')">Trokuti</button>
+                <button onclick="changeContent('cipela')">Cipela</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '132') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('piramida')">Piramida</button>
+                <button onclick="changeContent('prosti')">Prosti</button>
+                <button onclick="changeContent('Cvijet')">Cvijet</button>
+                <button onclick="changeContent('neboder')">Neboder</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '133') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('zarulja')">Zarulja</button>
+                <button onclick="changeContent('sablja')">Sablja</button>
+                <button onclick="changeContent('glatki')">Glatki</button>
+                <button onclick="changeContent('palin')">Palin</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
         }
 
 
@@ -646,7 +716,7 @@ applyTheme();
             openPage('111', 3, 2);
         } else if (contentType === 'pruga') {
             openPage('111', 3, 2);
-        }else if (contentType === 'rabac') {
+        } else if (contentType === 'rabac') {
             openPage('129', 1, 2);
         } else if (contentType === 'spoji') {
             openPage('129', 2, 2);
@@ -654,6 +724,50 @@ applyTheme();
             openPage('129', 3, 2);
         } else if (contentType === 'note') {
             openPage('129', 3, 2);
+        } else if (contentType === 'godina') {
+            openPage('259', 1, 1);
+        } else if (contentType === 'Lepeza') {
+            openPage('259', 2, 1);
+        } else if (contentType === 'parni') {
+            openPage('259', 3, 1);
+        } else if (contentType === 'okreni') {
+            openPage('297', 1, 2);
+        } else if (contentType === 'zvijezda') {
+            openPage('297', 2, 2);
+        } else if (contentType === 'dijeli') {
+            openPage('297', 3, 2);
+        } else if (contentType === 'zaprega') {
+            openPage('297', 3, 2);
+        }else if (contentType === 'trokuti') {
+            openPage('386', 1, 2);
+        } else if (contentType === 'Lepeza') {
+            openPage('386', 2, 2);
+        } else if (contentType === 'nepraz') {
+            openPage('386', 3, 2);
+        } else if (contentType === 'hanoi') {
+            openPage('386', 3, 2);
+        } else if (contentType === 'pravokutnici') {
+            openPage('435', 1, 1);
+        } else if (contentType === 'Trokuti') {
+            openPage('435', 2, 1);
+        } else if (contentType === 'cipela') {
+            openPage('435', 3, 1);
+        } else if (contentType === 'piramida') {
+            openPage('558', 1, 2);
+        } else if (contentType === 'prosti') {
+            openPage('558', 2, 2);
+        } else if (contentType === 'Cvijet') {
+            openPage('558', 3, 2);
+        } else if (contentType === 'neboder') {
+            openPage('558', 3, 2);
+        }else if (contentType === 'trokuti') {
+            openPage('588', 1, 2);
+        } else if (contentType === 'Lepeza') {
+            openPage('588', 2, 2);
+        } else if (contentType === 'nepraz') {
+            openPage('588', 3, 2);
+        } else if (contentType === 'hanoi') {
+            openPage('588', 3, 2);
         }
     }
 
