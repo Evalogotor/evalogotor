@@ -147,7 +147,7 @@
   <body>
     <div class="container">
       <div id="themeToggleContainer" style="position: absolute; top: 20px; right: 100px; cursor: pointer;">
-        <i id="themeIcon" data-lucide="moon"></i>
+        <i id="themeIcon" data-lucide="moon" width="24" height="24"></i>
       </div>
       <!-- Language Selector -->
       <select id="langSelect" onchange="updateLanguage(this.value)">
@@ -298,13 +298,13 @@
         if(darkMode) {
           body.style.backgroundColor = 'rgb(17, 24, 39)';
           body.style.color = '#FFFFFF';
-          themeIcon.setAttribute('data-lucide', 'sun');
+          themeIcon.setAttribute('data-lucide', 'sun'); // icon for light mode
         } else {
           body.style.backgroundColor = '#FFFFFF';
           body.style.color = '#000000';
-          themeIcon.setAttribute('data-lucide', 'moon');
+          themeIcon.setAttribute('data-lucide', 'moon'); // icon for dark mode
         }
-        lucide.createIcons();
+        lucide.createIcons({defaultWidth: 24, defaultHeight: 24}); // ensure it updates icon
       }
     
       themeToggleContainer.addEventListener('click', () => {
@@ -339,6 +339,7 @@
     </script>
   </body>
 </html>
+
 
 
 
