@@ -1,319 +1,345 @@
 <!DOCTYPE html>
-<html lang="hr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prijava</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: rgb(17, 24, 39);
-      color: #000000;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .container {
-      background-color: rgb(31, 41, 55);
-      border-radius: 20px;
-      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-      padding: 40px;
-      text-align: center;
-      width: 80%;
-      max-width: 600px;
-      position: relative;
-    }
-
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 30px;
-      color: rgb(200, 200, 200);
-    }
-
-    .input-container {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    label {
-      font-size: 1.2em;
-      margin-right: 10px;
-      text-align: center;
-      color: rgb(200, 200, 200);
-    }
-
-    input[type="text"],
-    input[type="password"] {
-      font-size: 1em;
-      padding: 10px;
-      border: 2px solid rgb(17, 24, 39);
-      border-radius: 5px;
-      width: 80%;
-      max-width: 300px;
-      background-color: rgb(55, 65, 81);
-      color: white;
-    }
-
-    .button-container {
-      margin-top: 20px;
-    }
-
-    button {
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 1em;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    .warning {
-      background-color: #fff4f4;
-      color: #d32f2f;
-      border: 1px solid #f8d7da;
-      padding: 12px 16px;
-      border-radius: 10px;
-      margin: 10px auto;
-      font-family: system-ui, sans-serif;
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      max-width: 400px;
-    }
-
-    .warning-icon {
-      font-size: 18px;
-    }
-
-    .redirect {
-      margin-top: 15px;
-    }
-
-    .redirect p {
-      color: rgb(200, 200, 200);
-      font-size: 0.9em;
-    }
-
-    .redirect a {
-      color: #007BFF;
-      text-decoration: none;
-    }
-
-    .redirect a:hover {
-      text-decoration: underline;
-    }
-
-    select {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      padding: 6px 10px;
-      border-radius: 6px;
-      border: 1px solid rgb(55, 65, 81);
-      background-color: rgb(55, 65, 81);
-      color: rgb(220, 220, 220);
-      font-size: 0.9em;
-      cursor: pointer;
-      appearance: none;
-    }
-
-    select:focus {
-      outline: none;
-      border-color: #007BFF;
-    }
-
-    select option {
-      background-color: rgb(31, 41, 55);
-      color: rgb(220, 220, 220);
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <!-- Language Selector -->
-    <select id="langSelect" onchange="updateLanguage(this.value)">
-      <option value="en">EN</option>
-      <option value="de">DE</option>
-      <option value="it">IT</option>
-      <option value="hr" selected>HR</option>
-      <option value="fr">FR</option>
-      <option value="ru">RU</option>
-    </select>
-
-    <h1 id="title">Prijava</h1>
-    <div class="input-container">
-      <label for="username" id="usernameLabel">Ime</label>
-      <input type="text" id="username" name="username" placeholder="Upišite ime">
-    </div>
-    <div class="input-container">
-      <label for="password" id="passwordLabel">Lozinka</label>
-      <input type="password" id="password" name="password" placeholder="Upišite lozinku">
-    </div>
-    <div class="button-container">
-      <button id="continueBtn" onclick="filledYet()">Nastavi</button>
-      <div class="redirect">
-        <p id="signupText">Nemaš račun? <a href="signup.html" id="signupLink">Registriraj se</a></p>
+<html lang="en">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/lucide/dist/lucide.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prijava</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: rgb(17, 24, 39);
+        color: #000000;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+  
+      .container {
+        background-color: rgb(31, 41, 55);
+        border-radius: 20px;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+        padding: 40px;
+        text-align: center;
+        width: 80%;
+        max-width: 600px;
+        position: relative;
+      }
+  
+      h1 {
+        font-size: 2.5em;
+        margin-bottom: 30px;
+        color: rgb(200, 200, 200);
+      }
+  
+      .input-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+      }
+  
+      label {
+        font-size: 1.2em;
+        margin-right: 10px;
+        text-align: center;
+        color: rgb(200, 200, 200);
+      }
+  
+      input[type="text"],
+      input[type="password"] {
+        font-size: 1em;
+        padding: 10px;
+        border: 2px solid rgb(17, 24, 39);
+        border-radius: 5px;
+        width: 80%;
+        max-width: 300px;
+        background-color: rgb(55, 65, 81);
+        color: white;
+      }
+  
+      .button-container {
+        margin-top: 20px;
+      }
+  
+      button {
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 1em;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+  
+      button:hover {
+        background-color: #0056b3;
+      }
+  
+      .warning {
+        background-color: #fff4f4;
+        color: #d32f2f;
+        border: 1px solid #f8d7da;
+        padding: 12px 16px;
+        border-radius: 10px;
+        margin: 10px auto;
+        font-family: system-ui, sans-serif;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        max-width: 400px;
+      }
+  
+      .warning-icon {
+        font-size: 18px;
+      }
+  
+      .redirect {
+        margin-top: 15px;
+      }
+  
+      .redirect p {
+        color: rgb(200, 200, 200);
+        font-size: 0.9em;
+      }
+  
+      .redirect a {
+        color: #007BFF;
+        text-decoration: none;
+      }
+  
+      .redirect a:hover {
+        text-decoration: underline;
+      }
+  
+      select {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid rgb(55, 65, 81);
+        background-color: rgb(55, 65, 81);
+        color: rgb(220, 220, 220);
+        font-size: 0.9em;
+        cursor: pointer;
+        appearance: none;
+      }
+  
+      select:focus {
+        outline: none;
+        border-color: #007BFF;
+      }
+  
+      select option {
+        background-color: rgb(31, 41, 55);
+        color: rgb(220, 220, 220);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="themeToggleContainer" style="position: absolute; top: 20px; right: 100px; cursor: pointer;">
+        <i id="themeIcon" data-lucide="moon"></i>
       </div>
+      <!-- Language Selector -->
+      <select id="langSelect" onchange="updateLanguage(this.value)">
+        <option value="en">EN</option>
+        <option value="de">DE</option>
+        <option value="it">IT</option>
+        <option value="hr" selected>HR</option>
+        <option value="fr">FR</option>
+        <option value="ru">RU</option>
+      </select>
+  
+      <h1 id="title">Prijava</h1>
+      <div class="input-container">
+        <label for="username" id="usernameLabel">Ime</label>
+        <input type="text" id="username" name="username" placeholder="Upišite ime">
+      </div>
+      <div class="input-container">
+        <label for="password" id="passwordLabel">Lozinka</label>
+        <input type="password" id="password" name="password" placeholder="Upišite lozinku">
+      </div>
+      <div class="button-container">
+        <button id="continueBtn" onclick="filledYet()">Nastavi</button>
+        <div class="redirect">
+          <p id="signupText">Nemaš račun? <a href="signup.html" id="signupLink">Registriraj se</a></p>
+        </div>
+      </div>
+      <div id="warning"></div>
     </div>
-    <div id="warning"></div>
-  </div>
-
-  <script>
-    const translations = {
-    hr: {
-        title: "Registracija",
-        email: "Email",
-        username: "Ime",
-        password: "Lozinka",
-        placeholderEmail: "Upišite email",
-        placeholderUser: "Upišite ime",
-        placeholderPass: "Upišite lozinku",
-        continue: "Nastavi",
-        warnEmail: "Molim vas unesite email",
-        warnUser: "Molim vas unesite korisničko ime",
-        warnPass: "Molim vas unesite lozinku",
-        redirect: 'Već imate račun? <a href="login.html">Prijavite se</a>',
-        sucessful: 'uspješna',
-        sign: 'Molim vas provjerite Vaš E-mail za informacije'
-      },
-      en: {
-        title: "Sign Up",
-        email: "Email",
-        username: "Username",
-        password: "Password",
-        placeholderEmail: "Enter email",
-        placeholderUser: "Enter username",
-        placeholderPass: "Enter password",
-        continue: "Continue",
-        warnEmail: "Please enter an email",
-        warnUser: "Please enter a username",
-        warnPass: "Please enter a password",
-        redirect: 'Already have an account? <a href="login.html">Log in</a>',
-        sucessful: 'successful',
-        sign: 'Please check your E-mail for info'
-      },
-      de: {
-        title: "Registrierung",
-        email: "Email",
-        username: "Benutzername",
-        password: "Passwort",
-        placeholderEmail: "Geben Sie Email ein",
-        placeholderUser: "Benutzernamen eingeben",
-        placeholderPass: "Passwort eingeben",
-        continue: "Weiter",
-        warnEmail: "Bitte geben Sie eine Email ein",
-        warnUser: "Bitte geben Sie einen Benutzernamen ein",
-        warnPass: "Bitte geben Sie ein Passwort ein",
-        redirect: 'Sie haben schon ein Konto? <a href="login.html">Anmelden</a>',
-        sucessful: 'erfolgreich',
-        sign: 'Bitte überprüfen Sie Ihre E-Mails auf Informationen.'
-      },
-      it: {
-        title: "Registrazione",
-        email: "Email",
-        username: "Nome utente",
-        password: "Password",
-        placeholderEmail: "Inserisci email",
-        placeholderUser: "Inserisci nome utente",
-        placeholderPass: "Inserisci password",
-        continue: "Continua",
-        warnEmail: "Per favore inserisci un'email",
-        warnUser: "Per favore inserisci un nome utente",
-        warnPass: "Per favore inserisci una password",
-        redirect: 'Hai già un account? <a href="login.html">Accedi</a>',
-        sucessful: 'riuscita',
-        sign: 'Per favore controlla la tua e-mail per informazioni'
-      },
-      fr: {
-        title: "Inscription",
-        email: "Email",
-        username: "Nom d'utilisateur",
-        password: "Mot de passe",
-        placeholderEmail: "Entrez un email",
-        placeholderUser: "Entrez un nom d'utilisateur",
-        placeholderPass: "Entrez un mot de passe",
-        continue: "Continuer",
-        warnEmail: "Veuillez entrer un email",
-        warnUser: "Veuillez entrer un nom d'utilisateur",
-        warnPass: "Veuillez entrer un mot de passe",
-        redirect: 'Vous avez déjà un compte ? <a href="login.html">Connexion</a>',
-        sucessful: 'réussi',
-        sign: 'Veuillez vérifier votre e-mail pour plus d´informations'
-      },
-      ru: {
-        title: "Регистрация",
-        email: "Эл. почта",
-        username: "Имя пользователя",
-        password: "Пароль",
-        placeholderEmail: "Введите эл. почту",
-        placeholderUser: "Введите имя пользователя",
-        placeholderPass: "Введите пароль",
-        continue: "Продолжить",
-        warnEmail: "Пожалуйста, введите эл. почту",
-        warnUser: "Пожалуйста, введите имя пользователя",
-        warnPass: "Пожалуйста, введите пароль",
-        redirect: 'Уже есть аккаунт? <a href="login.html">Войти</a>',
-        sucessful: 'Успешный',
-        sign: 'Пожалуйста, проверьте свою электронную почту для получения информации.'
+  
+    <script>
+      // Initialize Lucide icons
+      lucide.createIcons();
+    
+      const body = document.body;
+      const themeIcon = document.getElementById("themeIcon");
+      const themeToggleContainer = document.getElementById("themeToggleContainer");
+      const langSelect = document.getElementById("langSelect");
+    
+      const translations = {
+        hr: {
+          title: "Registracija",
+          username: "Ime",
+          password: "Lozinka",
+          placeholderUser: "Upišite ime",
+          placeholderPass: "Upišite lozinku",
+          continue: "Nastavi",
+          warnUser: "Molim vas unesite korisničko ime",
+          warnPass: "Molim vas unesite lozinku",
+          sucessful: 'uspješna',
+          signupText: 'Već imate račun?',
+          signupLink: 'Prijavite se'
+        },
+        en: {
+          title: "Sign Up",
+          username: "Username",
+          password: "Password",
+          placeholderUser: "Enter username",
+          placeholderPass: "Enter password",
+          continue: "Continue",
+          warnUser: "Please enter a username",
+          warnPass: "Please enter a password",
+          sucessful: 'successful',
+          signupText: 'Already have an account?',
+          signupLink: 'Log in'
+        },
+        de: {
+          title: "Registrierung",
+          username: "Benutzername",
+          password: "Passwort",
+          placeholderUser: "Benutzernamen eingeben",
+          placeholderPass: "Passwort eingeben",
+          continue: "Weiter",
+          warnUser: "Bitte geben Sie einen Benutzernamen ein",
+          warnPass: "Bitte geben Sie ein Passwort ein",
+          sucessful: 'erfolgreich',
+          signupText: 'Sie haben schon ein Konto?',
+          signupLink: 'Anmelden'
+        },
+        it: {
+          title: "Registrazione",
+          username: "Nome utente",
+          password: "Password",
+          placeholderUser: "Inserisci nome utente",
+          placeholderPass: "Inserisci password",
+          continue: "Continua",
+          warnUser: "Per favore inserisci un nome utente",
+          warnPass: "Per favore inserisci una password",
+          sucessful: 'riuscita',
+          signupText: 'Hai già un account?',
+          signupLink: 'Accedi'
+        },
+        fr: {
+          title: "Inscription",
+          username: "Nom d'utilisateur",
+          password: "Mot de passe",
+          placeholderUser: "Entrez un nom d'utilisateur",
+          placeholderPass: "Entrez un mot de passe",
+          continue: "Continuer",
+          warnUser: "Veuillez entrer un nom d'utilisateur",
+          warnPass: "Veuillez entrer un mot de passe",
+          sucessful: 'réussi',
+          signupText: 'Vous avez déjà un compte ?',
+          signupLink: 'Connexion'
+        },
+        ru: {
+          title: "Регистрация",
+          username: "Имя пользователя",
+          password: "Пароль",
+          placeholderUser: "Введите имя пользователя",
+          placeholderPass: "Введите пароль",
+          continue: "Продолжить",
+          warnUser: "Пожалуйста, введите имя пользователя",
+          warnPass: "Пожалуйста, введите пароль",
+          sucessful: 'Успешный',
+          signupText: 'Уже есть аккаунт?',
+          signupLink: 'Войти'
+        }
+      };
+    
+      // --- Language Handling ---
+      let currentLang = localStorage.getItem("lang") || "hr";
+    
+      function updateLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem("lang", lang);
+        const t = translations[lang];
+    
+        document.getElementById("title").textContent = t.title;
+        document.getElementById("usernameLabel").textContent = t.username;
+        document.getElementById("passwordLabel").textContent = t.password;
+        document.getElementById("username").placeholder = t.placeholderUser;
+        document.getElementById("password").placeholder = t.placeholderPass;
+        document.getElementById("continueBtn").textContent = t.continue;
+        document.getElementById("signupText").childNodes[0].nodeValue = t.signupText + " ";
+        document.getElementById("signupLink").textContent = t.signupLink;
       }
-    };
-
-    let currentLang = "hr";
-
-    function updateLanguage(lang) {
-      currentLang = lang;
-      const t = translations[lang];
-      document.getElementById("title").textContent = t.title;
-      document.getElementById("usernameLabel").textContent = t.username;
-      document.getElementById("passwordLabel").textContent = t.password;
-      document.getElementById("username").placeholder = t.placeholderUser;
-      document.getElementById("password").placeholder = t.placeholderPass;
-      document.getElementById("continueBtn").textContent = t.continue;
-      document.getElementById("signupText").childNodes[0].nodeValue = t.signupText + " ";
-      document.getElementById("signupLink").textContent = t.signupLink;
-    }
-
-    function notFilled(username, password) {
-      let warn = "";
-      const t = translations[currentLang];
-      if (username.trim() === "") {
-        warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnUser}</div>`;
+    
+      if(langSelect) {
+        langSelect.value = currentLang;
+        langSelect.addEventListener("change", (e) => updateLanguage(e.target.value));
       }
-      if (password.trim() === "") {
-        warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnPass}</div>`;
+      updateLanguage(currentLang);
+    
+      // --- Dark/Light Theme Handling ---
+      let darkMode = (localStorage.getItem("theme") || 'dark') === 'dark';
+    
+      function applyTheme() {
+        if(darkMode) {
+          body.style.backgroundColor = 'rgb(17, 24, 39)';
+          body.style.color = '#FFFFFF';
+          themeIcon.setAttribute('data-lucide', 'sun');
+        } else {
+          body.style.backgroundColor = '#FFFFFF';
+          body.style.color = '#000000';
+          themeIcon.setAttribute('data-lucide', 'moon');
+        }
+        lucide.createIcons();
       }
-      document.getElementById("warning").innerHTML = warn;
-    }
-
-    function filledYet() {
-      document.getElementById("warning").innerHTML = "";
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-      if (username.trim() === "" || password.trim() === "") {
-        notFilled(username, password);
-      } else {
-        alert("✔️ " + translations[currentLang].title + " " + translations[currentLang].sucessful + "!");
-        location.href = 'Zadaci.html';
+    
+      themeToggleContainer.addEventListener('click', () => {
+        darkMode = !darkMode;
+        localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+        applyTheme();
+      });
+    
+      applyTheme();
+    
+      // --- Form Validation ---
+      function notFilled(username, password) {
+        const t = translations[currentLang];
+        let warn = "";
+        if(username.trim() === "") warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnUser}</div>`;
+        if(password.trim() === "") warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnPass}</div>`;
+        document.getElementById("warning").innerHTML = warn;
       }
-    }
-  </script>
-</body>
+    
+      function filledYet() {
+        document.getElementById("warning").innerHTML = "";
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+    
+        if(username.trim() === "" || password.trim() === "") {
+          notFilled(username, password);
+        } else {
+          alert("✔️ " + translations[currentLang].title + " " + translations[currentLang].sucessful + "!");
+          location.href = '/'; // Redirect to home or tasks page
+        }
+      }
+    </script>
+  </body>
 </html>
+
 
 
 
