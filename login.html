@@ -1,284 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        background-color: rgb(17, 24, 39);
-        color: #000000;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-  
-      .container {
-        background-color: rgb(31, 41, 55);
-        border-radius: 20px;
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-        padding: 40px;
-        text-align: center;
-        width: 80%;
-        max-width: 600px;
-        position: relative;
-      }
-  
-      h1 {
-        font-size: 2.5em;
-        margin-bottom: 30px;
-        color: rgb(200, 200, 200);
-      }
-  
-      .input-container {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        margin-top: 20px;
-      }
-  
-      label {
-        font-size: 1.2em;
-        margin-right: 10px;
-        text-align: center;
-        color: rgb(200, 200, 200);
-      }
-  
-      input[type="text"],
-      input[type="password"] {
-        font-size: 1em;
-        padding: 10px;
-        border: 2px solid rgb(17, 24, 39);
-        border-radius: 5px;
-        width: 80%;
-        max-width: 300px;
-        background-color: rgb(55, 65, 81);
-        color: white;
-      }
-  
-      .button-container {
-        margin-top: 20px;
-      }
-  
-      button {
-        background-color: #007BFF;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        margin: 10px;
-        font-size: 1em;
-        cursor: pointer;
-        border-radius: 5px;
-      }
-  
-      button:hover {
-        background-color: #0056b3;
-      }
-  
-      .warning {
-        background-color: #fff4f4;
-        color: #d32f2f;
-        border: 1px solid #f8d7da;
-        padding: 12px 16px;
-        border-radius: 10px;
-        margin: 10px auto;
-        font-family: system-ui, sans-serif;
-        font-size: 15px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        max-width: 400px;
-      }
-  
-      .warning-icon {
-        font-size: 18px;
-      }
-  
-      .redirect {
-        margin-top: 15px;
-      }
-  
-      .redirect p {
-        color: rgb(200, 200, 200);
-        font-size: 0.9em;
-      }
-  
-      .redirect a {
-        color: #007BFF;
-        text-decoration: none;
-      }
-  
-      .redirect a:hover {
-        text-decoration: underline;
-      }
-  
-      select {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        padding: 6px 10px;
-        border-radius: 6px;
-        border: 1px solid rgb(55, 65, 81);
-        background-color: rgb(55, 65, 81);
-        color: rgb(220, 220, 220);
-        font-size: 0.9em;
-        cursor: pointer;
-        appearance: none;
-      }
-  
-      select:focus {
-        outline: none;
-        border-color: #007BFF;
-      }
-  
-      select option {
-        background-color: rgb(31, 41, 55);
-        color: rgb(220, 220, 220);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div style="position: absolute; top: 20px; right: 20px; display: flex; gap: 10px; align-items: center;">
-        <!-- Theme toggle button -->
-        <div id="themeToggleContainer" style="cursor: pointer;">
-          <i id="themeIcon" data-lucide="moon" width="24" height="24"></i>
-        </div>
-      
-        <!-- Language selector -->
-        <select id="langSelect">
-          <option value="en">EN</option>
-          <option value="de">DE</option>
-          <option value="it">IT</option>
-          <option value="hr" selected>HR</option>
-          <option value="fr">FR</option>
-          <option value="ru">RU</option>
-        </select>
-      </div>
-  
-      <h1 id="title">Prijava</h1>
-      <div class="input-container">
-        <label for="username" id="usernameLabel">Ime</label>
-        <input type="text" id="username" name="username" placeholder="Upišite ime">
-      </div>
-      <div class="input-container">
-        <label for="password" id="passwordLabel">Lozinka</label>
-        <input type="password" id="password" name="password" placeholder="Upišite lozinku">
-      </div>
-      <div class="button-container">
-        <button id="continueBtn" onclick="filledYet()">Nastavi</button>
-        <div class="redirect">
-          <p id="signupText">Nemaš račun? <a href="signup.html" id="signupLink">Registriraj se</a></p>
-        </div>
-      </div>
-      <div id="warning"></div>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/lucide/dist/lucide.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prijava</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: rgb(17, 24, 39);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    .container {
+      background-color: rgb(31, 41, 55);
+      border-radius: 20px;
+      box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+      padding: 40px;
+      text-align: center;
+      width: 80%;
+      max-width: 600px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      color: rgb(200, 200, 200);
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    label {
+      font-size: 1.2em;
+      margin-right: 10px;
+      color: rgb(200, 200, 200);
+    }
+
+    input[type="text"], input[type="password"] {
+      font-size: 1em;
+      padding: 10px;
+      border: 2px solid rgb(17,24,39);
+      border-radius: 5px;
+      width: 80%;
+      max-width: 300px;
+      background-color: rgb(55,65,81);
+      color: white;
+    }
+
+    .button-container {
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .warning {
+      background-color: #fff4f4;
+      color: #d32f2f;
+      border: 1px solid #f8d7da;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin: 10px auto;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 400px;
+    }
+
+    /* Top-right controls */
+    #topControls {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      z-index: 2;
+    }
+
+    select {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid rgb(55,65,81);
+      background-color: rgb(55,65,81);
+      color: rgb(220,220,220);
+      font-size: 0.9em;
+      cursor: pointer;
+    }
+
+    select option {
+      background-color: rgb(31,41,55);
+      color: rgb(220,220,220);
+    }
+  </style>
+</head>
+<body>
+  <!-- Top-right controls: theme + language -->
+  <div id="topControls">
+    <div id="themeToggleContainer" style="cursor:pointer;">
+      <i id="themeIcon" data-lucide="moon" width="24" height="24"></i>
     </div>
-  
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        // --- Elements ---
-        const body = document.body;
-        const themeIcon = document.getElementById("themeIcon");
-        const themeToggleContainer = document.getElementById("themeToggleContainer");
-        const langSelect = document.getElementById("langSelect");
-      
-        // --- Initialize Lucide icons after DOM is ready ---
-        lucide.createIcons({defaultWidth: 24, defaultHeight: 24});
-      
-        // --- Translations ---
-        const translations = {
-          hr: { title:"Registracija", username:"Ime", password:"Lozinka", placeholderUser:"Upišite ime", placeholderPass:"Upišite lozinku", continue:"Nastavi", warnUser:"Molim vas unesite korisničko ime", warnPass:"Molim vas unesite lozinku", sucessful:'uspješna', signupText:'Već imate račun?', signupLink:'Prijavite se' },
-          en: { title:"Sign Up", username:"Username", password:"Password", placeholderUser:"Enter username", placeholderPass:"Enter password", continue:"Continue", warnUser:"Please enter a username", warnPass:"Please enter a password", sucessful:'successful', signupText:'Already have an account?', signupLink:'Log in' },
-          de: { title:"Registrierung", username:"Benutzername", password:"Passwort", placeholderUser:"Benutzernamen eingeben", placeholderPass:"Passwort eingeben", continue:"Weiter", warnUser:"Bitte geben Sie einen Benutzernamen ein", warnPass:"Bitte geben Sie ein Passwort ein", sucessful:'erfolgreich', signupText:'Sie haben schon ein Konto?', signupLink:'Anmelden' },
-          it: { title:"Registrazione", username:"Nome utente", password:"Password", placeholderUser:"Inserisci nome utente", placeholderPass:"Inserisci password", continue:"Continua", warnUser:"Per favore inserisci un nome utente", warnPass:"Per favore inserisci una password", sucessful:'riuscita', signupText:'Hai già un account?', signupLink:'Accedi' },
-          fr: { title:"Inscription", username:"Nom d'utilisateur", password:"Mot de passe", placeholderUser:"Entrez un nom d'utilisateur", placeholderPass:"Entrez un mot de passe", continue:"Continuer", warnUser:"Veuillez entrer un nom d'utilisateur", warnPass:"Veuillez entrer un mot de passe", sucessful:'réussi', signupText:'Vous avez déjà un compte ?', signupLink:'Connexion' },
-          ru: { title:"Регистрация", username:"Имя пользователя", password:"Пароль", placeholderUser:"Введите имя пользователя", placeholderPass:"Введите пароль", continue:"Продолжить", warnUser:"Пожалуйста, введите имя пользователя", warnPass:"Пожалуйста, введите пароль", sucessful:'Успешный', signupText:'Уже есть аккаунт?', signupLink:'Войти' }
-        };
-      
-        // --- Language Handling ---
-        let currentLang = localStorage.getItem("lang") || "hr";
-        function updateLanguage(lang) {
-          currentLang = lang;
-          localStorage.setItem("lang", lang);
-          const t = translations[lang];
-          document.getElementById("title").textContent = t.title;
-          document.getElementById("usernameLabel").textContent = t.username;
-          document.getElementById("passwordLabel").textContent = t.password;
-          document.getElementById("username").placeholder = t.placeholderUser;
-          document.getElementById("password").placeholder = t.placeholderPass;
-          document.getElementById("continueBtn").textContent = t.continue;
-          document.getElementById("signupText").childNodes[0].nodeValue = t.signupText + " ";
-          document.getElementById("signupLink").textContent = t.signupLink;
+    <select id="langSelect">
+      <option value="en">EN</option>
+      <option value="de">DE</option>
+      <option value="it">IT</option>
+      <option value="hr" selected>HR</option>
+      <option value="fr">FR</option>
+      <option value="ru">RU</option>
+    </select>
+  </div>
+
+  <div class="container">
+    <h1 id="title">Prijava</h1>
+    <div class="input-container">
+      <label for="username" id="usernameLabel">Ime</label>
+      <input type="text" id="username" placeholder="Upišite ime">
+    </div>
+    <div class="input-container">
+      <label for="password" id="passwordLabel">Lozinka</label>
+      <input type="password" id="password" placeholder="Upišite lozinku">
+    </div>
+    <div class="button-container">
+      <button id="continueBtn" onclick="filledYet()">Nastavi</button>
+    </div>
+    <div id="warning"></div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const body = document.body;
+      const themeIcon = document.getElementById("themeIcon");
+      const themeToggleContainer = document.getElementById("themeToggleContainer");
+      const langSelect = document.getElementById("langSelect");
+
+      lucide.createIcons({defaultWidth:24, defaultHeight:24});
+
+      // Theme
+      let darkMode = (localStorage.getItem('theme')||'dark')==='dark';
+      function applyTheme(){
+        if(darkMode){
+          body.style.backgroundColor='rgb(17,24,39)';
+          body.style.color='#fff';
+          themeIcon.setAttribute('data-lucide','sun');
+        } else {
+          body.style.backgroundColor='#fff';
+          body.style.color='#000';
+          themeIcon.setAttribute('data-lucide','moon');
         }
-        langSelect.value = currentLang;
-        langSelect.addEventListener("change", (e) => updateLanguage(e.target.value));
-        updateLanguage(currentLang);
-      
-        // --- Dark/Light Theme Handling ---
-        let darkMode = (localStorage.getItem("theme") || 'dark') === 'dark';
-      
-        function applyTheme() {
-          if(darkMode) {
-            body.style.backgroundColor = 'rgb(17, 24, 39)';
-            body.style.color = '#FFFFFF';
-            themeIcon.setAttribute('data-lucide','sun'); // sun for light mode
-            themeIcon.setAttribute('stroke','#FFD700'); // visible gold
-          } else {
-            body.style.backgroundColor = '#FFFFFF';
-            body.style.color = '#000000';
-            themeIcon.setAttribute('data-lucide','moon'); // moon for dark mode
-            themeIcon.setAttribute('stroke','#000000'); // visible black
-          }
-          lucide.createIcons({defaultWidth:24, defaultHeight:24});
-        }
-      
-        themeToggleContainer.addEventListener('click', () => {
-          darkMode = !darkMode;
-          localStorage.setItem('theme', darkMode ? 'dark' : 'light');
-          applyTheme();
-        });
-      
+        lucide.createIcons({defaultWidth:24, defaultHeight:24});
+      }
+      themeToggleContainer.addEventListener('click',()=>{
+        darkMode = !darkMode;
+        localStorage.setItem('theme',darkMode?'dark':'light');
         applyTheme();
-      
-        // --- Form Validation ---
-        function notFilled(username, password) {
-          const t = translations[currentLang];
-          let warn = "";
-          if(username.trim() === "") warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnUser}</div>`;
-          if(password.trim() === "") warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnPass}</div>`;
-          document.getElementById("warning").innerHTML = warn;
-        }
-      
-        // Make filledYet globally available for inline onclick
-        window.filledYet = function() {
-          document.getElementById("warning").innerHTML = "";
-          const username = document.getElementById("username").value;
-          const password = document.getElementById("password").value;
-          if(username.trim() === "" || password.trim() === "") {
-            notFilled(username, password);
-          } else {
-            alert("✔️ " + translations[currentLang].title + " " + translations[currentLang].sucessful + "!");
-            location.href = '/';
-          }
-        }
       });
-    </script>
-  </body>
+      applyTheme();
+
+      // Translations
+      const translations = {
+        hr:{title:"Registracija",username:"Ime",password:"Lozinka",placeholderUser:"Upišite ime",placeholderPass:"Upišite lozinku",continue:"Nastavi",warnUser:"Molim vas unesite korisničko ime",warnPass:"Molim vas unesite lozinku",sucessful:'uspješna'},
+        en:{title:"Sign Up",username:"Username",password:"Password",placeholderUser:"Enter username",placeholderPass:"Enter password",continue:"Continue",warnUser:"Please enter a username",warnPass:"Please enter a password",sucessful:'successful'}
+      };
+      let currentLang = localStorage.getItem("lang")||"hr";
+      function updateLanguage(lang){
+        currentLang=lang;localStorage.setItem("lang",lang);
+        const t = translations[lang];
+        document.getElementById("title").textContent=t.title;
+        document.getElementById("usernameLabel").textContent=t.username;
+        document.getElementById("passwordLabel").textContent=t.password;
+        document.getElementById("username").placeholder=t.placeholderUser;
+        document.getElementById("password").placeholder=t.placeholderPass;
+        document.getElementById("continueBtn").textContent=t.continue;
+      }
+      langSelect.value=currentLang;
+      langSelect.addEventListener("change",e=>updateLanguage(e.target.value));
+      updateLanguage(currentLang);
+
+      // Form validation
+      function notFilled(username,password){
+        let warn="";
+        if(username.trim()==="") warn+=`<div class="warning">⚠️ Molim vas unesite korisničko ime</div>`;
+        if(password.trim()==="") warn+=`<div class="warning">⚠️ Molim vas unesite lozinku</div>`;
+        document.getElementById("warning").innerHTML=warn;
+      }
+      window.filledYet = function(){
+        const username=document.getElementById("username").value;
+        const password=document.getElementById("password").value;
+        document.getElementById("warning").innerHTML="";
+        if(username.trim()===""||password.trim()==="") notFilled(username,password);
+        else alert("✔️ "+translations[currentLang].title+" uspješna!");
+      }
+    });
+  </script>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
