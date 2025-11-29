@@ -1014,7 +1014,35 @@ applyTheme();
             document.getElementById('zadaci').innerHTML = buttonZadaci;
             document.getElementById('zadatak').innerHTML = '';
             attachVerticalButtonListeners();
-        } 
+        } else if (contentType === '231') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('lokot')">Lokot</button>
+                <button onclick="changeContent('hepimil')">Hepimil</button>
+                <button onclick="changeContent('Stube')">Stube</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '232') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('radio')">Radio</button>
+                <button onclick="changeContent('vjetroelektrana')">Vjetroelektrana</button>
+                <button onclick="changeContent('valovi')">Valovi</button>
+                <button onclick="changeContent('dNA')">DNA</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '233') {
+            var buttonZadaci = '';  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        }
 
 
         
@@ -1283,6 +1311,20 @@ applyTheme();
             openPage('2450', 3, 2);
         } else if (contentType === 'dreamcatcher') {
             openPage('2450', 3, 2);
+        } else if (contentType === 'lokot') {
+            openPage('2522', 1, 1);
+        } else if (contentType === 'hepimil') {
+            openPage('2522', 2, 1);
+        } else if (contentType === 'Stube') {
+            openPage('2522', 3, 1);
+        } else if (contentType === 'radio') {
+            openPage('2595', 1, 2);
+        } else if (contentType === 'vjetroelektrana') {
+            openPage('2595', 2, 2);
+        } else if (contentType === 'valovi') {
+            openPage('2595', 3, 2);
+        } else if (contentType === 'dNA') {
+            openPage('2595', 3, 2);
         }
     }
 
