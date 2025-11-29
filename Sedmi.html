@@ -979,7 +979,42 @@ applyTheme();
             document.getElementById('zadaci').innerHTML = buttonZadaci;
             document.getElementById('zadatak').innerHTML = '';
             attachVerticalButtonListeners();
-        }
+        } else if (contentType === '221') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('uspinjača')">Uspinjača</button>
+                <button onclick="changeContent('zavjese')">Zavjese</button>
+                <button onclick="changeContent('ekspedicija')">Ekspedicija</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '222') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('majica')">Majica</button>
+                <button onclick="changeContent('raskrižje')">Raskrižje</button>
+                <button onclick="changeContent('loptanje')">Loptanje</button>
+                <button onclick="changeContent('megacvijet')">Megacvijet</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '223') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('kupovina')">Kupovina</button>
+                <button onclick="changeContent('keks')">Keks</button>
+                <button onclick="changeContent('osmosmjerka')">Osmosmjerka</button>
+                <button onclick="changeContent('dreamcatcher')">Dreamcatcher</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } 
 
 
         
@@ -1226,6 +1261,28 @@ applyTheme();
             openPage('2277', 3, 2);
         } else if (contentType === 'parking') {
             openPage('2277', 3, 2);
+        } else if (contentType === 'uspinjača') {
+            openPage('2328', 1, 1);
+        } else if (contentType === 'zavjese') {
+            openPage('2328', 2, 1);
+        } else if (contentType === 'ekspedicija') {
+            openPage('2328', 3, 1);
+        } else if (contentType === 'majica') {
+            openPage('2390', 1, 2);
+        } else if (contentType === 'raskrižje') {
+            openPage('2390', 2, 2);
+        } else if (contentType === 'loptanje') {
+            openPage('2390', 3, 2);
+        } else if (contentType === 'megacvijet') {
+            openPage('2390', 3, 2);
+        } else if (contentType === 'kupovina') {
+            openPage('2450', 1, 2);
+        } else if (contentType === 'keks') {
+            openPage('2450', 2, 2);
+        } else if (contentType === 'osmosmjerka') {
+            openPage('2450', 3, 2);
+        } else if (contentType === 'dreamcatcher') {
+            openPage('2450', 3, 2);
         }
     }
 
