@@ -239,8 +239,6 @@
       fr: { inp: 'Ouvrir le Tâche', eval: 'évaluer', description: "Améliorez vos compétences FMSLogo en réalisant des tâches et en grimpant dans le classement.", practice: "Pratiquer FMSLogo", practiceDesc: "Essayez différentes tâches FMSLogo, des formes simples aux motifs complexes.", feedback: "Obtenez un retour IA", feedbackDesc: "Soumettez vos créations et recevez des évaluations instantanées de l'IA.", ranks: "Grimpez dans les rangs", ranksDesc: "Gagnez des points et voyez où vous vous situez dans le classement global.", home:"Home",tasks: "Tâches", scoreboard: "Classement", login: "Connexion", logout: "Déconnexion", dark: "Sombre", light: "Clair" },
       ru: { inp: 'Oткрыть задача', eval: 'оценивать', description: "Развивайте навыки FMSLogo, выполняя задания и поднимаясь в рейтинге.", practice: "Практика FMSLogo", practiceDesc: "Попробуйте различные задачи FMSLogo: от простых фигур до сложных узоров.", feedback: "Получите отзыв ИИ", feedbackDesc: "Отправьте свои работы и получите мгновенную оценку от ИИ.", ranks: "Поднимайтесь в рейтинге", ranksDesc: "Зарабатывайте очки и смотрите своё место в мировом рейтинге.", home:"Home",tasks: "Задания", scoreboard: "Рейтинг", login: "Войти", logout: "Выйти", dark: "Тёмный", light: "Светлый" }
     };
-
-    let lang = localStorage.getItem("lang") || "en"; // Default language
     
     if (langSelect) {
       langSelect.value = lang; // Set dropdown to saved language
@@ -333,8 +331,16 @@
       lucide.createIcons();
     }
 
+    let lang = localStorage.getItem("lang") || "en"; // Default language
+    let savedTheme = localStorage.getItem("theme") || 'dark';
+    if (savedTheme){
+        darkMode = (savedTheme === 'dark');
+    }
+    applyTranslations();
+    
     themeToggle.addEventListener("click", () => {
       darkMode = !darkMode;
+      localStorage.setItem("theme", darkMode ? 'dark' : 'light');
       applyTheme();
     });
 
@@ -1458,6 +1464,7 @@
         }
     </script>
 </html>
+
 
 
 
