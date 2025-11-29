@@ -217,8 +217,6 @@
     const themeLabel = document.getElementById("themeLabel");
     const langSelect = document.getElementById("langSelect");
     const loginBtn = document.getElementById("loginBtn");
-
-    let darkMode = true;
     
     function applyTheme() {
       if (darkMode) {
@@ -305,12 +303,18 @@
       applyTheme();
     }
 
-    let lang = localStorage.getItem("lang") || "en"; // Default language
+    let savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark if not set
+    if (savedTheme){
+      darkMode = (savedTheme === 'dark');
+    }
+    applyTheme();
+    let lang = localStorage.getItem('lang') || 'en';
     langSelect.value = lang; // Set the dropdown to the saved language
     applyTranslations();
 
     themeToggle.addEventListener("click", () => {
       darkMode = !darkMode;
+      localStorage.setItem("theme", darkMode ? 'dark' : 'light');
       applyTheme();
     });
     
@@ -322,6 +326,7 @@
   </script>
 </body>
 </html>
+
 
 
 
