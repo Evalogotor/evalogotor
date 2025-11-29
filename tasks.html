@@ -146,7 +146,6 @@
 
     const translations = {
       en: {
-        tasks: "Tasks",
         home:"Home",
         scoreboard: "Scoreboard",
         login: "Login",
@@ -161,7 +160,6 @@
         cardHLL: "HLL"
       },
       de: {
-        tasks: "Aufgaben",
         home:"Home",
         scoreboard: "Bestenliste",
         login: "Anmelden",
@@ -176,7 +174,6 @@
         cardHLL: "HLL"
       },
       it: {
-        tasks: "Compiti",
         home:"Home",
         scoreboard: "Classifica",
         login: "Accedi",
@@ -191,7 +188,6 @@
         cardHLL: "HLL"
       },
       hr: {
-        tasks: "Zadaci",
         home:"Home",
         scoreboard: "Rezultati",
         login: "Prijava",
@@ -206,7 +202,6 @@
         cardHLL: "HLL"
       },
       fr: {
-        tasks: "Tâches",
         home:"Home",
         scoreboard: "Classement",
         login: "Connexion",
@@ -221,7 +216,6 @@
         cardHLL: "HLL"
       },
       ru: {
-        tasks: "Задачи",
         home:"Home",
         scoreboard: "Таблица",
         login: "Войти",
@@ -239,7 +233,6 @@
 
     function updateLanguage(lang) {
       const t = translations[lang];
-      document.getElementById("tasks").textContent = t.tasks;
       document.getElementById("scoreboard").textContent = t.scoreboard;
       document.getElementById("login").textContent = t.login;
       instruction.textContent = t.instruction;
