@@ -173,6 +173,24 @@
       color: rgb(220, 220, 220);
     }
 
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 6px; /* same as select */
+      border: 1px solid rgb(55, 65, 81); /* match select border */
+      padding: 6px 10px;
+      background-color: rgb(55, 65, 81); /* match select bg */
+      color: rgb(220, 220, 220); /* match select text */
+      font-size: 0.9em;
+    }
+    
+    .theme-btn:hover {
+      background-color: rgb(75, 85, 99); /* slightly lighter on hover */
+    }
+
+    
   </style>
 </head>
 <body>
@@ -188,9 +206,8 @@
         <option value="ru">RU</option>
       </select>
     
-      <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
-        <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i>
-        <span id="themeLabel">Dark</span>
+      <button id="themeToggle" class="theme-btn">
+        <i id="themeIcon" data-lucide="moon" class="w-4 h-4"></i>
       </button>
     </div>
 
@@ -353,5 +370,6 @@
   </script>
 </body>
 </html>
+
 
 
