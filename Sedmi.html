@@ -944,10 +944,42 @@ applyTheme();
             document.getElementById('zadaci').innerHTML = buttonZadaci;
             document.getElementById('zadatak').innerHTML = '';
             attachVerticalButtonListeners();
+        } else if (contentType === '211') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('eiffel')">Eiffel</button>
+                <button onclick="changeContent('putokaz')">Putokaz</button>
+                <button onclick="changeContent('tajna')">Tajna</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '212') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('kutija')">Kutija</button>
+                <button onclick="changeContent('rotacija')">Rotacija</button>
+                <button onclick="changeContent('struja')">Struja</button>
+                <button onclick="changeContent('antena')">Antena</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '213') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('ocjena')">Ocjena</button>
+                <button onclick="changeContent('zmaj')">Zmaj</button>
+                <button onclick="changeContent('kiša')">Kiša</button>
+                <button onclick="changeContent('parking')">Parking</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
         }
-
-
-
 
 
         
@@ -1172,6 +1204,28 @@ applyTheme();
             openPage('2088', 3, 2);
         } else if (contentType === 'vrt') {
             openPage('2088', 3, 2);
+        } else if (contentType === 'eiffel') {
+            openPage('2132', 1, 1);
+        } else if (contentType === 'putokaz') {
+            openPage('2132', 2, 1);
+        } else if (contentType === 'tajna') {
+            openPage('2132', 3, 1);
+        } else if (contentType === 'kutija') {
+            openPage('2201', 1, 2);
+        } else if (contentType === 'rotacija') {
+            openPage('2201', 2, 2);
+        } else if (contentType === 'struja') {
+            openPage('2201', 3, 2);
+        } else if (contentType === 'antena') {
+            openPage('2201', 3, 2);
+        } else if (contentType === 'ocjena') {
+            openPage('2277', 1, 2);
+        } else if (contentType === 'zmaj') {
+            openPage('2277', 2, 2);
+        } else if (contentType === 'kiša') {
+            openPage('2277', 3, 2);
+        } else if (contentType === 'parking') {
+            openPage('2277', 3, 2);
         }
     }
 
