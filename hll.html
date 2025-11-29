@@ -219,15 +219,19 @@
     
       <script>
         lucide.createIcons();
-    
-        let darkMode = true;
+
         const body = document.getElementById("body");
         const navbar = document.getElementById("navbar");
         const themeToggle = document.getElementById("themeToggle");
         const themeIcon = document.getElementById("themeIcon");
         const themeLabel = document.getElementById("themeLabel");
+        const langSelect = document.getElementById("langSelect");
         const loginBtn = document.getElementById("loginBtn");
-
+        
+        let lang = localStorage.getItem("lang") || "en";
+        let savedTheme = localStorage.getItem("theme") || 'dark';
+        let darkMode = (savedTheme === 'dark');
+          
         const translations = {
           en: { inp: 'Open task', eval: 'Evaluate', description: "Hone your FMSLogo skills by completing tasks and climbing the leaderboard.", practice: "Practice FMSLogo", practiceDesc: "Attempt a variety of FMSLogo tasks, from simple shapes to complex patterns.", feedback: "Get AI Feedback", feedbackDesc: "Submit your creations and receive instant, AI-driven evaluations on correctness.", ranks: "Climb the Ranks", ranksDesc: "Earn points for evaluations and see how you stack up on the global scoreboard.", home:"Home" ,tasks: "Tasks", scoreboard: "Scoreboard", login: "Login", logout: "Logout", dark: "Dark", light: "Light" },
           de: { inp: 'Aufgabe öffnen', eval: 'Auswerten', description: "Verbessere deine FMSLogo-Fähigkeiten durch Aufgabenund Ranglisten.", practice: "FMSLogo üben", practiceDesc: "Versuche verschiedene FMSLogo-Aufgaben, von einfachen Formen bis zu komplexen Mustern.", feedback: "KI-Feedback erhalten", feedbackDesc: "Reiche deine Kreationen ein und erhalte sofortige KI-Auswertungen.", ranks: "Steige in den Rängen auf", ranksDesc: "Verdiene Punkte und sieh, wie du dich in der Rangliste schlägst.", home:"Home",tasks: "Aufgaben", scoreboard: "Rangliste", login: "Einloggen", logout: "Ausloggen", dark: "Dunkel", light: "Hell" },
@@ -236,10 +240,6 @@
           fr: { inp: 'Ouvrir le Tâche', eval: 'évaluer', description: "Améliorez vos compétences FMSLogo en réalisant des tâches et en grimpant dans le classement.", practice: "Pratiquer FMSLogo", practiceDesc: "Essayez différentes tâches FMSLogo, des formes simples aux motifs complexes.", feedback: "Obtenez un retour IA", feedbackDesc: "Soumettez vos créations et recevez des évaluations instantanées de l'IA.", ranks: "Grimpez dans les rangs", ranksDesc: "Gagnez des points et voyez où vous vous situez dans le classement global.", home:"Home",tasks: "Tâches", scoreboard: "Classement", login: "Connexion", logout: "Déconnexion", dark: "Sombre", light: "Clair" },
           ru: { inp: 'Oткрыть задача', eval: 'оценивать', description: "Развивайте навыки FMSLogo, выполняя задания и поднимаясь в рейтинге.", practice: "Практика FMSLogo", practiceDesc: "Попробуйте различные задачи FMSLogo: от простых фигур до сложных узоров.", feedback: "Получите отзыв ИИ", feedbackDesc: "Отправьте свои работы и получите мгновенную оценку от ИИ.", ranks: "Поднимайтесь в рейтинге", ranksDesc: "Зарабатывайте очки и смотрите своё место в мировом рейтинге.", home:"Home",tasks: "Задания", scoreboard: "Рейтинг", login: "Войти", logout: "Выйти", dark: "Тёмный", light: "Светлый" }
         };
-
-
-        const langSelect = document.getElementById("langSelect");
-        let lang = localStorage.getItem("lang") || "en"; // Default language
         
         if (langSelect) {
           langSelect.value = lang; // Set dropdown to saved language
@@ -334,6 +334,7 @@
     
         themeToggle.addEventListener("click", () => {
           darkMode = !darkMode;
+          localStorage.setItem("theme", darkMode ? 'dark' : 'light');
           applyTheme();
         });
     
@@ -2304,6 +2305,7 @@
     </script>
 </body>
 </html>
+
 
 
 
