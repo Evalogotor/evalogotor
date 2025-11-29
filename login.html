@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="https://cdn.jsdelivr.net/npm/lucide/dist/lucide.min.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prijava</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -146,9 +147,9 @@
   </head>
   <body>
     <div class="container">
-      <div id="themeToggleContainer" style="position: absolute; top: 20px; right: 100px; cursor: pointer;">
-        <i id="themeIcon" data-lucide="moon" width="24" height="24"></i>
-      </div>
+      <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
+        <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span>
+      </button>
       <!-- Language Selector -->
       <select id="langSelect" onchange="updateLanguage(this.value)">
         <option value="en">EN</option>
@@ -268,6 +269,7 @@
     </script>
   </body>
 </html>
+
 
 
 
