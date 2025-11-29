@@ -17,7 +17,6 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      position: relative;
     }
 
     .container {
@@ -29,7 +28,6 @@
       width: 80%;
       max-width: 600px;
       position: relative;
-      z-index: 1;
     }
 
     h1 {
@@ -107,6 +105,16 @@
       z-index: 2;
     }
 
+    #themeToggleContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
     select {
       padding: 6px 10px;
       border-radius: 6px;
@@ -124,13 +132,11 @@
   </style>
 </head>
 <body>
-  <!-- Top-right controls: theme + language -->
   <div class="container">
-    <!-- Top-right controls inside container -->
-    <div id="topControls" style="position:absolute; top:20px; right:20px; display:flex; gap:8px; align-items:center;">
-      <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
-        <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i>
-      </button>
+    <div id="topControls">
+      <div id="themeToggleContainer">
+        <i id="themeIcon" data-lucide="moon" width="24" height="24"></i>
+      </div>
       <select id="langSelect">
         <option value="en">EN</option>
         <option value="de">DE</option>
@@ -140,7 +146,7 @@
         <option value="ru">RU</option>
       </select>
     </div>
-  
+
     <h1 id="title">Prijava</h1>
     <div class="input-container">
       <label for="username" id="usernameLabel">Ime</label>
@@ -155,46 +161,50 @@
     </div>
     <div id="warning"></div>
   </div>
-  
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const themeIcon = document.getElementById("themeIcon");
-      const themeToggleContainer = document.getElementById("themeToggle");
+      const themeToggleContainer = document.getElementById("themeToggleContainer");
       const langSelect = document.getElementById("langSelect");
-  
-      // Initialize Lucide icons
-      lucide.createIcons({defaultWidth:24, defaultHeight:24});
-  
-      // Theme toggle
+      const container = document.querySelector(".container");
+
+      function createThemeIcon(type, strokeColor) {
+        themeToggleContainer.innerHTML = `<i id="themeIcon" data-lucide="${type}" width="24" height="24" stroke="${strokeColor}"></i>`;
+        lucide.createIcons({defaultWidth:24, defaultHeight:24});
+      }
+
       let darkMode = (localStorage.getItem('theme')||'dark')==='dark';
+
       function applyTheme(){
         if(darkMode){
           document.body.style.backgroundColor='rgb(17,24,39)';
-          themeIcon.setAttribute('data-lucide','sun');
-          themeIcon.setAttribute('stroke','#FFD700'); // visible gold
+          container.style.backgroundColor='rgb(55,65,81)'; // dark container
+          createThemeIcon('sun','#FFD700');
         } else {
           document.body.style.backgroundColor='#fff';
-          themeIcon.setAttribute('data-lucide','moon');
-          themeIcon.setAttribute('stroke','#000');
+          container.style.backgroundColor='#fff'; // light container
+          createThemeIcon('moon','#000000');
         }
-        lucide.createIcons({defaultWidth:24, defaultHeight:24});
       }
-      themeToggleContainer.addEventListener('click',()=>{
+
+      themeToggleContainer.addEventListener('click', ()=>{
         darkMode = !darkMode;
         localStorage.setItem('theme', darkMode?'dark':'light');
         applyTheme();
       });
+
       applyTheme();
-  
+
       // Language handling
       const translations = {
         hr:{title:"Registracija",username:"Ime",password:"Lozinka",placeholderUser:"Upišite ime",placeholderPass:"Upišite lozinku",continue:"Nastavi",warnUser:"Molim vas unesite korisničko ime",warnPass:"Molim vas unesite lozinku",sucessful:'uspješna'},
         en:{title:"Sign Up",username:"Username",password:"Password",placeholderUser:"Enter username",placeholderPass:"Enter password",continue:"Continue",warnUser:"Please enter a username",warnPass:"Please enter a password",sucessful:'successful'}
       };
       let currentLang = localStorage.getItem("lang")||"hr";
+
       function updateLanguage(lang){
         currentLang=lang;localStorage.setItem("lang",lang);
-        const t = translations[lang];
+        const t=translations[lang];
         document.getElementById("title").textContent=t.title;
         document.getElementById("usernameLabel").textContent=t.username;
         document.getElementById("passwordLabel").textContent=t.password;
@@ -202,10 +212,11 @@
         document.getElementById("password").placeholder=t.placeholderPass;
         document.getElementById("continueBtn").textContent=t.continue;
       }
+
       langSelect.value=currentLang;
-      langSelect.addEventListener("change",e=>updateLanguage(e.target.value));
+      langSelect.addEventListener("change", e=>updateLanguage(e.target.value));
       updateLanguage(currentLang);
-  
+
       // Form validation
       function notFilled(username,password){
         let warn="";
@@ -224,6 +235,3 @@
   </script>
 </body>
 </html>
-
-
-
