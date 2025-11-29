@@ -274,66 +274,61 @@
     }
 
     function applyTheme() {
+      if (!body) return;
+    
       if (darkMode) {
-        // Body + Navbar
-        body.classList.remove("bg-gray-50","text-gray-900");
-        body.classList.add("bg-gray-900","text-white");
-        navbar.classList.remove("bg-white");
-        navbar.classList.add("bg-gray-800");
-        themeIcon.setAttribute("data-lucide","sun");
+        body.classList.replace("bg-gray-50","bg-gray-900");
+        body.classList.replace("text-gray-900","text-white");
         body.classList.add("dark");
         body.classList.remove("light");
-        themeLabel.textContent = translations[lang].light;
-
-        // Buttons (Dark mode)
+    
+        if (navbar) navbar.classList.replace("bg-white","bg-gray-800");
+        if (themeIcon) themeIcon.setAttribute("data-lucide","sun");
+        if (themeLabel) themeLabel.textContent = translations[lang].light;
         [themeToggle, loginBtn].forEach(btn => {
-          btn.classList.remove("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
-          btn.classList.add("bg-gray-900","text-white","border-gray-600","hover:bg-gray-700","hover:text-gray-200");
+          if (btn) {
+            btn.classList.remove("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
+            btn.classList.add("bg-gray-900","text-white","border-gray-600","hover:bg-gray-700","hover:text-gray-200");
+          }
         });
-
-        // Language selector
-        langSelect.classList.remove("text-gray-900");
-        langSelect.classList.add("text-white");
-        langSelect.parentElement.classList.remove("bg-white","border-gray-300");
-        langSelect.parentElement.classList.add("bg-gray-900","border-gray-600");
-
-        Array.from(langSelect.options).forEach(opt => {
-          opt.style.backgroundColor = "#1f2937"; // gray-800
-          opt.style.color = "white";
-        });
-
-        body.classList.remove("light");
-        body.classList.add("dark");
+    
+        if (langSelect) {
+          langSelect.classList.replace("text-gray-900","text-white");
+          langSelect.parentElement.classList.replace("bg-white","bg-gray-900");
+          langSelect.parentElement.classList.replace("border-gray-300","border-gray-600");
+          Array.from(langSelect.options).forEach(opt => {
+            opt.style.backgroundColor = "#1f2937";
+            opt.style.color = "white";
+          });
+        }
+    
       } else {
-        // Body + Navbar
-        body.classList.remove("bg-gray-900","text-white");
-        body.classList.add("bg-gray-50","text-gray-900");
-        navbar.classList.remove("bg-gray-800");
-        navbar.classList.add("bg-white");
-        themeIcon.setAttribute("data-lucide","moon");
+        body.classList.replace("bg-gray-900","bg-gray-50");
+        body.classList.replace("text-white","text-gray-900");
         body.classList.add("light");
         body.classList.remove("dark");
-          themeLabel.textContent = translations[lang].dark;
-
-        // Buttons (Light mode)
+    
+        if (navbar) navbar.classList.replace("bg-gray-800","bg-white");
+        if (themeIcon) themeIcon.setAttribute("data-lucide","moon");
+        if (themeLabel) themeLabel.textContent = translations[lang].dark;
         [themeToggle, loginBtn].forEach(btn => {
-          btn.classList.remove("bg-gray-900","text-white","hover:bg-gray-700","hover:text-gray-200");
-          btn.classList.add("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
+          if (btn) {
+            btn.classList.remove("bg-gray-900","text-white","hover:bg-gray-700","hover:text-gray-200");
+            btn.classList.add("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
+          }
         });
-
-        // Language selector
-        langSelect.classList.remove("text-white");
-        langSelect.classList.add("text-gray-900");
-        langSelect.parentElement.classList.remove("bg-gray-900","border-gray-600");
-        langSelect.parentElement.classList.add("bg-white","border-gray-300");
-        body.classList.remove("dark");
-        body.classList.add("light");
-
-        Array.from(langSelect.options).forEach(opt => {
-          opt.style.backgroundColor = "white";
-          opt.style.color = "black";
-        });
+    
+        if (langSelect) {
+          langSelect.classList.replace("text-white","text-gray-900");
+          langSelect.parentElement.classList.replace("bg-gray-900","bg-white");
+          langSelect.parentElement.classList.replace("border-gray-600","border-gray-300");
+          Array.from(langSelect.options).forEach(opt => {
+            opt.style.backgroundColor = "white";
+            opt.style.color = "black";
+          });
+        }
       }
+    
       lucide.createIcons();
     }
     applyTranslations();
@@ -1462,6 +1457,7 @@
         }
     </script>
 </html>
+
 
 
 
