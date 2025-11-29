@@ -874,6 +874,41 @@ applyTheme();
             document.getElementById('zadaci').innerHTML = buttonZadaci;
             document.getElementById('zadatak').innerHTML = '';
             attachVerticalButtonListeners();
+        } else if (contentType === '191') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('mitsu')">Mitsu</button>
+                <button onclick="changeContent('baloncici')">Baloncici</button>
+                <button onclick="changeContent('par')">Par</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '192') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('kockice')">Kockice</button>
+                <button onclick="changeContent('ravnalo')">Ravnalo</button>
+                <button onclick="changeContent('reduciraj')">Reduciraj</button>
+                <button onclick="changeContent('most')">Most</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '193') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('dijamant')">Dijamant</button>
+                <button onclick="changeContent('PES')">PES</button>
+                <button onclick="changeContent('premier')">Premier</button>
+                <button onclick="changeContent('defrag')">Defrag</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
         }
 
 
@@ -1058,6 +1093,28 @@ applyTheme();
             openPage('1661', 3, 2);
         } else if (contentType === 'leonard') {
             openPage('1661', 3, 2);
+        } else if (contentType === 'mitsu') {
+            openPage('1723', 1, 1);
+        } else if (contentType === 'baloncici') {
+            openPage('1723', 2, 1);
+        } else if (contentType === 'par') {
+            openPage('1723', 3, 1);
+        } else if (contentType === 'kockice') {
+            openPage('1817', 1, 2);
+        } else if (contentType === 'ravnalo') {
+            openPage('1817', 2, 2);
+        } else if (contentType === 'reduciraj') {
+            openPage('1817', 3, 2);
+        } else if (contentType === 'most') {
+            openPage('1817', 3, 2);
+        } else if (contentType === 'dijamant') {
+            openPage('1885', 1, 2);
+        } else if (contentType === 'PES') {
+            openPage('1885', 2, 2);
+        } else if (contentType === 'premier') {
+            openPage('1885', 3, 2);
+        } else if (contentType === 'defrag') {
+            openPage('1885', 3, 2);
         }
     }
 
