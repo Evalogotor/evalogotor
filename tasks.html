@@ -141,7 +141,7 @@
     const cardHLOZ = document.getElementById("cardHLOZ");
     const cardHLL = document.getElementById("cardHLL");
 
-    let darkMode = true; // start in dark mode
+    let savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark if not set
     let lang = localStorage.getItem('lang') || 'en';
 
     const translations = {
@@ -250,6 +250,7 @@
 
     langSelect.addEventListener("change", (e) => {
       lang = e.target.value;
+      localStorage.setItem('lang', lang);
       updateLanguage(lang);
     });
 
@@ -307,11 +308,11 @@
       lucide.createIcons();
       
       // Save the theme preference to localStorage
-      localStorage.setItem('theme', darkMode ? 'dark' : 'light');
     }
 
     themeToggle.addEventListener("click", () => {
       darkMode = !darkMode;
+      localStorage.setItem('theme', darkMode ? 'dark' : 'light');
       applyTheme();
       updateLanguage(lang);
     });
