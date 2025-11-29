@@ -125,21 +125,22 @@
 </head>
 <body>
   <!-- Top-right controls: theme + language -->
-  <div id="topControls">
-    <div id="themeToggleContainer" style="cursor:pointer;">
-      <i id="themeIcon" data-lucide="moon" width="24" height="24"></i>
-    </div>
-    <select id="langSelect">
-      <option value="en">EN</option>
-      <option value="de">DE</option>
-      <option value="it">IT</option>
-      <option value="hr" selected>HR</option>
-      <option value="fr">FR</option>
-      <option value="ru">RU</option>
-    </select>
-  </div>
-
   <div class="container">
+    <!-- Top-right controls inside container -->
+    <div id="topControls" style="position:absolute; top:20px; right:20px; display:flex; gap:8px; align-items:center;">
+      <div id="themeToggleContainer" style="cursor:pointer;">
+        <i id="themeIcon" data-lucide="moon" width="24" height="24" stroke="#fff"></i>
+      </div>
+      <select id="langSelect">
+        <option value="en">EN</option>
+        <option value="de">DE</option>
+        <option value="it">IT</option>
+        <option value="hr" selected>HR</option>
+        <option value="fr">FR</option>
+        <option value="ru">RU</option>
+      </select>
+    </div>
+  
     <h1 id="title">Prijava</h1>
     <div class="input-container">
       <label for="username" id="usernameLabel">Ime</label>
@@ -154,38 +155,38 @@
     </div>
     <div id="warning"></div>
   </div>
-
+  
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const body = document.body;
       const themeIcon = document.getElementById("themeIcon");
       const themeToggleContainer = document.getElementById("themeToggleContainer");
       const langSelect = document.getElementById("langSelect");
-
+  
+      // Initialize Lucide icons
       lucide.createIcons({defaultWidth:24, defaultHeight:24});
-
-      // Theme
+  
+      // Theme toggle
       let darkMode = (localStorage.getItem('theme')||'dark')==='dark';
       function applyTheme(){
         if(darkMode){
-          body.style.backgroundColor='rgb(17,24,39)';
-          body.style.color='#fff';
+          document.body.style.backgroundColor='rgb(17,24,39)';
           themeIcon.setAttribute('data-lucide','sun');
+          themeIcon.setAttribute('stroke','#FFD700'); // visible gold
         } else {
-          body.style.backgroundColor='#fff';
-          body.style.color='#000';
+          document.body.style.backgroundColor='#fff';
           themeIcon.setAttribute('data-lucide','moon');
+          themeIcon.setAttribute('stroke','#000');
         }
         lucide.createIcons({defaultWidth:24, defaultHeight:24});
       }
       themeToggleContainer.addEventListener('click',()=>{
         darkMode = !darkMode;
-        localStorage.setItem('theme',darkMode?'dark':'light');
+        localStorage.setItem('theme', darkMode?'dark':'light');
         applyTheme();
       });
       applyTheme();
-
-      // Translations
+  
+      // Language handling
       const translations = {
         hr:{title:"Registracija",username:"Ime",password:"Lozinka",placeholderUser:"Upišite ime",placeholderPass:"Upišite lozinku",continue:"Nastavi",warnUser:"Molim vas unesite korisničko ime",warnPass:"Molim vas unesite lozinku",sucessful:'uspješna'},
         en:{title:"Sign Up",username:"Username",password:"Password",placeholderUser:"Enter username",placeholderPass:"Enter password",continue:"Continue",warnUser:"Please enter a username",warnPass:"Please enter a password",sucessful:'successful'}
@@ -204,22 +205,23 @@
       langSelect.value=currentLang;
       langSelect.addEventListener("change",e=>updateLanguage(e.target.value));
       updateLanguage(currentLang);
-
+  
       // Form validation
       function notFilled(username,password){
         let warn="";
-        if(username.trim()==="") warn+=`<div class="warning">⚠️ Molim vas unesite korisničko ime</div>`;
-        if(password.trim()==="") warn+=`<div class="warning">⚠️ Molim vas unesite lozinku</div>`;
+        if(username.trim()==="") warn+=`<div class="warning">⚠️ ${translations[currentLang].warnUser}</div>`;
+        if(password.trim()==="") warn+=`<div class="warning">⚠️ ${translations[currentLang].warnPass}</div>`;
         document.getElementById("warning").innerHTML=warn;
       }
-      window.filledYet = function(){
+      window.filledYet=function(){
         const username=document.getElementById("username").value;
         const password=document.getElementById("password").value;
         document.getElementById("warning").innerHTML="";
         if(username.trim()===""||password.trim()==="") notFilled(username,password);
-        else alert("✔️ "+translations[currentLang].title+" uspješna!");
+        else alert("✔️ "+translations[currentLang].title+" "+translations[currentLang].sucessful+"!");
       }
     });
   </script>
 </body>
 </html>
+
