@@ -1408,18 +1408,30 @@ applyTheme();
         }
     
         // Compose content with meaningful button labels
-        var zadatak = `
-            <div class="eval-basket">
-                <div class="score">${ime_zadatak}</div>
-                <div class="zadatak_struk">
-                    <button class="text-blue-600" id="inp" onclick="window.open('https://informatika.azoo.hr/natjecanje/dobavi-dokument/${strGod}', '_blank');">
-                        ${translations[lang].inp}
-                    </button>
-                </div>
-                <button class="eval-button" id="evalbtn">${translations[lang].eval}</button>
-                <div class="score">0 / ${bodovi}</div>
-            </div>
-        `;
+        if (strGod !== '1'){
+          var zadatak = `
+              <div class="eval-basket">
+                  <div class="score">${ime_zadatak}</div>
+                  <div class="zadatak_struk">
+                      <button class="text-blue-600" id="inp" onclick="window.open('https://informatika.azoo.hr/natjecanje/dobavi-dokument/${strGod}', '_blank');">
+                          ${translations[lang].inp}
+                      </button>
+                  </div>
+                  <button class="eval-button" id="evalbtn">${translations[lang].eval}</button>
+                  <div class="score">0 / ${bodovi}</div>
+              </div>
+          `;
+        }else{
+          var zadatak = `
+              <div class="eval-basket">
+                  <div class="score">${ime_zadatak}</div>
+                  <div class="zadatak_struk">
+                  </div>
+                  <button class="eval-button" id="evalbtn">${translations[lang].eval}</button>
+                  <div class="score">0 / ${bodovi}</div>
+              </div>
+          `;
+        }
     
         const zadatakDiv = document.getElementById('zadatak');
         if (zadatakDiv) {
