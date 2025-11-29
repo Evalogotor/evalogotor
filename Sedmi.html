@@ -909,6 +909,41 @@ applyTheme();
             document.getElementById('zadaci').innerHTML = buttonZadaci;
             document.getElementById('zadatak').innerHTML = '';
             attachVerticalButtonListeners();
+        } else if (contentType === '201') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('asonanca')">Asonanca</button>
+                <button onclick="changeContent('hipno')">Hipno</button>
+                <button onclick="changeContent('sifra')">Šifra</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '202') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('cola')">Cola</button>
+                <button onclick="changeContent('wifi')">Wifi</button>
+                <button onclick="changeContent('heksagon')">Heksagon</button>
+                <button onclick="changeContent('pruga')">Pruga</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '203') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('jordan')">Jordan</button>
+                <button onclick="changeContent('spork')">Spork</button>
+                <button onclick="changeContent('pizza')">Pizza</button>
+                <button onclick="changeContent('vrt')">Vrt</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
         }
 
 
@@ -1115,6 +1150,28 @@ applyTheme();
             openPage('1885', 3, 2);
         } else if (contentType === 'defrag') {
             openPage('1885', 3, 2);
+        } else if (contentType === 'asonanca') {
+            openPage('1937', 1, 1);
+        } else if (contentType === 'hipno') {
+            openPage('1937', 2, 1);
+        } else if (contentType === 'sifra') {
+            openPage('1937', 3, 1);
+        } else if (contentType === 'cola') {
+            openPage('2028', 1, 2);
+        } else if (contentType === 'wifi') {
+            openPage('2028', 2, 2);
+        } else if (contentType === 'heksagon') {
+            openPage('2028', 3, 2);
+        } else if (contentType === 'pruga') {
+            openPage('2028', 3, 2);
+        } else if (contentType === 'jordan') {
+            openPage('2088', 1, 2);
+        } else if (contentType === 'spork') {
+            openPage('2088', 2, 2);
+        } else if (contentType === 'pizza') {
+            openPage('2088', 3, 2);
+        } else if (contentType === 'vrt') {
+            openPage('2088', 3, 2);
         }
     }
 
