@@ -142,7 +142,7 @@
     const cardHLL = document.getElementById("cardHLL");
 
     let darkMode = true; // start in dark mode
-    let lang = localStorage.getItem('language') || 'en';
+    let lang = localStorage.getItem('lang') || 'en';
 
     const translations = {
       en: {
@@ -318,7 +318,7 @@
 
     document.addEventListener("DOMContentLoaded", () => {
       const savedTheme = localStorage.getItem('theme');
-      const savedLang = localStorage.getItem('language');
+      const savedLang = localStorage.getItem('lang');
 
       if (savedTheme) {
         darkMode = (savedTheme === 'dark');
