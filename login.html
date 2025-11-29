@@ -41,8 +41,9 @@ button:hover { background-color:#0056b3; }
   position: absolute;
   top: 20px;
   right: 20px;
-  display:flex;
-  gap:8px;
+  display: flex;
+  gap: 8px;
+  z-index: 10;
 }
 .top-controls select,
 .top-controls .theme-btn {
@@ -59,26 +60,36 @@ button:hover { background-color:#0056b3; }
   align-items:center;
   justify-content:center;
 }
-.top-controls .theme-btn i { width:20px; height:20px; }
+.top-controls .theme-btn i {
+  width: 24px;
+  height: 24px;
+}
 .top-controls .theme-btn:hover { background-color: rgb(75,85,99); }
 </style>
 </head>
 <body>
 <div class="container">
   <div class="top-controls">
-    <select id="langSelect">
-      <option value="en">EN</option>
-      <option value="de">DE</option>
-      <option value="it">IT</option>
-      <option value="hr" selected>HR</option>
-      <option value="fr">FR</option>
-      <option value="ru">RU</option>
-    </select>
-    <button id="themeToggle" class="theme-btn">
-      <i data-lucide="moon"></i>
-    </button>
-  </div>
+  <select id="langSelect">
+    <option value="en">EN</option>
+    <option value="de">DE</option>
+    <option value="it">IT</option>
+    <option value="hr" selected>HR</option>
+    <option value="fr">FR</option>
+    <option value="ru">RU</option>
+  </select>
 
+  <button id="themeToggle" class="theme-btn">
+    <i data-lucide="moon"></i>
+  </button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/lucide/dist/lucide.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    lucide.replace(); // now the moon icon renders properly
+  });
+</script>
   <h1 id="title">Prijava</h1>
   <div class="input-container">
     <label for="username">Ime</label>
@@ -95,12 +106,6 @@ button:hover { background-color:#0056b3; }
     </div>
   </div>
 </div>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  lucide.replace(); // renders all icons
-});
-</script>
   <script>
     const translations = {
     hr: {
@@ -248,6 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
   </script>
 </body>
 </html>
+
 
 
 
