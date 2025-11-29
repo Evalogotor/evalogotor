@@ -239,6 +239,10 @@
     };
 
     let lang = localStorage.getItem("lang") || "en"; // Default language
+    let lang = localStorage.getItem("theme") || 'dark';
+    if (savedTheme){
+        darkMode = (savedTheme === 'dark');
+    }
     
     if (langSelect) {
       langSelect.value = lang; // Set dropdown to saved language
@@ -333,6 +337,7 @@
 
     themeToggle.addEventListener("click", () => {
       darkMode = !darkMode;
+      localStorage.setItem("theme", darkMode ? 'dark' : 'light');
       applyTheme();
     });
 
