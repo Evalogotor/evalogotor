@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Login</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -149,20 +148,20 @@
       top: 20px;
       right: 20px;
       display: flex;
-      align-items: center; /* vertically center */
+      align-items: center;
       gap: 8px;
     }
     
     .top-controls select,
     .top-controls .theme-btn {
-      height: 32px;
-      line-height: 32px;   /* ensures text vertically centered */
+      height: 36px; /* explicit same height */
+      line-height: 36px; /* vertical centering */
       border-radius: 6px;
       font-size: 0.9em;
       border: 1px solid rgb(55, 65, 81);
       background-color: rgb(55, 65, 81);
       color: rgb(220, 220, 220);
-      padding: 0 10px;      /* horizontal only */
+      padding: 0 10px; /* horizontal only */
       cursor: pointer;
       appearance: none;
       display: flex;
@@ -170,15 +169,15 @@
       justify-content: center;
     }
     
-    .top-controls .theme-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .top-controls .theme-btn i {
+      width: 20px;
+      height: 20px;
     }
     
     .top-controls .theme-btn:hover {
-      background-color: rgb(75, 85, 99); /* slightly lighter on hover */
+      background-color: rgb(75, 85, 99); /* hover match style */
     }
+
 
     
   </style>
@@ -197,10 +196,9 @@
       </select>
     
       <button id="themeToggle" class="theme-btn">
-        <i id="themeIcon" data-lucide="moon" class="w-4 h-4"></i>
+        <i id="themeIcon" data-lucide="moon"></i>
       </button>
     </div>
-
     <h1 id="title">Prijava</h1>
     <div class="input-container">
       <label for="username" id="usernameLabel">Ime</label>
@@ -358,13 +356,15 @@
       }
     }
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide/dist/lucide.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      lucide.replace(); // correctly renders the moon icon
+      lucide.replace(); // renders the moon icon
     });
   </script>
 </body>
 </html>
+
 
 
 
