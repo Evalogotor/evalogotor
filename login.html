@@ -155,14 +155,19 @@
     
     .top-controls select,
     .top-controls .theme-btn {
-      height: 32px; /* match exact height */
+      height: 32px;
+      line-height: 32px;   /* ensures text vertically centered */
       border-radius: 6px;
       font-size: 0.9em;
       border: 1px solid rgb(55, 65, 81);
       background-color: rgb(55, 65, 81);
       color: rgb(220, 220, 220);
-      padding: 0 10px; /* vertical padding handled by height */
+      padding: 0 10px;      /* horizontal only */
       cursor: pointer;
+      appearance: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     .top-controls .theme-btn {
@@ -353,12 +358,14 @@
       }
     }
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/lucide/dist/lucide.min.js"></script>
   <script>
-    lucide.replace(); // renders all icons with data-lucide attribute
+    document.addEventListener("DOMContentLoaded", () => {
+      lucide.replace(); // correctly renders the moon icon
+    });
   </script>
 </body>
 </html>
+
 
 
 
