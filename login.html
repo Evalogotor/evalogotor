@@ -141,19 +141,52 @@
       background-color: rgb(31, 41, 55);
       color: rgb(220, 220, 220);
     }
+
+    .top-controls {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px; /* space between lang select and theme button */
+    }
+    
+    #themeToggle {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      border-radius: 0.75rem; /* rounded-xl */
+      border: 1px solid rgb(209, 213, 219); /* gray-300 */
+      padding: 6px 10px;
+      background-color: white;
+      color: #1f2937; /* text-gray-900 */
+      font-size: 0.9em;
+    }
+    
+    #themeToggle:hover {
+      background-color: rgb(243, 244, 246); /* gray-100 */
+    }
+
   </style>
 </head>
 <body>
   <div class="container">
     <!-- Language Selector -->
-    <select id="langSelect" onchange="updateLanguage(this.value)">
-      <option value="en">EN</option>
-      <option value="de">DE</option>
-      <option value="it">IT</option>
-      <option value="hr" selected>HR</option>
-      <option value="fr">FR</option>
-      <option value="ru">RU</option>
-    </select>
+    <div class="top-controls">
+      <select id="langSelect" onchange="updateLanguage(this.value)">
+        <option value="en">EN</option>
+        <option value="de">DE</option>
+        <option value="it">IT</option>
+        <option value="hr" selected>HR</option>
+        <option value="fr">FR</option>
+        <option value="ru">RU</option>
+      </select>
+    
+      <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
+        <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i>
+        <span id="themeLabel">Dark</span>
+      </button>
+    </div>
 
     <h1 id="title">Prijava</h1>
     <div class="input-container">
@@ -314,3 +347,4 @@
   </script>
 </body>
 </html>
+
