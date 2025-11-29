@@ -303,13 +303,12 @@
       applyTheme();
     }
 
-    let savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark if not set
-    if (savedTheme){
-      darkMode = (savedTheme === 'dark');
-    }
-    applyTheme();
     let lang = localStorage.getItem('lang') || 'en';
-    langSelect.value = lang; // Set the dropdown to the saved language
+    langSelect.value = lang;
+    
+    let savedTheme = localStorage.getItem('theme') || 'dark';
+    let darkMode = (savedTheme === 'dark');
+    
     applyTranslations();
 
     themeToggle.addEventListener("click", () => {
@@ -326,6 +325,7 @@
   </script>
 </body>
 </html>
+
 
 
 
