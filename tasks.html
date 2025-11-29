@@ -142,7 +142,7 @@
     const cardHLL = document.getElementById("cardHLL");
 
     let darkMode = true; // start in dark mode
-    let lang = "en";
+    let lang = localStorage.getItem('language') || 'en';
 
     const translations = {
       en: {
@@ -232,6 +232,7 @@
     };
 
     function updateLanguage(lang) {
+      
       const t = translations[lang];
       document.getElementById("scoreboard").textContent = t.scoreboard;
       document.getElementById("login").textContent = t.login;
@@ -304,6 +305,9 @@
         });
       }
       lucide.createIcons();
+      
+      // Save the theme preference to localStorage
+      localStorage.setItem('theme', darkMode ? 'dark' : 'light');
     }
 
     themeToggle.addEventListener("click", () => {
@@ -312,8 +316,21 @@
       updateLanguage(lang);
     });
 
-    updateLanguage(lang);
-    applyTheme();
+    document.addEventListener("DOMContentLoaded", () => {
+      const savedTheme = localStorage.getItem('theme');
+      const savedLang = localStorage.getItem('language');
+
+      if (savedTheme) {
+        darkMode = (savedTheme === 'dark');
+      }
+      if (savedLang) {
+        lang = savedLang;
+        langSelect.value = lang;
+      }
+
+      updateLanguage(lang);
+      applyTheme();
+    });
   </script>
 </body>
 </html>
