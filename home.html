@@ -257,7 +257,7 @@
         langSelect.parentElement.classList.add("bg-gray-800","border-gray-600");
     
         // Cards
-        document.querySelectorAll("main .p-6.rounded-2xl").forEach(card => 
+        document.querySelectorAll(".bg-white").forEach(card => { 
           card.classList.remove("bg-white","text-gray-900");
           card.classList.add("bg-gray-800","text-white");
         });
@@ -319,14 +319,14 @@
       applyTheme();
     }
 
+    let lang = localStorage.getItem("lang") || "en"; // Default language
+    langSelect.value = lang; // Set the dropdown to the saved language
+    applyTranslations();
+
     themeToggle.addEventListener("click", () => {
       darkMode = !darkMode;
       applyTheme();
     });
-
-    let lang = localStorage.getItem("lang") || "en"; // Default language
-    langSelect.value = lang; // Set the dropdown to the saved language
-    applyTranslations();
     
     langSelect.addEventListener("change", (e) => {
       lang = e.target.value;
@@ -336,6 +336,7 @@
   </script>
 </body>
 </html>
+
 
 
 
