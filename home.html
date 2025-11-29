@@ -231,7 +231,7 @@
     const loginBtn = document.getElementById("loginBtn");
 
     let darkMode = true;
-    applyTheme();
+    
     function applyTheme() {
       if (darkMode) {
         // Body + Navbar
@@ -241,8 +241,8 @@
         navbar.classList.add("bg-gray-800");
         themeIcon.setAttribute("data-lucide","sun");
         themeLabel.textContent = translations[lang].light;
-        body.classList.add("dark");
         body.classList.remove("light");
+        body.classList.add("dark");
     
         // Buttons (Dark mode)
         [themeToggle, loginBtn].forEach(btn => {
@@ -257,7 +257,7 @@
         langSelect.parentElement.classList.add("bg-gray-800","border-gray-600");
     
         // Cards
-        document.querySelectorAll(".bg-white").forEach(card => {
+        document.querySelectorAll("main .p-6.rounded-2xl").forEach(card => 
           card.classList.remove("bg-white","text-gray-900");
           card.classList.add("bg-gray-800","text-white");
         });
@@ -275,8 +275,8 @@
         navbar.classList.add("bg-white");
         themeIcon.setAttribute("data-lucide","moon");
         themeLabel.textContent = translations[lang].dark;
-        body.classList.add("light");
         body.classList.remove("dark");
+        body.classList.add("light");
     
         // Buttons (Light mode)
         [themeToggle, loginBtn].forEach(btn => {
@@ -336,6 +336,7 @@
   </script>
 </body>
 </html>
+
 
 
 
