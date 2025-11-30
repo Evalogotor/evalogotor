@@ -5,78 +5,107 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Login</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    lucide.createIcons();   // renders <i data-lucide="moon">
-});
-</script>
+<!-- load lucide once -->
+<script src="https://cdn.jsdelivr.net/npm/lucide/dist/lucide.min.js"></script>
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background-color: rgb(17,24,39);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
-.container {
-  background-color: rgb(31,41,55);
-  border-radius: 20px;
-  padding: 40px;
-  width: 80%;
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-  position: relative;
-}
-h1 { color: #ccc; margin-bottom: 30px; font-size: 2.5em; }
-.input-container { display:flex; justify-content:center; margin-top:20px; align-items:center; }
-label { margin-right:10px; color:#ccc; font-size:1.2em; }
-input { padding:10px; border-radius:5px; border:2px solid rgb(17,24,39); background-color:rgb(55,65,81); color:white; width:80%; max-width:300px; }
-.button-container { margin-top:20px; }
-button { cursor:pointer; border-radius:5px; border:none; padding:10px 20px; margin:10px; background-color:#007BFF; color:white; }
-button:hover { background-color:#0056b3; }
-.redirect p { color:#ccc; font-size:0.9em; }
-.redirect a { color:#007BFF; text-decoration:none; }
-.redirect a:hover { text-decoration:underline; }
+  :root {
+    --bg: rgb(17,24,39);
+    --card: rgb(31,41,55);
+    --muted: rgb(220,220,220);
+  }
 
-/* TOP CONTROLS */
-.top-controls {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  display: flex;
-  gap: 8px;
-  z-index: 10;
-}
-.top-controls select,
-.top-controls .theme-btn {
-  height:36px;
-  line-height:36px;
-  border-radius:6px;
-  font-size:0.9em;
-  border:1px solid rgb(55,65,81);
-  background-color: rgb(55,65,81);
-  color: rgb(220,220,220);
-  padding:0 10px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.top-controls .theme-btn i {
-  width: 24px;
-  height: 24px;
-}
-.top-controls .theme-btn:hover { background-color: rgb(75,85,99); }
+  html,body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  /* wrapper centers everything and provides a positioning context for top-controls */
+  .wrapper {
+    width: 100%;
+    max-width: 980px; /* limits overall layout width if you have multiple columns later */
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative; /* for absolute children like .top-controls */
+    display: flex;
+    justify-content: center; /* centers the .container horizontally */
+  }
+
+  .container {
+    background-color: var(--card);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 600px; /* card will never exceed this */
+    margin: 0 auto; /* keep centered */
+    text-align: center;
+    position: relative; /* safe to keep relative */
+    box-sizing: border-box;
+  }
+
+  h1 { color: #ccc; margin-bottom: 30px; font-size: 2.2rem; }
+  .input-container { display:flex; justify-content:center; margin-top:20px; align-items:center; gap:10px; }
+  label { margin-right:10px; color:#ccc; font-size:1.05rem; min-width:70px; text-align:right; }
+  input { padding:10px; border-radius:5px; border:2px solid rgb(17,24,39); background-color:rgb(55,65,81); color:white; width:80%; max-width:300px; box-sizing: border-box; }
+  .button-container { margin-top:20px; }
+  button { cursor:pointer; border-radius:5px; border:none; padding:10px 20px; margin:10px; background-color:#007BFF; color:white; }
+  button:hover { background-color:#0056b3; }
+  .redirect p { color:#ccc; font-size:0.9em; }
+  .redirect a { color:#6fb0ff; text-decoration:none; }
+  .redirect a:hover { text-decoration:underline; }
+
+  /* TOP CONTROLS */
+  .top-controls {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+  }
+  .top-controls select,
+  .top-controls .theme-btn {
+    height:36px;
+    line-height:36px;
+    border-radius:6px;
+    font-size:0.9em;
+    border:1px solid rgb(55,65,81);
+    background-color: rgb(55,65,81);
+    color: var(--muted);
+    padding:0 10px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .top-controls .theme-btn i {
+    width: 20px;
+    height: 20px;
+    display:block;
+  }
+  .top-controls .theme-btn:hover { background-color: rgb(75,85,99); }
+
+  /* responsive tweaks */
+  @media (max-width: 480px) {
+    .container { padding: 24px; }
+    label { display: none; } /* more compact on very small screens */
+    .input-container { gap: 6px; }
+  }
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="top-controls">
-      <select id="langSelect">
+  <div class="wrapper">
+    <!-- top-controls are placed inside wrapper but outside the card so they don't affect card width -->
+    <div class="top-controls" aria-hidden="false">
+      <select id="langSelect" aria-label="Language selector">
         <option value="en">EN</option>
         <option value="de">DE</option>
         <option value="it">IT</option>
@@ -84,190 +113,54 @@ button:hover { background-color:#0056b3; }
         <option value="fr">FR</option>
         <option value="ru">RU</option>
       </select>
-    
-      <button id="themeToggle" class="theme-btn">
+
+      <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">
         <i data-lucide="moon"></i>
       </button>
     </div>
 
-<script src="https://cdn.jsdelivr.net/npm/lucide/dist/lucide.min.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    lucide.replace(); // now the moon icon renders properly
-  });
-</script>
-  <h1 id="title">Prijava</h1>
-  <div class="input-container">
-    <label for="username">Ime</label>
-    <input type="text" id="username" placeholder="Upišite ime">
-  </div>
-  <div class="input-container">
-    <label for="password">Lozinka</label>
-    <input type="password" id="password" placeholder="Upišite lozinku">
-  </div>
-  <div class="button-container">
-    <button id="continueBtn">Nastavi</button>
-    <div class="redirect">
-      <p>Nemaš račun? <a href="signup.html">Registriraj se</a></p>
-    </div>
-  </div>
-</div>
+    <div class="container" role="main">
+      <h1 id="title">Prijava</h1>
+
+      <div class="input-container">
+        <label for="username">Ime</label>
+        <input type="text" id="username" placeholder="Upišite ime">
+      </div>
+
+      <div class="input-container">
+        <label for="password">Lozinka</label>
+        <input type="password" id="password" placeholder="Upišite lozinku">
+      </div>
+
+      <div class="button-container">
+        <button id="continueBtn">Nastavi</button>
+        <div class="redirect">
+          <p>Nemaš račun? <a href="signup.html">Registriraj se</a></p>
+        </div>
+      </div>
+    </div><!-- /.container -->
+  </div><!-- /.wrapper -->
+
   <script>
-    const translations = {
-    hr: {
-        title: "Registracija",
-        email: "Email",
-        username: "Ime",
-        password: "Lozinka",
-        placeholderEmail: "Upišite email",
-        placeholderUser: "Upišite ime",
-        placeholderPass: "Upišite lozinku",
-        continue: "Nastavi",
-        warnEmail: "Molim vas unesite email",
-        warnUser: "Molim vas unesite korisničko ime",
-        warnPass: "Molim vas unesite lozinku",
-        redirect: 'Već imate račun? <a href="login.html">Prijavite se</a>',
-        sucessful: 'uspješna',
-        sign: 'Molim vas provjerite Vaš E-mail za informacije'
-      },
-      en: {
-        title: "Sign Up",
-        email: "Email",
-        username: "Username",
-        password: "Password",
-        placeholderEmail: "Enter email",
-        placeholderUser: "Enter username",
-        placeholderPass: "Enter password",
-        continue: "Continue",
-        warnEmail: "Please enter an email",
-        warnUser: "Please enter a username",
-        warnPass: "Please enter a password",
-        redirect: 'Already have an account? <a href="login.html">Log in</a>',
-        sucessful: 'successful',
-        sign: 'Please check your E-mail for info'
-      },
-      de: {
-        title: "Registrierung",
-        email: "Email",
-        username: "Benutzername",
-        password: "Passwort",
-        placeholderEmail: "Geben Sie Email ein",
-        placeholderUser: "Benutzernamen eingeben",
-        placeholderPass: "Passwort eingeben",
-        continue: "Weiter",
-        warnEmail: "Bitte geben Sie eine Email ein",
-        warnUser: "Bitte geben Sie einen Benutzernamen ein",
-        warnPass: "Bitte geben Sie ein Passwort ein",
-        redirect: 'Sie haben schon ein Konto? <a href="login.html">Anmelden</a>',
-        sucessful: 'erfolgreich',
-        sign: 'Bitte überprüfen Sie Ihre E-Mails auf Informationen.'
-      },
-      it: {
-        title: "Registrazione",
-        email: "Email",
-        username: "Nome utente",
-        password: "Password",
-        placeholderEmail: "Inserisci email",
-        placeholderUser: "Inserisci nome utente",
-        placeholderPass: "Inserisci password",
-        continue: "Continua",
-        warnEmail: "Per favore inserisci un'email",
-        warnUser: "Per favore inserisci un nome utente",
-        warnPass: "Per favore inserisci una password",
-        redirect: 'Hai già un account? <a href="login.html">Accedi</a>',
-        sucessful: 'riuscita',
-        sign: 'Per favore controlla la tua e-mail per informazioni'
-      },
-      fr: {
-        title: "Inscription",
-        email: "Email",
-        username: "Nom d'utilisateur",
-        password: "Mot de passe",
-        placeholderEmail: "Entrez un email",
-        placeholderUser: "Entrez un nom d'utilisateur",
-        placeholderPass: "Entrez un mot de passe",
-        continue: "Continuer",
-        warnEmail: "Veuillez entrer un email",
-        warnUser: "Veuillez entrer un nom d'utilisateur",
-        warnPass: "Veuillez entrer un mot de passe",
-        redirect: 'Vous avez déjà un compte ? <a href="login.html">Connexion</a>',
-        sucessful: 'réussi',
-        sign: 'Veuillez vérifier votre e-mail pour plus d´informations'
-      },
-      ru: {
-        title: "Регистрация",
-        email: "Эл. почта",
-        username: "Имя пользователя",
-        password: "Пароль",
-        placeholderEmail: "Введите эл. почту",
-        placeholderUser: "Введите имя пользователя",
-        placeholderPass: "Введите пароль",
-        continue: "Продолжить",
-        warnEmail: "Пожалуйста, введите эл. почту",
-        warnUser: "Пожалуйста, введите имя пользователя",
-        warnPass: "Пожалуйста, введите пароль",
-        redirect: 'Уже есть аккаунт? <a href="login.html">Войти</a>',
-        sucessful: 'Успешный',
-        sign: 'Пожалуйста, проверьте свою электронную почту для получения информации.'
-      }
-    };
-
-    let currentLang = "hr";
-
-    function updateLanguage(lang) {
-      currentLang = lang;
-      const t = translations[lang];
-      document.getElementById("title").textContent = t.title;
-      document.getElementById("usernameLabel").textContent = t.username;
-      document.getElementById("passwordLabel").textContent = t.password;
-      document.getElementById("username").placeholder = t.placeholderUser;
-      document.getElementById("password").placeholder = t.placeholderPass;
-      document.getElementById("continueBtn").textContent = t.continue;
-      document.getElementById("signupText").childNodes[0].nodeValue = t.signupText + " ";
-      document.getElementById("signupLink").textContent = t.signupLink;
-    }
-
-    function notFilled(username, password) {
-      let warn = "";
-      const t = translations[currentLang];
-      if (username.trim() === "") {
-        warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnUser}</div>`;
-      }
-      if (password.trim() === "") {
-        warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnPass}</div>`;
-      }
-      document.getElementById("warning").innerHTML = warn;
-    }
-
-    function filledYet() {
-      document.getElementById("warning").innerHTML = "";
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-      if (username.trim() === "" || password.trim() === "") {
-        notFilled(username, password);
-      } else {
-        alert("✔️ " + translations[currentLang].title + " " + translations[currentLang].sucessful + "!");
-        location.href = 'Zadaci.html';
-      }
-    }
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/lucide/dist/lucide.min.js"></script>
-  <script>
+    // initialize lucide icons when DOM is ready
     document.addEventListener("DOMContentLoaded", () => {
-      lucide.replace(); // renders the moon icon
+      // createIcons is fine for the inline <i data-lucide="moon"> pattern
+      // lucide.replace() is for replacing svg strings; createIcons is good here.
+      lucide.createIcons();
+    });
+
+    // small demo: toggle simple "darkMode" class on body when clicking theme button
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode'); // you can style this if needed
+      // keep icon in sync (optional)
+      const icon = themeToggle.querySelector('i');
+      if (icon) {
+        const current = icon.getAttribute('data-lucide');
+        icon.setAttribute('data-lucide', current === 'moon' ? 'sun' : 'moon');
+        lucide.createIcons(); // update rendered icon
+      }
     });
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
