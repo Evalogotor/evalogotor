@@ -27,8 +27,9 @@ body {
   padding: 40px;
   width: 80%;
   max-width: 600px;
-  position: relative;
+  margin: 0 auto;
   text-align: center;
+  position: relative;
 }
 h1 { color: #ccc; margin-bottom: 30px; font-size: 2.5em; }
 .input-container { display:flex; justify-content:center; margin-top:20px; align-items:center; }
@@ -75,19 +76,19 @@ button:hover { background-color:#0056b3; }
 <body>
 <div class="container">
   <div class="top-controls">
-  <select id="langSelect">
-    <option value="en">EN</option>
-    <option value="de">DE</option>
-    <option value="it">IT</option>
-    <option value="hr" selected>HR</option>
-    <option value="fr">FR</option>
-    <option value="ru">RU</option>
-  </select>
-
-  <button id="themeToggle" class="theme-btn">
-    <i data-lucide="moon"></i>
-  </button>
-</div>
+      <select id="langSelect">
+        <option value="en">EN</option>
+        <option value="de">DE</option>
+        <option value="it">IT</option>
+        <option value="hr" selected>HR</option>
+        <option value="fr">FR</option>
+        <option value="ru">RU</option>
+      </select>
+    
+      <button id="themeToggle" class="theme-btn">
+        <i data-lucide="moon"></i>
+      </button>
+    </div>
 
 <script src="https://cdn.jsdelivr.net/npm/lucide/dist/lucide.min.js"></script>
 <script>
@@ -258,6 +259,7 @@ button:hover { background-color:#0056b3; }
   </script>
 </body>
 </html>
+
 
 
 
