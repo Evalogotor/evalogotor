@@ -1,361 +1,294 @@
 <!DOCTYPE html>
-<html lang="hr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prijava</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prijava</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: rgb(17, 24, 39);
-      color: #000000;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: rgb(17, 24, 39);
+        color: rgb(200, 200, 200);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        transition: all 0.3s ease;
+    }
+
+    body.light {
+        background-color: rgb(245, 245, 245);
+        color: #000000;
     }
 
     .container {
-      background-color: rgb(31, 41, 55);
-      border-radius: 20px;
-      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-      padding: 40px;
-      text-align: center;
-      width: auto;             /* <— this is important */
-      min-width: 350px;        /* <— optional */
-      max-width: 400px;
-      box-sizing: border-box;
-      position: relative;
-      margin: 0 auto;          /* <— center horizontally */
+        background-color: rgb(31, 41, 55);
+        border-radius: 20px;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+        padding: 80px;
+        text-align: center;
+        width: 80%;
+        max-width: 800px;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    body.light .container {
+        background-color: #f0f0f0;
+        color: #000;
     }
 
     h1 {
-      font-size: 2.5em;
-      margin-bottom: 30px;
-      color: rgb(200, 200, 200);
+        font-size: 3em;
+        margin-top: 40px;
+        margin-bottom: 40px;
     }
 
     .input-container {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
     }
 
     label {
-      font-size: 1.2em;
-      margin-right: 10px;
-      text-align: center;
-      color: rgb(200, 200, 200);
+        font-size: 1.2em;
+        margin-bottom: 5px;
+        margin-right: 10px;
     }
 
     input[type="text"],
     input[type="password"] {
-      font-size: 1em;
-      padding: 10px;
-      border: 2px solid rgb(17, 24, 39);
-      border-radius: 5px;
-      width: 80%;
-      max-width: 300px;
-      background-color: rgb(55, 65, 81);
-      color: white;
+        font-size: 1em;
+        padding: 10px;
+        border: 2px solid rgb(17, 24, 39);
+        border-radius: 5px;
+        width: 80%;
+        max-width: 300px;
+        background-color: rgb(55, 65, 81);
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    body.light input[type="text"],
+    body.light input[type="password"] {
+        background-color: #fff;
+        color: #000;
+        border: 2px solid #ccc;
+    }
+
+    input:focus {
+        border-color: #007BFF;
+        outline: none;
     }
 
     .button-container {
-      margin-top: 20px;
-    }
-    .button1 {
-      background-color: rgb(55, 65, 81);
-      color: black;
-      border: none;
-      padding: 5px;
-      font-size: 1em;
-      cursor: pointer;
-      border-radius: 6px;
-      margin-left: 5px;
-      position: static;
+        margin-top: 20px;
     }
 
-    button1:hover {
-      background-color: #0056b3;
-    }
-    
     #continueBtn {
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 1em;
-      cursor: pointer;
-      border-radius: 5px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 1em;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: all 0.3s ease;
     }
-    
+
     #continueBtn:hover {
-      background-color: #0056b3;
+        background-color: #0056b3;
+    }
+
+    body.light #continueBtn:hover {
+        background-color: #c0c0c0;
+        color: #000;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
     .warning {
-      background-color: #fff4f4;
-      color: #d32f2f;
-      border: 1px solid #f8d7da;
-      padding: 12px 16px;
-      border-radius: 10px;
-      margin: 10px auto;
-      font-family: system-ui, sans-serif;
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      max-width: 400px;
+        background-color: #fff4f4;
+        color: #d32f2f;
+        border: 1px solid #f8d7da;
+        padding: 12px 16px;
+        border-radius: 16px;
+        margin: 10px 0;
+        font-family: system-ui, sans-serif;
+        font-size: 15px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .warning-icon {
-      font-size: 18px;
+        font-size: 18px;
     }
 
-    .redirect {
-      margin-top: 15px;
-    }
-
-    .redirect p {
-      color: rgb(200, 200, 200);
-      font-size: 0.9em;
-    }
-
-    .redirect a {
-      color: #007BFF;
-      text-decoration: none;
-    }
-
-    .redirect a:hover {
-      text-decoration: underline;
+    /* Topbar */
+    .topbar {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 10px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
     }
 
     select {
-      padding: 6px 10px;
-      border-radius: 6px;
-      border: 1px solid rgb(55, 65, 81);
-      background-color: rgb(55, 65, 81);
-      color: rgb(220, 220, 220);
-      font-size: 0.9em;
-      cursor: pointer;
-      appearance: none;
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid rgb(55, 65, 81);
+        background-color: rgb(55, 65, 81);
+        color: rgb(220, 220, 220);
+        font-size: 0.9em;
+        cursor: pointer;
     }
 
-    select:focus {
-      outline: none;
-      border-color: #007BFF;
+    body.light select {
+        background-color: #fff;
+        color: #000;
+        border: 1px solid #ccc;
     }
 
-    select option {
-      background-color: rgb(31, 41, 55);
-      color: rgb(220, 220, 220);
+    button.themeToggle {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid rgb(55, 65, 81);
+        background-color: rgb(55, 65, 81);
+        color: white;
+        cursor: pointer;
     }
 
-    .topbar {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-      width: 100%;
+    body.light button.themeToggle {
+        background-color: #fff;
+        color: #000;
+        border: 1px solid #ccc;
     }
-
-    
-  </style>
+</style>
 </head>
 <body>
-  <div class="container">
-    <!-- Language Selector -->
-    <div class="topbar">
-      <select id="langSelect" onchange="updateLanguage(this.value)">
-        <option value="en" selected>EN</option>
-        <option value="de">DE</option>
-        <option value="it">IT</option>
-        <option value="hr">HR</option>
-        <option value="fr">FR</option>
-        <option value="ru">RU</option>
-      </select>
-    
-      <button id="themeToggle" class="button1">
-        <i id="themeIcon" data-lucide="moon" class="w-4 h-4"></i>
-      </button>
-    </div>
-    
-    <h1 id="title">Prijava</h1>
+    <div class="container">
+        <div class="topbar">
+            <select id="langSelect">
+                <option value="en">EN</option>
+                <option value="de">DE</option>
+                <option value="it">IT</option>
+                <option value="hr">HR</option>
+                <option value="fr">FR</option>
+                <option value="ru">RU</option>
+            </select>
+            <button class="themeToggle" id="themeToggle">
+                <i id="themeIcon" data-lucide="moon"></i>
+            </button>
+        </div>
 
-    <div class="input-container">
-      <label for="username" id="usernameLabel">Ime</label>
-      <input type="text" id="username" name="username" placeholder="Upišite ime">
+        <h1 id="title">Prijava</h1>
+        <div class="input-container">
+            <label for="username" id="usernameLabel">Ime</label>
+            <input type="text" id="username" name="username" placeholder="Upišite ime">
+        </div>
+        <div class="input-container">
+            <label for="password" id="passwordLabel">Lozinka</label>
+            <input type="password" id="password" name="password" placeholder="Upišite lozinku">
+        </div>
+        <div class="button-container">
+            <button id="continueBtn" onclick="filledYet()">Nastavi</button>
+        </div>
+        <div id="warning"></div>
     </div>
-    <div class="input-container">
-      <label for="password" id="passwordLabel">Lozinka</label>
-      <input type="password" id="password" name="password" placeholder="Upišite lozinku">
-    </div>
-    <div class="button-container">
-      <button id="continueBtn" class="button" onclick="filledYet()">Nastavi</button>
-      <div class="redirect">
-        <p id="signupText">Nemaš račun? <a href="signup.html" id="signupLink">Registriraj se</a></p>
-      </div>
-    </div>
-    <div id="warning"></div>
-  </div>
 
-  <script>
+<script>
+lucide.createIcons();
+
+const translations = {
+    en: { title: "Login", username: "Username", password: "Password", placeholderUser:"Enter username", placeholderPass:"Enter password", continue:"Continue", warnUser:"Please enter username", warnPass:"Please enter password", success:"successful" },
+    de: { title: "Anmelden", username: "Benutzername", password: "Passwort", placeholderUser:"Benutzernamen eingeben", placeholderPass:"Passwort eingeben", continue:"Weiter", warnUser:"Bitte geben Sie einen Benutzernamen ein", warnPass:"Bitte geben Sie ein Passwort ein", success:"erfolgreich" },
+    it: { title: "Accesso", username: "Nome utente", password: "Password", placeholderUser:"Inserisci nome utente", placeholderPass:"Inserisci password", continue:"Continua", warnUser:"Per favore inserisci un nome utente", warnPass:"Per favore inserisci una password", success:"riuscito" },
+    hr: { title: "Prijava", username: "Ime", password: "Lozinka", placeholderUser:"Upišite ime", placeholderPass:"Upišite lozinku", continue:"Nastavi", warnUser:"Molim vas unesite korisničko ime", warnPass:"Molim vas unesite lozinku", success:"uspješna" },
+    fr: { title: "Connexion", username: "Nom d'utilisateur", password: "Mot de passe", placeholderUser:"Entrez nom utilisateur", placeholderPass:"Entrez mot de passe", continue:"Continuer", warnUser:"Veuillez entrer un nom d'utilisateur", warnPass:"Veuillez entrer un mot de passe", success:"réussi" },
+    ru: { title: "Вход", username: "Имя пользователя", password: "Пароль", placeholderUser:"Введите имя пользователя", placeholderPass:"Введите пароль", continue:"Продолжить", warnUser:"Пожалуйста, введите имя пользователя", warnPass:"Пожалуйста, введите пароль", success:"успешно" }
+};
+
+let darkMode = true;
+let currentLang = localStorage.getItem('lang') || 'en';
+let savedTheme = localStorage.getItem('theme') || 'dark';
+
+function updateLanguage(lang){
+    const t = translations[lang];
+    document.getElementById("title").textContent = t.title;
+    document.getElementById("usernameLabel").textContent = t.username;
+    document.getElementById("passwordLabel").textContent = t.password;
+    document.getElementById("username").placeholder = t.placeholderUser;
+    document.getElementById("password").placeholder = t.placeholderPass;
+    document.getElementById("continueBtn").textContent = t.continue;
+}
+
+function applyTheme(){
+    if(darkMode){
+        document.body.classList.add('dark');
+        document.body.classList.remove('light');
+        document.body.style.backgroundColor = 'rgb(17, 24, 39)';
+        document.body.style.color = 'rgb(200,200,200)';
+        document.querySelector('.container').style.backgroundColor = 'rgb(31,41,55)';
+        document.getElementById('themeIcon').setAttribute('data-lucide','sun');
+    } else {
+        document.body.classList.add('light');
+        document.body.classList.remove('dark');
+        document.body.style.backgroundColor = '#f5f5f5';
+        document.body.style.color = '#000';
+        document.querySelector('.container').style.backgroundColor = '#f0f0f0';
+        document.getElementById('themeIcon').setAttribute('data-lucide','moon');
+    }
     lucide.createIcons();
-    const translations = {
-    hr: {
-        title: "Registracija",
-        email: "Email",
-        username: "Ime",
-        password: "Lozinka",
-        placeholderEmail: "Upišite email",
-        placeholderUser: "Upišite ime",
-        placeholderPass: "Upišite lozinku",
-        continue: "Nastavi",
-        warnEmail: "Molim vas unesite email",
-        warnUser: "Molim vas unesite korisničko ime",
-        warnPass: "Molim vas unesite lozinku",
-        redirect: 'Već imate račun? <a href="login.html">Prijavite se</a>',
-        sucessful: 'uspješna',
-        sign: 'Molim vas provjerite Vaš E-mail za informacije'
-      },
-      en: {
-        title: "Sign Up",
-        email: "Email",
-        username: "Username",
-        password: "Password",
-        placeholderEmail: "Enter email",
-        placeholderUser: "Enter username",
-        placeholderPass: "Enter password",
-        continue: "Continue",
-        warnEmail: "Please enter an email",
-        warnUser: "Please enter a username",
-        warnPass: "Please enter a password",
-        redirect: 'Already have an account? <a href="login.html">Log in</a>',
-        sucessful: 'successful',
-        sign: 'Please check your E-mail for info'
-      },
-      de: {
-        title: "Registrierung",
-        email: "Email",
-        username: "Benutzername",
-        password: "Passwort",
-        placeholderEmail: "Geben Sie Email ein",
-        placeholderUser: "Benutzernamen eingeben",
-        placeholderPass: "Passwort eingeben",
-        continue: "Weiter",
-        warnEmail: "Bitte geben Sie eine Email ein",
-        warnUser: "Bitte geben Sie einen Benutzernamen ein",
-        warnPass: "Bitte geben Sie ein Passwort ein",
-        redirect: 'Sie haben schon ein Konto? <a href="login.html">Anmelden</a>',
-        sucessful: 'erfolgreich',
-        sign: 'Bitte überprüfen Sie Ihre E-Mails auf Informationen.'
-      },
-      it: {
-        title: "Registrazione",
-        email: "Email",
-        username: "Nome utente",
-        password: "Password",
-        placeholderEmail: "Inserisci email",
-        placeholderUser: "Inserisci nome utente",
-        placeholderPass: "Inserisci password",
-        continue: "Continua",
-        warnEmail: "Per favore inserisci un'email",
-        warnUser: "Per favore inserisci un nome utente",
-        warnPass: "Per favore inserisci una password",
-        redirect: 'Hai già un account? <a href="login.html">Accedi</a>',
-        sucessful: 'riuscita',
-        sign: 'Per favore controlla la tua e-mail per informazioni'
-      },
-      fr: {
-        title: "Inscription",
-        email: "Email",
-        username: "Nom d'utilisateur",
-        password: "Mot de passe",
-        placeholderEmail: "Entrez un email",
-        placeholderUser: "Entrez un nom d'utilisateur",
-        placeholderPass: "Entrez un mot de passe",
-        continue: "Continuer",
-        warnEmail: "Veuillez entrer un email",
-        warnUser: "Veuillez entrer un nom d'utilisateur",
-        warnPass: "Veuillez entrer un mot de passe",
-        redirect: 'Vous avez déjà un compte ? <a href="login.html">Connexion</a>',
-        sucessful: 'réussi',
-        sign: 'Veuillez vérifier votre e-mail pour plus d´informations'
-      },
-      ru: {
-        title: "Регистрация",
-        email: "Эл. почта",
-        username: "Имя пользователя",
-        password: "Пароль",
-        placeholderEmail: "Введите эл. почту",
-        placeholderUser: "Введите имя пользователя",
-        placeholderPass: "Введите пароль",
-        continue: "Продолжить",
-        warnEmail: "Пожалуйста, введите эл. почту",
-        warnUser: "Пожалуйста, введите имя пользователя",
-        warnPass: "Пожалуйста, введите пароль",
-        redirect: 'Уже есть аккаунт? <a href="login.html">Войти</a>',
-        sucessful: 'Успешный',
-        sign: 'Пожалуйста, проверьте свою электронную почту для получения информации.'
-      }
-    };
+}
 
-    let currentLang = "en";
+document.getElementById('langSelect').value = currentLang;
+updateLanguage(currentLang);
 
-    function updateLanguage(lang) {
-      currentLang = lang;
-      const t = translations[lang];
-      document.getElementById("title").textContent = t.title;
-      document.getElementById("usernameLabel").textContent = t.username;
-      document.getElementById("passwordLabel").textContent = t.password;
-      document.getElementById("username").placeholder = t.placeholderUser;
-      document.getElementById("password").placeholder = t.placeholderPass;
-      document.getElementById("continueBtn").textContent = t.continue;
-      document.getElementById("signupText").childNodes[0].nodeValue = t.signupText + " ";
-      document.getElementById("signupLink").textContent = t.signupLink;
-    }
+if(savedTheme==='dark') darkMode=true; else darkMode=false;
+applyTheme();
 
-    function notFilled(username, password) {
-      let warn = "";
-      const t = translations[currentLang];
-      if (username.trim() === "") {
-        warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnUser}</div>`;
-      }
-      if (password.trim() === "") {
-        warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnPass}</div>`;
-      }
-      document.getElementById("warning").innerHTML = warn;
-    }
+document.getElementById('langSelect').addEventListener('change', (e)=>{
+    currentLang = e.target.value;
+    localStorage.setItem('lang', currentLang);
+    updateLanguage(currentLang);
+    applyTheme();
+});
 
-    function filledYet() {
-      document.getElementById("warning").innerHTML = "";
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-      if (username.trim() === "" || password.trim() === "") {
-        notFilled(username, password);
-      } else {
-        alert("✔️ " + translations[currentLang].title + " " + translations[currentLang].sucessful + "!");
-        location.href = 'Zadaci.html';
-      }
-    }
-  </script>
+document.getElementById('themeToggle').addEventListener('click', ()=>{
+    darkMode = !darkMode;
+    localStorage.setItem('theme', darkMode?'dark':'light');
+    applyTheme();
+    updateLanguage(currentLang);
+});
+
+function notFilled(username,password){
+    let warn='';
+    const t = translations[currentLang];
+    if(username.trim()==="") warn+='<div class="warning"><span class="warning-icon">⚠️</span> '+t.warnUser+'</div>';
+    if(password.trim()==="") warn+='<div class="warning"><span class="warning-icon">⚠️</span> '+t.warnPass+'</div>';
+    document.getElementById('warning').innerHTML = warn;
+}
+
+function filledYet(){
+    document.getElementById('warning').innerHTML='';
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    if(username.trim()==='' || password.trim()==='') notFilled(username,password);
+    else alert("✔️ "+translations[currentLang].title+" "+translations[currentLang].success+"!");
+}
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
