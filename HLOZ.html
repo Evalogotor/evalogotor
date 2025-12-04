@@ -411,7 +411,7 @@ applyTheme();
             location.href='hloz.html';
 
         } else if (contentType === '24') {
-            var buttonskola = `
+            var buttonZadaci = `
             <div class="task-buttons">
                 <button onclick="changeContent('sok')">Sok</button>
                 <button onclick="changeContent('slika')">Slika</button>
@@ -423,11 +423,11 @@ applyTheme();
                 <button onclick="changeContent('svjetionik')">Svjetionik</button>
             </div>
             `;  
-            document.getElementById('zadaci').innerHTML = buttonskola;
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
             document.getElementById('zadatak').innerHTML = '';
             attachVerticalButtonListeners();
         } else if (contentType === '25') {
-            var buttonskola = `
+            var buttonZadaci = `
             <div class="task-buttons">
                 <button onclick="changeContent('')"></button>
                 <button onclick="changeContent('')"></button>
@@ -435,7 +435,7 @@ applyTheme();
                 <button onclick="changeContent('')"></button>
             </div>
             `;  
-            document.getElementById('zadaci').innerHTML = buttonskola;
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
             document.getElementById('zadatak').innerHTML = '';
             attachVerticalButtonListeners();
         }
