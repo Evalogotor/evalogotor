@@ -9,11 +9,13 @@
 <style>
   .container {
     display: flex;
-    justify-content: center;
-    align-items: start;
+    justify-content: center; /* centers horizontally */
+    align-items: flex-start; /* can be center or flex-start for vertical alignment */
     flex-wrap: wrap;
     text-align: center;
-    margin-right: 555px;
+    margin: 0 auto; /* removes fixed margin, auto centers container */
+    width: 100%; /* ensures it spans full width */
+    gap: 20px; /* optional spacing between items */
   }
   .hotbar {
     position: fixed;
@@ -196,7 +198,6 @@
 </div>
 
 <div class="container">
-<div id="kola"></div>
 <div id="zadaci"></div>
 <div id="zadatak"></div>
 </div>
