@@ -1415,6 +1415,22 @@
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
                 attachVerticalButtonListeners();
+            } else if (contentType === '241') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('Pecanje')">Pecanje</button>
+                    <button onclick="changeContent('brod')">Brod</button>
+                    <button onclick="changeContent('morskipas')">Morskipas</button>
+                    <button onclick="changeContent('rak')">Rak</button>
+                    <button onclick="changeContent('top')">Top</button>
+                    <button onclick="changeContent('sidro')">Sidro</button>
+                    <button onclick="changeContent('ljetovanje')">Ljetovanje</button>
+                    <button onclick="changeContent('Panpan')">Panpan</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             }
             
             //Zadaci
@@ -2266,9 +2282,36 @@
                 openPage('2024_2025', 5, 9, 7);
             } else if (contentType === 'zmijica') {
                 openPage('2024_2025', 5, 11, 8);
+            } else if (contentType === 'Pecanje') {
+                openPage('2025_2026', 1, 2, 1);
+            } else if (contentType === 'brod') {
+                openPage('2025_2026', 1, 3, 2);
+            } else if (contentType === 'morskipas') {
+                openPage('2025_2026', 1, 4, 3);
+            } else if (contentType === 'rak') {
+                openPage('2025_2026', 1, 5, 4);
+            } else if (contentType === 'top') {
+                openPage('2025_2026', 1, 6, 5);
+            } else if (contentType === 'sidro') {
+                openPage('2025_2026', 1, 7, 6);
+            } else if (contentType === 'ljetovanje') {
+                openPage('2025_2026', 1, 8, 7);
+            } else if (contentType === 'panpan') {
+                openPage('2025_2026', 1, 10, 8);
             }
         }
 
+        function getKoloLink(strGod, kolo) {
+            const currentyears = ['2025_2026']; // adjust for your years
+            if (currentyears.includes(strGod)) {
+                // Current year kolos: no archive folder
+                return `https://logoliga.hsin.hr/kolo${kolo}_zadaci.pdf`;
+            } else {
+                // Old year kolos: inside archive folder
+                return `https://logoliga.hsin.hr/arhiva/${strGod}/kolo${kolo}_zadaci.pdf`;
+            }
+        }
+          
         function openPage(strGod, kolo, page, red) {
             // Set points based on 'red'
             if (red === 1) {
@@ -2280,13 +2323,13 @@
             } else {
                 bodovi = 80 + 20 * (red - 4);
             }
-        
-            // Compose content with meaningful button labels
+            
+            const link = getKoloLink(strGod, kolo);
             var zadatak = `
                 <div class="eval-basket">
                     <div class="score">${ime_zadatak}</div>
                     <div class="zadatak_struk">
-                        <button class="text-blue-600" id="inp" onclick="window.open('https://logoliga.hsin.hr/arhiva/${strGod}/kolo${kolo}_zadaci.pdf#page=${page}', '_blank');">
+                        <button class="text-blue-600" id="inp" onclick="window.open('${link}#page=${page}', '_blank');">
                             ${translations[lang].inp}
                         </button>
                     </div>
@@ -2305,6 +2348,7 @@
     </script>
 </body>
 </html>
+
 
 
 
