@@ -188,7 +188,7 @@
     }
 
     button.themeToggle {
-        padding: 6px 10px;
+        padding: 10px 10px 5px 10px;
         border-radius: 6px;
         border: 1px solid rgb(55, 65, 81);
         background-color: rgb(55, 65, 81);
@@ -201,12 +201,41 @@
         color: #000;
         border: 1px solid #ccc;
     }
+
+    .homeButton {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        padding: 10px 10px 5px 10px;
+        border-radius: 6px;
+        border: 1px solid rgb(55, 65, 81);
+        background-color: rgb(55, 65, 81);
+        color: white;
+        cursor: pointer;
+    }
+
+    body.light .homeButton {
+        background-color: #fff;
+        color: #000;
+        border: 1px solid #ccc;
+    }
+
+    .homeButton:hover {
+        opacity: 0.8;
+    }
+
 </style>
 </head>
 <body>
 
 <div class="container">
+    
+    <button class="homeButton" onclick="goHome()">
+        <i data-lucide="home"></i>
+    </button>
+
     <div class="topbar">
+
         <select id="langSelect">
             <option value="en">EN</option>
             <option value="de">DE</option>
@@ -218,6 +247,7 @@
         <button class="themeToggle" id="themeToggle">
             <i id="themeIcon" data-lucide="moon"></i>
         </button>
+
     </div>
 
     <h1 id="title">Sign up</h1>
@@ -468,6 +498,10 @@ function filledYet(){
     }
 
     alert("✔️ " + t.title + " " + t.success + "!");
+}
+
+function goHome() {
+    window.location.href = "/"; // change if needed
 }
 
 </script>
