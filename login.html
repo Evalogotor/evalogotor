@@ -131,11 +131,6 @@
         margin-right: auto;
     }
 
-    .warning-icon {
-        font-size: 18px;
-    }
-
-    /* Topbar */
     .topbar {
         display: flex;
         justify-content: flex-end;
@@ -156,12 +151,6 @@
         cursor: pointer;
     }
 
-    body.light select {
-        background-color: #fff;
-        color: #000;
-        border: 1px solid #ccc;
-    }
-
     button.themeToggle {
         padding: 6px 10px;
         border-radius: 6px;
@@ -171,10 +160,16 @@
         cursor: pointer;
     }
 
+    body.light select,
     body.light button.themeToggle {
         background-color: #fff;
         color: #000;
         border: 1px solid #ccc;
+    }
+
+    /* new link style */
+    #noAccountText a:hover {
+        text-decoration: underline;
     }
 </style>
 </head>
@@ -206,19 +201,27 @@
         <div class="button-container">
             <button id="continueBtn" onclick="filledYet()">Nastavi</button>
         </div>
+
         <div id="warning"></div>
+
+        <!-- NEW: no account text -->
+        <p id="noAccountText" style="margin-top:20px;">
+            Nemate račun?
+            <a href="signup" id="signupLink" style="color:#3b82f6;">Registriraj se</a>
+        </p>
+
     </div>
 
 <script>
 lucide.createIcons();
 
 const translations = {
-    en: { title: "Login", username: "Username", password: "Password", placeholderUser:"Enter username", placeholderPass:"Enter password", continue:"Continue", warnUser:"Please enter username", warnPass:"Please enter password", success:"successful" },
-    de: { title: "Anmelden", username: "Benutzername", password: "Passwort", placeholderUser:"Benutzernamen eingeben", placeholderPass:"Passwort eingeben", continue:"Weiter", warnUser:"Bitte geben Sie einen Benutzernamen ein", warnPass:"Bitte geben Sie ein Passwort ein", success:"erfolgreich" },
-    it: { title: "Accesso", username: "Nome utente", password: "Password", placeholderUser:"Inserisci nome utente", placeholderPass:"Inserisci password", continue:"Continua", warnUser:"Per favore inserisci un nome utente", warnPass:"Per favore inserisci una password", success:"riuscito" },
-    hr: { title: "Prijava", username: "Ime", password: "Lozinka", placeholderUser:"Upišite ime", placeholderPass:"Upišite lozinku", continue:"Nastavi", warnUser:"Molim vas unesite korisničko ime", warnPass:"Molim vas unesite lozinku", success:"uspješna" },
-    fr: { title: "Connexion", username: "Nom d'utilisateur", password: "Mot de passe", placeholderUser:"Entrez nom utilisateur", placeholderPass:"Entrez mot de passe", continue:"Continuer", warnUser:"Veuillez entrer un nom d'utilisateur", warnPass:"Veuillez entrer un mot de passe", success:"réussi" },
-    ru: { title: "Вход", username: "Имя пользователя", password: "Пароль", placeholderUser:"Введите имя пользователя", placeholderPass:"Введите пароль", continue:"Продолжить", warnUser:"Пожалуйста, введите имя пользователя", warnPass:"Пожалуйста, введите пароль", success:"успешно" }
+    en: { title:"Login", username:"Username", password:"Password", placeholderUser:"Enter username", placeholderPass:"Enter password", continue:"Continue", warnUser:"Please enter username", warnPass:"Please enter password", success:"successful", noAccount:"You don't have an account?", signup:"Sign up" },
+    de: { title:"Anmelden", username:"Benutzername", password:"Passwort", placeholderUser:"Benutzernamen eingeben", placeholderPass:"Passwort eingeben", continue:"Weiter", warnUser:"Bitte geben Sie einen Benutzernamen ein", warnPass:"Bitte geben Sie ein Passwort ein", success:"erfolgreich", noAccount:"Sie haben kein Konto?", signup:"Registrieren" },
+    it: { title:"Accesso", username:"Nome utente", password:"Password", placeholderUser:"Inserisci nome utente", placeholderPass:"Inserisci password", continue:"Continua", warnUser:"Per favore inserisci un nome utente", warnPass:"Per favore inserisci una password", success:"riuscito", noAccount:"Non hai un account?", signup:"Registrati" },
+    hr: { title:"Prijava", username:"Ime", password:"Lozinka", placeholderUser:"Upišite ime", placeholderPass:"Upišite lozinku", continue:"Nastavi", warnUser:"Molim vas unesite korisničko ime", warnPass:"Molim vas unesite lozinku", success:"uspješna", noAccount:"Nemate račun?", signup:"Registriraj se" },
+    fr: { title:"Connexion", username:"Nom d'utilisateur", password:"Mot de passe", placeholderUser:"Entrez nom utilisateur", placeholderPass:"Entrez mot de passe", continue:"Continuer", warnUser:"Veuillez entrer un nom d'utilisateur", warnPass:"Veuillez entrer un mot de passe", success:"réussi", noAccount:"Vous n'avez pas de compte ?", signup:"S'inscrire" },
+    ru: { title:"Вход", username:"Имя пользователя", password:"Пароль", placeholderUser:"Введите имя пользователя", placeholderPass:"Введите пароль", continue:"Продолжить", warnUser:"Пожалуйста, введите имя пользователя", warnPass:"Пожалуйста, введите пароль", success:"успешно", noAccount:"У вас нет аккаунта?", signup:"Регистрация" }
 };
 
 let darkMode = true;
@@ -233,6 +236,10 @@ function updateLanguage(lang){
     document.getElementById("username").placeholder = t.placeholderUser;
     document.getElementById("password").placeholder = t.placeholderPass;
     document.getElementById("continueBtn").textContent = t.continue;
+
+    // update new text
+    document.getElementById("noAccountText").childNodes[0].textContent = t.noAccount + " ";
+    document.getElementById("signupLink").textContent = t.signup;
 }
 
 function applyTheme(){
@@ -257,7 +264,7 @@ function applyTheme(){
 document.getElementById('langSelect').value = currentLang;
 updateLanguage(currentLang);
 
-if(savedTheme==='dark') darkMode=true; else darkMode=false;
+darkMode = savedTheme === 'dark';
 applyTheme();
 
 document.getElementById('langSelect').addEventListener('change', (e)=>{
@@ -269,7 +276,7 @@ document.getElementById('langSelect').addEventListener('change', (e)=>{
 
 document.getElementById('themeToggle').addEventListener('click', ()=>{
     darkMode = !darkMode;
-    localStorage.setItem('theme', darkMode?'dark':'light');
+    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
     applyTheme();
     updateLanguage(currentLang);
 });
