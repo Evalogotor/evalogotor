@@ -191,19 +191,6 @@
 
 <!-- Buttons from Peti.html (kept same) -->
 <div class="button-line">
-<button onclick="changeContent('11')">2011</button>
-<button onclick="changeContent('12')">2012</button>
-<button onclick="changeContent('13')">2013</button>
-<button onclick="changeContent('14')">2014</button>
-<button onclick="changeContent('15')">2015</button>
-<button onclick="changeContent('16')">2016</button>
-<button onclick="changeContent('17')">2017</button>
-<button onclick="changeContent('18')">2018</button>
-<button onclick="changeContent('19')">2019</button>
-<button onclick="changeContent('20')">2020</button>
-<button onclick="changeContent('21')">2021</button>
-<button onclick="changeContent('22')">2022</button>
-<button onclick="changeContent('23')">2023</button>
 <button onclick="changeContent('24')">2024</button>
 <button onclick="changeContent('25')">2025</button>
 </div>
@@ -424,7 +411,7 @@ applyTheme();
             location.href='hloz.html';
 
         } else if (contentType === '24') {
-            var buttonZadaci = `
+            var buttonskola = `
             <div class="task-buttons">
                 <button onclick="changeContent('sok')">Sok</button>
                 <button onclick="changeContent('slika')">Slika</button>
@@ -440,7 +427,7 @@ applyTheme();
             document.getElementById('zadatak').innerHTML = '';
             attachVerticalButtonListeners();
         } else if (contentType === '25') {
-            var buttonZadaci = `
+            var buttonskola = `
             <div class="task-buttons">
                 <button onclick="changeContent('')"></button>
                 <button onclick="changeContent('')"></button>
