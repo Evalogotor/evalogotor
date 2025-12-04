@@ -209,6 +209,7 @@
         <button onclick="changeContent('22')">2022/23</button>
         <button onclick="changeContent('23')">2023/24</button>
         <button onclick="changeContent('24')">2024/25</button>
+        <button onclick="changeContent('25')">2025/26</button>
       </div>
     
       <div class="container">
@@ -557,6 +558,20 @@
                     <button onclick="changeContent('243')">3. kolo</button>
                     <button onclick="changeContent('244')">4. kolo</button>
                     <button onclick="changeContent('245')">5. kolo</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                document.getElementById('zadatak').innerHTML = '';
+                attachTaskButtonListeners();
+            } else if (contentType === '25') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('251')">1. kolo</button>
+                    <button onclick="changeContent('252')">2. kolo</button>
+                    <button onclick="changeContent('253')">3. kolo</button>
+                    <button onclick="changeContent('254')">4. kolo</button>
+                    <button onclick="changeContent('255')">5. kolo</button>
                 </div>
             `;
                 document.getElementById('kola').innerHTML = buttonskola;
@@ -1415,7 +1430,7 @@
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
                 attachVerticalButtonListeners();
-            } else if (contentType === '241') {
+            } else if (contentType === '251') {
                 var buttonZadaci = `
                 <div class="task-buttons">
                     <button onclick="changeContent('Pecanje')">Pecanje</button>
@@ -2348,6 +2363,7 @@
     </script>
 </body>
 </html>
+
 
 
 
