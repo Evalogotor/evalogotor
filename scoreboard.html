@@ -37,8 +37,8 @@
       <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='/'">
         <i data-lucide="home" class="w-4 h-4"></i> <span id="home">Home</span>
       </button>
-      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100">
-        <i data-lucide="bar-chart-3" class="w-4 h-4"></i> <span id="scoreboard">Scoreboard</span>
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='tasks'">
+        <i data-lucide="pen-tool" class="w-4 h-4"></i> <span id="tasks">Tasks</span>
       </button>
 
       <!-- Login -->
@@ -79,12 +79,6 @@
     const instruction = document.getElementById("instruction");
 
     // Card elements
-    const card5 = document.getElementById("card5");
-    const card6 = document.getElementById("card6");
-    const card7 = document.getElementById("card7");
-    const card8 = document.getElementById("card8");
-    const cardHLOZ = document.getElementById("cardHLOZ");
-    const cardHLL = document.getElementById("cardHLL");
 
     let darkMode = false; // default
     const savedTheme = localStorage.getItem('theme');
