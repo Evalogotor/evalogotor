@@ -237,7 +237,10 @@
     <div class="topbar">
 
         <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white">
+            <!-- Globe icon -->
             <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
+            
+            <!-- Language select -->
             <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900">
               <option value="en" selected>EN</option>
               <option value="de">DE</option>
@@ -246,9 +249,8 @@
               <option value="fr">FR</option>
               <option value="ru">RU</option>
             </select>
-          </div>
-          <button class="themeToggle" id="themeToggle"><i id="themeIcon" data-lucide="moon"></i>
-          </button>
+        </div>
+        <button class="themeToggle" id="themeToggle"><i id="themeIcon" data-lucide="moon"></i></button>
 
     </div>
 
@@ -280,7 +282,7 @@
 
     <div class="login-redirect">
         <span id="alreadyText">Already have an account?</span>
-        <a href="signup" id="loginLink" style="color:#3b82f6;">Log in</a>
+        <a href="login" id="loginLink" style="color:#3b82f6;">Log in</a>
     </div>
 
     <div id="warning"></div>
@@ -507,5 +509,6 @@ function goHome() {
 </script>
 </body>
 </html>
+
 
 
