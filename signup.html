@@ -1,10 +1,12 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EVALOGOTOR - Sign up</title>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EVALOGOTOR - Sign Up</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -251,16 +253,17 @@
     </button>
 
     <div class="topbar">
-        <div class="lang-container">
-            <i data-lucide="globe"></i>
-            <select id="langSelect">
-                <option value="en" selected>EN</option>
-                <option value="de">DE</option>
-                <option value="it">IT</option>
-                <option value="hr">HR</option>
-                <option value="fr">FR</option>
-                <option value="ru">RU</option>
-            </select>
+        <!-- Language selector -->
+        <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white dark:bg-gray-800 dark:border-gray-600">
+          <i data-lucide="globe" class="w-4 h-4 mr-1 text-gray-900 dark:text-white"></i>
+          <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900 dark:text-white">
+            <option value="en" selected>EN</option>
+            <option value="de">DE</option>
+            <option value="it">IT</option>
+            <option value="hr">HR</option>
+            <option value="fr">FR</option>
+            <option value="ru">RU</option>
+          </select>
         </div>
         <button class="themeToggle" id="themeToggle"><i id="themeIcon" data-lucide="moon"></i></button>
 
@@ -536,6 +539,7 @@ function goHome() {
 </script>
 </body>
 </html>
+
 
 
 
