@@ -170,22 +170,6 @@
         right: 20px;
     }
 
-    select {
-        padding: 6px 10px;
-        border-radius: 6px;
-        border: 1px solid rgb(55, 65, 81);
-        background-color: rgb(55, 65, 81);
-        color: rgb(220, 220, 220);
-        font-size: 0.9em;
-        cursor: pointer;
-    }
-
-    body.light select {
-        background-color: #fff;
-        color: #000;
-        border: 1px solid #ccc;
-    }
-
     button.themeToggle {
         padding: 10px 10px 5px 10px;
         border-radius: 6px;
@@ -239,14 +223,21 @@
         color:#000; 
         border:1px solid #ccc; 
     }
-    
-    .lang-container select { 
-        background:transparent; 
-        border:none; 
-        color:inherit; 
-        font-size:0.9em; 
-        cursor:pointer; 
-        outline:none; 
+
+    .lang-container select {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid rgb(55, 65, 81);
+        background-color: rgb(55, 65, 81);
+        color: rgb(220, 220, 220);
+        font-size: 0.9em;
+        cursor: pointer;
+    }
+
+    body.light .lang-container select {
+        background-color: #fff;
+        color: #000;
+        border: 1px solid #ccc;
     }
     
 </style>
@@ -545,6 +536,7 @@ function goHome() {
 </script>
 </body>
 </html>
+
 
 
 
