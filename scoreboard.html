@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EVALOGOTOR - Tasks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .highlight {
+      font-weight: bold;
+      font-size: 1.25rem;
+      color: rgb(57, 220, 57);
+    }
+
+    /* Default (light mode) */
+    #langSelect option {
+      background-color: white;
+      color: black;
+    }
+    
+    /* Dark mode */
+    .dark #langSelect,
+    .dark #langSelect option {
+      background-color: #1f2937; /* Tailwind gray-800 */
+      color: white;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors" id="body">
+  <!-- Navbar -->
+  <header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white" id="navbar">
+    <div class="flex items-center group cursor-pointer">
+      <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span><span class="highlight group-hover:text-[rgb(57,220,57)]">LOGO</span><span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
+    </div>
+    <nav class="flex items-center space-x-4">
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='/'">
+        <i data-lucide="home" class="w-4 h-4"></i> <span id="home">Home</span>
+      </button>
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100">
+        <i data-lucide="bar-chart-3" class="w-4 h-4"></i> <span id="scoreboard">Scoreboard</span>
+      </button>
+
+      <!-- Login -->
+      <button id="loginBtn" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1" onclick="location.href = 'login'">
+        <i data-lucide="user" class="w-4 h-4 mr-1"></i> <span id="login">Login</span>
+      </button>
+
+      <!-- Theme toggle -->
+      <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
+        <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span>
+      </button>
+
+      <!-- Language selector -->
+      <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white">
+        <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
+        <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900">
+          <option value="en" selected>EN</option>
+          <option value="de">DE</option>
+          <option value="it">IT</option>
+          <option value="hr">HR</option>
+          <option value="fr">FR</option>
+          <option value="ru">RU</option>
+        </select>
+      </div>
+    </nav>
+  </header>
+
+  <script>
+    lucide.createIcons();
+
+    const body = document.getElementById("body");
+    const navbar = document.getElementById("navbar");
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+    const themeLabel = document.getElementById("themeLabel");
+    const langSelect = document.getElementById("langSelect");
+    const loginBtn = document.getElementById("loginBtn");
+    const instruction = document.getElementById("instruction");
+
+    // Card elements
+    const card5 = document.getElementById("card5");
+    const card6 = document.getElementById("card6");
+    const card7 = document.getElementById("card7");
+    const card8 = document.getElementById("card8");
+    const cardHLOZ = document.getElementById("cardHLOZ");
+    const cardHLL = document.getElementById("cardHLL");
+
+    let darkMode = false; // default
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) darkMode = (savedTheme === 'dark');
+    let lang = localStorage.getItem('lang') || 'en';
+
+    const translations = {
+      en: {
+        home:"Home",
+        scoreboard: "Scoreboard",
+        login: "Login",
+        themeDark: "Dark",
+        themeLight: "Light",
+      },
+      de: {
+        home:"Home",
+        scoreboard: "Bestenliste",
+        login: "Anmelden",
+        themeDark: "Dunkel",
+        themeLight: "Hell",
+      },
+      it: {
+        home:"Home",
+        scoreboard: "Classifica",
+        login: "Accedi",
+        themeDark: "Scuro",
+        themeLight: "Chiaro",
+      },
+      hr: {
+        home:"Home",
+        scoreboard: "Rezultati",
+        login: "Prijava",
+        themeDark: "Tamno",
+        themeLight: "Svijetlo",
+      },
+      fr: {
+        home:"Home",
+        scoreboard: "Classement",
+        login: "Connexion",
+        themeDark: "Sombre",
+        themeLight: "Clair",
+      },
+      ru: {
+        home:"Home",
+        scoreboard: "Таблица",
+        login: "Войти",
+        themeDark: "Тёмная",
+        themeLight: "Светлая",
+      }
+    };
+
+    function updateLanguage(lang) {
+      
+      const t = translations[lang];
+      document.getElementById("scoreboard").textContent = t.scoreboard;
+      document.getElementById("login").textContent = t.login;
+      themeLabel.textContent = darkMode ? t.themeLight : t.themeDark;
+    }
+
+    langSelect.addEventListener("change", (e) => {
+      lang = e.target.value;
+      localStorage.setItem('lang', lang);
+      updateLanguage(lang);
+    });
+
+    function applyTheme() {
+      if (darkMode) {
+        body.classList.add("dark");
+        body.classList.remove("light");
+        body.classList.remove("bg-gray-50","text-gray-900");
+        body.classList.add("bg-gray-900","text-white");
+        navbar.classList.remove("bg-white");
+        navbar.classList.add("bg-gray-800");
+        themeIcon.setAttribute("data-lucide","sun");
+        themeLabel.textContent = translations[lang].themeLight;
+
+        [themeToggle, loginBtn].forEach(btn => {
+          btn.classList.remove("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
+          btn.classList.add("bg-gray-900","text-white","border-gray-600","hover:bg-gray-700","hover:text-gray-200");
+        });
+
+        langSelect.classList.remove("text-gray-900");
+        langSelect.classList.add("text-white");
+        langSelect.parentElement.classList.remove("bg-white","border-gray-300");
+        langSelect.parentElement.classList.add("bg-gray-800","border-gray-600");
+
+      } else {
+        body.classList.add("light");
+        body.classList.remove("dark");
+        body.classList.remove("bg-gray-900","text-white");
+        body.classList.add("bg-gray-50","text-gray-900");
+        navbar.classList.remove("bg-gray-800");
+        navbar.classList.add("bg-white");
+        themeIcon.setAttribute("data-lucide","moon");
+        themeLabel.textContent = translations[lang].themeDark;
+
+        [themeToggle, loginBtn].forEach(btn => {
+          btn.classList.remove("bg-gray-900","text-white","hover:bg-gray-700","hover:text-gray-200");
+          btn.classList.add("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
+        });
+
+        langSelect.classList.remove("text-white");
+        langSelect.classList.add("text-gray-900");
+        langSelect.parentElement.classList.remove("bg-gray-800","border-gray-600");
+        langSelect.parentElement.classList.add("bg-white","border-gray-300");
+      }
+      lucide.createIcons();
+      
+      // Save the theme preference to localStorage
+    }
+
+    themeToggle.addEventListener("click", () => {
+      darkMode = !darkMode;
+      localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+      applyTheme();
+      updateLanguage(lang);
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const savedLang = localStorage.getItem('lang');
+
+      if (savedTheme) {
+        darkMode = (savedTheme === 'dark');
+      }
+      if (savedLang) {
+        lang = savedLang;
+        langSelect.value = lang;
+      }
+
+      updateLanguage(lang);
+      applyTheme();
+    });
+  </script>
+</body>
+</html>
