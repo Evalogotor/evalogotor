@@ -223,6 +223,32 @@
         opacity: 0.8;
     }
 
+    .lang-container { 
+        display:flex; 
+        align-items:center; 
+        gap:5px; 
+        padding:6px 10px; 
+        border-radius:12px; 
+        border:1px solid #ccc; 
+        background-color:rgb(55,65,81); 
+        color:#ccc; 
+    }
+    
+    body.light .lang-container { 
+        background-color:#fff; 
+        color:#000; 
+        border:1px solid #ccc; 
+    }
+    
+    .lang-container select { 
+        background:transparent; 
+        border:none; 
+        color:inherit; 
+        font-size:0.9em; 
+        cursor:pointer; 
+        outline:none; 
+    }
+    
 </style>
 </head>
 <body>
@@ -519,6 +545,7 @@ function goHome() {
 </script>
 </body>
 </html>
+
 
 
 
