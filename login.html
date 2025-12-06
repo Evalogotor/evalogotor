@@ -167,11 +167,6 @@
         border: 1px solid #ccc;
     }
 
-    /* new link style */
-    #noAccountText a:hover {
-        text-decoration: underline;
-    }
-
     .homeButton {
         position: absolute;
         top: 20px;
@@ -193,7 +188,7 @@
     .homeButton:hover {
         opacity: 0.8;
     }
-
+    
 </style>
 </head>
 <body>
@@ -234,10 +229,10 @@
 
         <div id="warning"></div>
 
-        <!-- NEW: no account text -->
+        <!-- NEW: no account text -->>
         <p id="noAccountText" style="margin-top:20px;">
             Nemate račun?
-            <a href="signup" id="signupLink" style="color:#3b82f6;">Registriraj se</a>
+            <a href="signup" id="signupLink" style="color: #3b82f6; text-decoration: none; font-weight: bold; margin-left: 6px; transition: 0.2s;">Registriraj se</a>
         </p>
 
     </div>
@@ -333,4 +328,5 @@ function filledYet(){
 </script>
 </body>
 </html>
+
 
