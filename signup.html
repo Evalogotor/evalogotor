@@ -236,17 +236,19 @@
 
     <div class="topbar">
 
-        <select id="langSelect">
-            <option value="en">EN</option>
-            <option value="de">DE</option>
-            <option value="it">IT</option>
-            <option value="hr">HR</option>
-            <option value="fr">FR</option>
-            <option value="ru">RU</option>
-        </select>
-        <button class="themeToggle" id="themeToggle">
-            <i id="themeIcon" data-lucide="moon"></i>
-        </button>
+        <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white">
+            <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
+            <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900">
+              <option value="en" selected>EN</option>
+              <option value="de">DE</option>
+              <option value="it">IT</option>
+              <option value="hr">HR</option>
+              <option value="fr">FR</option>
+              <option value="ru">RU</option>
+            </select>
+          </div>
+          <button class="themeToggle" id="themeToggle"><i id="themeIcon" data-lucide="moon"></i>
+          </button>
 
     </div>
 
@@ -276,10 +278,9 @@
         <button id="continueBtn" onclick="filledYet()">Continue</button>
     </div>
 
-    <!-- ⭐ LOGIN REDIRECT TEXT ⭐ -->
     <div class="login-redirect">
         <span id="alreadyText">Already have an account?</span>
-        <a href="login" id="loginLink">Log in</a>
+        <a href="signup" id="loginLink" style="color:#3b82f6;">Log in</a>
     </div>
 
     <div id="warning"></div>
@@ -288,7 +289,6 @@
 <script>
 lucide.createIcons();
 
-/* ⭐ UPDATED TRANSLATIONS INCLUDING LOGIN TEXT ⭐ */
 const translations = {
     en: { 
         title: "Sign up",
@@ -507,4 +507,5 @@ function goHome() {
 </script>
 </body>
 </html>
+
 
