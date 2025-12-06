@@ -234,16 +234,16 @@
     </button>
 
     <div class="topbar">
-        <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white">
-          <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
-          <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900">
-            <option value="en" selected>EN</option>
-            <option value="de">DE</option>
-            <option value="it">IT</option>
-            <option value="hr">HR</option>
-            <option value="fr">FR</option>
-            <option value="ru">RU</option>
-          </select>
+        <div class="lang-container">
+            <i data-lucide="globe"></i>
+            <select id="langSelect">
+                <option value="en" selected>EN</option>
+                <option value="de">DE</option>
+                <option value="it">IT</option>
+                <option value="hr">HR</option>
+                <option value="fr">FR</option>
+                <option value="ru">RU</option>
+            </select>
         </div>
         <button class="themeToggle" id="themeToggle"><i id="themeIcon" data-lucide="moon"></i></button>
 
@@ -283,12 +283,23 @@
     <div id="warning"></div>
 </div>
 
-    
 <script src="https://unpkg.com/lucide@latest"></script>
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+    // Replace all icons initially
     lucide.createIcons();
-});
+
+    // Theme toggle
+    let darkMode = true;
+    document.getElementById("themeToggle").addEventListener("click", () => {
+        darkMode = !darkMode;
+        const themeIcon = document.getElementById("themeIcon");
+        themeIcon.outerHTML = darkMode
+            ? '<i id="themeIcon" data-lucide="sun"></i>'
+            : '<i id="themeIcon" data-lucide="moon"></i>';
+        lucide.createIcons();
+    });
+</script>
+<script>
 
 const translations = {
     en: { 
@@ -508,6 +519,7 @@ function goHome() {
 </script>
 </body>
 </html>
+
 
 
 
