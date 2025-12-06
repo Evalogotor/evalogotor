@@ -143,7 +143,9 @@
     const cardHLOZ = document.getElementById("cardHLOZ");
     const cardHLL = document.getElementById("cardHLL");
 
-    let savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark if not set
+    let darkMode = false; // default
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) darkMode = (savedTheme === 'dark');
     let lang = localStorage.getItem('lang') || 'en';
 
     const translations = {
@@ -320,7 +322,6 @@
     });
 
     document.addEventListener("DOMContentLoaded", () => {
-      const savedTheme = localStorage.getItem('theme');
       const savedLang = localStorage.getItem('lang');
 
       if (savedTheme) {
