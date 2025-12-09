@@ -1378,9 +1378,9 @@
             } else if (contentType === '') {
                 openPage('', 3, 2);
             }  else if (contentType === 'slušalice') {
-                openPage('https://www.azoo.hr/app/uploads/2024/02/informatika-skolsko-2024.zip', 1, 1);
+                openPage('', 1, 1);
             } else if (contentType === 'lampa') {
-                openPage('https://www.azoo.hr/app/uploads/2024/02/informatika-skolsko-2024.zip', 2, 1);
+                openPage('', 2, 1);
             } else if (contentType === 'polica') {
                 openPage('', 3, 1);
             } else if (contentType === 'mobitel') {
@@ -1423,7 +1423,7 @@
                     bodovi = 70;
                 }
             }
-            if (strGod!=''){
+            if (strGod){
                 var zadatak = `
                     <div class="eval-basket">
                         <div class="score">${ime_zadatak}</div>
@@ -1459,6 +1459,7 @@
         }
     </script>
 </html>
+
 
 
 
