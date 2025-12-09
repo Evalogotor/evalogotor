@@ -1081,6 +1081,41 @@ applyTheme();
             document.getElementById('zadaci').innerHTML = buttonZadaci;
             document.getElementById('zadatak').innerHTML = '';
             attachVerticalButtonListeners();
+        } else if (contentType === '251') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('lucija')">Lucija</button>
+                <button onclick="changeContent('Hanoi')">Hanoi</button>
+                <button onclick="changeContent('turnir')">Turnir</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '252') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('osvježenje')">Osvježenje</button>
+                <button onclick="changeContent('zebra')">Zebra</button>
+                <button onclick="changeContent('skočimiš')">Skočimiš</button>
+                <button onclick="changeContent('stablo')">Stablo</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '253') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('dimnjak')">Dimnjak</button>
+                <button onclick="changeContent('opasnost')">Opasnost</button>
+                <button onclick="changeContent('karamela')">Karamela</button>
+                <button onclick="changeContent('tarife')">Tarife</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
         }
 
 
@@ -1099,7 +1134,7 @@ applyTheme();
         } else if (contentType === 'kovanice') {
             openPage('130', 3, 2);
         } else if (contentType === 'pruga') {
-            openPage('130', 3, 2);
+            openPage('130', 4, 2);
         } else if (contentType === 'rabac') {
             openPage('219', 1, 2);
         } else if (contentType === 'spoji') {
@@ -1107,7 +1142,7 @@ applyTheme();
         } else if (contentType === 'broš') {
             openPage('219', 3, 2);
         } else if (contentType === 'note') {
-            openPage('219', 3, 2);
+            openPage('219', 4, 2);
         } else if (contentType === 'godina') {
             openPage('259', 1, 1);
         } else if (contentType === 'Lepeza') {
@@ -1121,7 +1156,7 @@ applyTheme();
         } else if (contentType === 'dijeli') {
             openPage('297', 3, 2);
         } else if (contentType === 'zaprega') {
-            openPage('297', 3, 2);
+            openPage('297', 4, 2);
         }else if (contentType === 'trokuti') {
             openPage('386', 1, 2);
         } else if (contentType === 'Lepeza') {
@@ -1129,29 +1164,7 @@ applyTheme();
         } else if (contentType === 'nepraz') {
             openPage('386', 3, 2);
         } else if (contentType === 'hanoi') {
-            openPage('386', 3, 2);
-        } else if (contentType === 'pravokutnici') {
-            openPage('435', 1, 1);
-        } else if (contentType === 'Trokuti') {
-            openPage('435', 2, 1);
-        } else if (contentType === 'cipela') {
-            openPage('435', 3, 1);
-        } else if (contentType === 'piramida') {
-            openPage('558', 1, 2);
-        } else if (contentType === 'prosti') {
-            openPage('558', 2, 2);
-        } else if (contentType === 'Cvijet') {
-            openPage('558', 3, 2);
-        } else if (contentType === 'neboder') {
-            openPage('558', 3, 2);
-        }else if (contentType === 'trokuti') {
-            openPage('588', 1, 2);
-        } else if (contentType === 'Lepeza') {
-            openPage('588', 2, 2);
-        } else if (contentType === 'nepraz') {
-            openPage('588', 3, 2);
-        } else if (contentType === 'hanoi') {
-            openPage('588', 3, 2);
+            openPage('386', 4, 2);
         } else if (contentType === 'seste') {
             openPage('633', 1, 1);
         } else if (contentType === 'stube') {
@@ -1165,7 +1178,7 @@ applyTheme();
         } else if (contentType === 'parket') {
             openPage('704', 3, 2);
         } else if (contentType === 'najdub') {
-            openPage('704', 3, 2);
+            openPage('704', 4, 2);
         }else if (contentType === 'zaledje') {
             openPage('810', 1, 2);
         } else if (contentType === 'razlika') {
@@ -1173,7 +1186,7 @@ applyTheme();
         } else if (contentType === 'tok') {
             openPage('810', 3, 2);
         } else if (contentType === 'struja') {
-            openPage('810', 3, 2);
+            openPage('810', 4, 2);
         } else if (contentType === 'putokaz') {
             openPage('838', 1, 1);
         } else if (contentType === 'gljiva') {
@@ -1187,7 +1200,7 @@ applyTheme();
         } else if (contentType === 'izravnaj') {
             openPage('907', 3, 2);
         } else if (contentType === 'dvorac') {
-            openPage('907', 3, 2);
+            openPage('907', 4, 2);
         } else if (contentType === 'planina') {
             openPage('983', 1, 2);
         } else if (contentType === 'cvijet ') {
@@ -1195,7 +1208,7 @@ applyTheme();
         } else if (contentType === 'spilja') {
             openPage('983', 3, 2);
         } else if (contentType === 'kutije') {
-            openPage('983', 3, 2);
+            openPage('983', 4, 2);
         } else if (contentType === 'drive') {
             openPage('1027', 1, 1);
         } else if (contentType === 'kukac') {
@@ -1209,7 +1222,7 @@ applyTheme();
         } else if (contentType === 'pretvorba') {
             openPage('1158', 3, 2);
         } else if (contentType === 'grančica') {
-            openPage('1158', 3, 2);
+            openPage('1158', 4, 2);
         } else if (contentType === 'droid') {
             openPage('1218', 1, 2);
         } else if (contentType === 'Cvijet ') {
@@ -1217,7 +1230,7 @@ applyTheme();
         } else if (contentType === 'jezera') {
             openPage('1218', 3, 2);
         } else if (contentType === 'vatromet') {
-            openPage('1218', 3, 2);
+            openPage('1218', 4, 2);
         } else if (contentType === 'stepenice') {
             openPage('1294', 1, 1);
         } else if (contentType === 'niz') {
@@ -1231,7 +1244,7 @@ applyTheme();
         } else if (contentType === 'zidine') {
             openPage('1370', 3, 2);
         } else if (contentType === 'cijena') {
-            openPage('1370', 3, 2);
+            openPage('1370', 4, 2);
         } else if (contentType === 'batman') {
             openPage('1420', 1, 2);
         } else if (contentType === 'voda') {
@@ -1239,7 +1252,7 @@ applyTheme();
         } else if (contentType === 'imenik') {
             openPage('1420', 3, 2);
         } else if (contentType === 'nonogram') {
-            openPage('1420', 3, 2);
+            openPage('1420', 4, 2);
         } else if (contentType === 'uSB') {
             openPage('1482', 1, 1);
         } else if (contentType === 'pod') {
@@ -1253,7 +1266,7 @@ applyTheme();
         } else if (contentType === 'meta') {
             openPage('1577', 3, 2);
         } else if (contentType === 'krivulja') {
-            openPage('1577', 3, 2);
+            openPage('1577', 4, 2);
         } else if (contentType === 'yin Yang') {
             openPage('1661', 1, 2);
         } else if (contentType === 'zmija') {
@@ -1261,7 +1274,7 @@ applyTheme();
         } else if (contentType === 'polje') {
             openPage('1661', 3, 2);
         } else if (contentType === 'leonard') {
-            openPage('1661', 3, 2);
+            openPage('1661', 4, 2);
         } else if (contentType === 'mitsu') {
             openPage('1723', 1, 1);
         } else if (contentType === 'baloncici') {
@@ -1275,7 +1288,7 @@ applyTheme();
         } else if (contentType === 'reduciraj') {
             openPage('1817', 3, 2);
         } else if (contentType === 'most') {
-            openPage('1817', 3, 2);
+            openPage('1817', 4, 2);
         } else if (contentType === 'dijamant') {
             openPage('1885', 1, 2);
         } else if (contentType === 'PES') {
@@ -1283,7 +1296,7 @@ applyTheme();
         } else if (contentType === 'premier') {
             openPage('1885', 3, 2);
         } else if (contentType === 'defrag') {
-            openPage('1885', 3, 2);
+            openPage('1885', 4, 2);
         } else if (contentType === 'asonanca') {
             openPage('1937', 1, 1);
         } else if (contentType === 'hipno') {
@@ -1297,7 +1310,7 @@ applyTheme();
         } else if (contentType === 'heksagon') {
             openPage('2028', 3, 2);
         } else if (contentType === 'pruga') {
-            openPage('2028', 3, 2);
+            openPage('2028', 4, 2);
         } else if (contentType === 'jordan') {
             openPage('2088', 1, 2);
         } else if (contentType === 'spork') {
@@ -1305,7 +1318,7 @@ applyTheme();
         } else if (contentType === 'pizza') {
             openPage('2088', 3, 2);
         } else if (contentType === 'vrt') {
-            openPage('2088', 3, 2);
+            openPage('2088', 4, 2);
         } else if (contentType === 'eiffel') {
             openPage('2132', 1, 1);
         } else if (contentType === 'putokaz') {
@@ -1319,7 +1332,7 @@ applyTheme();
         } else if (contentType === 'struja') {
             openPage('2201', 3, 2);
         } else if (contentType === 'antena') {
-            openPage('2201', 3, 2);
+            openPage('2201', 4, 2);
         } else if (contentType === 'ocjena') {
             openPage('2277', 1, 2);
         } else if (contentType === 'zmaj') {
@@ -1327,7 +1340,7 @@ applyTheme();
         } else if (contentType === 'kiša') {
             openPage('2277', 3, 2);
         } else if (contentType === 'parking') {
-            openPage('2277', 3, 2);
+            openPage('2277', 4, 2);
         } else if (contentType === 'uspinjača') {
             openPage('2328', 1, 1);
         } else if (contentType === 'zavjese') {
@@ -1341,7 +1354,7 @@ applyTheme();
         } else if (contentType === 'loptanje') {
             openPage('2390', 3, 2);
         } else if (contentType === 'megacvijet') {
-            openPage('2390', 3, 2);
+            openPage('2390', 4, 2);
         } else if (contentType === 'kupovina') {
             openPage('2450', 1, 2);
         } else if (contentType === 'keks') {
@@ -1349,7 +1362,7 @@ applyTheme();
         } else if (contentType === 'osmosmjerka') {
             openPage('2450', 3, 2);
         } else if (contentType === 'dreamcatcher') {
-            openPage('2450', 3, 2);
+            openPage('2450', 4, 2);
         } else if (contentType === 'lokot') {
             openPage('2522', 1, 1);
         } else if (contentType === 'hepimil') {
@@ -1363,86 +1376,117 @@ applyTheme();
         } else if (contentType === 'valovi') {
             openPage('2595', 3, 2);
         } else if (contentType === 'dNA') {
-            openPage('2595', 3, 2);
+            openPage('2595', 4, 2);
         } else if (contentType === 'Činčile') {
-            openPage('1', 1, 1);
+            openPage('https://www.azoo.hr/app/uploads/2024/02/informatika-skolsko-2024.zip', 1, 1);
         } else if (contentType === 'vanzemaljac') {
-            openPage('1', 2, 1);
+            openPage('https://www.azoo.hr/app/uploads/2024/02/informatika-skolsko-2024.zip', 2, 1);
         } else if (contentType === 'pitanje') {
-            openPage('1', 3, 1);
+            openPage('https://www.azoo.hr/app/uploads/2024/02/informatika-skolsko-2024.zip', 3, 1);
         } else if (contentType === 'tipkovnica') {
-            openPage('1', 1, 2);
+            openPage('https://www.azoo.hr/app/uploads/2025/02/informatika-zupanijsko-natjecanje-2024.zip', 1, 2);
         } else if (contentType === 'sir') {
-            openPage('1', 2, 2);
+            openPage('https://www.azoo.hr/app/uploads/2025/02/informatika-zupanijsko-natjecanje-2024.zip', 2, 2);
         } else if (contentType === 'ključ') {
-            openPage('1', 3, 2);
+            openPage('https://www.azoo.hr/app/uploads/2025/02/informatika-zupanijsko-natjecanje-2024.zip', 3, 2);
         } else if (contentType === 'aurora') {
-            openPage('1', 3, 2);
+            openPage('https://www.azoo.hr/app/uploads/2025/02/informatika-zupanijsko-natjecanje-2024.zip', 4, 2);
         } else if (contentType === 'renault') {
-            openPage('1', 1, 2);
+            openPage('https://www.azoo.hr/app/uploads/2024/04/informatika-drzavno-5.zip', 1, 2);
         } else if (contentType === 'Čokolada') {
-            openPage('1', 2, 2);
+            openPage('https://www.azoo.hr/app/uploads/2024/04/informatika-drzavno-5.zip', 2, 2);
         } else if (contentType === 'bus') {
-            openPage('1', 3, 2);
+            openPage('https://www.azoo.hr/app/uploads/2024/04/informatika-drzavno-5.zip', 3, 2);
         } else if (contentType === 'hihistogram') {
-            openPage('1', 3, 2);
-        }
+            openPage('https://www.azoo.hr/app/uploads/2024/04/informatika-drzavno-5.zip', 4, 2);
+        } else if (contentType === 'lucija') {
+            openPage('https://hsin.hr/skolsko2025/zadaci/skolsko-2025-zadaci-logo-7.pdf', 1, 1);
+        } else if (contentType === 'Hanoi') {
+            openPage('https://hsin.hr/skolsko2025/zadaci/skolsko-2025-zadaci-logo-7.pdf', 2, 1);
+        } else if (contentType === 'turnir') {
+            openPage('https://hsin.hr/skolsko2025/zadaci/skolsko-2025-zadaci-logo-7.pdf', 3, 1);
+        }else if (contentType === 'osvježenje') {
+            openPage('https://hsin.hr/zupanijsko2025/zadaci/zupanijsko-2025-zadaci-logo-7.pdf', 1, 2);
+        } else if (contentType === 'zebra') {
+            openPage('https://hsin.hr/zupanijsko2025/zadaci/zupanijsko-2025-zadaci-logo-7.pdf', 2, 2);
+        } else if (contentType === 'skočimiš') {
+            openPage('https://hsin.hr/zupanijsko2025/zadaci/zupanijsko-2025-zadaci-logo-7.pdf', 3, 2);
+        } else if (contentType === 'stablo') {
+            openPage('https://hsin.hr/zupanijsko2025/zadaci/zupanijsko-2025-zadaci-logo-7.pdf', 4, 2);
+        } else if (contentType === 'dimnjak') {
+            openPage('https://hsin.hr/drzavno2025/zadaci/logo-7.zip', 1, 2);
+        } else if (contentType === 'opasnost') {
+            openPage('https://hsin.hr/drzavno2025/zadaci/logo-7.zip', 2, 2);
+        } else if (contentType === 'karamela') {
+            openPage('https://hsin.hr/drzavno2025/zadaci/logo-7.zip', 3, 2);
+        } else if (contentType === 'tarife') {
+            openPage('https://hsin.hr/drzavno2025/zadaci/logo-7.zip', 4, 2);
+        } 
     }
 
     function openPage(strGod, red, tip) {
-        // Set points based on 'red'
-        if (tip === 1){
-            if (red === 1) {
-                bodovi = 30;
-            } else if (red === 2) {
-                bodovi = 50;
-            } else if (red === 3) {
-                bodovi = 70;
-            }
-        } else {
-            if (red === 1) {
-                bodovi = 30;
-            } else if (red === 2) {
-                bodovi = 40;
-            } else if (red === 3) {
-                bodovi = 60;
-            } else {
-                bodovi = 70;
-            }
-        }
-    
-        // Compose content with meaningful button labels
-        if (strGod !== '1'){
-          var zadatak = `
+          let bodovi;
+      
+          // Set points based on 'red'
+          if (tip === 1) {
+              if (red === 1) bodovi = 30;
+              else if (red === 2) bodovi = 50;
+              else if (red === 3) bodovi = 70;
+          } else {
+              if (red === 1) bodovi = 30;
+              else if (red === 2) bodovi = 40;
+              else if (red === 3) bodovi = 60;
+              else bodovi = 70;
+          }
+      
+          // Decide what URL to use
+          let url;
+      
+          if (strGod === "nema") {
+              url = null;  // no PDF
+          } else if (strGod.startsWith("http")) {
+              // NEW years 2025+ OR direct full PDF URL with #page=...
+              url = strGod;
+          } else {
+              // OLD years (auto-generate link)
+              url = `https://informatika.azoo.hr/natjecanje/dobavi-dokument/${strGod}`;
+          }
+      
+          // Build HTML
+          let zadatak = `
               <div class="eval-basket">
                   <div class="score">${ime_zadatak}</div>
                   <div class="zadatak_struk">
-                      <button class="text-blue-600" id="inp" onclick="window.open('https://informatika.azoo.hr/natjecanje/dobavi-dokument/${strGod}', '_blank');">
+          `;
+      
+          if (url) {
+              zadatak += `
+                      <button class="text-blue-600" id="inp"
+                          onclick="window.open('${url}', '_blank');">
                           ${translations[lang].inp}
                       </button>
+              `;
+          } else {
+              zadatak += `
+                      <button class="text-gray-400 cursor-not-allowed" disabled>
+                          ${translations[lang].inp}
+                      </button>
+              `;
+          }
+      
+          zadatak += `
                   </div>
                   <button class="eval-button" id="evalbtn">${translations[lang].eval}</button>
                   <div class="score">0 / ${bodovi}</div>
               </div>
           `;
-        }else{
-          var zadatak = `
-              <div class="eval-basket">
-                  <div class="score">${ime_zadatak}</div>
-                  <div class="zadatak_struk">
-                  </div>
-                  <button class="eval-button" id="evalbtn">${translations[lang].eval}</button>
-                  <div class="score">0 / ${bodovi}</div>
-              </div>
-          `;
-        }
-    
-        const zadatakDiv = document.getElementById('zadatak');
-        if (zadatakDiv) {
-            zadatakDiv.innerHTML = zadatak;
-        } else {
-            console.error("Element with id 'zadatak' not found");
-        }
-    }
+      
+          const zadatakDiv = document.getElementById('zadatak');
+          if (zadatakDiv) {
+              zadatakDiv.innerHTML = zadatak;
+          } else {
+              console.error("Element with id 'zadatak' not found");
+          }
+      }
 </script>
 </html>
