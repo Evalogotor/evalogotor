@@ -1086,6 +1086,41 @@
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
                 attachVerticalButtonListeners();
+            } else if (contentType === '251') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('podmornica')">Podmornica</button>
+                    <button onclick="changeContent('kolač')">Kolač</button>
+                    <button onclick="changeContent('parobrod')">Parobrod</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '252') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('tragovi')">Tragovi</button>
+                    <button onclick="changeContent('kružnica')">Kružnica</button>
+                    <button onclick="changeContent('Škare')">Škare</button>
+                    <button onclick="changeContent('mine')">Mine</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '253') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('biograd')">Biograd</button>
+                    <button onclick="changeContent('poccado')">Poccado</button>
+                    <button onclick="changeContent('zrakoplov')">Zrakoplov</button>
+                    <button onclick="changeContent('lijenost')">Lijenost</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             }
 
 
@@ -1377,29 +1412,51 @@
                 openPage('nema', 3, 2);
             } else if (contentType === '') {
                 openPage('nema', 4, 2);
-            }  else if (contentType === 'slušalice') {
+            } else if (contentType === 'slušalice') {
                 openPage('https://www.azoo.hr/app/uploads/2024/02/informatika-skolsko-2024.zip', 1, 1);
             } else if (contentType === 'lampa') {
-                openPage('nema', 2, 1);
+                openPage('https://www.azoo.hr/app/uploads/2024/02/informatika-skolsko-2024.zip', 2, 1);
             } else if (contentType === 'polica') {
-                openPage('nema', 3, 1);
+                openPage('https://www.azoo.hr/app/uploads/2024/02/informatika-skolsko-2024.zip', 3, 1);
             } else if (contentType === 'mobitel') {
-                openPage('nema', 1, 1);
+                openPage('https://www.azoo.hr/app/uploads/2025/02/informatika-zupanijsko-natjecanje-2024.zip', 1, 2);
             } else if (contentType === 'mač') {
-                openPage('nema', 2, 2);
+                openPage('https://www.azoo.hr/app/uploads/2025/02/informatika-zupanijsko-natjecanje-2024.zip', 2, 2);
             } else if (contentType === 'mnogokuti') {
-                openPage('nema', 3, 2);
+                openPage('https://www.azoo.hr/app/uploads/2025/02/informatika-zupanijsko-natjecanje-2024.zip', 3, 2);
             } else if (contentType === 'ormarić') {
-                openPage('nema', 4, 2);
+                openPage('https://www.azoo.hr/app/uploads/2025/02/informatika-zupanijsko-natjecanje-2024.zip', 4, 2);
             }else if (contentType === 'autocesta') {
-                openPage('nema', 1, 2);
+                openPage('https://www.azoo.hr/app/uploads/2024/04/informatika-drzavno-5.zip', 1, 2);
             } else if (contentType === 'vodice') {
-                openPage('nema', 2, 2);
+                openPage('https://www.azoo.hr/app/uploads/2024/04/informatika-drzavno-5.zip', 2, 2);
             } else if (contentType === 'Luster') {
-                openPage('nema', 3, 2);
+                openPage('https://www.azoo.hr/app/uploads/2024/04/informatika-drzavno-5.zip', 3, 2);
             } else if (contentType === 'saće') {
-                openPage('nema', 4, 2);
-            }
+                openPage('https://www.azoo.hr/app/uploads/2024/04/informatika-drzavno-5.zip', 4, 2);
+            } else if (contentType === 'podmornica') {
+                openPage('https://hsin.hr/skolsko2025/zadaci/skolsko-2025-zadaci-logo-5.pdf', 1, 1);
+            } else if (contentType === 'kolač') {
+                openPage('https://hsin.hr/skolsko2025/zadaci/skolsko-2025-zadaci-logo-5.pdf', 2, 1);
+            } else if (contentType === 'parobrod') {
+                openPage('https://hsin.hr/skolsko2025/zadaci/skolsko-2025-zadaci-logo-5.pdf', 3, 1);
+            } else if (contentType === 'tragovi') {
+                openPage('https://hsin.hr/zupanijsko2025/zadaci/zupanijsko-2025-zadaci-logo-5.pdf', 1, 2);
+            } else if (contentType === 'kružnica') {
+                openPage('https://hsin.hr/zupanijsko2025/zadaci/zupanijsko-2025-zadaci-logo-5.pdf', 2, 2);
+            } else if (contentType === 'Škare') {
+                openPage('https://hsin.hr/zupanijsko2025/zadaci/zupanijsko-2025-zadaci-logo-5.pdf', 3, 2);
+            }else if (contentType === 'mine') {
+                openPage('https://hsin.hr/zupanijsko2025/zadaci/zupanijsko-2025-zadaci-logo-5.pdf', 4, 2);
+            } else if (contentType === 'biograd') {
+                openPage('https://hsin.hr/drzavno2025/zadaci/logo-5.zip', 1, 2);
+            } else if (contentType === 'poccado') {
+                openPage('https://hsin.hr/drzavno2025/zadaci/logo-5.zip', 2, 2);
+            } else if (contentType === 'zrakoplov') {
+                openPage('https://hsin.hr/drzavno2025/zadaci/logo-5.zip', 3, 2);
+            } else if (contentType === 'lijenost') {
+                openPage('https://hsin.hr/drzavno2025/zadaci/logo-5.zip', 4, 2);
+            } 
         }
 
         function openPage(strGod, red, tip) {
@@ -1468,6 +1525,7 @@
         }
     </script>
 </html>
+
 
 
 
