@@ -40,7 +40,7 @@
 
   <nav class="flex items-center space-x-4">
 
-    <button
+    <button id="homeBtn"
       class="flex items-center space-x-1 rounded-xl px-3 py-1
              text-gray-500 dark:text-gray-300
              hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -49,7 +49,7 @@
       <span id="home">Home</span>
     </button>
 
-    <button
+    <button id="tasksBtn"
       class="flex items-center space-x-1 rounded-xl px-3 py-1
              text-gray-500 dark:text-gray-300
              hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -58,7 +58,7 @@
       <span id="tasks">Tasks</span>
     </button>
 
-    <button
+    <button id="scoreboardBtn"
       class="flex items-center space-x-1 rounded-xl px-3 py-1
              text-gray-500 dark:text-gray-300
              hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -120,7 +120,6 @@
        class="rounded-2xl p-4 shadow
               bg-gray-100 dark:bg-gray-800
               font-mono text-sm">
-    <!-- The dynamic task context will appear here -->
     empty
   </div>
 
@@ -133,10 +132,10 @@
   <div class="flex items-center gap-4">
     <button
       class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700
-             text-white font-semibold">
+             text-white font-semibold" id="evalBtn">
       Evaluate
     </button>
-    <span class="status-ue font-semibold">Unevaluated</span>
+    <span class="status-ue font-semibold" id="evalStatus">Unevaluated</span>
   </div>
 
 </main>
@@ -144,59 +143,113 @@
 <script>
 lucide.createIcons();
 
+/* ===== TRANSLATIONS ===== */
+const translations = {
+  en: { home:"Home", tasks:"Tasks", scoreboard:"Scoreboard", login:"Login", dark:"Dark", light:"Light", evaluate:"Evaluate", unevaluated:"Unevaluated" },
+  de: { home:"Home", tasks:"Aufgaben", scoreboard:"Rangliste", login:"Anmelden", dark:"Dunkel", light:"Hell", evaluate:"Auswerten", unevaluated:"Nicht bewertet" },
+  it: { home:"Home", tasks:"Compiti", scoreboard:"Classifica", login:"Accedi", dark:"Scuro", light:"Chiaro", evaluate:"Valuta", unevaluated:"Non valutato" },
+  hr: { home:"Home", tasks:"Zadaci", scoreboard:"Ljestvica", login:"Prijava", dark:"Tamno", light:"Svijetlo", evaluate:"Procijeni", unevaluated:"Neocijenjeno" },
+  fr: { home:"Home", tasks:"Tâches", scoreboard:"Classement", login:"Connexion", dark:"Sombre", light:"Clair", evaluate:"Évaluer", unevaluated:"Non évalué" },
+  ru: { home:"Home", tasks:"Задания", scoreboard:"Рейтинг", login:"Войти", dark:"Тёмный", light:"Светлый", evaluate:"Оценить", unevaluated:"Неоценено" }
+};
+
+/* ===== LANGUAGE ===== */
+let lang = localStorage.getItem("lang") || "en";
+const langSelect = document.getElementById("langSelect");
+langSelect.value = lang;
+
+function applyTranslations() {
+  document.getElementById("home").textContent = translations[lang].home;
+  document.getElementById("tasks").textContent = translations[lang].tasks;
+  document.getElementById("scoreboard").textContent = translations[lang].scoreboard;
+  document.getElementById("login").textContent = translations[lang].login;
+  document.getElementById("themeLabel").textContent = darkMode ? translations[lang].light : translations[lang].dark;
+  document.getElementById("evalBtn").textContent = translations[lang].evaluate;
+  document.getElementById("evalStatus").textContent = translations[lang].unevaluated;
+}
+
+langSelect.addEventListener("change", e => {
+  lang = e.target.value;
+  localStorage.setItem("lang", lang);
+  applyTranslations();
+  applyTheme();
+});
+
 /* ===== THEME ===== */
 let darkMode = localStorage.getItem("theme") === "dark";
 
 function updateSelectOptionsColors() {
   const options = document.querySelectorAll('#langSelect option');
   if(darkMode){
-    options.forEach(opt => {
-      opt.style.backgroundColor = "rgb(17, 24, 38)";
-      opt.style.color = "white";
-    });
+    options.forEach(opt => { opt.style.backgroundColor = "rgb(17, 24, 38)"; opt.style.color = "white"; });
   } else {
-    options.forEach(opt => {
-      opt.style.backgroundColor = "white";
-      opt.style.color = "black";
-    });
+    options.forEach(opt => { opt.style.backgroundColor = "white"; opt.style.color = "black"; });
   }
 }
 
 function applyTheme() {
   document.documentElement.classList.toggle("dark", darkMode);
-  document.getElementById("themeLabel").textContent =
-    darkMode ? "Light" : "Dark";
+
+  const themeLabel = document.getElementById("themeLabel");
+  themeLabel.textContent = darkMode ? translations[lang].light : translations[lang].dark;
+
+  // Buttons: login + theme
+  [document.getElementById("loginBtn"), document.getElementById("themeToggle")].forEach(btn=>{
+    if(darkMode){
+      btn.classList.remove("bg-white","text-gray-900","hover:bg-gray-100","hover:text-gray-900");
+      btn.classList.add("bg-[rgb(17,24,38)]","text-white","hover:bg-gray-700","hover:text-white");
+    } else {
+      btn.classList.remove("bg-[rgb(17,24,38)]","text-white","hover:bg-gray-700","hover:text-white");
+      btn.classList.add("bg-white","text-gray-900","hover:bg-gray-100","hover:text-gray-900");
+    }
+  });
+
+  // Language select background + options
+  const langParent = langSelect.parentElement;
+  if(darkMode){
+    langParent.classList.remove("bg-white","border-gray-300");
+    langParent.classList.add("bg-[rgb(17,24,38)]","border-gray-600");
+    langSelect.classList.remove("text-gray-900");
+    langSelect.classList.add("text-white");
+  } else {
+    langParent.classList.remove("bg-[rgb(17,24,38)]","border-gray-600");
+    langParent.classList.add("bg-white","border-gray-300");
+    langSelect.classList.remove("text-white");
+    langSelect.classList.add("text-gray-900");
+  }
 
   updateSelectOptionsColors();
+  lucide.createIcons();
 }
 
-document.getElementById("themeToggle").onclick = () => {
+document.getElementById("themeToggle").addEventListener("click", () => {
   darkMode = !darkMode;
-  localStorage.setItem("theme", darkMode ? "dark" : "light");
+  localStorage.setItem("theme", darkMode ? 'dark' : 'light');
   applyTheme();
-};
+});
 
 /* ===== TASK CONTEXT ===== */
 function loadTaskContext() {
   const kategorija = localStorage.getItem("kategorija") || "empty";
   const god        = localStorage.getItem("god") || "empty";
   const zadatak    = localStorage.getItem("zadatak") || "empty";
-  const kolo       = localStorage.getItem("kolo");
-  const razina     = localStorage.getItem("razina");
+  const kolo       = localStorage.getItem("kolo") || "empty";
 
   let contextText = "";
 
-  if (kategorija.toLowerCase() === "hll") {
-    contextText = `HLL -> ${god} -> ${kolo || "empty"} -> ${zadatak}`;
-  } else if (kategorija.toLowerCase() === "hloz") {
+  if(kategorija.toLowerCase() === "hll"){
+    contextText = `HLL -> ${god} -> ${kolo} -> ${zadatak}`;
+  } else if(kategorija.toLowerCase() === "hloz"){
     contextText = `HLOŽ -> ${god} -> ${zadatak}`;
   } else {
-    contextText = `${kategorija} -> ${god} -> ${kolo || "empty"} -> ${zadatak}`;
+    contextText = `${kategorija} -> ${god} -> ${kolo} -> ${zadatak}`;
   }
 
   document.getElementById("taskContext").textContent = contextText;
 }
 
+/* ===== INIT ===== */
+applyTranslations();
 applyTheme();
 loadTaskContext();
 </script>
