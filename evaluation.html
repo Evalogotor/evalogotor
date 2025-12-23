@@ -153,6 +153,7 @@ const translations = {
 let lang = localStorage.getItem("lang") || "en";
 let darkMode = localStorage.getItem("theme") === "dark";
 
+let warningActive = false;
 const evalStatus = document.getElementById("evalStatus");
 const codeInput = document.getElementById("codeInput");
 
@@ -168,12 +169,10 @@ function applyTranslations() {
   codeInput.placeholder = t.placeholder;
   themeLabel.textContent = darkMode ? t.light : t.dark;
 
-  // 🔥 FIX: translate warning too
-  if (evalStatus.classList.contains("text-red-500")) {
-    evalStatus.textContent = t.warning;
-  } else {
-    evalStatus.textContent = t.unevaluated;
-  }
+  // ✅ Correctly translate warning if active
+  evalStatus.textContent = warningActive
+    ? t.warning
+    : t.unevaluated;
 }
 
 /* ===== THEME ===== */
@@ -184,6 +183,7 @@ function applyTheme() {
     opt.style.backgroundColor = darkMode ? "rgb(17,24,38)" : "white";
     opt.style.color = darkMode ? "white" : "black";
   });
+  updateLangOptions();
 }
 
 /* ===== EVENTS ===== */
@@ -203,21 +203,36 @@ themeToggle.onclick = () => {
 
 evalBtn.onclick = () => {
   if (!codeInput.value.trim()) {
+    warningActive = true;
     evalStatus.textContent = translations[lang].warning;
     evalStatus.classList.add("text-red-500");
+    return;
   }
+
+  warningActive = false;
+  evalStatus.textContent = translations[lang].unevaluated;
+  evalStatus.classList.remove("text-red-500");
 };
 
 codeInput.oninput = () => {
   if (codeInput.value.trim()) {
-    evalStatus.classList.remove("text-red-500");
+    warningActive = false;
     evalStatus.textContent = translations[lang].unevaluated;
+    evalStatus.classList.remove("text-red-500");
   }
 };
 
+function updateLangOptions() {
+  document.querySelectorAll("#langSelect option").forEach(opt => {
+    opt.style.backgroundColor = darkMode ? "rgb(17,24,38)" : "white";
+    opt.style.color = darkMode ? "white" : "black";
+  });
+}
+  
 /* ===== INIT ===== */
 applyTheme();
 applyTranslations();
+updateLangOptions();
 </script>
 
 </body>
