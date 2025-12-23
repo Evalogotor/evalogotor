@@ -403,7 +403,17 @@ applyTheme();
     var buttonZadaci = '';
     var zadatak = '';
     var ime_zadatak = '';
+    var godina = '';
+    var razina = '';
     function changeContent(contentType) {
+        if (contentType.length == 2){
+            godina = '20'+contentType;
+        }
+        if (contentType.length == 3){
+            if (contentType[2] == '1') razina = 'Skolsko';
+            if (contentType[2] == '2') razina = 'Zupanijsko';
+            if (contentType[2] == '3') razina = 'Drzavno';
+        }
         ime_zadatak = capitalizeFirstLetter(contentType);
 
         if (contentType === 'Peti') {
@@ -1426,6 +1436,10 @@ applyTheme();
 
     function openPage(strGod, red, tip) {
           let bodovi;
+          localStorage.setItem("kategorija", 'Sedmi');
+          localStorage.setItem("god", godina);
+          localStorage.setItem("kolo", razina);
+          localStorage.setItem("zadatak", ime_zadatak);
       
           // Set points based on 'red'
           if (tip === 1) {
