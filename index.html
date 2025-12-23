@@ -93,13 +93,21 @@
     </div>
 
     <!-- Placeholder image -->
-    <div class="mt-12 w-[800px] h-[400px] rounded-xl bg-gray-200 overflow-hidden">
+    <div class="mt-12 w-[800px] h-[400px] rounded-xl overflow-hidden relative">
+      <!-- Image -->
       <img
         src="vladimir_stefanovic.bmp"
         alt="Preview"
         class="w-full h-full object-cover"
-        onerror="this.style.display='none'"
       />
+    
+      <!-- Text box (3/5 → 4/5) -->
+      <div class="absolute top-0 left-[60%] w-[20%] h-full
+                  bg-black/40 backdrop-blur-sm
+                  flex items-center justify-center
+                  text-white text-sm font-semibold text-center px-3">
+        Ova osoba je pojela tri žahora u 2 sata, pazite se...
+      </div>
     </div>
   </main>
 
@@ -331,6 +339,7 @@
   </script>
 </body>
 </html>
+
 
 
 
