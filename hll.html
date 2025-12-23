@@ -2330,6 +2330,11 @@
         }
           
         function openPage(strGod, kolo, page, red) {
+            localStorage.setItem("kategorija", 'HLL');
+            localStorage.setItem("god", strGod.replace("_", "."));
+            localStorage.setItem("kolo", kolo+'.kolo');
+            localStorage.setItem("zadatak", ime_zadatak);
+            
             // Set points based on 'red'
             if (red === 1) {
                 bodovi = 20;
@@ -2365,6 +2370,7 @@
     </script>
 </body>
 </html>
+
 
 
 
