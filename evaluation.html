@@ -145,12 +145,36 @@ lucide.createIcons();
 
 /* ===== TRANSLATIONS ===== */
 const translations = {
-  en: { home:"Home", tasks:"Tasks", scoreboard:"Scoreboard", login:"Login", dark:"Dark", light:"Light", evaluate:"Evaluate", unevaluated:"Unevaluated" },
-  de: { home:"Home", tasks:"Aufgaben", scoreboard:"Rangliste", login:"Anmelden", dark:"Dunkel", light:"Hell", evaluate:"Auswerten", unevaluated:"Nicht bewertet" },
-  it: { home:"Home", tasks:"Compiti", scoreboard:"Classifica", login:"Accedi", dark:"Scuro", light:"Chiaro", evaluate:"Valuta", unevaluated:"Non valutato" },
-  hr: { home:"Home", tasks:"Zadaci", scoreboard:"Ljestvica", login:"Prijava", dark:"Tamno", light:"Svijetlo", evaluate:"Procijeni", unevaluated:"Neocijenjeno" },
-  fr: { home:"Home", tasks:"Tâches", scoreboard:"Classement", login:"Connexion", dark:"Sombre", light:"Clair", evaluate:"Évaluer", unevaluated:"Non évalué" },
-  ru: { home:"Home", tasks:"Задания", scoreboard:"Рейтинг", login:"Войти", dark:"Тёмный", light:"Светлый", evaluate:"Оценить", unevaluated:"Неоценено" }
+  en: { 
+    home:"Home", tasks:"Tasks", scoreboard:"Scoreboard", login:"Login", dark:"Dark", light:"Light", 
+    evaluate:"Evaluate", unevaluated:"Unevaluated",
+    codePlaceholder: "Paste your solution code here..."
+  },
+  de: { 
+    home:"Home", tasks:"Aufgaben", scoreboard:"Rangliste", login:"Anmelden", dark:"Dunkel", light:"Hell", 
+    evaluate:"Auswerten", unevaluated:"Nicht bewertet",
+    codePlaceholder: "Lösungscode hier einfügen..."
+  },
+  it: { 
+    home:"Home", tasks:"Compiti", scoreboard:"Classifica", login:"Accedi", dark:"Scuro", light:"Chiaro", 
+    evaluate:"Valuta", unevaluated:"Non valutato",
+    codePlaceholder: "Incolla qui il codice della soluzione..."
+  },
+  hr: { 
+    home:"Home", tasks:"Zadaci", scoreboard:"Ljestvica", login:"Prijava", dark:"Tamno", light:"Svijetlo", 
+    evaluate:"Procijeni", unevaluated:"Neocijenjeno",
+    codePlaceholder: "Zalijepite ovdje rješenje..."
+  },
+  fr: { 
+    home:"Home", tasks:"Tâches", scoreboard:"Classement", login:"Connexion", dark:"Sombre", light:"Clair", 
+    evaluate:"Évaluer", unevaluated:"Non évalué",
+    codePlaceholder: "Collez votre code ici..."
+  },
+  ru: { 
+    home:"Home", tasks:"Задания", scoreboard:"Рейтинг", login:"Войти", dark:"Тёмный", light:"Светлый", 
+    evaluate:"Оценить", unevaluated:"Неоценено",
+    codePlaceholder: "Вставьте ваш код решения здесь..."
+  }
 };
 
 /* ===== LANGUAGE ===== */
@@ -166,6 +190,9 @@ function applyTranslations() {
   document.getElementById("themeLabel").textContent = darkMode ? translations[lang].light : translations[lang].dark;
   document.getElementById("evalBtn").textContent = translations[lang].evaluate;
   document.getElementById("evalStatus").textContent = translations[lang].unevaluated;
+
+  const codeTextarea = document.querySelector("textarea");
+  if(codeTextarea) codeTextarea.placeholder = translations[lang].codePlaceholder;
 }
 
 langSelect.addEventListener("change", e => {
