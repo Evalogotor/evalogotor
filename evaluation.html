@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" class="transition-colors">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>EVALOGOTOR - Tasks</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -13,55 +13,116 @@
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
-  .highlight { font-weight: bold; font-size: 1.25rem; color: rgb(57,220,57); }
+  .highlight {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: rgb(57, 220, 57);
+  }
   .status-ue { color: #94a3b8; }
 </style>
 </head>
 
-<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white
-             min-h-screen flex flex-col transition-colors">
+<body id="body"
+  class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white
+         min-h-screen flex flex-col transition-colors">
 
-<header class="flex items-center justify-between px-6 py-4 shadow-sm
-               bg-white dark:bg-gray-800">
+<!-- ================= HOTBAR ================= -->
+<header id="navbar"
+  class="fixed top-0 left-0 w-full z-50
+         flex items-center justify-between px-6 py-4 shadow-sm
+         bg-white dark:bg-gray-800">
 
-  <div class="flex items-center cursor-pointer">
-    <span class="font-bold text-xl text-blue-600">EVA</span>
-    <span class="highlight">LOGO</span>
-    <span class="font-bold text-xl text-blue-600">TOR</span>
+  <div class="flex items-center group cursor-pointer">
+    <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span>
+    <span class="highlight group-hover:text-[rgb(57,220,57)]">LOGO</span>
+    <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
   </div>
 
   <nav class="flex items-center space-x-4">
+
+    <button class="flex items-center space-x-1 rounded-xl px-3 py-1
+                   text-gray-500 dark:text-gray-300
+                   hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+            onclick="location.href='/'">
+      <i data-lucide="home" class="w-4 h-4"></i>
+      <span id="home">Home</span>
+    </button>
+
+    <button class="flex items-center space-x-1 rounded-xl px-3 py-1
+                   text-gray-500 dark:text-gray-300
+                   hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+            onclick="location.href='tasks'">
+      <i data-lucide="pen-tool" class="w-4 h-4"></i>
+      <span id="tasks">Tasks</span>
+    </button>
+
+    <button class="flex items-center space-x-1 rounded-xl px-3 py-1
+                   text-gray-500 dark:text-gray-300
+                   hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+            onclick="location.href='scoreboard'">
+      <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+      <span id="scoreboard">Scoreboard</span>
+    </button>
+
+    <button id="loginBtn"
+      class="rounded-xl flex items-center
+             bg-white dark:bg-gray-700
+             text-gray-900 dark:text-white
+             hover:bg-gray-100 dark:hover:bg-gray-600
+             border border-gray-300 dark:border-gray-600
+             px-3 py-1"
+      onclick="location.href='login'">
+      <i data-lucide="user" class="w-4 h-4 mr-1"></i>
+      <span id="login">Login</span>
+    </button>
+
     <button id="themeToggle"
-      class="flex items-center gap-1 px-3 py-1 rounded-xl
-             bg-gray-200 dark:bg-gray-700
-             border border-gray-300 dark:border-gray-600">
-      <i data-lucide="moon" class="w-4 h-4"></i>
+      class="rounded-xl flex items-center
+             bg-white dark:bg-gray-700
+             text-gray-900 dark:text-white
+             hover:bg-gray-100 dark:hover:bg-gray-600
+             border border-gray-300 dark:border-gray-600
+             px-3 py-1">
+      <i data-lucide="moon" class="w-4 h-4 mr-1"></i>
       <span id="themeLabel">Dark</span>
     </button>
+
+    <div class="flex items-center rounded-xl px-2 py-1
+                border border-gray-300 dark:border-gray-600
+                bg-white dark:bg-gray-700">
+      <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
+      <select id="langSelect"
+        class="bg-transparent focus:outline-none
+               text-gray-900 dark:text-white">
+        <option value="en">EN</option>
+        <option value="de">DE</option>
+        <option value="it">IT</option>
+        <option value="hr">HR</option>
+        <option value="fr">FR</option>
+        <option value="ru">RU</option>
+      </select>
+    </div>
+
   </nav>
 </header>
 
-<main class="max-w-5xl mx-auto w-full px-6 py-6 flex flex-col gap-4">
+<!-- ================= MAIN ================= -->
+<main class="max-w-5xl mx-auto w-full px-6 pt-28 pb-6 flex flex-col gap-4">
 
   <!-- CONTEXT BAR -->
   <div class="rounded-2xl p-4 shadow
               bg-gray-100 dark:bg-gray-800
               font-mono text-sm flex flex-wrap gap-4">
 
-    <span>Category:</span>
-    <span id="ui-cat">empty</span>
-
-    <span>Year:</span>
-    <span id="ui-year">empty</span>
+    <span>Category:</span> <span id="ui-cat">empty</span>
+    <span>Year:</span> <span id="ui-year">empty</span>
 
     <span id="ui-mid-label" class="hidden"></span>
     <span id="ui-mid" class="hidden"></span>
 
-    <span>Task:</span>
-    <span id="ui-task">empty</span>
+    <span>Task:</span> <span id="ui-task">empty</span>
   </div>
 
-  <!-- CODE INPUT -->
   <textarea id="codeInput"
     class="h-64 w-full rounded-lg p-3 font-mono text-sm
            bg-gray-100 dark:bg-gray-900
@@ -82,9 +143,7 @@
 <script>
 lucide.createIcons();
 
-/* =====================
-   THEME
-===================== */
+/* ========== THEME ========== */
 let darkMode = localStorage.getItem("theme") === "dark";
 
 function applyTheme() {
@@ -99,9 +158,7 @@ document.getElementById("themeToggle").onclick = () => {
   applyTheme();
 };
 
-/* =====================
-   TASK CONTEXT
-===================== */
+/* ========== TASK CONTEXT ========== */
 function loadTaskContext() {
   const kategorija = localStorage.getItem("kategorija") || "empty";
   const god        = localStorage.getItem("god") || "empty";
@@ -124,11 +181,7 @@ function loadTaskContext() {
     midValue.textContent = kolo || "empty";
     midLabel.classList.remove("hidden");
     midValue.classList.remove("hidden");
-  }
-  else if (kategorija === "hloz") {
-    // show nothing extra
-  }
-  else {
+  } else if (kategorija !== "hloz") {
     midLabel.textContent = "Razina:";
     midValue.textContent = razina || "empty";
     midLabel.classList.remove("hidden");
@@ -136,21 +189,9 @@ function loadTaskContext() {
   }
 }
 
-/* =====================
-   INIT
-===================== */
+/* ========== INIT ========== */
 applyTheme();
 loadTaskContext();
-
-/* =====================
-   DEMO DATA (remove in prod)
-===================== */
-/*
-localStorage.setItem("kategorija","hll");
-localStorage.setItem("god","2024");
-localStorage.setItem("kolo","2");
-localStorage.setItem("zadatak","Zadatak 1");
-*/
 </script>
 
 </body>
