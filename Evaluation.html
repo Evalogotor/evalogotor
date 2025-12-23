@@ -1,1 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EVALOGOTOR - Tasks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 
+  <style>
+    .highlight {
+      font-weight: bold;
+      font-size: 1.25rem;
+      color: rgb(57, 220, 57);
+    }
+
+    .status-ue { color: #94a3b8; }
+    .status-eval { color: #facc15; }
+    .status-done { color: #22c55e; }
+
+    .AC { color: #22c55e; }
+    .WA { color: #ef4444; }
+    .ERR { color: #facc15; }
+    .UE { color: #94a3b8; }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors" id="body">
+
+<!-- ================= NAVBAR (unchanged) ================= -->
+<header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white" id="navbar">
+  <div class="flex items-center group cursor-pointer">
+    <span class="font-bold text-xl text-blue-600">EVA</span>
+    <span class="highlight">LOGO</span>
+    <span class="font-bold text-xl text-blue-600">TOR</span>
+  </div>
+</header>
+
+<!-- ================= EVALUATION UI ================= -->
+<main class="max-w-5xl mx-auto w-full px-6 py-6">
+
+  <!-- Task structure -->
+  <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow mb-4">
+    <div class="flex flex-wrap gap-4 font-mono text-sm">
+      <span id="ui-cat">Category: empty</span>
+      <span id="ui-year">Year: empty</span>
+      <span id="ui-mid">Type: empty</span>
+      <span id="ui-task">Task: empty</span>
+    </div>
+  </div>
+
+  <!-- Code input -->
+  <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow mb-4">
+    <textarea id="codeInput"
+      class="w-full h-64 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100
+             border border-gray-300 dark:border-gray-700 rounded-lg p-3 font-mono text-sm"
+      placeholder="Paste your solution code here..."></textarea>
+  </div>
+
+  <!-- Actions -->
+  <div class="flex items-center gap-4 mb-4">
+    <button id="evalBtn"
+      class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold">
+      Evaluate
+    </button>
+
+    <span id="evalStatus" class="status-ue font-semibold">
+      Unevaluated
+    </span>
+  </div>
+
+  <!-- Results -->
+  <div id="results"
+    class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow font-mono text-sm space-y-1">
+  </div>
+
+</main>
+
+<script>
+lucide.createIcons();
+
+/* ========= LOAD STRUCTURE FROM localStorage ========= */
+function loadStructure() {
+  const cat = localStorage.kategorija || "empty";
+  const year = localStorage.godina || "empty";
+  const task = localStorage.zadatak || "empty";
+
+  let mid = "empty";
+  if (cat === "kategorija") {
+    mid = localStorage.kolo || "empty";
+  } else if (cat === "hloz") {
+    mid = "—";
+  } else {
+    mid = localStorage.razina || "empty";
+  }
+
+  document.getElementById("ui-cat").textContent = "Category: " + cat;
+  document.getElementById("ui-year").textContent = "Year: " + year;
+  document.getElementById("ui-mid").textContent = "Type: " + mid;
+  document.getElementById("ui-task").textContent = "Task: " + task;
+}
+
+/* ========= STATUS HANDLING ========= */
+function setStatus(text, cls) {
+  const el = document.getElementById("evalStatus");
+  el.textContent = text;
+  el.className = cls;
+}
+
+/* ========= RENDER TEST RESULTS ========= */
+function renderResults(tests) {
+  const res = document.getElementById("results");
+  res.innerHTML = "";
+
+  tests.forEach((t, i) => {
+    const row = document.createElement("div");
+    row.className = t.status;
+    row.textContent =
+      `Test case #${i + 1}: ${t.status} ` +
+      `[${t.time}s, ${t.memory} MB] (${t.points})`;
+    res.appendChild(row);
+  });
+}
+
+/* ========= EVALUATE ========= */
+document.getElementById("evalBtn").addEventListener("click", () => {
+  const code = document.getElementById("codeInput").value;
+
+  setStatus("Evaluating...", "status-eval");
+  document.getElementById("results").innerHTML = "";
+
+  fetch("https://YOUR_NGROK_URL/evaluate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      kategorija: localStorage.kategorija || null,
+      godina: localStorage.godina || null,
+      kolo: localStorage.kolo || null,
+      razina: localStorage.razina || null,
+      zadatak: localStorage.zadatak || null,
+      code: code
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    setStatus("Evaluated", "status-done");
+    renderResults(data.tests);
+  })
+  .catch(() => {
+    setStatus("Evaluation error", "ERR");
+  });
+});
+
+loadStructure();
+</script>
+
+</body>
+</html>
