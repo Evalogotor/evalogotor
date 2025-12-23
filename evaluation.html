@@ -11,41 +11,36 @@
   .status-ue { color: #94a3b8; }
   .status-eval { color: #facc15; }
   .status-done { color: #22c55e; }
-  .AC { color: #22c55e; }
-  .WA { color: #ef4444; }
-  .ERR { color: #facc15; }
-  .UE { color: #94a3b8; }
 
-  #langSelect option { background-color: white; color:black; }
-  .dark #langSelect,
-  .dark #langSelect option { background-color:#1f2937; color:white; }
+  /* dark islands */
+  .island { background-color: #1f2937; color: white; border-radius: 1rem; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+  .code-area { background-color: #111827; color: white; border: 1px solid #374151; border-radius: 0.5rem; padding: 0.75rem; font-family: monospace; font-size: 0.875rem; height: 16rem; width: 100%; }
+  .results-area { background-color: #111827; color: white; border-radius: 0.5rem; padding: 1rem; font-family: monospace; font-size: 0.875rem; }
+
+  /* navbar buttons always dark */
+  .nav-dark { background-color: #111827; color: white; border: 1px solid #374151; border-radius: 0.75rem; padding: 0.25rem 0.75rem; display: flex; align-items: center; gap: 0.25rem; }
+
+  /* language dropdown dark */
+  #langSelect { background-color: #111827; color: white; border: none; outline: none; }
+
 </style>
 </head>
-<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors" id="body">
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors">
 
-<!-- NAVBAR -->
-<header class="flex items-center justify-between px-6 py-4 shadow-sm bg-gray-900" id="navbar">
+<header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white">
   <div class="flex items-center group cursor-pointer">
     <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span>
     <span class="highlight group-hover:text-[rgb(57,220,57)]">LOGO</span>
     <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
   </div>
   <nav class="flex items-center space-x-4">
-    <button id="homeBtn" class="flex items-center space-x-1 rounded-xl px-3 py-1 hover:bg-gray-100 hover:text-blue-600">
-      <i data-lucide="home" class="w-4 h-4"></i> <span id="home">Home</span>
-    </button>
-    <button id="tasksBtn" class="flex items-center space-x-1 rounded-xl px-3 py-1 hover:bg-gray-100 hover:text-blue-600">
-      <i data-lucide="pen-tool" class="w-4 h-4"></i> <span id="tasks">Tasks</span>
-    </button>
-    <button id="loginBtn" class="rounded-xl flex items-center bg-gray-900 text-white border border-gray-700 px-3 py-1">
-      <i data-lucide="user" class="w-4 h-4 mr-1"></i> <span id="login">Login</span>
-    </button>
-    <button id="themeToggle" class="rounded-xl flex items-center bg-gray-900 text-white border border-gray-700 px-3 py-1">
-      <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span>
-    </button>
-    <div class="flex items-center rounded-xl px-2 py-1 border border-gray-700 bg-gray-900 text-white">
-      <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
-      <select id="langSelect" class="bg-transparent focus:outline-none text-white">
+    <button id="homeBtn" class="px-3 py-1 hover:bg-gray-100 hover:text-blue-600">Home</button>
+    <button id="tasksBtn" class="px-3 py-1 hover:bg-gray-100 hover:text-blue-600">Tasks</button>
+    <button id="loginBtn" class="nav-dark"><i data-lucide="user" class="w-4 h-4"></i> Login</button>
+    <button id="themeToggle" class="nav-dark"><i id="themeIcon" data-lucide="moon" class="w-4 h-4"></i> <span id="themeLabel">Dark</span></button>
+    <div class="nav-dark">
+      <i data-lucide="globe" class="w-4 h-4"></i>
+      <select id="langSelect">
         <option value="en" selected>EN</option>
         <option value="de">DE</option>
         <option value="it">IT</option>
@@ -57,49 +52,31 @@
   </nav>
 </header>
 
-<!-- MAIN UI -->
-<main class="max-w-5xl mx-auto w-full px-6 py-6">
+<main class="max-w-5xl mx-auto w-full px-6 py-6 flex flex-col gap-4">
 
-  <!-- Task info (always dark) -->
-  <div class="bg-gray-900 rounded-xl p-4 shadow mb-4 text-white">
-    <div class="flex flex-wrap gap-4 font-mono text-sm">
-      <span id="ui-cat-label">Category:</span> <span id="ui-cat">empty</span>
-      <span id="ui-year-label">Year:</span> <span id="ui-year">empty</span>
-      <span id="ui-mid-label">Type:</span> <span id="ui-mid">empty</span>
-      <span id="ui-task-label">Task:</span> <span id="ui-task">empty</span>
-    </div>
+  <div class="island flex flex-wrap gap-4 font-mono text-sm">
+    <span id="ui-cat-label">Category:</span> <span id="ui-cat">empty</span>
+    <span id="ui-year-label">Year:</span> <span id="ui-year">empty</span>
+    <span id="ui-mid-label">Type:</span> <span id="ui-mid">empty</span>
+    <span id="ui-task-label">Task:</span> <span id="ui-task">empty</span>
   </div>
 
-  <!-- Code input (always dark) -->
-  <div class="bg-gray-900 rounded-xl p-4 shadow mb-4">
-    <textarea id="codeInput"
-      class="w-full h-64 bg-gray-900 text-white border border-gray-700 rounded-lg p-3 font-mono text-sm"
-      placeholder="Paste your solution code here..."></textarea>
+  <div class="island">
+    <textarea id="codeInput" class="code-area" placeholder="Paste your solution code here..."></textarea>
   </div>
 
-  <!-- Actions -->
-  <div class="flex items-center gap-4 mb-4">
-    <button id="evalBtn"
-      class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold theme-toggle">
-      Evaluate
-    </button>
+  <div class="flex items-center gap-4">
+    <button id="evalBtn" class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold">Evaluate</button>
     <span id="evalStatus" class="status-ue font-semibold">Unevaluated</span>
   </div>
 
-  <!-- Results (always dark) -->
-  <div id="results" class="bg-gray-900 rounded-xl p-4 shadow font-mono text-sm space-y-1 text-white"></div>
+  <div id="results" class="results-area"></div>
 
 </main>
 
 <script>
 lucide.createIcons();
 
-// LANGUAGE & THEME SETUP
-const body = document.getElementById("body");
-const themeToggle = document.getElementById("themeToggle");
-const themeIcon = document.getElementById("themeIcon");
-const themeLabel = document.getElementById("themeLabel");
-const langSelect = document.getElementById("langSelect");
 let darkMode = localStorage.getItem('theme')==='dark';
 let lang = localStorage.getItem('lang') || 'en';
 
@@ -126,18 +103,12 @@ const translations = {
 
 function updateLanguage() {
   const t = translations[lang];
-  document.getElementById("home").textContent = t.home;
-  document.getElementById("tasks").textContent = t.tasks;
-  document.getElementById("login").textContent = t.login;
-  themeLabel.textContent = darkMode ? t.themeLight : t.themeDark;
   document.getElementById("ui-cat-label").textContent = t.category + ":";
   document.getElementById("ui-year-label").textContent = t.year + ":";
   document.getElementById("ui-mid-label").textContent = t.type + ":";
   document.getElementById("ui-task-label").textContent = t.task + ":";
   document.getElementById("evalBtn").textContent = t.evaluate;
-  if(document.getElementById("evalStatus").dataset.status){
-    document.getElementById("evalStatus").textContent = t[document.getElementById("evalStatus").dataset.status];
-  }
+  document.getElementById("themeLabel").textContent = darkMode ? t.themeLight : t.themeDark;
 }
 
 langSelect.addEventListener("change", e=>{
@@ -147,83 +118,20 @@ langSelect.addEventListener("change", e=>{
 });
 
 function applyTheme() {
-  const dark = darkMode;
-  body.classList.toggle("dark", dark);
-  body.classList.toggle("bg-gray-900", dark);
-  body.classList.toggle("text-white", dark);
-  body.classList.toggle("bg-gray-50", !dark);
-  body.classList.toggle("text-gray-900", !dark);
-
-  themeIcon.setAttribute("data-lucide", dark ? "sun" : "moon");
-  themeLabel.textContent = dark ? translations[lang].themeLight : translations[lang].themeDark;
-
-  // Only toggle elements with .theme-toggle (Evaluate button)
-  document.querySelectorAll(".theme-toggle").forEach(el=>{
-    el.classList.toggle("bg-gray-900", dark);
-    el.classList.toggle("text-white", dark);
-    el.classList.toggle("bg-blue-600", !dark);
-    el.classList.toggle("text-white", !dark);
-  });
-
-  lucide.createIcons();
+  if(darkMode){
+    document.body.classList.add("bg-gray-900","text-white");
+    document.body.classList.remove("bg-gray-50","text-gray-900");
+  } else {
+    document.body.classList.add("bg-gray-50","text-gray-900");
+    document.body.classList.remove("bg-gray-900","text-white");
+  }
 }
 
-themeToggle.addEventListener("click", ()=>{
+document.getElementById("themeToggle").addEventListener("click", ()=>{
   darkMode = !darkMode;
   localStorage.setItem('theme', darkMode?"dark":"light");
   applyTheme();
   updateLanguage();
-});
-
-// EVALUATION UI
-function loadStructure() {
-  const cat = localStorage.kategorija || "empty";
-  const year = localStorage.godina || "empty";
-  const task = localStorage.zadatak || "empty";
-  let mid = localStorage.kolo || localStorage.razina || "empty";
-  document.getElementById("ui-cat").textContent = cat;
-  document.getElementById("ui-year").textContent = year;
-  document.getElementById("ui-mid").textContent = mid;
-  document.getElementById("ui-task").textContent = task;
-}
-
-function setStatus(key) {
-  const el = document.getElementById("evalStatus");
-  el.dataset.status = key;
-  el.textContent = translations[lang][key];
-  el.className = key==="uneval"?"status-ue":key==="evaluating"?"status-eval":"status-done";
-}
-
-function renderResults(tests) {
-  const res = document.getElementById("results");
-  res.innerHTML = "";
-  tests.forEach((t,i)=>{
-    const row = document.createElement("div");
-    row.className = t.status;
-    row.textContent = `Test case #${i+1}: ${t.status} [${t.time}s, ${t.memory} MB] (${t.points})`;
-    res.appendChild(row);
-  });
-}
-
-document.getElementById("evalBtn").addEventListener("click", ()=>{
-  const code = document.getElementById("codeInput").value.trim();
-  if(!code){ setStatus("uneval"); alert("Paste your code before evaluating."); return; }
-  setStatus("evaluating");
-  document.getElementById("results").innerHTML = "";
-  fetch("https://YOUR_NGROK_URL/evaluate", {
-    method:"POST", headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({
-      kategorija: localStorage.kategorija || null,
-      godina: localStorage.godina || null,
-      kolo: localStorage.kolo || null,
-      razina: localStorage.razina || null,
-      zadatak: localStorage.zadatak || null,
-      code: code
-    })
-  })
-  .then(r=>r.json())
-  .then(data=>{ setStatus("evaluated"); renderResults(data.tests); })
-  .catch(()=>{ setStatus("error"); });
 });
 
 document.addEventListener("DOMContentLoaded", ()=>{
@@ -231,7 +139,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
   if(localStorage.getItem('lang')) { lang = localStorage.getItem('lang'); langSelect.value=lang; }
   applyTheme();
   updateLanguage();
-  loadStructure();
 });
 </script>
 
