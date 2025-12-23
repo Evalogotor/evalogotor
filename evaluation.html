@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="transition-colors">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>EVALOGOTOR - Tasks</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { darkMode: 'class' }
+</script>
+
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
@@ -14,95 +18,88 @@
     font-size: 1.25rem;
     color: rgb(57, 220, 57);
   }
-
-  /* ===== LEGACY BUTTON STYLE ===== */
-  .legacy-btn {
-    background-color: #333;
-    color: white;
-    border: 1px solid #444;
-  }
-  .legacy-btn:hover {
-    background-color: rgb(57, 220, 57);
-    color: white;
-  }
-
-  .legacy-select {
-    background-color: #333;
-    color: white;
-    border: 1px solid #444;
-  }
-  .legacy-select option {
-    background-color: #333;
-    color: white;
-  }
+  .status-ue { color: #94a3b8; }
 </style>
 </head>
 
 <body id="body"
-  class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors">
+  class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white
+         min-h-screen flex flex-col transition-colors">
 
 <!-- ================= NAVBAR ================= -->
-<header
+<header id="navbar"
   class="fixed top-0 left-0 w-full z-50
          flex items-center justify-between px-6 py-4 shadow-sm
-         bg-[#333] text-white">
+         bg-white dark:bg-gray-800">
 
-  <!-- Logo -->
   <div class="flex items-center group cursor-pointer">
-    <span class="font-bold text-xl group-hover:text-[rgb(57,220,57)]">EVA</span>
-    <span class="highlight">LOGO</span>
-    <span class="font-bold text-xl group-hover:text-[rgb(57,220,57)]">TOR</span>
+    <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span>
+    <span class="highlight group-hover:text-[rgb(57,220,57)]">LOGO</span>
+    <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
   </div>
 
-  <!-- Nav -->
   <nav class="flex items-center space-x-4">
 
     <button
       class="flex items-center space-x-1 rounded-xl px-3 py-1
-             text-white hover:text-[rgb(57,220,57)]"
+             text-gray-500 dark:text-gray-300
+             hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-700"
       onclick="location.href='/'">
       <i data-lucide="home" class="w-4 h-4"></i>
-      <span>Home</span>
+      <span id="home">Home</span>
     </button>
 
     <button
       class="flex items-center space-x-1 rounded-xl px-3 py-1
-             text-white hover:text-[rgb(57,220,57)]"
+             text-gray-500 dark:text-gray-300
+             hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-700"
       onclick="location.href='tasks'">
       <i data-lucide="pen-tool" class="w-4 h-4"></i>
-      <span>Tasks</span>
+      <span id="tasks">Tasks</span>
     </button>
 
     <button
       class="flex items-center space-x-1 rounded-xl px-3 py-1
-             text-white hover:text-[rgb(57,220,57)]"
+             text-gray-500 dark:text-gray-300
+             hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-700"
       onclick="location.href='scoreboard'">
       <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
-      <span>Scoreboard</span>
+      <span id="scoreboard">Scoreboard</span>
     </button>
 
     <!-- Login -->
-    <button
-      id="loginBtn"
-      class="legacy-btn rounded-xl flex items-center px-3 py-1"
+    <button id="loginBtn"
+      class="rounded-xl flex items-center
+             bg-white dark:bg-gray-700
+             text-gray-900 dark:text-white
+             hover:bg-gray-100 dark:hover:bg-gray-600
+             border border-gray-300 dark:border-gray-600
+             px-3 py-1"
       onclick="location.href='login'">
       <i data-lucide="user" class="w-4 h-4 mr-1"></i>
-      Login
+      <span id="login">Login</span>
     </button>
 
-    <!-- Theme -->
-    <button
-      id="themeToggle"
-      class="legacy-btn rounded-xl flex items-center px-3 py-1">
+    <!-- Theme toggle -->
+    <button id="themeToggle"
+      class="rounded-xl flex items-center
+             bg-white dark:bg-gray-700
+             text-gray-900 dark:text-white
+             hover:bg-gray-100 dark:hover:bg-gray-600
+             border border-gray-300 dark:border-gray-600
+             px-3 py-1">
       <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i>
       <span id="themeLabel">Dark</span>
     </button>
 
     <!-- Language -->
-    <div class="flex items-center rounded-xl px-2 py-1 legacy-select">
+    <div class="flex items-center rounded-xl px-2 py-1
+                border border-gray-300 dark:border-gray-600
+                bg-white dark:bg-gray-700">
       <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
       <select id="langSelect"
-        class="bg-transparent focus:outline-none text-white">
+        class="bg-transparent focus:outline-none
+               text-gray-900 dark:text-white">
         <option value="en">EN</option>
         <option value="de">DE</option>
         <option value="it">IT</option>
@@ -118,7 +115,7 @@
 <!-- ================= MAIN ================= -->
 <main class="max-w-5xl mx-auto w-full px-6 pt-28 pb-6 flex flex-col gap-4">
 
-  <!-- Context bar -->
+  <!-- CONTEXT BAR -->
   <div class="rounded-2xl p-4 shadow
               bg-gray-100 dark:bg-gray-800
               font-mono text-sm flex flex-wrap gap-4">
@@ -138,21 +135,27 @@
            border border-gray-300 dark:border-gray-700"
     placeholder="Paste your solution code here..."></textarea>
 
+  <div class="flex items-center gap-4">
+    <button
+      class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700
+             text-white font-semibold">
+      Evaluate
+    </button>
+    <span class="status-ue font-semibold">Unevaluated</span>
+  </div>
+
 </main>
 
 <script>
 lucide.createIcons();
 
-/* ===== THEME (keeps legacy buttons unchanged) ===== */
+/* ===== THEME ===== */
 let darkMode = localStorage.getItem("theme") === "dark";
 
 function applyTheme() {
   document.documentElement.classList.toggle("dark", darkMode);
   document.getElementById("themeLabel").textContent =
     darkMode ? "Light" : "Dark";
-  document.getElementById("themeIcon")
-    .setAttribute("data-lucide", darkMode ? "sun" : "moon");
-  lucide.createIcons();
 }
 
 document.getElementById("themeToggle").onclick = () => {
