@@ -116,17 +116,12 @@
 <!-- ================= MAIN ================= -->
 <main class="max-w-5xl mx-auto w-full px-6 pt-28 pb-6 flex flex-col gap-4">
 
-  <div class="rounded-2xl p-4 shadow
+  <div id="taskContext"
+       class="rounded-2xl p-4 shadow
               bg-gray-100 dark:bg-gray-800
-              font-mono text-sm flex flex-wrap gap-4">
-
-    <span>Category:</span> <span id="ui-cat">empty</span>
-    <span>Year:</span> <span id="ui-year">empty</span>
-
-    <span id="ui-mid-label" class="hidden"></span>
-    <span id="ui-mid" class="hidden"></span>
-
-    <span>Task:</span> <span id="ui-task">empty</span>
+              font-mono text-sm">
+    <!-- The dynamic task context will appear here -->
+    empty
   </div>
 
   <textarea
@@ -172,7 +167,6 @@ function applyTheme() {
   document.getElementById("themeLabel").textContent =
     darkMode ? "Light" : "Dark";
 
-  // Update select options colors
   updateSelectOptionsColors();
 }
 
@@ -190,27 +184,17 @@ function loadTaskContext() {
   const kolo       = localStorage.getItem("kolo");
   const razina     = localStorage.getItem("razina");
 
-  document.getElementById("ui-cat").textContent = kategorija;
-  document.getElementById("ui-year").textContent = god;
-  document.getElementById("ui-task").textContent = zadatak;
+  let contextText = "";
 
-  const midLabel = document.getElementById("ui-mid-label");
-  const midValue = document.getElementById("ui-mid");
-
-  midLabel.classList.add("hidden");
-  midValue.classList.add("hidden");
-
-  if (kategorija === "hll") {
-    midLabel.textContent = "Kolo:";
-    midValue.textContent = kolo || "empty";
-    midLabel.classList.remove("hidden");
-    midValue.classList.remove("hidden");
-  } else if (kategorija !== "hloz") {
-    midLabel.textContent = "Razina:";
-    midValue.textContent = razina || "empty";
-    midLabel.classList.remove("hidden");
-    midValue.classList.remove("hidden");
+  if (kategorija.toLowerCase() === "hll") {
+    contextText = `HLL -> ${god} -> ${kolo || "empty"} -> ${zadatak}`;
+  } else if (kategorija.toLowerCase() === "hloz") {
+    contextText = `HLOŽ -> ${god} -> ${zadatak}`;
+  } else {
+    contextText = `${kategorija} -> ${god} -> ${kolo || "empty"} -> ${zadatak}`;
   }
+
+  document.getElementById("taskContext").textContent = contextText;
 }
 
 applyTheme();
