@@ -186,10 +186,13 @@ function applyTranslations(){
   document.getElementById("scoreboard").textContent = translations[lang].scoreboard;
   document.getElementById("login").textContent = translations[lang].login;
   document.getElementById("evalBtn").textContent = translations[lang].evaluate;
-  document.getElementById("evalStatus").textContent = translations[lang].unevaluated;
   document.getElementById("codeInput").placeholder = translations[lang].placeholder;
   document.getElementById("themeLabel").textContent =
     darkMode ? translations[lang].light : translations[lang].dark;
+
+  if(!evalStatus.classList.contains("text-red-500")){
+    evalStatus.textContent = translations[lang].unevaluated;
+  }
 }
 
 document.getElementById("langSelect").value = lang;
