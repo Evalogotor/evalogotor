@@ -27,68 +27,46 @@
          min-h-screen flex flex-col transition-colors">
 
 <!-- ================= NAVBAR ================= -->
-<header id="navbar"
+<header
   class="fixed top-0 left-0 w-full z-50
          flex items-center justify-between px-6 py-4 shadow-sm
          bg-white dark:bg-gray-800">
 
   <div class="flex items-center group cursor-pointer">
-    <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span>
-    <span class="highlight group-hover:text-[rgb(57,220,57)]">LOGO</span>
-    <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
+    <span class="font-bold text-xl text-blue-600">EVA</span>
+    <span class="highlight">LOGO</span>
+    <span class="font-bold text-xl text-blue-600">TOR</span>
   </div>
 
   <nav class="flex items-center space-x-4">
 
-    <button id="homeBtn"
-      class="flex items-center space-x-1 rounded-xl px-3 py-1
-             text-gray-500 dark:text-gray-300
-             hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-700"
-      onclick="location.href='/'">
-      <i data-lucide="home" class="w-4 h-4"></i>
+    <button class="px-3 py-1 rounded-xl text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
       <span id="home">Home</span>
     </button>
 
-    <button id="tasksBtn"
-      class="flex items-center space-x-1 rounded-xl px-3 py-1
-             text-gray-500 dark:text-gray-300
-             hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-700"
-      onclick="location.href='tasks'">
-      <i data-lucide="pen-tool" class="w-4 h-4"></i>
+    <button class="px-3 py-1 rounded-xl text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
       <span id="tasks">Tasks</span>
     </button>
 
-    <button id="scoreboardBtn"
-      class="flex items-center space-x-1 rounded-xl px-3 py-1
-             text-gray-500 dark:text-gray-300
-             hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-700"
-      onclick="location.href='scoreboard'">
-      <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+    <button class="px-3 py-1 rounded-xl text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
       <span id="scoreboard">Scoreboard</span>
     </button>
 
     <!-- Login -->
     <button id="loginBtn"
-      class="rounded-xl flex items-center
+      class="rounded-xl flex items-center px-3 py-1
              bg-white dark:bg-[rgb(17,24,38)]
-             text-gray-900 dark:text-white
-             hover:bg-gray-100 dark:hover:bg-gray-700
-             border border-gray-300 dark:border-gray-600
-             px-3 py-1"
-      onclick="location.href='login'">
+             border border-gray-300 dark:border-gray-600">
       <i data-lucide="user" class="w-4 h-4 mr-1"></i>
       <span id="login">Login</span>
     </button>
 
-    <!-- Theme toggle -->
+    <!-- Theme -->
     <button id="themeToggle"
-      class="rounded-xl flex items-center
+      class="rounded-xl flex items-center px-3 py-1
              bg-white dark:bg-[rgb(17,24,38)]
-             text-gray-900 dark:text-white
-             hover:bg-gray-100 dark:hover:bg-gray-700
-             border border-gray-300 dark:border-gray-600
-             px-3 py-1">
-      <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i>
+             border border-gray-300 dark:border-gray-600">
+      <i data-lucide="moon" class="w-4 h-4 mr-1"></i>
       <span id="themeLabel">Dark</span>
     </button>
 
@@ -119,23 +97,26 @@
   <div id="taskContext"
        class="rounded-2xl p-4 shadow
               bg-gray-100 dark:bg-gray-800
-              font-mono text-xl">
+              font-mono text-[1.15rem] font-medium">
     empty
   </div>
 
-  <textarea
+  <textarea id="codeInput"
     class="h-64 w-full rounded-lg p-3 font-mono text-sm
            bg-gray-100 dark:bg-gray-900
            border border-gray-300 dark:border-gray-700"
-    placeholder="Paste your solution code here..."></textarea>
+    placeholder="">
+  </textarea>
 
   <div class="flex items-center gap-4">
-    <button
+    <button id="evalBtn"
       class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700
-             text-white font-semibold" id="evalBtn">
+             text-white font-semibold">
       Evaluate
     </button>
-    <span class="status-ue font-semibold" id="evalStatus">Unevaluated</span>
+    <span id="evalStatus" class="status-ue font-semibold">
+      Unevaluated
+    </span>
   </div>
 
 </main>
@@ -143,141 +124,129 @@
 <script>
 lucide.createIcons();
 
-/* ===== TRANSLATIONS ===== */
+/* ========= TRANSLATIONS ========= */
 const translations = {
-  en: { 
-    home:"Home", tasks:"Tasks", scoreboard:"Scoreboard", login:"Login", dark:"Dark", light:"Light", 
-    evaluate:"Evaluate", unevaluated:"Unevaluated",
-    codePlaceholder: "Paste your solution code here..."
+  en: {
+    home:"Home", tasks:"Tasks", scoreboard:"Scoreboard", login:"Login",
+    dark:"Dark", light:"Light",
+    evaluate:"Evaluate",
+    unevaluated:"Unevaluated",
+    placeholder:"Paste your solution code here...",
+    warning:"⚠️ Please paste your solution before evaluation"
   },
-  de: { 
-    home:"Home", tasks:"Aufgaben", scoreboard:"Rangliste", login:"Anmelden", dark:"Dunkel", light:"Hell", 
-    evaluate:"Auswerten", unevaluated:"Nicht bewertet",
-    codePlaceholder: "Lösungscode hier einfügen..."
+  de: {
+    home:"Home", tasks:"Aufgaben", scoreboard:"Rangliste", login:"Anmelden",
+    dark:"Dunkel", light:"Hell",
+    evaluate:"Auswerten",
+    unevaluated:"Nicht bewertet",
+    placeholder:"Lösungscode hier einfügen...",
+    warning:"⚠️ Bitte füge vor der Auswertung deinen Code ein"
   },
-  it: { 
-    home:"Home", tasks:"Compiti", scoreboard:"Classifica", login:"Accedi", dark:"Scuro", light:"Chiaro", 
-    evaluate:"Valuta", unevaluated:"Non valutato",
-    codePlaceholder: "Incolla qui il codice della soluzione..."
+  it: {
+    home:"Home", tasks:"Compiti", scoreboard:"Classifica", login:"Accedi",
+    dark:"Scuro", light:"Chiaro",
+    evaluate:"Valuta",
+    unevaluated:"Non valutato",
+    placeholder:"Incolla qui il codice...",
+    warning:"⚠️ Inserisci il codice prima della valutazione"
   },
-  hr: { 
-    home:"Home", tasks:"Zadaci", scoreboard:"Ljestvica", login:"Prijava", dark:"Tamno", light:"Svijetlo", 
-    evaluate:"Procijeni", unevaluated:"Neocijenjeno",
-    codePlaceholder: "Zalijepite ovdje rješenje..."
+  hr: {
+    home:"Home", tasks:"Zadaci", scoreboard:"Ljestvica", login:"Prijava",
+    dark:"Tamno", light:"Svijetlo",
+    evaluate:"Procijeni",
+    unevaluated:"Neocijenjeno",
+    placeholder:"Zalijepite ovdje rješenje...",
+    warning:"⚠️ Morate unijeti rješenje prije evaluacije"
   },
-  fr: { 
-    home:"Home", tasks:"Tâches", scoreboard:"Classement", login:"Connexion", dark:"Sombre", light:"Clair", 
-    evaluate:"Évaluer", unevaluated:"Non évalué",
-    codePlaceholder: "Collez votre code ici..."
+  fr: {
+    home:"Home", tasks:"Tâches", scoreboard:"Classement", login:"Connexion",
+    dark:"Sombre", light:"Clair",
+    evaluate:"Évaluer",
+    unevaluated:"Non évalué",
+    placeholder:"Collez votre code ici...",
+    warning:"⚠️ Veuillez coller votre solution avant l’évaluation"
   },
-  ru: { 
-    home:"Home", tasks:"Задания", scoreboard:"Рейтинг", login:"Войти", dark:"Тёмный", light:"Светлый", 
-    evaluate:"Оценить", unevaluated:"Неоценено",
-    codePlaceholder: "Вставьте ваш код решения здесь..."
+  ru: {
+    home:"Home", tasks:"Задания", scoreboard:"Рейтинг", login:"Войти",
+    dark:"Тёмный", light:"Светлый",
+    evaluate:"Оценить",
+    unevaluated:"Неоценено",
+    placeholder:"Вставьте ваш код здесь...",
+    warning:"⚠️ Пожалуйста, вставьте решение перед оценкой"
   }
 };
 
-/* ===== LANGUAGE ===== */
 let lang = localStorage.getItem("lang") || "en";
-const langSelect = document.getElementById("langSelect");
-langSelect.value = lang;
+let darkMode = localStorage.getItem("theme") === "dark";
 
-function applyTranslations() {
+/* ========= APPLY LANGUAGE ========= */
+function applyTranslations(){
   document.getElementById("home").textContent = translations[lang].home;
   document.getElementById("tasks").textContent = translations[lang].tasks;
   document.getElementById("scoreboard").textContent = translations[lang].scoreboard;
   document.getElementById("login").textContent = translations[lang].login;
-  document.getElementById("themeLabel").textContent = darkMode ? translations[lang].light : translations[lang].dark;
   document.getElementById("evalBtn").textContent = translations[lang].evaluate;
   document.getElementById("evalStatus").textContent = translations[lang].unevaluated;
-
-  const codeTextarea = document.querySelector("textarea");
-  if(codeTextarea) codeTextarea.placeholder = translations[lang].codePlaceholder;
+  document.getElementById("codeInput").placeholder = translations[lang].placeholder;
+  document.getElementById("themeLabel").textContent =
+    darkMode ? translations[lang].light : translations[lang].dark;
 }
 
-langSelect.addEventListener("change", e => {
+document.getElementById("langSelect").value = lang;
+document.getElementById("langSelect").onchange = e => {
   lang = e.target.value;
   localStorage.setItem("lang", lang);
   applyTranslations();
-  applyTheme();
-});
+};
 
-/* ===== THEME ===== */
-let darkMode = localStorage.getItem("theme") === "dark";
-
-function updateSelectOptionsColors() {
-  const options = document.querySelectorAll('#langSelect option');
-  if(darkMode){
-    options.forEach(opt => { opt.style.backgroundColor = "rgb(17, 24, 38)"; opt.style.color = "white"; });
-  } else {
-    options.forEach(opt => { opt.style.backgroundColor = "white"; opt.style.color = "black"; });
-  }
-}
-
-function applyTheme() {
-  document.documentElement.classList.toggle("dark", darkMode);
-
-  const themeLabel = document.getElementById("themeLabel");
-  themeLabel.textContent = darkMode ? translations[lang].light : translations[lang].dark;
-
-  // Buttons: login + theme
-  [document.getElementById("loginBtn"), document.getElementById("themeToggle")].forEach(btn=>{
-    if(darkMode){
-      btn.classList.remove("bg-white","text-gray-900","hover:bg-gray-100","hover:text-gray-900");
-      btn.classList.add("bg-[rgb(17,24,38)]","text-white","hover:bg-gray-700","hover:text-white");
-    } else {
-      btn.classList.remove("bg-[rgb(17,24,38)]","text-white","hover:bg-gray-700","hover:text-white");
-      btn.classList.add("bg-white","text-gray-900","hover:bg-gray-100","hover:text-gray-900");
-    }
-  });
-
-  // Language select background + options
-  const langParent = langSelect.parentElement;
-  if(darkMode){
-    langParent.classList.remove("bg-white","border-gray-300");
-    langParent.classList.add("bg-[rgb(17,24,38)]","border-gray-600");
-    langSelect.classList.remove("text-gray-900");
-    langSelect.classList.add("text-white");
-  } else {
-    langParent.classList.remove("bg-[rgb(17,24,38)]","border-gray-600");
-    langParent.classList.add("bg-white","border-gray-300");
-    langSelect.classList.remove("text-white");
-    langSelect.classList.add("text-gray-900");
-  }
-
-  updateSelectOptionsColors();
-  lucide.createIcons();
-}
-
-document.getElementById("themeToggle").addEventListener("click", () => {
+/* ========= THEME ========= */
+document.getElementById("themeToggle").onclick = () => {
   darkMode = !darkMode;
-  localStorage.setItem("theme", darkMode ? 'dark' : 'light');
-  applyTheme();
-});
+  localStorage.setItem("theme", darkMode ? "dark" : "light");
+  document.documentElement.classList.toggle("dark", darkMode);
+  applyTranslations();
+};
 
-/* ===== TASK CONTEXT ===== */
-function loadTaskContext() {
-  const kategorija = localStorage.getItem("kategorija") || "empty";
-  const god        = localStorage.getItem("god") || "empty";
-  const zadatak    = localStorage.getItem("zadatak") || "empty";
-  const kolo       = localStorage.getItem("kolo") || "empty";
+/* ========= TASK CONTEXT ========= */
+function loadTaskContext(){
+  const k = localStorage.getItem("kategorija") || "empty";
+  const g = localStorage.getItem("god") || "empty";
+  const z = localStorage.getItem("zadatak") || "empty";
+  const ko = localStorage.getItem("kolo") || "empty";
 
-  let contextText = "";
+  let text = "";
+  if(k.toLowerCase()==="hll") text = `HLL → ${g} → ${ko} → ${z}`;
+  else if(k.toLowerCase()==="hloz") text = `HLOŽ → ${g} → ${z}`;
+  else text = `${k} → ${g} → ${ko} → ${z}`;
 
-  if(kategorija.toLowerCase() === "hll"){
-    contextText = `HLL -> ${god} -> ${kolo} -> ${zadatak}`;
-  } else if(kategorija.toLowerCase() === "hloz"){
-    contextText = `HLOŽ -> ${god} -> ${zadatak}`;
-  } else {
-    contextText = `${kategorija} -> ${god} -> ${kolo} -> ${zadatak}`;
-  }
-
-  document.getElementById("taskContext").textContent = contextText;
+  document.getElementById("taskContext").textContent = text;
 }
 
-/* ===== INIT ===== */
+/* ========= EVALUATION WARNING ========= */
+const evalBtn = document.getElementById("evalBtn");
+const evalStatus = document.getElementById("evalStatus");
+const codeInput = document.getElementById("codeInput");
+
+evalBtn.onclick = () => {
+  if(!codeInput.value.trim()){
+    evalStatus.textContent = translations[lang].warning;
+    evalStatus.classList.add("text-red-500");
+    return;
+  }
+  evalStatus.textContent = translations[lang].unevaluated;
+  evalStatus.classList.remove("text-red-500");
+};
+
+codeInput.oninput = () => {
+  if(codeInput.value.trim()){
+    evalStatus.textContent = translations[lang].unevaluated;
+    evalStatus.classList.remove("text-red-500");
+  }
+};
+
+/* ========= INIT ========= */
+document.documentElement.classList.toggle("dark", darkMode);
 applyTranslations();
-applyTheme();
 loadTaskContext();
 </script>
 
