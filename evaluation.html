@@ -19,66 +19,179 @@
     color: rgb(57, 220, 57);
   }
   .status-ue { color: #94a3b8; }
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-wrap: wrap;
+    text-align: center;
+    margin-right: 555px;
+  }
+  .hotbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    height: 60px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+  .logo {
+    position: absolute;
+    left: 20px;
+    font-size: 20px;
+  }
+  .hotbar a {
+    text-decoration: none;
+    color: white;
+    margin: 0 10px;
+    font-size: 1.1em;
+  }
+  .hotbar a:hover {
+    color: rgb(57, 220, 57);
+  }
+  .highlight {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: rgb(57, 220, 57);
+  }
+  .button-line {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 100px;
+    text-align: center;
+    z-index: 10;
+  }
+  .button-line button,
+  .vertical-buttons button,
+  .task-buttons button {
+    margin: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+  }
+  .light .button-line button,
+  .light .vertical-buttons button,
+  .light .task-buttons button {
+    margin: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: #d3d3d3;
+    color: black;
+    cursor: pointer;
+  }
+  .dark .button-line button,
+  .dark .vertical-buttons button,
+  .dark .task-buttons button {
+    margin: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: gray-800;
+    color: white;
+    cursor: pointer;
+  }
+  .button-line button:hover,
+  .vertical-buttons button:hover,
+  .task-buttons button:hover {
+    background-color: rgb(57, 220, 57);
+  }
+  .button-line button.active,
+  .vertical-buttons button.active,
+  .task-buttons button.active {
+    background-color: #2584F2;
+  }
+  .vertical-buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* pushes to right */
+    margin-top: 20px;
+    width: 150px; /* keeps them grouped under that column */
+  }
+
+  .task-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 20px;
+    width: 150px;
+  }
+    
+  .eval-basket {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: -65px;
+    width: 400px;
+  }
+  .eval-button {
+    margin: 5px;
+    padding: 25px 45px;
+    font-size: 50px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+  .eval-button:hover {
+    background-color: rgb(57, 220, 57);
+  }
+  .score {
+    margin-top: 80px;
+    margin-bottom: 40px;
+    font-size: 40px;
+    font-weight: bold;
+  }
 </style>
 </head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors" id="body">
+<!-- Navbar -->
+<header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white" id="navbar">
+    <div class="flex items-center group cursor-pointer">
+      <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span><span class="highlight group-hover:text-[rgb(57,220,57)]">LOGO</span><span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
+    </div>
+    <nav class="flex items-center space-x-4">
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='/'">
+        <i data-lucide="home" class="w-4 h-4"></i> <span id="home">Home</span>
+      </button>
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='tasks'">
+        <i data-lucide="pen-tool" class="w-4 h-4"></i> <span id="tasks">Tasks</span>
+      </button>
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='scoreboard'">
+        <i data-lucide="bar-chart-3" class="w-4 h-4"></i> <span id="scoreboard">Scoreboard</span>
+      </button>
 
-<body id="body"
-  class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white
-         min-h-screen flex flex-col transition-colors">
+      <!-- Login -->
+      <button id="loginBtn" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1" onclick="location.href = 'login'">
+        <i data-lucide="user" class="w-4 h-4 mr-1"></i> <span id="login">Login</span>
+      </button>
 
-<!-- ================= NAVBAR ================= -->
-<header
-  class="fixed top-0 left-0 w-full z-50
-         flex items-center justify-between px-6 py-4 shadow-sm
-         bg-white dark:bg-gray-800">
+      <!-- Theme toggle -->
+      <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
+        <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span>
+      </button>
 
-  <div class="flex items-center group cursor-pointer">
-    <span class="font-bold text-xl text-blue-600">EVA</span>
-    <span class="highlight">LOGO</span>
-    <span class="font-bold text-xl text-blue-600">TOR</span>
-  </div>
-
-  <nav class="flex items-center space-x-4">
-
-    <button class="px-3 py-1 rounded-xl text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-      <span id="home">Home</span>
-    </button>
-
-    <button class="px-3 py-1 rounded-xl text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-      <span id="tasks">Tasks</span>
-    </button>
-
-    <button class="px-3 py-1 rounded-xl text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-      <span id="scoreboard">Scoreboard</span>
-    </button>
-
-    <!-- Login -->
-    <button id="loginBtn"
-      class="rounded-xl flex items-center px-3 py-1
-             bg-white dark:bg-[rgb(17,24,38)]
-             border border-gray-300 dark:border-gray-600">
-      <i data-lucide="user" class="w-4 h-4 mr-1"></i>
-      <span id="login">Login</span>
-    </button>
-
-    <!-- Theme -->
-    <button id="themeToggle"
-      class="rounded-xl flex items-center px-3 py-1
-             bg-white dark:bg-[rgb(17,24,38)]
-             border border-gray-300 dark:border-gray-600">
-      <i data-lucide="moon" class="w-4 h-4 mr-1"></i>
-      <span id="themeLabel">Dark</span>
-    </button>
-
-    <!-- Language -->
-    <div
-      class="flex items-center rounded-xl px-2 py-1
-             border border-gray-300 dark:border-gray-600
-             bg-white dark:bg-[rgb(17,24,38)]">
+    <!-- Language selector -->
+    <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white">
       <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
-      <select id="langSelect"
-        class="bg-transparent focus:outline-none
-               text-gray-900 dark:text-white">
+      <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900">
         <option value="en">EN</option>
         <option value="de">DE</option>
         <option value="it">IT</option>
@@ -87,10 +200,8 @@
         <option value="ru">RU</option>
       </select>
     </div>
-
   </nav>
 </header>
-
 <!-- ================= MAIN ================= -->
 <main class="max-w-5xl mx-auto w-full px-6 pt-28 pb-6 flex flex-col gap-4">
 
@@ -123,114 +234,132 @@
 <script>
 lucide.createIcons();
 
-/* ========= TRANSLATIONS ========= */
+// ------------------------- Variables -------------------------
+let darkMode = localStorage.getItem("theme") === "dark";
+let lang = localStorage.getItem("lang") || "en";
+
+const body = document.getElementById("body");
+const navbar = document.getElementById("navbar");
+const themeToggle = document.getElementById("themeToggle");
+const themeIcon = document.getElementById("themeIcon");
+const themeLabel = document.getElementById("themeLabel");
+const langSelect = document.getElementById("langSelect");
+const loginBtn = document.getElementById("loginBtn");
+const tasksBtn = document.getElementById("tasks").parentElement;
+const evalBtn = document.getElementById("evalBtn");
+const codeInput = document.getElementById("codeInput");
+
+// ------------------------- Translations -------------------------
 const translations = {
-  en: {
-    home:"Home", tasks:"Tasks", scoreboard:"Scoreboard", login:"Login",
-    dark:"Dark", light:"Light",
-    evaluate:"Evaluate",
-    unevaluated:"Unevaluated",
-    placeholder:"Paste your solution code here...",
-    warning:"⚠️ Please paste your solution before evaluation"
-  },
-  de: {
-    home:"Home", tasks:"Aufgaben", scoreboard:"Rangliste", login:"Anmelden",
-    dark:"Dunkel", light:"Hell",
-    evaluate:"Auswerten",
-    unevaluated:"Nicht bewertet",
-    placeholder:"Lösungscode hier einfügen...",
-    warning:"⚠️ Bitte füge vor der Auswertung deinen Code ein"
-  },
-  it: {
-    home:"Home", tasks:"Compiti", scoreboard:"Classifica", login:"Accedi",
-    dark:"Scuro", light:"Chiaro",
-    evaluate:"Valuta",
-    unevaluated:"Non valutato",
-    placeholder:"Incolla qui il codice...",
-    warning:"⚠️ Inserisci il codice prima della valutazione"
-  },
-  hr: {
-    home:"Home", tasks:"Zadaci", scoreboard:"Ljestvica", login:"Prijava",
-    dark:"Tamno", light:"Svijetlo",
-    evaluate:"Procijeni",
-    unevaluated:"Neocijenjeno",
-    placeholder:"Zalijepite ovdje rješenje...",
-    warning:"⚠️ Morate unijeti rješenje prije evaluacije"
-  },
-  fr: {
-    home:"Home", tasks:"Tâches", scoreboard:"Classement", login:"Connexion",
-    dark:"Sombre", light:"Clair",
-    evaluate:"Évaluer",
-    unevaluated:"Non évalué",
-    placeholder:"Collez votre code ici...",
-    warning:"⚠️ Veuillez coller votre solution avant l’évaluation"
-  },
-  ru: {
-    home:"Home", tasks:"Задания", scoreboard:"Рейтинг", login:"Войти",
-    dark:"Тёмный", light:"Светлый",
-    evaluate:"Оценить",
-    unevaluated:"Неоценено",
-    placeholder:"Вставьте ваш код здесь...",
-    warning:"⚠️ Пожалуйста, вставьте решение перед оценкой"
-  }
+  en: { home:"Home", tasks:"Tasks", scoreboard:"Scoreboard", login:"Login", dark:"Dark", light:"Light", evaluate:"Evaluate", unevaluated:"Unevaluated", placeholder:"Paste your solution code here...", warning:"⚠️ Please paste your solution before evaluation" },
+  de: { home:"Home", tasks:"Aufgaben", scoreboard:"Rangliste", login:"Anmelden", dark:"Dunkel", light:"Hell", evaluate:"Auswerten", unevaluated:"Nicht bewertet", placeholder:"Lösungscode hier einfügen...", warning:"⚠️ Bitte füge vor der Auswertung deinen Code ein" },
+  it: { home:"Home", tasks:"Compiti", scoreboard:"Classifica", login:"Accedi", dark:"Scuro", light:"Chiaro", evaluate:"Valuta", unevaluated:"Non valutato", placeholder:"Incolla qui il codice...", warning:"⚠️ Inserisci il codice prima della valutazione" },
+  hr: { home:"Home", tasks:"Zadaci", scoreboard:"Ljestvica", login:"Prijava", dark:"Tamno", light:"Svijetlo", evaluate:"Procijeni", unevaluated:"Neocijenjeno", placeholder:"Zalijepite ovdje rješenje...", warning:"⚠️ Morate unijeti rješenje prije evaluacije" },
+  fr: { home:"Home", tasks:"Tâches", scoreboard:"Classement", login:"Connexion", dark:"Sombre", light:"Clair", evaluate:"Évaluer", unevaluated:"Non évalué", placeholder:"Collez votre code ici...", warning:"⚠️ Veuillez coller votre solution avant l’évaluation" },
+  ru: { home:"Home", tasks:"Задания", scoreboard:"Рейтинг", login:"Войти", dark:"Тёмный", light:"Светлый", evaluate:"Оценить", unevaluated:"Неоценено", placeholder:"Вставьте ваш код здесь...", warning:"⚠️ Пожалуйста, вставьте решение перед оценкой" }
 };
 
-let lang = localStorage.getItem("lang") || "en";
-let darkMode = localStorage.getItem("theme") === "dark";
-
-/* ========= APPLY LANGUAGE ========= */
-function applyTranslations(){
+// ------------------------- Apply Translations -------------------------
+function applyTranslations() {
   document.getElementById("home").textContent = translations[lang].home;
   document.getElementById("tasks").textContent = translations[lang].tasks;
   document.getElementById("scoreboard").textContent = translations[lang].scoreboard;
   document.getElementById("login").textContent = translations[lang].login;
-  document.getElementById("evalBtn").textContent = translations[lang].evaluate;
-  document.getElementById("codeInput").placeholder = translations[lang].placeholder;
-  document.getElementById("themeLabel").textContent =
-    darkMode ? translations[lang].light : translations[lang].dark;
+  if (evalBtn) evalBtn.textContent = translations[lang].evaluate;
+  if (codeInput) codeInput.placeholder = translations[lang].placeholder;
 
-  if(!evalStatus.classList.contains("text-red-500")){
+  // Update theme label
+  themeLabel.textContent = darkMode ? translations[lang].light : translations[lang].dark;
+
+  // Update eval status if not warning
+  const evalStatus = document.getElementById("evalStatus");
+  if(evalStatus && !evalStatus.classList.contains("text-red-500")){
     evalStatus.textContent = translations[lang].unevaluated;
-  }else{
-    evalStatus.textContent = translations[lang].warning;
   }
 }
 
-document.getElementById("langSelect").value = lang;
-document.getElementById("langSelect").onchange = e => {
-  lang = e.target.value;
-  localStorage.setItem("lang", lang);
-  applyTranslations();
-};
+// ------------------------- Language Selector -------------------------
+if (langSelect) {
+  langSelect.value = lang;
+  langSelect.addEventListener("change", (e) => {
+    lang = e.target.value;
+    localStorage.setItem("lang", lang);
+    applyTranslations();
+    applyTheme();
+  });
+}
 
-/* ========= THEME ========= */
-document.getElementById("themeToggle").onclick = () => {
+// ------------------------- Theme -------------------------
+function applyTheme() {
+  // Body + Navbar
+  if(darkMode){
+    body.classList.add("dark","bg-gray-900","text-white"); 
+    body.classList.remove("light","bg-gray-50","text-gray-900");
+    navbar.classList.add("bg-gray-800"); navbar.classList.remove("bg-white");
+    themeIcon.setAttribute("data-lucide","sun");
+    themeLabel.textContent = translations[lang].light;
+
+    // Buttons Dark
+    [themeToggle, loginBtn, tasksBtn, evalBtn].forEach(btn => {
+      if(btn){
+        btn.classList.remove("bg-gray-50","bg-white","text-gray-900","hover:bg-gray-100","hover:text-blue-600");
+        btn.classList.add("bg-gray-900","text-white","border-gray-600","hover:bg-gray-700","hover:text-gray-200");
+      }
+    });
+
+    // Language selector
+    langSelect.classList.remove("text-gray-900"); langSelect.classList.add("text-white");
+    langSelect.parentElement.classList.remove("bg-white","border-gray-300");
+    langSelect.parentElement.classList.add("bg-gray-900","border-gray-600");
+    Array.from(langSelect.options).forEach(opt => { opt.style.backgroundColor = "#1f2937"; opt.style.color = "white"; });
+
+  } else {
+    body.classList.add("light","bg-gray-50","text-gray-900"); 
+    body.classList.remove("dark","bg-gray-900","text-white");
+    navbar.classList.add("bg-white"); navbar.classList.remove("bg-gray-800");
+    themeIcon.setAttribute("data-lucide","moon");
+    themeLabel.textContent = translations[lang].dark;
+
+    // Buttons Light
+    [themeToggle, loginBtn, tasksBtn, evalBtn].forEach(btn => {
+      if(btn){
+        btn.classList.remove("bg-gray-900","text-white","hover:bg-gray-700","hover:text-gray-200","border-gray-600");
+        btn.classList.add("bg-gray-50","bg-white","text-gray-900","hover:bg-gray-100","hover:text-blue-600");
+      }
+    });
+
+    // Language selector
+    langSelect.classList.remove("text-white"); langSelect.classList.add("text-gray-900");
+    langSelect.parentElement.classList.remove("bg-gray-900","border-gray-600");
+    langSelect.parentElement.classList.add("bg-white","border-gray-300");
+    Array.from(langSelect.options).forEach(opt => { opt.style.backgroundColor = "white"; opt.style.color = "black"; });
+  }
+  lucide.createIcons();
+}
+
+// Theme toggle
+themeToggle.addEventListener("click", () => {
   darkMode = !darkMode;
-  localStorage.setItem("theme", darkMode ? "dark" : "light");
-  applyTheme();      // ✅ Update all button styles, labels, and dropdown
-  applyTranslations(); // optional if you want to update theme label text
-};
+  localStorage.setItem("theme", darkMode ? 'dark' : 'light');
+  applyTheme();
+  applyTranslations();
+});
 
-/* ========= TASK CONTEXT ========= */
+// ------------------------- Task Context -------------------------
 function loadTaskContext(){
   const k = localStorage.getItem("kategorija") || "empty";
   const g = localStorage.getItem("god") || "empty";
   const z = localStorage.getItem("zadatak") || "empty";
   const ko = localStorage.getItem("kolo") || "empty";
-
   let text = "";
   if(k.toLowerCase()==="hll") text = `HLL → ${g} → ${ko} → ${z}`;
   else if(k.toLowerCase()==="hloz") text = `HLOŽ → ${g} → ${z}`;
   else text = `${k} → ${g} → ${ko} → ${z}`;
-
   document.getElementById("taskContext").textContent = text;
 }
 
-/* ========= EVALUATION WARNING ========= */
-const evalBtn = document.getElementById("evalBtn");
+// ------------------------- Evaluation -------------------------
 const evalStatus = document.getElementById("evalStatus");
-const codeInput = document.getElementById("codeInput");
-
 evalBtn.onclick = () => {
   if(!codeInput.value.trim()){
     evalStatus.textContent = translations[lang].warning;
@@ -240,7 +369,6 @@ evalBtn.onclick = () => {
   evalStatus.textContent = translations[lang].unevaluated;
   evalStatus.classList.remove("text-red-500");
 };
-
 codeInput.oninput = () => {
   if(codeInput.value.trim()){
     evalStatus.textContent = translations[lang].unevaluated;
@@ -248,45 +376,12 @@ codeInput.oninput = () => {
   }
 };
 
-function applyTheme() {
-  document.documentElement.classList.toggle("dark", darkMode);
-
-  const themeLabel = document.getElementById("themeLabel");
-  themeLabel.textContent = darkMode ? translations[lang].light : translations[lang].dark;
-
-  // Buttons + language wrapper
-  const elements = [
-    document.getElementById("loginBtn"),
-    document.getElementById("themeToggle"),
-    document.getElementById("langSelect").parentElement
-  ];
-
-  elements.forEach(el => {
-    if(darkMode){
-      el.classList.remove("bg-white","text-gray-900","hover:bg-gray-100","hover:text-gray-900","border-gray-300");
-      el.classList.add("bg-[rgb(17,24,38)]","text-white","hover:bg-gray-700","hover:text-white","border-gray-600");
-    } else {
-      el.classList.remove("bg-[rgb(17,24,38)]","text-white","hover:bg-gray-700","hover:text-white","border-gray-600");
-      el.classList.add("bg-white","text-gray-900","hover:bg-gray-100","hover:text-gray-900","border-gray-300");
-    }
-  });
-
-  // Update dropdown options
-  document.querySelectorAll("#langSelect option").forEach(opt => {
-    opt.style.backgroundColor = darkMode ? "rgb(17,24,38)" : "white";
-    opt.style.color = darkMode ? "white" : "black";
-  });
-
-  lucide.createIcons();
-}
-
-
-/* ========= INIT ========= */
+// ------------------------- Init -------------------------
 document.documentElement.classList.toggle("dark", darkMode);
 applyTheme();
 applyTranslations();
 loadTaskContext();
 </script>
-
+  
 </body>
 </html>
