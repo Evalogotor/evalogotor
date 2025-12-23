@@ -7,25 +7,14 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-  tailwind.config = {
-    darkMode: 'class'
-  }
+  tailwind.config = { darkMode: 'class' }
 </script>
 
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
   .highlight { font-weight: bold; font-size: 1.25rem; color: rgb(57,220,57); }
-
   .status-ue { color: #94a3b8; }
-  .status-eval { color: #facc15; }
-  .status-done { color: #22c55e; }
-
-  .code-area,
-  .results-area {
-    font-family: monospace;
-    font-size: 0.875rem;
-  }
 </style>
 </head>
 
@@ -35,86 +24,57 @@
 <header class="flex items-center justify-between px-6 py-4 shadow-sm
                bg-white dark:bg-gray-800">
 
-  <div class="flex items-center group cursor-pointer">
-    <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span>
+  <div class="flex items-center cursor-pointer">
+    <span class="font-bold text-xl text-blue-600">EVA</span>
     <span class="highlight">LOGO</span>
-    <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
+    <span class="font-bold text-xl text-blue-600">TOR</span>
   </div>
 
   <nav class="flex items-center space-x-4">
-
-    <button id="homeBtn"
-      class="px-3 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
-      Home
-    </button>
-
-    <button id="tasksBtn"
-      class="px-3 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
-      Tasks
-    </button>
-
-    <button id="loginBtn"
-      class="flex items-center gap-1 px-3 py-1 rounded-xl
-             bg-gray-200 dark:bg-gray-700
-             border border-gray-300 dark:border-gray-600">
-      <i data-lucide="user" class="w-4 h-4"></i> Login
-    </button>
-
     <button id="themeToggle"
       class="flex items-center gap-1 px-3 py-1 rounded-xl
              bg-gray-200 dark:bg-gray-700
              border border-gray-300 dark:border-gray-600">
-      <i id="themeIcon" data-lucide="moon" class="w-4 h-4"></i>
+      <i data-lucide="moon" class="w-4 h-4"></i>
       <span id="themeLabel">Dark</span>
     </button>
-
-    <div class="flex items-center gap-1 px-3 py-1 rounded-xl
-                bg-gray-200 dark:bg-gray-700
-                border border-gray-300 dark:border-gray-600">
-      <i data-lucide="globe" class="w-4 h-4"></i>
-      <select id="langSelect"
-        class="bg-transparent outline-none">
-        <option value="en">EN</option>
-        <option value="de">DE</option>
-        <option value="it">IT</option>
-        <option value="hr">HR</option>
-        <option value="fr">FR</option>
-        <option value="ru">RU</option>
-      </select>
-    </div>
-
   </nav>
 </header>
 
 <main class="max-w-5xl mx-auto w-full px-6 py-6 flex flex-col gap-4">
 
+  <!-- CONTEXT BAR -->
   <div class="rounded-2xl p-4 shadow
               bg-gray-100 dark:bg-gray-800
               font-mono text-sm flex flex-wrap gap-4">
-    <span id="ui-cat-label">Category:</span> <span id="ui-cat">empty</span>
-    <span id="ui-year-label">Year:</span> <span id="ui-year">empty</span>
-    <span id="ui-mid-label">Type:</span> <span id="ui-mid">empty</span>
-    <span id="ui-task-label">Task:</span> <span id="ui-task">empty</span>
+
+    <span>Category:</span>
+    <span id="ui-cat">empty</span>
+
+    <span>Year:</span>
+    <span id="ui-year">empty</span>
+
+    <span id="ui-mid-label" class="hidden"></span>
+    <span id="ui-mid" class="hidden"></span>
+
+    <span>Task:</span>
+    <span id="ui-task">empty</span>
   </div>
 
+  <!-- CODE INPUT -->
   <textarea id="codeInput"
-    class="code-area h-64 w-full rounded-lg p-3
+    class="h-64 w-full rounded-lg p-3 font-mono text-sm
            bg-gray-100 dark:bg-gray-900
            border border-gray-300 dark:border-gray-700"
     placeholder="Paste your solution code here..."></textarea>
 
   <div class="flex items-center gap-4">
-    <button id="evalBtn"
+    <button
       class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700
              text-white font-semibold">
       Evaluate
     </button>
-    <span id="evalStatus" class="status-ue font-semibold">Unevaluated</span>
-  </div>
-
-  <div id="results"
-    class="results-area rounded-lg p-4
-           bg-gray-100 dark:bg-gray-900">
+    <span class="status-ue font-semibold">Unevaluated</span>
   </div>
 
 </main>
@@ -122,54 +82,75 @@
 <script>
 lucide.createIcons();
 
-let darkMode = localStorage.getItem('theme') === 'dark';
-let lang = localStorage.getItem('lang') || 'en';
-
-const translations = {
-  en: { category:"Category", year:"Year", type:"Type", task:"Task",
-        evaluate:"Evaluate", themeDark:"Dark", themeLight:"Light" },
-  de: { category:"Kategorie", year:"Jahr", type:"Typ", task:"Aufgabe",
-        evaluate:"Auswerten", themeDark:"Dunkel", themeLight:"Hell" },
-  it: { category:"Categoria", year:"Anno", type:"Tipo", task:"Compito",
-        evaluate:"Valuta", themeDark:"Scuro", themeLight:"Chiaro" },
-  hr: { category:"Kategorija", year:"Godina", type:"Tip", task:"Zadatak",
-        evaluate:"Procijeni", themeDark:"Tamno", themeLight:"Svijetlo" },
-  fr: { category:"Catégorie", year:"Année", type:"Type", task:"Tâche",
-        evaluate:"Évaluer", themeDark:"Sombre", themeLight:"Clair" },
-  ru: { category:"Категория", year:"Год", type:"Тип", task:"Задача",
-        evaluate:"Оценить", themeDark:"Тёмная", themeLight:"Светлая" }
-};
+/* =====================
+   THEME
+===================== */
+let darkMode = localStorage.getItem("theme") === "dark";
 
 function applyTheme() {
-  document.documentElement.classList.toggle('dark', darkMode);
-}
-
-function updateLanguage() {
-  const t = translations[lang];
-  document.getElementById("ui-cat-label").textContent = t.category + ":";
-  document.getElementById("ui-year-label").textContent = t.year + ":";
-  document.getElementById("ui-mid-label").textContent = t.type + ":";
-  document.getElementById("ui-task-label").textContent = t.task + ":";
-  document.getElementById("evalBtn").textContent = t.evaluate;
+  document.documentElement.classList.toggle("dark", darkMode);
   document.getElementById("themeLabel").textContent =
-    darkMode ? t.themeLight : t.themeDark;
+    darkMode ? "Light" : "Dark";
 }
 
 document.getElementById("themeToggle").onclick = () => {
   darkMode = !darkMode;
-  localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+  localStorage.setItem("theme", darkMode ? "dark" : "light");
   applyTheme();
-  updateLanguage();
 };
 
-langSelect.onchange = e => {
-  lang = e.target.value;
-  localStorage.setItem('lang', lang);
-  updateLanguage();
-};
+/* =====================
+   TASK CONTEXT
+===================== */
+function loadTaskContext() {
+  const kategorija = localStorage.getItem("kategorija") || "empty";
+  const god        = localStorage.getItem("god") || "empty";
+  const zadatak    = localStorage.getItem("zadatak") || "empty";
+  const kolo       = localStorage.getItem("kolo");
+  const razina     = localStorage.getItem("razina");
 
+  document.getElementById("ui-cat").textContent = kategorija;
+  document.getElementById("ui-year").textContent = god;
+  document.getElementById("ui-task").textContent = zadatak;
+
+  const midLabel = document.getElementById("ui-mid-label");
+  const midValue = document.getElementById("ui-mid");
+
+  midLabel.classList.add("hidden");
+  midValue.classList.add("hidden");
+
+  if (kategorija === "hll") {
+    midLabel.textContent = "Kolo:";
+    midValue.textContent = kolo || "empty";
+    midLabel.classList.remove("hidden");
+    midValue.classList.remove("hidden");
+  }
+  else if (kategorija === "hloz") {
+    // show nothing extra
+  }
+  else {
+    midLabel.textContent = "Razina:";
+    midValue.textContent = razina || "empty";
+    midLabel.classList.remove("hidden");
+    midValue.classList.remove("hidden");
+  }
+}
+
+/* =====================
+   INIT
+===================== */
 applyTheme();
-updateLanguage();
+loadTaskContext();
+
+/* =====================
+   DEMO DATA (remove in prod)
+===================== */
+/*
+localStorage.setItem("kategorija","hll");
+localStorage.setItem("god","2024");
+localStorage.setItem("kolo","2");
+localStorage.setItem("zadatak","Zadatak 1");
+*/
 </script>
 
 </body>
