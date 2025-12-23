@@ -469,6 +469,10 @@ applyTheme();
     }
 
     function openPage(strGod, red) {
+  	    localStorage.setItem("kategorija", 'HLOZ');
+        localStorage.setItem("god", strGod);
+        localStorage.setItem("zadatak", ime_zadatak);
+      
         // Set points based on 'red'
           if (red != 2 && red != 3) {
               bodovi = red*20;
