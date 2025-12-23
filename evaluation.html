@@ -70,7 +70,7 @@
     <!-- Login -->
     <button id="loginBtn"
       class="rounded-xl flex items-center
-             bg-white dark:bg-gray-900
+             bg-white dark:bg-[rgb(17,24,38)]
              text-gray-900 dark:text-white
              hover:bg-gray-100 dark:hover:bg-gray-700
              border border-gray-300 dark:border-gray-600
@@ -83,7 +83,7 @@
     <!-- Theme toggle -->
     <button id="themeToggle"
       class="rounded-xl flex items-center
-             bg-white dark:bg-gray-900
+             bg-white dark:bg-[rgb(17,24,38)]
              text-gray-900 dark:text-white
              hover:bg-gray-100 dark:hover:bg-gray-700
              border border-gray-300 dark:border-gray-600
@@ -96,7 +96,7 @@
     <div
       class="flex items-center rounded-xl px-2 py-1
              border border-gray-300 dark:border-gray-600
-             bg-white dark:bg-gray-900">
+             bg-white dark:bg-[rgb(17,24,38)]">
       <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
       <select id="langSelect"
         class="bg-transparent focus:outline-none
@@ -152,10 +152,28 @@ lucide.createIcons();
 /* ===== THEME ===== */
 let darkMode = localStorage.getItem("theme") === "dark";
 
+function updateSelectOptionsColors() {
+  const options = document.querySelectorAll('#langSelect option');
+  if(darkMode){
+    options.forEach(opt => {
+      opt.style.backgroundColor = "rgb(17, 24, 38)";
+      opt.style.color = "white";
+    });
+  } else {
+    options.forEach(opt => {
+      opt.style.backgroundColor = "white";
+      opt.style.color = "black";
+    });
+  }
+}
+
 function applyTheme() {
   document.documentElement.classList.toggle("dark", darkMode);
   document.getElementById("themeLabel").textContent =
     darkMode ? "Light" : "Dark";
+
+  // Update select options colors
+  updateSelectOptionsColors();
 }
 
 document.getElementById("themeToggle").onclick = () => {
