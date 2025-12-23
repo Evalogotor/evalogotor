@@ -192,6 +192,8 @@ function applyTranslations(){
 
   if(!evalStatus.classList.contains("text-red-500")){
     evalStatus.textContent = translations[lang].unevaluated;
+  }else{
+    evalStatus.textContent = translations[lang].warning;
   }
 }
 
