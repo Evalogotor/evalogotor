@@ -22,83 +22,98 @@
 </style>
 </head>
 
-<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white min-h-screen">
+<body id="body"
+  class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white
+         min-h-screen flex flex-col transition-colors">
 
-<!-- NAVBAR -->
-<header class="fixed top-0 left-0 w-full z-50 flex justify-between px-6 py-4 bg-white dark:bg-gray-800 shadow">
-  <div class="flex items-center">
+<!-- ================= NAVBAR ================= -->
+<header
+  class="fixed top-0 left-0 w-full z-50
+         flex items-center justify-between px-6 py-4 shadow-sm
+         bg-white dark:bg-gray-800">
+
+  <div class="flex items-center group cursor-pointer">
     <span class="font-bold text-xl text-blue-600">EVA</span>
     <span class="highlight">LOGO</span>
     <span class="font-bold text-xl text-blue-600">TOR</span>
   </div>
 
-  <nav class="flex items-center gap-4">
+  <nav class="flex items-center space-x-4">
 
-    <button class="px-3 py-1 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700">
+    <button class="px-3 py-1 rounded-xl text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
       <span id="home">Home</span>
     </button>
 
-    <button class="px-3 py-1 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700">
+    <button class="px-3 py-1 rounded-xl text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
       <span id="tasks">Tasks</span>
     </button>
 
-    <button class="px-3 py-1 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700">
+    <button class="px-3 py-1 rounded-xl text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
       <span id="scoreboard">Scoreboard</span>
     </button>
 
     <!-- Login -->
     <button id="loginBtn"
-      class="px-3 py-1 rounded-xl border
+      class="rounded-xl flex items-center px-3 py-1
              bg-white dark:bg-[rgb(17,24,38)]
-             border-gray-300 dark:border-gray-600">
+             border border-gray-300 dark:border-gray-600">
+      <i data-lucide="user" class="w-4 h-4 mr-1"></i>
       <span id="login">Login</span>
     </button>
 
     <!-- Theme -->
     <button id="themeToggle"
-      class="px-3 py-1 rounded-xl border
+      class="rounded-xl flex items-center px-3 py-1
              bg-white dark:bg-[rgb(17,24,38)]
-             border-gray-300 dark:border-gray-600">
+             border border-gray-300 dark:border-gray-600">
+      <i data-lucide="moon" class="w-4 h-4 mr-1"></i>
       <span id="themeLabel">Dark</span>
     </button>
 
     <!-- Language -->
-    <select id="langSelect"
-      class="px-2 py-1 rounded-xl border
-             bg-white dark:bg-[rgb(17,24,38)]
-             text-gray-900 dark:text-white
-             border-gray-300 dark:border-gray-600">
-      <option value="en">EN</option>
-      <option value="de">DE</option>
-      <option value="it">IT</option>
-      <option value="hr">HR</option>
-      <option value="fr">FR</option>
-      <option value="ru">RU</option>
-    </select>
+    <div
+      class="flex items-center rounded-xl px-2 py-1
+             border border-gray-300 dark:border-gray-600
+             bg-white dark:bg-[rgb(17,24,38)]">
+      <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
+      <select id="langSelect"
+        class="bg-transparent focus:outline-none
+               text-gray-900 dark:text-white">
+        <option value="en">EN</option>
+        <option value="de">DE</option>
+        <option value="it">IT</option>
+        <option value="hr">HR</option>
+        <option value="fr">FR</option>
+        <option value="ru">RU</option>
+      </select>
+    </div>
 
   </nav>
 </header>
 
-<!-- MAIN -->
-<main class="max-w-5xl mx-auto pt-28 px-6 flex flex-col gap-4">
+<!-- ================= MAIN ================= -->
+<main class="max-w-5xl mx-auto w-full px-6 pt-28 pb-6 flex flex-col gap-4">
 
   <div id="taskContext"
-    class="p-4 rounded-2xl bg-gray-100 dark:bg-gray-800 font-mono text-xl font-medium">
+       class="rounded-2xl p-4 shadow
+              bg-gray-100 dark:bg-gray-800
+              font-mono text-[1.15rem] font-medium">
     empty
   </div>
 
   <textarea id="codeInput"
-    class="h-64 p-3 rounded-lg font-mono
+    class="h-64 w-full rounded-lg p-3 font-mono text-sm
            bg-gray-100 dark:bg-gray-900
            border border-gray-300 dark:border-gray-700"
-    placeholder="Paste your solution code here..."></textarea>
+    placeholder="">
+  </textarea>
 
   <div class="flex items-center gap-4">
     <button id="evalBtn"
-      class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl">
+      class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700
+             text-white font-semibold">
       Evaluate
     </button>
-
     <span id="evalStatus" class="status-ue font-semibold">
       Unevaluated
     </span>
@@ -109,7 +124,7 @@
 <script>
 lucide.createIcons();
 
-/* ================= TRANSLATIONS ================= */
+/* ========= TRANSLATIONS ========= */
 const translations = {
   en: {
     home:"Home", tasks:"Tasks", scoreboard:"Scoreboard", login:"Login",
@@ -125,7 +140,15 @@ const translations = {
     evaluate:"Auswerten",
     unevaluated:"Nicht bewertet",
     placeholder:"Lösungscode hier einfügen...",
-    warning:"⚠️ Bitte Code vor der Auswertung einfügen"
+    warning:"⚠️ Bitte füge vor der Auswertung deinen Code ein"
+  },
+  it: {
+    home:"Home", tasks:"Compiti", scoreboard:"Classifica", login:"Accedi",
+    dark:"Scuro", light:"Chiaro",
+    evaluate:"Valuta",
+    unevaluated:"Non valutato",
+    placeholder:"Incolla qui il codice...",
+    warning:"⚠️ Inserisci il codice prima della valutazione"
   },
   hr: {
     home:"Home", tasks:"Zadaci", scoreboard:"Ljestvica", login:"Prijava",
@@ -133,41 +156,58 @@ const translations = {
     evaluate:"Procijeni",
     unevaluated:"Neocijenjeno",
     placeholder:"Zalijepite ovdje rješenje...",
-    warning:"⚠️ Unesite rješenje prije evaluacije"
+    warning:"⚠️ Morate unijeti rješenje prije evaluacije"
+  },
+  fr: {
+    home:"Home", tasks:"Tâches", scoreboard:"Classement", login:"Connexion",
+    dark:"Sombre", light:"Clair",
+    evaluate:"Évaluer",
+    unevaluated:"Non évalué",
+    placeholder:"Collez votre code ici...",
+    warning:"⚠️ Veuillez coller votre solution avant l’évaluation"
+  },
+  ru: {
+    home:"Home", tasks:"Задания", scoreboard:"Рейтинг", login:"Войти",
+    dark:"Тёмный", light:"Светлый",
+    evaluate:"Оценить",
+    unevaluated:"Неоценено",
+    placeholder:"Вставьте ваш код здесь...",
+    warning:"⚠️ Пожалуйста, вставьте решение перед оценкой"
   }
 };
 
 let lang = localStorage.getItem("lang") || "en";
 let darkMode = localStorage.getItem("theme") === "dark";
-let warningActive = false;
 
-/* ================= APPLY LANGUAGE ================= */
-function applyTranslations() {
-  const t = translations[lang];
-
-  home.textContent = t.home;
-  tasks.textContent = t.tasks;
-  scoreboard.textContent = t.scoreboard;
-  login.textContent = t.login;
-  evalBtn.textContent = t.evaluate;
-  codeInput.placeholder = t.placeholder;
-  themeLabel.textContent = darkMode ? t.light : t.dark;
-
-  evalStatus.textContent = warningActive ? t.warning : t.unevaluated;
+/* ========= APPLY LANGUAGE ========= */
+function applyTranslations(){
+  document.getElementById("home").textContent = translations[lang].home;
+  document.getElementById("tasks").textContent = translations[lang].tasks;
+  document.getElementById("scoreboard").textContent = translations[lang].scoreboard;
+  document.getElementById("login").textContent = translations[lang].login;
+  document.getElementById("evalBtn").textContent = translations[lang].evaluate;
+  document.getElementById("evalStatus").textContent = translations[lang].unevaluated;
+  document.getElementById("codeInput").placeholder = translations[lang].placeholder;
+  document.getElementById("themeLabel").textContent =
+    darkMode ? translations[lang].light : translations[lang].dark;
 }
 
-/* ================= THEME ================= */
-function applyTheme() {
+document.getElementById("langSelect").value = lang;
+document.getElementById("langSelect").onchange = e => {
+  lang = e.target.value;
+  localStorage.setItem("lang", lang);
+  applyTranslations();
+};
+
+/* ========= THEME ========= */
+document.getElementById("themeToggle").onclick = () => {
+  darkMode = !darkMode;
+  localStorage.setItem("theme", darkMode ? "dark" : "light");
   document.documentElement.classList.toggle("dark", darkMode);
+  applyTranslations();
+};
 
-  // Dropdown options readable in dark mode
-  document.querySelectorAll("#langSelect option").forEach(opt => {
-    opt.style.backgroundColor = darkMode ? "rgb(17,24,38)" : "white";
-    opt.style.color = darkMode ? "white" : "black";
-  });
-}
-
-/* ================= TASK CONTEXT ================= */
+/* ========= TASK CONTEXT ========= */
 function loadTaskContext(){
   const k = localStorage.getItem("kategorija") || "empty";
   const g = localStorage.getItem("god") || "empty";
@@ -175,50 +215,37 @@ function loadTaskContext(){
   const ko = localStorage.getItem("kolo") || "empty";
 
   let text = "";
-  if (k.toLowerCase() === "hll")
-    text = `HLL → ${g} → ${ko} → ${z}`;
-  else if (k.toLowerCase() === "hloz")
-    text = `HLOŽ → ${g} → ${z}`;
-  else
-    text = `${k} → ${g} → ${ko} → ${z}`;
+  if(k.toLowerCase()==="hll") text = `HLL → ${g} → ${ko} → ${z}`;
+  else if(k.toLowerCase()==="hloz") text = `HLOŽ → ${g} → ${z}`;
+  else text = `${k} → ${g} → ${ko} → ${z}`;
 
-  taskContext.textContent = text;
+  document.getElementById("taskContext").textContent = text;
 }
 
-/* ================= EVENTS ================= */
-langSelect.value = lang;
-langSelect.onchange = e => {
-  lang = e.target.value;
-  localStorage.setItem("lang", lang);
-  applyTranslations();
-};
-
-themeToggle.onclick = () => {
-  darkMode = !darkMode;
-  localStorage.setItem("theme", darkMode ? "dark" : "light");
-  applyTheme();
-  applyTranslations();
-};
+/* ========= EVALUATION WARNING ========= */
+const evalBtn = document.getElementById("evalBtn");
+const evalStatus = document.getElementById("evalStatus");
+const codeInput = document.getElementById("codeInput");
 
 evalBtn.onclick = () => {
-  if (!codeInput.value.trim()) {
-    warningActive = true;
+  if(!codeInput.value.trim()){
+    evalStatus.textContent = translations[lang].warning;
     evalStatus.classList.add("text-red-500");
-    applyTranslations();
     return;
   }
+  evalStatus.textContent = translations[lang].unevaluated;
+  evalStatus.classList.remove("text-red-500");
 };
 
 codeInput.oninput = () => {
-  if (codeInput.value.trim()) {
-    warningActive = false;
+  if(codeInput.value.trim()){
+    evalStatus.textContent = translations[lang].unevaluated;
     evalStatus.classList.remove("text-red-500");
-    applyTranslations();
   }
 };
 
-/* ================= INIT ================= */
-applyTheme();
+/* ========= INIT ========= */
+document.documentElement.classList.toggle("dark", darkMode);
 applyTranslations();
 loadTaskContext();
 </script>
