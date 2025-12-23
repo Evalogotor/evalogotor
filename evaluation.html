@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en" class="transition-colors">
 <head>
 <meta charset="UTF-8" />
@@ -251,38 +251,27 @@ codeInput.oninput = () => {
 function applyTheme() {
   document.documentElement.classList.toggle("dark", darkMode);
 
-  // Update theme label
   const themeLabel = document.getElementById("themeLabel");
   themeLabel.textContent = darkMode ? translations[lang].light : translations[lang].dark;
 
-  // Buttons: login + theme
-  [document.getElementById("loginBtn"), document.getElementById("themeToggle")].forEach(btn => {
+  // Buttons + language wrapper
+  const elements = [
+    document.getElementById("loginBtn"),
+    document.getElementById("themeToggle"),
+    document.getElementById("langSelect").parentElement
+  ];
+
+  elements.forEach(el => {
     if(darkMode){
-      btn.classList.remove("bg-white","text-gray-900","hover:bg-gray-100","hover:text-gray-900");
-      btn.classList.add("bg-[rgb(17,24,38)]","text-white","hover:bg-gray-700","hover:text-white");
+      el.classList.remove("bg-white","text-gray-900","hover:bg-gray-100","hover:text-gray-900","border-gray-300");
+      el.classList.add("bg-[rgb(17,24,38)]","text-white","hover:bg-gray-700","hover:text-white","border-gray-600");
     } else {
-      btn.classList.remove("bg-[rgb(17,24,38)]","text-white","hover:bg-gray-700","hover:text-white");
-      btn.classList.add("bg-white","text-gray-900","hover:bg-gray-100","hover:text-gray-900");
+      el.classList.remove("bg-[rgb(17,24,38)]","text-white","hover:bg-gray-700","hover:text-white","border-gray-600");
+      el.classList.add("bg-white","text-gray-900","hover:bg-gray-100","hover:text-gray-900","border-gray-300");
     }
   });
 
-  // **Language select dropdown styling**
-  const langParent = document.getElementById("langSelect").parentElement;
-  const langSelect = document.getElementById("langSelect");
-
-  if(darkMode){
-    langParent.classList.remove("bg-white","border-gray-300");
-    langParent.classList.add("bg-[rgb(17,24,38)]","border-gray-600");
-    langSelect.classList.remove("text-gray-900");
-    langSelect.classList.add("text-white");
-  } else {
-    langParent.classList.remove("bg-[rgb(17,24,38)]","border-gray-600");
-    langParent.classList.add("bg-white","border-gray-300");
-    langSelect.classList.remove("text-white");
-    langSelect.classList.add("text-gray-900");
-  }
-
-  // **This is the part that ensures the dropdown options match the theme**
+  // Update dropdown options
   document.querySelectorAll("#langSelect option").forEach(opt => {
     opt.style.backgroundColor = darkMode ? "rgb(17,24,38)" : "white";
     opt.style.color = darkMode ? "white" : "black";
@@ -290,6 +279,7 @@ function applyTheme() {
 
   lucide.createIcons();
 }
+
 
 /* ========= INIT ========= */
 document.documentElement.classList.toggle("dark", darkMode);
