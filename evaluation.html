@@ -207,8 +207,8 @@ document.getElementById("langSelect").onchange = e => {
 document.getElementById("themeToggle").onclick = () => {
   darkMode = !darkMode;
   localStorage.setItem("theme", darkMode ? "dark" : "light");
-  document.documentElement.classList.toggle("dark", darkMode);
-  applyTranslations();
+  applyTheme();      // ✅ Update all button styles, labels, and dropdown
+  applyTranslations(); // optional if you want to update theme label text
 };
 
 /* ========= TASK CONTEXT ========= */
