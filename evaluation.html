@@ -1,41 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EVALOGOTOR - Tasks</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EVALOGOTOR - Tasks</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  .highlight { font-weight:bold; font-size:1.25rem; color:rgb(57,220,57); }
+  .status-ue { color: #94a3b8; } /* unevaluated */
+  .status-eval { color: #facc15; } /* evaluating */
+  .status-done { color: #22c55e; } /* done */
+  .AC { color: #22c55e; }
+  .WA { color: #ef4444; }
+  .ERR { color: #facc15; }
+  .UE { color: #94a3b8; }
 
-  <style>
-    .highlight {
-      font-weight: bold;
-      font-size: 1.25rem;
-      color: rgb(57, 220, 57);
-    }
-
-    .status-ue { color: #94a3b8; }
-    .status-eval { color: #facc15; }
-    .status-done { color: #22c55e; }
-
-    .AC { color: #22c55e; }
-    .WA { color: #ef4444; }
-    .ERR { color: #facc15; }
-    .UE { color: #94a3b8; }
-
-    /* Language selector styling for dark mode */
-    #langSelect option { background-color: white; color: black; }
-    .dark #langSelect,
-    .dark #langSelect option {
-      background-color: #1f2937;
-      color: white;
-    }
-  </style>
+  /* language dropdown */
+  #langSelect option { background-color: white; color:black; }
+  .dark #langSelect,
+  .dark #langSelect option { background-color:#1f2937; color:white; }
+</style>
 </head>
-
 <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors" id="body">
 
-<!-- ================= NAVBAR ================= -->
+<!-- NAVBAR -->
 <header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white" id="navbar">
   <div class="flex items-center group cursor-pointer">
     <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span>
@@ -43,24 +32,18 @@
     <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
   </div>
   <nav class="flex items-center space-x-4">
-    <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='/'">
+    <button id="homeBtn" class="flex items-center space-x-1 rounded-xl px-3 py-1 hover:bg-gray-100 hover:text-blue-600">
       <i data-lucide="home" class="w-4 h-4"></i> <span id="home">Home</span>
     </button>
-    <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='tasks'">
+    <button id="tasksBtn" class="flex items-center space-x-1 rounded-xl px-3 py-1 hover:bg-gray-100 hover:text-blue-600">
       <i data-lucide="pen-tool" class="w-4 h-4"></i> <span id="tasks">Tasks</span>
     </button>
-
-    <!-- Login -->
-    <button id="loginBtn" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1" onclick="location.href='login'">
+    <button id="loginBtn" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
       <i data-lucide="user" class="w-4 h-4 mr-1"></i> <span id="login">Login</span>
     </button>
-
-    <!-- Theme toggle -->
     <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
       <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span>
     </button>
-
-    <!-- Language selector -->
     <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white">
       <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
       <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900">
@@ -75,16 +58,16 @@
   </nav>
 </header>
 
-<!-- ================= EVALUATION UI ================= -->
+<!-- MAIN UI -->
 <main class="max-w-5xl mx-auto w-full px-6 py-6">
 
-  <!-- Task structure -->
+  <!-- Task info -->
   <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow mb-4">
     <div class="flex flex-wrap gap-4 font-mono text-sm">
-      <span id="ui-cat">Category: empty</span>
-      <span id="ui-year">Year: empty</span>
-      <span id="ui-mid">Type: empty</span>
-      <span id="ui-task">Task: empty</span>
+      <span id="ui-cat-label">Category:</span> <span id="ui-cat">empty</span>
+      <span id="ui-year-label">Year:</span> <span id="ui-year">empty</span>
+      <span id="ui-mid-label">Type:</span> <span id="ui-mid">empty</span>
+      <span id="ui-task-label">Task:</span> <span id="ui-task">empty</span>
     </div>
   </div>
 
@@ -102,131 +85,125 @@
       class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold">
       Evaluate
     </button>
-
-    <span id="evalStatus" class="status-ue font-semibold">
-      Unevaluated
-    </span>
+    <span id="evalStatus" class="status-ue font-semibold">Unevaluated</span>
   </div>
 
   <!-- Results -->
-  <div id="results"
-    class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow font-mono text-sm space-y-1">
-  </div>
+  <div id="results" class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow font-mono text-sm space-y-1"></div>
 
 </main>
 
 <script>
 lucide.createIcons();
 
-/* ========= HOTBAR THEME & LANGUAGE ========= */
+/* ========= LANGUAGE & THEME SETUP ========= */
 const body = document.getElementById("body");
 const navbar = document.getElementById("navbar");
 const themeToggle = document.getElementById("themeToggle");
 const themeIcon = document.getElementById("themeIcon");
 const themeLabel = document.getElementById("themeLabel");
 const langSelect = document.getElementById("langSelect");
-const loginBtn = document.getElementById("loginBtn");
-
-let darkMode = false; // default
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) darkMode = (savedTheme === 'dark');
+let darkMode = localStorage.getItem('theme')==='dark';
 let lang = localStorage.getItem('lang') || 'en';
 
 const translations = {
-  en: { home:"Home", tasks:"Tasks", login:"Login", themeDark:"Dark", themeLight:"Light" },
-  de: { home:"Home", tasks:"Aufgaben", login:"Anmelden", themeDark:"Dunkel", themeLight:"Hell" },
-  it: { home:"Home", tasks:"Compiti", login:"Accedi", themeDark:"Scuro", themeLight:"Chiaro" },
-  hr: { home:"Home", tasks:"Zadaci", login:"Prijava", themeDark:"Tamno", themeLight:"Svijetlo" },
-  fr: { home:"Home", tasks:"Tâches", login:"Connexion", themeDark:"Sombre", themeLight:"Clair" },
-  ru: { home:"Home", tasks:"Задания", login:"Войти", themeDark:"Тёмная", themeLight:"Светлая" }
+  en: { home:"Home", tasks:"Tasks", login:"Login", themeDark:"Dark", themeLight:"Light",
+        category:"Category", year:"Year", type:"Type", task:"Task",
+        evaluate:"Evaluate", uneval:"Unevaluated", evaluating:"Evaluating...", evaluated:"Evaluated", error:"Evaluation error" },
+  de: { home:"Home", tasks:"Aufgaben", login:"Anmelden", themeDark:"Dunkel", themeLight:"Hell",
+        category:"Kategorie", year:"Jahr", type:"Typ", task:"Aufgabe",
+        evaluate:"Auswerten", uneval:"Nicht bewertet", evaluating:"Wird bewertet...", evaluated:"Bewertet", error:"Fehler bei der Auswertung" },
+  it: { home:"Home", tasks:"Compiti", login:"Accedi", themeDark:"Scuro", themeLight:"Chiaro",
+        category:"Categoria", year:"Anno", type:"Tipo", task:"Compito",
+        evaluate:"Valuta", uneval:"Non valutato", evaluating:"Valutando...", evaluated:"Valutato", error:"Errore di valutazione" },
+  hr: { home:"Home", tasks:"Zadaci", login:"Prijava", themeDark:"Tamno", themeLight:"Svijetlo",
+        category:"Kategorija", year:"Godina", type:"Tip", task:"Zadatak",
+        evaluate:"Procijeni", uneval:"Neocijenjeno", evaluating:"Procjenjivanje...", evaluated:"Ocijenjeno", error:"Greška u evaluaciji" },
+  fr: { home:"Home", tasks:"Tâches", login:"Connexion", themeDark:"Sombre", themeLight:"Clair",
+        category:"Catégorie", year:"Année", type:"Type", task:"Tâche",
+        evaluate:"Évaluer", uneval:"Non évalué", evaluating:"Évaluation...", evaluated:"Évalué", error:"Erreur d'évaluation" },
+  ru: { home:"Home", tasks:"Задания", login:"Войти", themeDark:"Тёмная", themeLight:"Светлая",
+        category:"Категория", year:"Год", type:"Тип", task:"Задача",
+        evaluate:"Оценить", uneval:"Неоценено", evaluating:"Оценка...", evaluated:"Оценено", error:"Ошибка оценки" }
 };
 
-function updateLanguage(lang) {
+function updateLanguage() {
   const t = translations[lang];
+  document.getElementById("home").textContent = t.home;
   document.getElementById("tasks").textContent = t.tasks;
   document.getElementById("login").textContent = t.login;
   themeLabel.textContent = darkMode ? t.themeLight : t.themeDark;
+  document.getElementById("ui-cat-label").textContent = t.category + ":";
+  document.getElementById("ui-year-label").textContent = t.year + ":";
+  document.getElementById("ui-mid-label").textContent = t.type + ":";
+  document.getElementById("ui-task-label").textContent = t.task + ":";
+  document.getElementById("evalBtn").textContent = t.evaluate;
+  if(document.getElementById("evalStatus").dataset.status){
+    document.getElementById("evalStatus").textContent = t[document.getElementById("evalStatus").dataset.status];
+  }
 }
 
-langSelect.addEventListener("change", (e) => {
+langSelect.addEventListener("change", e=>{
   lang = e.target.value;
   localStorage.setItem('lang', lang);
-  updateLanguage(lang);
+  updateLanguage();
 });
 
 function applyTheme() {
-  if(darkMode){
-    body.classList.add("dark","bg-gray-900","text-white");
-    body.classList.remove("light","bg-gray-50","text-gray-900");
-    navbar.classList.add("bg-gray-800"); navbar.classList.remove("bg-white");
-    themeIcon.setAttribute("data-lucide","sun");
-    themeLabel.textContent = translations[lang].themeLight;
-    [themeToggle, loginBtn].forEach(btn=>{
-      btn.classList.remove("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
-      btn.classList.add("bg-gray-900","text-white","border-gray-600","hover:bg-gray-700","hover:text-gray-200");
-    });
-    langSelect.classList.remove("text-gray-900"); langSelect.classList.add("text-white");
-    langSelect.parentElement.classList.remove("bg-white","border-gray-300");
-    langSelect.parentElement.classList.add("bg-gray-800","border-gray-600");
-  } else {
-    body.classList.add("light","bg-gray-50","text-gray-900");
-    body.classList.remove("dark","bg-gray-900","text-white");
-    navbar.classList.add("bg-white"); navbar.classList.remove("bg-gray-800");
-    themeIcon.setAttribute("data-lucide","moon");
-    themeLabel.textContent = translations[lang].themeDark;
-    [themeToggle, loginBtn].forEach(btn=>{
-      btn.classList.remove("bg-gray-900","text-white","hover:bg-gray-700","hover:text-gray-200");
-      btn.classList.add("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
-    });
-    langSelect.classList.remove("text-white"); langSelect.classList.add("text-gray-900");
-    langSelect.parentElement.classList.remove("bg-gray-800","border-gray-600");
-    langSelect.parentElement.classList.add("bg-white","border-gray-300");
-  }
+  const dark = darkMode;
+  body.classList.toggle("dark", dark);
+  body.classList.toggle("bg-gray-900", dark);
+  body.classList.toggle("text-white", dark);
+  body.classList.toggle("bg-gray-50", !dark);
+  body.classList.toggle("text-gray-900", !dark);
+  navbar.classList.toggle("bg-gray-800", dark);
+  navbar.classList.toggle("bg-white", !dark);
+
+  themeIcon.setAttribute("data-lucide", dark ? "sun" : "moon");
+  themeLabel.textContent = dark ? translations[lang].themeLight : translations[lang].themeDark;
+
+  // code input and results
+  document.querySelectorAll("#codeInput, #results, .bg-white").forEach(el=>{
+    el.classList.toggle("bg-gray-900", dark);
+    el.classList.toggle("bg-gray-800", dark);
+    el.classList.toggle("text-white", dark);
+    el.classList.toggle("bg-gray-50", !dark);
+    el.classList.toggle("bg-white", !dark);
+    el.classList.toggle("text-gray-900", !dark);
+  });
   lucide.createIcons();
 }
 
-themeToggle.addEventListener("click", () => {
+themeToggle.addEventListener("click", ()=>{
   darkMode = !darkMode;
-  localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+  localStorage.setItem('theme', darkMode?"dark":"light");
   applyTheme();
-  updateLanguage(lang);
+  updateLanguage();
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const savedLang = localStorage.getItem('lang');
-  if(savedTheme) darkMode = (savedTheme==='dark');
-  if(savedLang) { lang = savedLang; langSelect.value = lang; }
-  updateLanguage(lang);
-  applyTheme();
-});
-
-/* ========= LOAD STRUCTURE FROM localStorage ========= */
+/* ========= EVALUATION UI ========= */
 function loadStructure() {
   const cat = localStorage.kategorija || "empty";
   const year = localStorage.godina || "empty";
   const task = localStorage.zadatak || "empty";
-  let mid = "empty";
-  if (cat === "kategorija") mid = localStorage.kolo || "empty";
-  else if (cat === "hloz") mid = "—";
-  else mid = localStorage.razina || "empty";
-  document.getElementById("ui-cat").textContent = "Category: " + cat;
-  document.getElementById("ui-year").textContent = "Year: " + year;
-  document.getElementById("ui-mid").textContent = "Type: " + mid;
-  document.getElementById("ui-task").textContent = "Task: " + task;
+  let mid = localStorage.kolo || localStorage.razina || "empty";
+  document.getElementById("ui-cat").textContent = cat;
+  document.getElementById("ui-year").textContent = year;
+  document.getElementById("ui-mid").textContent = mid;
+  document.getElementById("ui-task").textContent = task;
 }
 
-/* ========= STATUS HANDLING ========= */
-function setStatus(text, cls) {
+function setStatus(key) {
   const el = document.getElementById("evalStatus");
-  el.textContent = text;
-  el.className = cls;
+  el.dataset.status = key;
+  el.textContent = translations[lang][key];
+  el.className = key==="uneval"?"status-ue":key==="evaluating"?"status-eval":"status-done";
 }
 
-/* ========= RENDER TEST RESULTS ========= */
 function renderResults(tests) {
   const res = document.getElementById("results");
   res.innerHTML = "";
-  tests.forEach((t, i)=>{
+  tests.forEach((t,i)=>{
     const row = document.createElement("div");
     row.className = t.status;
     row.textContent = `Test case #${i+1}: ${t.status} [${t.time}s, ${t.memory} MB] (${t.points})`;
@@ -234,14 +211,13 @@ function renderResults(tests) {
   });
 }
 
-/* ========= EVALUATE ========= */
-document.getElementById("evalBtn").addEventListener("click", () => {
-  const code = document.getElementById("codeInput").value;
-  setStatus("Evaluating...", "status-eval");
+document.getElementById("evalBtn").addEventListener("click", ()=>{
+  const code = document.getElementById("codeInput").value.trim();
+  if(!code){ setStatus("uneval"); alert("Paste your code before evaluating."); return; }
+  setStatus("evaluating");
   document.getElementById("results").innerHTML = "";
   fetch("https://YOUR_NGROK_URL/evaluate", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method:"POST", headers:{"Content-Type":"application/json"},
     body: JSON.stringify({
       kategorija: localStorage.kategorija || null,
       godina: localStorage.godina || null,
@@ -252,16 +228,17 @@ document.getElementById("evalBtn").addEventListener("click", () => {
     })
   })
   .then(r=>r.json())
-  .then(data=>{
-    setStatus("Evaluated","status-done");
-    renderResults(data.tests);
-  })
-  .catch(()=>{
-    setStatus("Evaluation error","ERR");
-  });
+  .then(data=>{ setStatus("evaluated"); renderResults(data.tests); })
+  .catch(()=>{ setStatus("error"); });
 });
 
-loadStructure();
+document.addEventListener("DOMContentLoaded", ()=>{
+  if(localStorage.getItem('theme')) darkMode = localStorage.getItem('theme')==='dark';
+  if(localStorage.getItem('lang')) { lang = localStorage.getItem('lang'); langSelect.value=lang; }
+  applyTheme();
+  updateLanguage();
+  loadStructure();
+});
 </script>
 
 </body>
