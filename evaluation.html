@@ -25,8 +25,11 @@
 <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white min-h-screen">
 
 <!-- NAVBAR -->
-<header class="fixed top-0 left-0 w-full z-50 flex justify-between px-6 py-4 bg-white dark:bg-gray-800 shadow">
-  <div class="flex items-center">
+<header class="fixed top-0 left-0 w-full z-50
+               flex justify-between px-6 py-4
+               bg-white dark:bg-gray-800 shadow">
+
+  <div class="flex items-center cursor-pointer">
     <span class="font-bold text-xl text-blue-600">EVA</span>
     <span class="highlight">LOGO</span>
     <span class="font-bold text-xl text-blue-600">TOR</span>
@@ -34,26 +37,53 @@
 
   <nav class="flex items-center gap-4">
 
-    <span id="home">Home</span>
-    <span id="tasks">Tasks</span>
-    <span id="scoreboard">Scoreboard</span>
+    <button class="px-3 py-1 rounded-xl
+                   text-gray-500 dark:text-gray-300
+                   hover:bg-gray-100 dark:hover:bg-gray-700">
+      <span id="home">Home</span>
+    </button>
 
-    <button id="loginBtn" class="px-3 py-1 rounded-xl bg-white dark:bg-[rgb(17,24,38)] border">
+    <button class="px-3 py-1 rounded-xl
+                   text-gray-500 dark:text-gray-300
+                   hover:bg-gray-100 dark:hover:bg-gray-700">
+      <span id="tasks">Tasks</span>
+    </button>
+
+    <button class="px-3 py-1 rounded-xl
+                   text-gray-500 dark:text-gray-300
+                   hover:bg-gray-100 dark:hover:bg-gray-700">
+      <span id="scoreboard">Scoreboard</span>
+    </button>
+
+    <!-- Login -->
+    <button id="loginBtn"
+      class="rounded-xl px-3 py-1
+             bg-white dark:bg-[rgb(17,24,38)]
+             text-gray-900 dark:text-white
+             border border-gray-300 dark:border-gray-600
+             hover:bg-gray-100 dark:hover:bg-gray-700">
       <span id="login">Login</span>
     </button>
 
-    <button id="themeToggle" class="px-3 py-1 rounded-xl bg-white dark:bg-[rgb(17,24,38)] border">
+    <!-- Theme -->
+    <button id="themeToggle"
+      class="rounded-xl px-3 py-1
+             bg-white dark:bg-[rgb(17,24,38)]
+             text-gray-900 dark:text-white
+             border border-gray-300 dark:border-gray-600
+             hover:bg-gray-100 dark:hover:bg-gray-700">
       <span id="themeLabel">Dark</span>
     </button>
 
+    <!-- Language -->
     <select id="langSelect"
-      class="px-2 py-1 rounded-xl border bg-white dark:bg-[rgb(17,24,38)] text-gray-900 dark:text-white">
+      class="px-2 py-1 rounded-xl
+             bg-white dark:bg-[rgb(17,24,38)]
+             text-gray-900 dark:text-white
+             border border-gray-300 dark:border-gray-600">
       <option value="en">EN</option>
       <option value="de">DE</option>
-      <option value="it">IT</option>
       <option value="hr">HR</option>
-      <option value="fr">FR</option>
-      <option value="ru">RU</option>
     </select>
 
   </nav>
@@ -63,17 +93,22 @@
 <main class="max-w-5xl mx-auto pt-28 px-6 flex flex-col gap-4">
 
   <div id="taskContext"
-    class="p-4 rounded-2xl bg-gray-100 dark:bg-gray-800 font-mono text-lg">
+    class="p-4 rounded-2xl bg-gray-100 dark:bg-gray-800
+           font-mono text-lg">
     empty
   </div>
 
   <textarea id="codeInput"
-    class="h-64 p-3 rounded-lg bg-gray-100 dark:bg-gray-900 border"
+    class="h-64 p-3 rounded-lg
+           bg-gray-100 dark:bg-gray-900
+           border border-gray-300 dark:border-gray-700"
     placeholder=""></textarea>
 
   <div class="flex items-center gap-4">
     <button id="evalBtn"
-      class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl">
+      class="px-6 py-2 rounded-xl
+             bg-blue-600 hover:bg-blue-700
+             text-white font-semibold">
       Evaluate
     </button>
 
@@ -133,20 +168,18 @@ function applyTranslations() {
   codeInput.placeholder = t.placeholder;
   themeLabel.textContent = darkMode ? t.light : t.dark;
 
-  // IMPORTANT: do NOT overwrite warning
-  if (!evalStatus.classList.contains("text-red-500")) {
+  // 🔥 FIX: translate warning too
+  if (evalStatus.classList.contains("text-red-500")) {
+    evalStatus.textContent = t.warning;
+  } else {
     evalStatus.textContent = t.unevaluated;
   }
 }
 
-/* ===== DARK MODE ===== */
+/* ===== THEME ===== */
 function applyTheme() {
   document.documentElement.classList.toggle("dark", darkMode);
-  themeLabel.textContent = darkMode
-    ? translations[lang].light
-    : translations[lang].dark;
 
-  // Fix dropdown options
   document.querySelectorAll("#langSelect option").forEach(opt => {
     opt.style.backgroundColor = darkMode ? "rgb(17,24,38)" : "white";
     opt.style.color = darkMode ? "white" : "black";
@@ -165,26 +198,26 @@ themeToggle.onclick = () => {
   darkMode = !darkMode;
   localStorage.setItem("theme", darkMode ? "dark" : "light");
   applyTheme();
+  applyTranslations();
 };
 
 evalBtn.onclick = () => {
   if (!codeInput.value.trim()) {
     evalStatus.textContent = translations[lang].warning;
     evalStatus.classList.add("text-red-500");
-    return;
   }
 };
 
 codeInput.oninput = () => {
   if (codeInput.value.trim()) {
-    evalStatus.textContent = translations[lang].unevaluated;
     evalStatus.classList.remove("text-red-500");
+    evalStatus.textContent = translations[lang].unevaluated;
   }
 };
 
 /* ===== INIT ===== */
-applyTranslations();
 applyTheme();
+applyTranslations();
 </script>
 
 </body>
