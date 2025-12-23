@@ -469,7 +469,7 @@ applyTheme();
     }
 
     function openPage(strGod, red) {
-  	    localStorage.setItem("kategorija", 'HLOZ');
+  	    localStorage.setItem("kategorija", "HLOZ");
         localStorage.setItem("god", strGod);
         localStorage.setItem("zadatak", ime_zadatak);
       
@@ -491,7 +491,7 @@ applyTheme();
                         ${translations[lang].inp}
                     </button>
                 </div>
-                <button class="eval-button" id="evalbtn" onclick="location.href='evaluation'>${translations[lang].eval}</button>
+                <button class="eval-button" id="evalbtn" onclick="location.href='evaluation'">${translations[lang].eval}</button>
                 <div class="score">0 / ${bodovi}</div>
             </div>
         `;
