@@ -1,47 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="transition-colors">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EVALOGOTOR - Tasks</title>
+
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class'
+  }
+</script>
+
 <script src="https://unpkg.com/lucide@latest"></script>
+
 <style>
-  .highlight { font-weight:bold; font-size:1.25rem; color:rgb(57,220,57); }
+  .highlight { font-weight: bold; font-size: 1.25rem; color: rgb(57,220,57); }
+
   .status-ue { color: #94a3b8; }
   .status-eval { color: #facc15; }
   .status-done { color: #22c55e; }
 
-  /* dark islands */
-  .island { background-color: #1f2937; color: white; border-radius: 1rem; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-  .code-area { background-color: #111827; color: white; border: 1px solid #374151; border-radius: 0.5rem; padding: 0.75rem; font-family: monospace; font-size: 0.875rem; height: 16rem; width: 100%; }
-  .results-area { background-color: #111827; color: white; border-radius: 0.5rem; padding: 1rem; font-family: monospace; font-size: 0.875rem; }
-
-  /* navbar buttons always dark */
-  .nav-dark { background-color: #111827; color: white; border: 1px solid #374151; border-radius: 0.75rem; padding: 0.25rem 0.75rem; display: flex; align-items: center; gap: 0.25rem; }
-
-  /* language dropdown dark */
-  #langSelect { background-color: #111827; color: white; border: none; outline: none; }
-
+  .code-area,
+  .results-area {
+    font-family: monospace;
+    font-size: 0.875rem;
+  }
 </style>
 </head>
-<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors">
 
-<header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white">
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white
+             min-h-screen flex flex-col transition-colors">
+
+<header class="flex items-center justify-between px-6 py-4 shadow-sm
+               bg-white dark:bg-gray-800">
+
   <div class="flex items-center group cursor-pointer">
     <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span>
-    <span class="highlight group-hover:text-[rgb(57,220,57)]">LOGO</span>
+    <span class="highlight">LOGO</span>
     <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
   </div>
+
   <nav class="flex items-center space-x-4">
-    <button id="homeBtn" class="px-3 py-1 hover:bg-gray-100 hover:text-blue-600">Home</button>
-    <button id="tasksBtn" class="px-3 py-1 hover:bg-gray-100 hover:text-blue-600">Tasks</button>
-    <button id="loginBtn" class="nav-dark"><i data-lucide="user" class="w-4 h-4"></i> Login</button>
-    <button id="themeToggle" class="nav-dark"><i id="themeIcon" data-lucide="moon" class="w-4 h-4"></i> <span id="themeLabel">Dark</span></button>
-    <div class="nav-dark">
+
+    <button id="homeBtn"
+      class="px-3 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+      Home
+    </button>
+
+    <button id="tasksBtn"
+      class="px-3 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+      Tasks
+    </button>
+
+    <button id="loginBtn"
+      class="flex items-center gap-1 px-3 py-1 rounded-xl
+             bg-gray-200 dark:bg-gray-700
+             border border-gray-300 dark:border-gray-600">
+      <i data-lucide="user" class="w-4 h-4"></i> Login
+    </button>
+
+    <button id="themeToggle"
+      class="flex items-center gap-1 px-3 py-1 rounded-xl
+             bg-gray-200 dark:bg-gray-700
+             border border-gray-300 dark:border-gray-600">
+      <i id="themeIcon" data-lucide="moon" class="w-4 h-4"></i>
+      <span id="themeLabel">Dark</span>
+    </button>
+
+    <div class="flex items-center gap-1 px-3 py-1 rounded-xl
+                bg-gray-200 dark:bg-gray-700
+                border border-gray-300 dark:border-gray-600">
       <i data-lucide="globe" class="w-4 h-4"></i>
-      <select id="langSelect">
-        <option value="en" selected>EN</option>
+      <select id="langSelect"
+        class="bg-transparent outline-none">
+        <option value="en">EN</option>
         <option value="de">DE</option>
         <option value="it">IT</option>
         <option value="hr">HR</option>
@@ -49,57 +82,67 @@
         <option value="ru">RU</option>
       </select>
     </div>
+
   </nav>
 </header>
 
 <main class="max-w-5xl mx-auto w-full px-6 py-6 flex flex-col gap-4">
 
-  <div class="island flex flex-wrap gap-4 font-mono text-sm">
+  <div class="rounded-2xl p-4 shadow
+              bg-gray-100 dark:bg-gray-800
+              font-mono text-sm flex flex-wrap gap-4">
     <span id="ui-cat-label">Category:</span> <span id="ui-cat">empty</span>
     <span id="ui-year-label">Year:</span> <span id="ui-year">empty</span>
     <span id="ui-mid-label">Type:</span> <span id="ui-mid">empty</span>
     <span id="ui-task-label">Task:</span> <span id="ui-task">empty</span>
   </div>
 
-  <div class="island">
-    <textarea id="codeInput" class="code-area" placeholder="Paste your solution code here..."></textarea>
-  </div>
+  <textarea id="codeInput"
+    class="code-area h-64 w-full rounded-lg p-3
+           bg-gray-100 dark:bg-gray-900
+           border border-gray-300 dark:border-gray-700"
+    placeholder="Paste your solution code here..."></textarea>
 
   <div class="flex items-center gap-4">
-    <button id="evalBtn" class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold">Evaluate</button>
+    <button id="evalBtn"
+      class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700
+             text-white font-semibold">
+      Evaluate
+    </button>
     <span id="evalStatus" class="status-ue font-semibold">Unevaluated</span>
   </div>
 
-  <div id="results" class="results-area"></div>
+  <div id="results"
+    class="results-area rounded-lg p-4
+           bg-gray-100 dark:bg-gray-900">
+  </div>
 
 </main>
 
 <script>
 lucide.createIcons();
 
-let darkMode = localStorage.getItem('theme')==='dark';
+let darkMode = localStorage.getItem('theme') === 'dark';
 let lang = localStorage.getItem('lang') || 'en';
 
 const translations = {
-  en: { home:"Home", tasks:"Tasks", login:"Login", themeDark:"Dark", themeLight:"Light",
-        category:"Category", year:"Year", type:"Type", task:"Task",
-        evaluate:"Evaluate", uneval:"Unevaluated", evaluating:"Evaluating...", evaluated:"Evaluated", error:"Evaluation error" },
-  de: { home:"Home", tasks:"Aufgaben", login:"Anmelden", themeDark:"Dunkel", themeLight:"Hell",
-        category:"Kategorie", year:"Jahr", type:"Typ", task:"Aufgabe",
-        evaluate:"Auswerten", uneval:"Nicht bewertet", evaluating:"Wird bewertet...", evaluated:"Bewertet", error:"Fehler bei der Auswertung" },
-  it: { home:"Home", tasks:"Compiti", login:"Accedi", themeDark:"Scuro", themeLight:"Chiaro",
-        category:"Categoria", year:"Anno", type:"Tipo", task:"Compito",
-        evaluate:"Valuta", uneval:"Non valutato", evaluating:"Valutando...", evaluated:"Valutato", error:"Errore di valutazione" },
-  hr: { home:"Home", tasks:"Zadaci", login:"Prijava", themeDark:"Tamno", themeLight:"Svijetlo",
-        category:"Kategorija", year:"Godina", type:"Tip", task:"Zadatak",
-        evaluate:"Procijeni", uneval:"Neocijenjeno", evaluating:"Procjenjivanje...", evaluated:"Ocijenjeno", error:"Greška u evaluaciji" },
-  fr: { home:"Home", tasks:"Tâches", login:"Connexion", themeDark:"Sombre", themeLight:"Clair",
-        category:"Catégorie", year:"Année", type:"Type", task:"Tâche",
-        evaluate:"Évaluer", uneval:"Non évalué", evaluating:"Évaluation...", evaluated:"Évalué", error:"Erreur d'évaluation" },
-  ru: { home:"Home", tasks:"Задания", login:"Войти", themeDark:"Тёмная", themeLight:"Светлая",
-        category:"Категория", year:"Год", type:"Тип", task:"Задача",
-        evaluate:"Оценить", uneval:"Неоценено", evaluating:"Оценка...", evaluated:"Оценено", error:"Ошибка оценки" }
+  en: { category:"Category", year:"Year", type:"Type", task:"Task",
+        evaluate:"Evaluate", themeDark:"Dark", themeLight:"Light" },
+  de: { category:"Kategorie", year:"Jahr", type:"Typ", task:"Aufgabe",
+        evaluate:"Auswerten", themeDark:"Dunkel", themeLight:"Hell" },
+  it: { category:"Categoria", year:"Anno", type:"Tipo", task:"Compito",
+        evaluate:"Valuta", themeDark:"Scuro", themeLight:"Chiaro" },
+  hr: { category:"Kategorija", year:"Godina", type:"Tip", task:"Zadatak",
+        evaluate:"Procijeni", themeDark:"Tamno", themeLight:"Svijetlo" },
+  fr: { category:"Catégorie", year:"Année", type:"Type", task:"Tâche",
+        evaluate:"Évaluer", themeDark:"Sombre", themeLight:"Clair" },
+  ru: { category:"Категория", year:"Год", type:"Тип", task:"Задача",
+        evaluate:"Оценить", themeDark:"Тёмная", themeLight:"Светлая" }
 };
+
+function applyTheme() {
+  document.documentElement.classList.toggle('dark', darkMode);
+}
 
 function updateLanguage() {
   const t = translations[lang];
@@ -108,38 +151,25 @@ function updateLanguage() {
   document.getElementById("ui-mid-label").textContent = t.type + ":";
   document.getElementById("ui-task-label").textContent = t.task + ":";
   document.getElementById("evalBtn").textContent = t.evaluate;
-  document.getElementById("themeLabel").textContent = darkMode ? t.themeLight : t.themeDark;
+  document.getElementById("themeLabel").textContent =
+    darkMode ? t.themeLight : t.themeDark;
 }
 
-langSelect.addEventListener("change", e=>{
+document.getElementById("themeToggle").onclick = () => {
+  darkMode = !darkMode;
+  localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+  applyTheme();
+  updateLanguage();
+};
+
+langSelect.onchange = e => {
   lang = e.target.value;
   localStorage.setItem('lang', lang);
   updateLanguage();
-});
+};
 
-function applyTheme() {
-  if(darkMode){
-    document.body.classList.add("bg-gray-900","text-white");
-    document.body.classList.remove("bg-gray-50","text-gray-900");
-  } else {
-    document.body.classList.add("bg-gray-50","text-gray-900");
-    document.body.classList.remove("bg-gray-900","text-white");
-  }
-}
-
-document.getElementById("themeToggle").addEventListener("click", ()=>{
-  darkMode = !darkMode;
-  localStorage.setItem('theme', darkMode?"dark":"light");
-  applyTheme();
-  updateLanguage();
-});
-
-document.addEventListener("DOMContentLoaded", ()=>{
-  if(localStorage.getItem('theme')) darkMode = localStorage.getItem('theme')==='dark';
-  if(localStorage.getItem('lang')) { lang = localStorage.getItem('lang'); langSelect.value=lang; }
-  applyTheme();
-  updateLanguage();
-});
+applyTheme();
+updateLanguage();
 </script>
 
 </body>
