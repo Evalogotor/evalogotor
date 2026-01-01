@@ -26,7 +26,6 @@
   class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white
          min-h-screen flex flex-col transition-colors">
 
-<!-- ================= NAVBAR ================= -->
 <header
   class="fixed top-0 left-0 w-full z-50
          flex items-center justify-between px-6 py-4 shadow-sm
@@ -91,7 +90,7 @@
   </nav>
 </header>
 
-<!-- ================= MAIN ================= -->
+
 <main class="max-w-5xl mx-auto w-full px-6 pt-28 pb-6 flex flex-col gap-4">
 
   <div id="taskContext"
@@ -123,7 +122,6 @@
 <script>
 lucide.createIcons();
 
-/* ========= TRANSLATIONS ========= */
 const translations = {
   en: {
     home:"Home", tasks:"Tasks", scoreboard:"Scoreboard", login:"Login",
@@ -207,8 +205,8 @@ document.getElementById("langSelect").onchange = e => {
 document.getElementById("themeToggle").onclick = () => {
   darkMode = !darkMode;
   localStorage.setItem("theme", darkMode ? "dark" : "light");
-  applyTheme();      // ✅ Update all button styles, labels, and dropdown
-  applyTranslations(); // optional if you want to update theme label text
+  applyTheme(); 
+  applyTranslations();
 };
 
 /* ========= TASK CONTEXT ========= */
@@ -217,15 +215,17 @@ function loadTaskContext(){
   const g = localStorage.getItem("god") || "empty";
   const z = localStorage.getItem("zadatak") || "empty";
   const ko = localStorage.getItem("kolo") || "empty";
-
-  g = g.replace(".", "/");        // 2023.2024 → 2023/2024
-  ko = ko.replace(".", ". ");     // 1.kolo → 1. kolo
   
   let text = "";
-  if(k.toLowerCase()==="hll") text = `HLL → ${g} → ${ko} → ${z}`;
-  else if(k.toLowerCase()==="hloz") text = `HLOŽ → ${g} → ${z}`;
-  else text = `${k} → ${g} → ${ko} → ${z}`;
-
+  if(k.toLowerCase()==="hll"){
+    g = g.replace(".", "/");
+    ko = ko.replace(".", ". ");
+    text = `HLL → ${g} → ${ko} → ${z}`;
+  } else if(k.toLowerCase()==="hloz"){ 
+    text = `HLOŽ → ${g} → ${z}`;
+  } else {
+    text = `${k} → ${g} → ${ko} → ${z}`;
+  }
   document.getElementById("taskContext").textContent = text;
 }
 
