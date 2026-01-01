@@ -212,9 +212,9 @@ document.getElementById("themeToggle").onclick = () => {
 /* ========= TASK CONTEXT ========= */
 function loadTaskContext(){
   const k = localStorage.getItem("kategorija") || "empty";
-  const g = localStorage.getItem("god") || "empty";
+  let g = localStorage.getItem("god") || "empty";
   const z = localStorage.getItem("zadatak") || "empty";
-  const ko = localStorage.getItem("kolo") || "empty";
+  let ko = localStorage.getItem("kolo") || "empty";
   
   let text = "";
   if(k.toLowerCase()==="hll"){
