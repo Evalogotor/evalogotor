@@ -88,7 +88,7 @@
              bg-white dark:bg-[rgb(17,24,38)]
              border border-gray-300 dark:border-gray-600
              hover:bg-gray-100 dark:hover:bg-gray-700">
-      <i data-lucide="moon" class="w-4 h-4 mr-1"></i>
+      <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i>
       <span id="themeLabel">Dark</span>
     </button>
 
@@ -295,7 +295,11 @@ function applyTheme() {
       el.classList.add("bg-white","text-gray-900","hover:bg-gray-100","hover:text-gray-900","border-gray-300");
     }
   });
-
+  if(darkMode){
+    themeIcon.setAttribute("data-lucide", "sun");
+  }else {
+    themeIcon.setAttribute("data-lucide", "moon");
+  }
   // Update dropdown options
   document.querySelectorAll("#langSelect option").forEach(opt => {
     opt.style.backgroundColor = darkMode ? "rgb(17,24,38)" : "white";
