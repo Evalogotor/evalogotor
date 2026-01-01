@@ -218,6 +218,9 @@ function loadTaskContext(){
   const z = localStorage.getItem("zadatak") || "empty";
   const ko = localStorage.getItem("kolo") || "empty";
 
+  g = g.replace(".", "/");        // 2023.2024 → 2023/2024
+  ko = ko.replace(".", ". ");     // 1.kolo → 1. kolo
+  
   let text = "";
   if(k.toLowerCase()==="hll") text = `HLL → ${g} → ${ko} → ${z}`;
   else if(k.toLowerCase()==="hloz") text = `HLOŽ → ${g} → ${z}`;
