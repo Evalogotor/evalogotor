@@ -322,7 +322,7 @@ function applyTheme() {
       opt.style.color = "black";
     });
   }
-  lucide.createIcons();
+  lucide.replace({ parent: themeIcon.parentNode });
 }
 
 themeToggle.addEventListener("click", () => {
