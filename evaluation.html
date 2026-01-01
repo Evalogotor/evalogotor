@@ -27,27 +27,48 @@
          min-h-screen flex flex-col transition-colors">
 
 <header
+  id="navbar"
   class="fixed top-0 left-0 w-full z-50
          flex items-center justify-between px-6 py-4 shadow-sm
          bg-white dark:bg-gray-800">
 
+  <!-- LOGO -->
   <div class="flex items-center group cursor-pointer">
-    <span class="font-bold text-xl text-blue-600">EVA</span>
-    <span class="highlight">LOGO</span>
-    <span class="font-bold text-xl text-blue-600">TOR</span>
+    <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span>
+    <span class="highlight group-hover:text-[rgb(57,220,57)]">LOGO</span>
+    <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
   </div>
 
+  <!-- NAV -->
   <nav class="flex items-center space-x-4">
 
-    <button class="px-3 py-1 rounded-xl text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+    <!-- Home -->
+    <button
+      class="flex items-center space-x-1 rounded-xl px-3 py-1
+             text-gray-500 dark:text-gray-300
+             hover:text-blue-600 hover:bg-gray-100
+             dark:hover:bg-gray-700">
+      <i data-lucide="home" class="w-4 h-4"></i>
       <span id="home">Home</span>
     </button>
 
-    <button class="px-3 py-1 rounded-xl text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+    <!-- Tasks -->
+    <button
+      class="flex items-center space-x-1 rounded-xl px-3 py-1
+             text-gray-500 dark:text-gray-300
+             hover:text-blue-600 hover:bg-gray-100
+             dark:hover:bg-gray-700">
+      <i data-lucide="pen-tool" class="w-4 h-4"></i>
       <span id="tasks">Tasks</span>
     </button>
 
-    <button class="px-3 py-1 rounded-xl text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+    <!-- Scoreboard -->
+    <button
+      class="flex items-center space-x-1 rounded-xl px-3 py-1
+             text-gray-500 dark:text-gray-300
+             hover:text-blue-600 hover:bg-gray-100
+             dark:hover:bg-gray-700">
+      <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
       <span id="scoreboard">Scoreboard</span>
     </button>
 
@@ -55,7 +76,8 @@
     <button id="loginBtn"
       class="rounded-xl flex items-center px-3 py-1
              bg-white dark:bg-[rgb(17,24,38)]
-             border border-gray-300 dark:border-gray-600">
+             border border-gray-300 dark:border-gray-600
+             hover:bg-gray-100 dark:hover:bg-gray-700">
       <i data-lucide="user" class="w-4 h-4 mr-1"></i>
       <span id="login">Login</span>
     </button>
@@ -64,7 +86,8 @@
     <button id="themeToggle"
       class="rounded-xl flex items-center px-3 py-1
              bg-white dark:bg-[rgb(17,24,38)]
-             border border-gray-300 dark:border-gray-600">
+             border border-gray-300 dark:border-gray-600
+             hover:bg-gray-100 dark:hover:bg-gray-700">
       <i data-lucide="moon" class="w-4 h-4 mr-1"></i>
       <span id="themeLabel">Dark</span>
     </button>
