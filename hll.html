@@ -1465,14 +1465,14 @@
             } else if (contentType === '253') {
                 var buttonZadaci = `
                 <div class="task-buttons">
-                    <button onclick="changeContent('auto')">Auto</button>
-                    <button onclick="changeContent('balon')">Balon</button>
-                    <button onclick="changeContent('helikopter')">Helikopter</button>
-                    <button onclick="changeContent('tramvaj')">Tramvaj</button>
-                    <button onclick="changeContent('Vlak')">Vlak</button>
-                    <button onclick="changeContent('monocikl')">Monocikl</button>
-                    <button onclick="changeContent('tok')">Tok</button>
-                    <button onclick="changeContent('tanjur')">Tanjur</button>
+                    <button onclick="changeContent('ulica')">Ulica</button>
+                    <button onclick="changeContent('Kuca')">Kuca</button>
+                    <button onclick="changeContent('zaboravljeni')">Zaboravljeni</button>
+                    <button onclick="changeContent('bor')">Bor</button>
+                    <button onclick="changeContent('kolo')">Kolo</button>
+                    <button onclick="changeContent('ameba')">Ameba</button>
+                    <button onclick="changeContent('atom')">Atom</button>
+                    <button onclick="changeContent('elektron')">Elektron</button>
                 </div>
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
@@ -2361,6 +2361,22 @@
                 openPage('2025_2026', 2, 10, 7);
             } else if (contentType === 'tanjur') {
                 openPage('2025_2026', 2, 11, 8);
+            } else if (contentType === 'ulica') {
+                openPage('2025_2026', 3, 2, 1);
+            } else if (contentType === 'Kuca') {
+                openPage('2025_2026', 3, 3, 2);
+            } else if (contentType === 'zaboravljeni') {
+                openPage('2025_2026', 3, 4, 3);
+            } else if (contentType === 'bor') {
+                openPage('2025_2026', 3, 5, 4);
+            } else if (contentType === 'kolo') {
+                openPage('2025_2026', 3, 6, 5);
+            } else if (contentType === 'ameba') {
+                openPage('2025_2026', 3, 7, 6);
+            } else if (contentType === 'atom') {
+                openPage('2025_2026', 3, 9, 7);
+            } else if (contentType === 'elektron') {
+                openPage('2025_2026', 3, 12, 8);
             }
         }
 
@@ -2416,6 +2432,7 @@
     </script>
 </body>
 </html>
+
 
 
 
