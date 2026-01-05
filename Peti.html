@@ -571,7 +571,6 @@
                 <div class="vertical-buttons">
                     <button onclick="changeContent('231')">Školsko</button>
                     <button onclick="changeContent('232')">Županijsko</button>
-                    <button onclick="changeContent('233')">Državno</button>
                 </div>
             `;
                 document.getElementById('kola').innerHTML = buttonskola;
@@ -1042,18 +1041,6 @@
                     <button onclick="changeContent('traktor')">Traktor</button>
                     <button onclick="changeContent('tijara')">Tijara</button>
                     <button onclick="changeContent('luster')">Luster</button>
-                </div>
-                `;  
-                document.getElementById('zadaci').innerHTML = buttonZadaci;
-                document.getElementById('zadatak').innerHTML = '';
-                attachVerticalButtonListeners();
-            } else if (contentType === '233') {
-                var buttonZadaci = `
-                <div class="task-buttons">
-                    <button onclick="changeContent('')"></button>
-                    <button onclick="changeContent('')"></button>
-                    <button onclick="changeContent('')"></button>
-                    <button onclick="changeContent('')"></button>
                 </div>
                 `;  
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
@@ -1537,6 +1524,7 @@
         }
     </script>
 </html>
+
 
 
 
