@@ -448,25 +448,25 @@ applyTheme();
         
         //Zadaci
         if (contentType === 'sok') {
-            openPage('2024', 1);
+            openPage('2024', 1, 2);
         } else if (contentType === 'slika') {
-            openPage('2024', 2);
+            openPage('2024', 2, 3);
         } else if (contentType === 'pompidou') {
-            openPage('2024', 3);
+            openPage('2024', 3, 4);
         }else if (contentType === 'javor') {
-            openPage('2024', 4);
+            openPage('2024', 4, 5);
         } else if (contentType === 'vrijeme') {
-            openPage('2024', 5);
+            openPage('2024', 5, 6);
         } else if (contentType === 'Željeznica') {
-            openPage('2024', 6);
+            openPage('2024', 6, 7);
         } else if (contentType === 'bB') {
-            openPage('2024', 7);
+            openPage('2024', 7, 9);
         }else if (contentType === 'svjetionik') {
-            openPage('2024', 8);
+            openPage('2024', 8, 11);
         }
     }
 
-    function openPage(strGod, red) {
+    function openPage(strGod, red, pag) {
   	    localStorage.setItem("kategorija", "HLOZ");
         localStorage.setItem("god", strGod);
         localStorage.setItem("zadatak", ime_zadatak);
@@ -485,7 +485,7 @@ applyTheme();
             <div class="eval-basket">
                 <div class="score">${ime_zadatak}</div>
                 <div class="zadatak_struk">
-                    <button class="text-blue-600" id="inp" onclick="window.open('https://logoolympiads.eu/wp-content/uploads/2025/02/HLOZ_${strGod}.pdf#page=${red}', '_blank');">
+                    <button class="text-blue-600" id="inp" onclick="window.open('https://logoolympiads.eu/wp-content/uploads/2025/02/HLOZ_${strGod}.pdf#page=${pag}', '_blank');">
                         ${translations[lang].inp}
                     </button>
                 </div>
