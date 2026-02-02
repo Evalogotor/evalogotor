@@ -1,321 +1,571 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="transition-colors">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>EVALOGOTOR - Tasks</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = { darkMode: 'class' }
-</script>
-
-<script src="https://unpkg.com/lucide@latest"></script>
-
-<style>
-  .highlight {
-    font-weight: bold;
-    font-size: 1.25rem;
-    color: rgb(57, 220, 57);
-  }
-  .status-ue { color: #94a3b8; }
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EVALOGOTOR - Evaluate HLL Task</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- CodeMirror for code editing -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/clike/clike.min.js"></script>
+    
+    <style>
+        .highlight {
+            font-weight: bold;
+            font-size: 1.25rem;
+            color: rgb(57, 220, 57);
+        }
+        .CodeMirror {
+            height: 400px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        .status-pending { color: #f59e0b; }
+        .status-processing { color: #3b82f6; }
+        .status-completed { color: #10b981; }
+        .status-error { color: #ef4444; }
+        
+        .test-pass { background-color: #d1fae5; border-left: 4px solid #10b981; }
+        .test-fail { background-color: #fee2e2; border-left: 4px solid #ef4444; }
+        .test-error { background-color: #fef3c7; border-left: 4px solid #f59e0b; }
+    </style>
 </head>
 
-<body id="body"
-  class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white
-         min-h-screen flex flex-col transition-colors">
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white min-h-screen flex flex-col transition-colors">
+    
+    <!-- Navbar (same as hll.html) -->
+    <header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white dark:bg-gray-800" id="navbar">
+        <div class="flex items-center group cursor-pointer">
+            <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span>
+            <span class="highlight group-hover:text-[rgb(57,220,57)]">LOGO</span>
+            <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
+        </div>
+        <nav class="flex items-center space-x-4">
+            <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-700" onclick="location.href='/'">
+                <i data-lucide="home" class="w-4 h-4"></i> <span>Home</span>
+            </button>
+            <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-700" onclick="location.href='hll.html'">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> <span>Back to HLL</span>
+            </button>
+        </nav>
+    </header>
 
-<header
-  id="navbar"
-  class="fixed top-0 left-0 w-full z-50
-         flex items-center justify-between px-6 py-4 shadow-sm
-         bg-white dark:bg-gray-800">
+    <main class="max-w-6xl mx-auto w-full px-6 pt-24 pb-6 flex flex-col gap-6">
+        
+        <!-- Task Info Banner -->
+        <div id="taskInfo" class="rounded-xl p-4 shadow bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold" id="taskTitle">Loading task...</h1>
+                    <div class="text-gray-600 dark:text-gray-300 mt-2" id="taskPath"></div>
+                </div>
+                <div class="text-right">
+                    <div class="text-sm text-gray-500">Maximum points</div>
+                    <div class="text-2xl font-bold" id="maxPoints">0</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Left Column: Code Editor -->
+            <div class="lg:col-span-2">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold">FMSLogo Code</h2>
+                        <div class="flex gap-2">
+                            <button onclick="loadTemplate()" class="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600">
+                                <i data-lucide="file-text" class="w-4 h-4 inline mr-1"></i> Template
+                            </button>
+                            <button onclick="clearCode()" class="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600">
+                                <i data-lucide="trash-2" class="w-4 h-4 inline mr-1"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+                    <textarea id="codeEditor" class="hidden"></textarea>
+                    <div id="editor" class="border rounded"></div>
+                    
+                    <div class="mt-4 flex justify-between items-center">
+                        <div>
+                            <button id="submitBtn" onclick="submitCode()" 
+                                class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg flex items-center">
+                                <i data-lucide="play" class="w-5 h-5 mr-2"></i>
+                                <span id="submitText">Submit Solution</span>
+                            </button>
+                        </div>
+                        <div id="statusIndicator" class="flex items-center gap-2">
+                            <i data-lucide="circle" class="w-4 h-4 text-gray-400" id="statusIcon"></i>
+                            <span class="text-sm" id="statusText">Ready to submit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column: Job Status & Results -->
+            <div class="space-y-6">
+                <!-- Job Status Card -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+                    <h3 class="text-lg font-semibold mb-4">Evaluation Status</h3>
+                    <div class="space-y-3">
+                        <div id="jobStatus" class="text-center p-4 rounded-lg bg-gray-50 dark:bg-gray-700">
+                            <div class="text-2xl font-bold mb-2" id="jobStatusTitle">Idle</div>
+                            <div class="text-sm text-gray-500" id="jobStatusDesc">Waiting for submission</div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="text-center p-3 rounded bg-blue-50 dark:bg-blue-900/20">
+                                <div class="text-sm text-gray-500">Job ID</div>
+                                <div class="font-mono text-sm truncate" id="jobId">-</div>
+                            </div>
+                            <div class="text-center p-3 rounded bg-green-50 dark:bg-green-900/20">
+                                <div class="text-sm text-gray-500">Queue Position</div>
+                                <div class="font-bold" id="queuePos">-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Results Preview -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+                    <h3 class="text-lg font-semibold mb-4">Results Preview</h3>
+                    <div class="text-center p-6" id="resultsPlaceholder">
+                        <i data-lucide="bar-chart-3" class="w-12 h-12 mx-auto text-gray-300 mb-3"></i>
+                        <p class="text-gray-500">Results will appear here after evaluation</p>
+                    </div>
+                    <div id="resultsContent" class="hidden">
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <span class="text-2xl font-bold" id="scoreValue">0</span>
+                                <span class="text-gray-500">/</span>
+                                <span id="scoreMax">0</span>
+                                <span class="text-gray-500">points</span>
+                            </div>
+                            <div class="text-sm px-3 py-1 rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200" id="passRate">
+                                0/0 tests
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2 max-h-60 overflow-y-auto" id="testResults">
+                            <!-- Test results will be inserted here -->
+                        </div>
+                        
+                        <div class="mt-4 pt-4 border-t dark:border-gray-700">
+                            <button onclick="viewDetailedResults()" class="w-full py-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded">
+                                View Detailed Results
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed Results Modal (hidden by default) -->
+        <div id="resultsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+                <div class="p-6 border-b dark:border-gray-700 flex justify-between items-center">
+                    <h2 class="text-xl font-bold">Detailed Evaluation Results</h2>
+                    <button onclick="closeResultsModal()" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div class="p-6 overflow-y-auto max-h-[70vh]" id="detailedResults">
+                    <!-- Detailed results will be inserted here -->
+                </div>
+            </div>
+        </div>
+        
+    </main>
 
-  <!-- LOGO -->
-  <div class="flex items-center group cursor-pointer">
-    <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span>
-    <span class="highlight group-hover:text-[rgb(57,220,57)]">LOGO</span>
-    <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
-  </div>
+    <script>
+        // Cloudflare Worker URL
+        const CLOUDFLARE_WORKER_URL = 'https://your-worker.workers.dev';
+        
+        // Global variables
+        let currentJobId = null;
+        let pollInterval = null;
+        let codeEditor = null;
+        
+        // Initialize CodeMirror editor
+        function initCodeEditor() {
+            const editorElement = document.getElementById('editor');
+            codeEditor = CodeMirror(editorElement, {
+                mode: 'clike',
+                lineNumbers: true,
+                theme: document.documentElement.classList.contains('dark') ? 'dracula' : 'default',
+                lineWrapping: true,
+                indentUnit: 2,
+                tabSize: 2,
+                autofocus: true
+            });
+            
+            // Load default FMSLogo template
+            loadTemplate();
+            
+            // Update theme when dark mode changes
+            const observer = new MutationObserver(() => {
+                if (codeEditor) {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    codeEditor.setOption('theme', isDark ? 'dracula' : 'default');
+                }
+            });
+            observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+        }
+        
+        // Load template FMSLogo code
+        function loadTemplate() {
+            const template = `; FMSLogo Solution Template
+; Define your main procedure here
+TO MAIN
+  ; Your code goes here
+  ; Example: Draw a square
+  REPEAT 4 [FD 100 RT 90]
+END
 
-  <!-- NAV -->
-  <nav class="flex items-center space-x-4">
-
-    <!-- Home -->
-    <button
-      class="flex items-center space-x-1 rounded-xl px-3 py-1
-             text-gray-500 dark:text-gray-300
-             hover:text-blue-600 hover:bg-gray-100
-             dark:hover:bg-gray-700" onclick="location.href='/'">
-      <i data-lucide="home" class="w-4 h-4"></i>
-      <span id="home">Home</span>
-    </button>
-
-    <!-- Tasks -->
-    <button
-      class="flex items-center space-x-1 rounded-xl px-3 py-1
-             text-gray-500 dark:text-gray-300
-             hover:text-blue-600 hover:bg-gray-100
-             dark:hover:bg-gray-700" onclick="location.href='tasks'">
-      <i data-lucide="pen-tool" class="w-4 h-4"></i>
-      <span id="tasks">Tasks</span>
-    </button>
-
-    <!-- Scoreboard -->
-    <button
-      class="flex items-center space-x-1 rounded-xl px-3 py-1
-             text-gray-500 dark:text-gray-300
-             hover:text-blue-600 hover:bg-gray-100
-             dark:hover:bg-gray-700" onclick="location.href='scoreboard'">
-      <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
-      <span id="scoreboard">Scoreboard</span>
-    </button>
-
-    <!-- Login -->
-    <button id="loginBtn"
-      class="rounded-xl flex items-center px-3 py-1
-             bg-white dark:bg-[rgb(17,24,38)]
-             border border-gray-300 dark:border-gray-600
-             hover:bg-gray-100 dark:hover:bg-gray-700" onclick="location.href='login'">
-      <i data-lucide="user" class="w-4 h-4 mr-1"></i>
-      <span id="login">Login</span>
-    </button>
-
-    <!-- Theme -->
-    <button id="themeToggle"
-      class="rounded-xl flex items-center px-3 py-1
-             bg-white dark:bg-[rgb(17,24,38)]
-             border border-gray-300 dark:border-gray-600
-             hover:bg-gray-100 dark:hover:bg-gray-700">
-      <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i>
-      <span id="themeLabel">Dark</span>
-    </button>
-
-    <!-- Language -->
-    <div
-      class="flex items-center rounded-xl px-2 py-1
-             border border-gray-300 dark:border-gray-600
-             bg-white dark:bg-[rgb(17,24,38)]">
-      <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
-      <select id="langSelect"
-        class="bg-transparent focus:outline-none
-               text-gray-900 dark:text-white">
-        <option value="en">EN</option>
-        <option value="de">DE</option>
-        <option value="it">IT</option>
-        <option value="hr">HR</option>
-        <option value="fr">FR</option>
-        <option value="ru">RU</option>
-      </select>
-    </div>
-
-  </nav>
-</header>
-
-
-<main class="max-w-5xl mx-auto w-full px-6 pt-28 pb-6 flex flex-col gap-4">
-
-  <div id="taskContext"
-       class="rounded-2xl p-4 shadow
-              bg-gray-100 dark:bg-gray-800
-              font-mono text-[1.15rem] font-medium">
-    empty
-  </div>
-
-  <textarea id="codeInput"
-    class="h-64 w-full rounded-lg p-3 font-mono text-sm
-           bg-gray-100 dark:bg-gray-900
-           border border-gray-300 dark:border-gray-700"
-    placeholder=""></textarea>
-
-  <div class="flex items-center gap-4">
-    <button id="evalBtn"
-      class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700
-             text-white font-semibold">
-      Evaluate
-    </button>
-    <span id="evalStatus" class="status-ue font-semibold">
-      Unevaluated
-    </span>
-  </div>
-
-</main>
-
-<script>
-lucide.createIcons();
-
-const translations = {
-  en: {
-    home:"Home", tasks:"Tasks", scoreboard:"Scoreboard", login:"Login",
-    dark:"Dark", light:"Light",
-    evaluate:"Evaluate",
-    unevaluated:"Unevaluated",
-    placeholder:"Paste your solution code here...",
-    warning:"⚠️ Please paste your solution before evaluation"
-  },
-  de: {
-    home:"Home", tasks:"Aufgaben", scoreboard:"Rangliste", login:"Anmelden",
-    dark:"Dunkel", light:"Hell",
-    evaluate:"Auswerten",
-    unevaluated:"Nicht bewertet",
-    placeholder:"Lösungscode hier einfügen...",
-    warning:"⚠️ Bitte füge vor der Auswertung deinen Code ein"
-  },
-  it: {
-    home:"Home", tasks:"Compiti", scoreboard:"Classifica", login:"Accedi",
-    dark:"Scuro", light:"Chiaro",
-    evaluate:"Valuta",
-    unevaluated:"Non valutato",
-    placeholder:"Incolla qui il codice...",
-    warning:"⚠️ Inserisci il codice prima della valutazione"
-  },
-  hr: {
-    home:"Home", tasks:"Zadaci", scoreboard:"Ljestvica", login:"Prijava",
-    dark:"Tamno", light:"Svijetlo",
-    evaluate:"Evaluiraj",
-    unevaluated:"Neocijenjeno",
-    placeholder:"Zalijepite ovdje rješenje...",
-    warning:"⚠️ Morate unijeti rješenje prije evaluacije"
-  },
-  fr: {
-    home:"Home", tasks:"Tâches", scoreboard:"Classement", login:"Connexion",
-    dark:"Sombre", light:"Clair",
-    evaluate:"Évaluer",
-    unevaluated:"Non évalué",
-    placeholder:"Collez votre code ici...",
-    warning:"⚠️ Veuillez coller votre solution avant l’évaluation"
-  },
-  ru: {
-    home:"Home", tasks:"Задания", scoreboard:"Рейтинг", login:"Войти",
-    dark:"Тёмный", light:"Светлый",
-    evaluate:"Оценить",
-    unevaluated:"Неоценено",
-    placeholder:"Вставьте ваш код здесь...",
-    warning:"⚠️ Пожалуйста, вставьте решение перед оценкой"
-  }
-};
-
-let lang = localStorage.getItem("lang") || "en";
-let darkMode = localStorage.getItem("theme") === "dark";
-
-/* ========= APPLY LANGUAGE ========= */
-function applyTranslations(){
-  document.getElementById("home").textContent = translations[lang].home;
-  document.getElementById("tasks").textContent = translations[lang].tasks;
-  document.getElementById("scoreboard").textContent = translations[lang].scoreboard;
-  document.getElementById("login").textContent = translations[lang].login;
-  document.getElementById("evalBtn").textContent = translations[lang].evaluate;
-  document.getElementById("codeInput").placeholder = translations[lang].placeholder;
-  document.getElementById("themeLabel").textContent =
-    darkMode ? translations[lang].light : translations[lang].dark;
-
-  if(!evalStatus.classList.contains("text-red-500")){
-    evalStatus.textContent = translations[lang].unevaluated;
-  }else{
-    evalStatus.textContent = translations[lang].warning;
-  }
-}
-
-document.getElementById("langSelect").value = lang;
-document.getElementById("langSelect").onchange = e => {
-  lang = e.target.value;
-  localStorage.setItem("lang", lang);
-  applyTranslations();
-};
-
-/* ========= THEME ========= */
-document.getElementById("themeToggle").onclick = () => {
-  darkMode = !darkMode;
-  localStorage.setItem("theme", darkMode ? "dark" : "light");
-  applyTheme(); 
-  applyTranslations();
-};
-
-/* ========= TASK CONTEXT ========= */
-function loadTaskContext(){
-  const k = localStorage.getItem("kategorija") || "empty";
-  let g = localStorage.getItem("god") || "empty";
-  const z = localStorage.getItem("zadatak") || "empty";
-  let ko = localStorage.getItem("kolo") || "empty";
-  
-  let text = "";
-  if(k.toLowerCase()==="hll"){
-    g = g.replace(".", "/");
-    text = `HLL → ${g} → ${ko} → ${z}`;
-  } else if(k.toLowerCase()==="hloz"){ 
-    text = `HLOŽ → ${g} → ${z}`;
-  } else {
-    text = `${k} → ${g} → ${ko} → ${z}`;
-  }
-  document.getElementById("taskContext").textContent = text;
-}
-
-/* ========= EVALUATION WARNING ========= */
-const evalBtn = document.getElementById("evalBtn");
-const evalStatus = document.getElementById("evalStatus");
-const codeInput = document.getElementById("codeInput");
-
-evalBtn.onclick = () => {
-  if(!codeInput.value.trim()){
-    evalStatus.textContent = translations[lang].warning;
-    evalStatus.classList.add("text-red-500");
-    return;
-  }
-  evalStatus.textContent = translations[lang].unevaluated;
-  evalStatus.classList.remove("text-red-500");
-};
-
-codeInput.oninput = () => {
-  if(codeInput.value.trim()){
-    evalStatus.textContent = translations[lang].unevaluated;
-    evalStatus.classList.remove("text-red-500");
-  }
-};
-
-function applyTheme() {
-  document.documentElement.classList.toggle("dark", darkMode);
-
-  const themeLabel = document.getElementById("themeLabel");
-  themeLabel.textContent = darkMode ? translations[lang].light : translations[lang].dark;
-
-  // Buttons + language wrapper
-  const elements = [
-    document.getElementById("loginBtn"),
-    document.getElementById("themeToggle"),
-    document.getElementById("langSelect").parentElement
-  ];
-
-  elements.forEach(el => {
-    if(darkMode){
-      el.classList.remove("bg-white","text-gray-900","hover:bg-gray-100","hover:text-gray-900","border-gray-300");
-      el.classList.add("bg-[rgb(17,24,38)]","text-white","hover:bg-gray-700","hover:text-white","border-gray-600");
-    } else {
-      el.classList.remove("bg-[rgb(17,24,38)]","text-white","hover:bg-gray-700","hover:text-white","border-gray-600");
-      el.classList.add("bg-white","text-gray-900","hover:bg-gray-100","hover:text-gray-900","border-gray-300");
-    }
-  });
-  if(darkMode){
-    themeIcon.setAttribute("data-lucide", "sun");
-  }else {
-    themeIcon.setAttribute("data-lucide", "moon");
-  }
-  // Update dropdown options
-  document.querySelectorAll("#langSelect option").forEach(opt => {
-    opt.style.backgroundColor = darkMode ? "rgb(17,24,38)" : "white";
-    opt.style.color = darkMode ? "white" : "black";
-  });
-
-  lucide.createIcons();
-}
-
-
-/* ========= INIT ========= */
-document.documentElement.classList.toggle("dark", darkMode);
-applyTheme();
-applyTranslations();
-loadTaskContext();
-</script>
-
+; Call the main procedure
+MAIN`;
+            if (codeEditor) {
+                codeEditor.setValue(template);
+            }
+        }
+        
+        // Clear the code editor
+        function clearCode() {
+            if (codeEditor) {
+                codeEditor.setValue('');
+            }
+        }
+        
+        // Load task information from localStorage
+        function loadTaskInfo() {
+            const category = localStorage.getItem('kategorija') || 'HLL';
+            const year = localStorage.getItem('god') || '';
+            const level = localStorage.getItem('kolo') || '';
+            const task = localStorage.getItem('zadatak') || '';
+            
+            // Update UI
+            document.getElementById('taskTitle').textContent = task || 'Unknown Task';
+            document.getElementById('taskPath').textContent = `${category} → ${year} → ${level} → ${task}`;
+            
+            // Try to get points from localStorage (set in hll.html)
+            const points = localStorage.getItem('taskPoints') || '100';
+            document.getElementById('maxPoints').textContent = points;
+            
+            return { category, year, level, task };
+        }
+        
+        // Submit code for evaluation
+        async function submitCode() {
+            const code = codeEditor ? codeEditor.getValue() : '';
+            if (!code.trim()) {
+                alert('Please enter FMSLogo code before submitting.');
+                return;
+            }
+            
+            const taskInfo = loadTaskInfo();
+            
+            // Update UI
+            updateJobStatus('pending', 'Submitting job...');
+            document.getElementById('submitBtn').disabled = true;
+            
+            try {
+                // Submit job to Cloudflare Worker
+                const response = await fetch(`${CLOUDFLARE_WORKER_URL}/api/hll/submit`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        code: code,
+                        category: taskInfo.category,
+                        year: taskInfo.year,
+                        level: taskInfo.level.replace('.kolo', '').trim(),
+                        task: taskInfo.task,
+                        userId: localStorage.getItem('userId') || 'anonymous'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success && data.jobId) {
+                    currentJobId = data.jobId;
+                    updateJobStatus('queued', 'Job queued for processing...');
+                    document.getElementById('jobId').textContent = data.jobId;
+                    
+                    // Start polling for results
+                    startPolling();
+                } else {
+                    throw new Error(data.error || 'Failed to submit job');
+                }
+                
+            } catch (error) {
+                updateJobStatus('error', `Submission failed: ${error.message}`);
+                document.getElementById('submitBtn').disabled = false;
+            }
+        }
+        
+        // Start polling for job results
+        function startPolling() {
+            if (pollInterval) clearInterval(pollInterval);
+            
+            pollInterval = setInterval(async () => {
+                try {
+                    const response = await fetch(`${CLOUDFLARE_WORKER_URL}/api/hll/status?id=${currentJobId}`);
+                    const data = await response.json();
+                    
+                    switch (data.status) {
+                        case 'pending':
+                            updateJobStatus('pending', 'Waiting in queue...');
+                            break;
+                        case 'processing':
+                            updateJobStatus('processing', 'Executing FMSLogo code...');
+                            break;
+                        case 'completed':
+                            clearInterval(pollInterval);
+                            updateJobStatus('completed', 'Evaluation complete!');
+                            document.getElementById('submitBtn').disabled = false;
+                            displayResults(data.result);
+                            break;
+                        case 'error':
+                            clearInterval(pollInterval);
+                            updateJobStatus('error', `Error: ${data.error || 'Unknown error'}`);
+                            document.getElementById('submitBtn').disabled = false;
+                            break;
+                        default:
+                            // Job not found or other status
+                            break;
+                    }
+                } catch (error) {
+                    console.error('Polling error:', error);
+                }
+            }, 2000); // Poll every 2 seconds
+        }
+        
+        // Update job status display
+        function updateJobStatus(status, message) {
+            const statusIcon = document.getElementById('statusIcon');
+            const statusText = document.getElementById('statusText');
+            const jobStatusTitle = document.getElementById('jobStatusTitle');
+            const jobStatusDesc = document.getElementById('jobStatusDesc');
+            const jobStatusDiv = document.getElementById('jobStatus');
+            
+            // Remove all status classes
+            jobStatusDiv.className = 'text-center p-4 rounded-lg';
+            statusIcon.className = 'w-4 h-4 mr-1';
+            
+            switch (status) {
+                case 'pending':
+                    jobStatusDiv.classList.add('bg-yellow-50', 'dark:bg-yellow-900/20');
+                    statusIcon.setAttribute('data-lucide', 'clock');
+                    statusIcon.classList.add('text-yellow-500');
+                    jobStatusTitle.textContent = 'Pending';
+                    break;
+                case 'processing':
+                    jobStatusDiv.classList.add('bg-blue-50', 'dark:bg-blue-900/20');
+                    statusIcon.setAttribute('data-lucide', 'loader');
+                    statusIcon.classList.add('text-blue-500', 'animate-spin');
+                    jobStatusTitle.textContent = 'Processing';
+                    break;
+                case 'completed':
+                    jobStatusDiv.classList.add('bg-green-50', 'dark:bg-green-900/20');
+                    statusIcon.setAttribute('data-lucide', 'check-circle');
+                    statusIcon.classList.add('text-green-500');
+                    jobStatusTitle.textContent = 'Completed';
+                    break;
+                case 'error':
+                    jobStatusDiv.classList.add('bg-red-50', 'dark:bg-red-900/20');
+                    statusIcon.setAttribute('data-lucide', 'alert-circle');
+                    statusIcon.classList.add('text-red-500');
+                    jobStatusTitle.textContent = 'Error';
+                    break;
+                default:
+                    jobStatusDiv.classList.add('bg-gray-50', 'dark:bg-gray-700');
+                    statusIcon.setAttribute('data-lucide', 'circle');
+                    statusIcon.classList.add('text-gray-400');
+                    jobStatusTitle.textContent = 'Idle';
+            }
+            
+            statusText.textContent = message;
+            jobStatusDesc.textContent = message;
+            lucide.createIcons();
+        }
+        
+        // Display evaluation results
+        function displayResults(result) {
+            // Hide placeholder, show results
+            document.getElementById('resultsPlaceholder').classList.add('hidden');
+            document.getElementById('resultsContent').classList.remove('hidden');
+            
+            if (result.error || !result.success) {
+                // Show error
+                document.getElementById('scoreValue').textContent = '0';
+                document.getElementById('scoreMax').textContent = document.getElementById('maxPoints').textContent;
+                document.getElementById('passRate').textContent = 'Error';
+                document.getElementById('passRate').className = 'text-sm px-3 py-1 rounded-full bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200';
+                
+                const testResults = document.getElementById('testResults');
+                testResults.innerHTML = `
+                    <div class="p-3 rounded test-error">
+                        <div class="font-semibold">Evaluation Error</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-300">${result.error || 'Unknown error occurred'}</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Update scores
+            document.getElementById('scoreValue').textContent = result.total_points || 0;
+            document.getElementById('scoreMax').textContent = result.max_points || 0;
+            
+            const passed = result.passed_tests || result.results.filter(r => r.status === 'PASS').length;
+            const total = result.total_tests || result.results.length;
+            document.getElementById('passRate').textContent = `${passed}/${total} tests`;
+            
+            // Update test results list
+            const testResults = document.getElementById('testResults');
+            testResults.innerHTML = '';
+            
+            if (result.results && result.results.length > 0) {
+                result.results.forEach(test => {
+                    const testDiv = document.createElement('div');
+                    testDiv.className = `p-3 rounded ${
+                        test.status === 'PASS' ? 'test-pass' :
+                        test.status === 'FAIL' ? 'test-fail' : 'test-error'
+                    }`;
+                    
+                    testDiv.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <div class="font-semibold">Test ${test.test}</div>
+                            <div class="text-sm ${test.status === 'PASS' ? 'text-green-600' : 'text-red-600'}">
+                                ${test.status} (${test.points || 0} pts)
+                            </div>
+                        </div>
+                        ${test.error ? `<div class="text-sm text-gray-600 dark:text-gray-300 mt-1">${test.error}</div>` : ''}
+                    `;
+                    
+                    testResults.appendChild(testDiv);
+                });
+            }
+            
+            // Prepare detailed results for modal
+            prepareDetailedResults(result);
+        }
+        
+        // Prepare detailed results for modal view
+        function prepareDetailedResults(result) {
+            const detailedResults = document.getElementById('detailedResults');
+            
+            let html = `
+                <div class="mb-6">
+                    <h3 class="text-lg font-bold mb-2">Summary</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded">
+                            <div class="text-sm text-gray-500">Total Points</div>
+                            <div class="text-2xl font-bold">${result.total_points || 0}/${result.max_points || 0}</div>
+                        </div>
+                        <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded">
+                            <div class="text-sm text-gray-500">Tests Passed</div>
+                            <div class="text-2xl font-bold">${result.passed_tests || 0}/${result.total_tests || 0}</div>
+                        </div>
+                        <div class="p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded">
+                            <div class="text-sm text-gray-500">Success Rate</div>
+                            <div class="text-2xl font-bold">${result.total_tests ? Math.round((result.passed_tests || 0) / result.total_tests * 100) : 0}%</div>
+                        </div>
+                        <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded">
+                            <div class="text-sm text-gray-500">Task</div>
+                            <div class="text-lg font-bold truncate">${result.task_info?.task || 'Unknown'}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            if (result.results && result.results.length > 0) {
+                html += `
+                    <div>
+                        <h3 class="text-lg font-bold mb-2">Test Details</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse">
+                                <thead>
+                                    <tr class="bg-gray-100 dark:bg-gray-700">
+                                        <th class="p-3 text-left">Test #</th>
+                                        <th class="p-3 text-left">Status</th>
+                                        <th class="p-3 text-left">Points</th>
+                                        <th class="p-3 text-left">Expected Image</th>
+                                        <th class="p-3 text-left">Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                `;
+                
+                result.results.forEach((test, index) => {
+                    html += `
+                        <tr class="${index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-800' : ''}">
+                            <td class="p-3">${test.test}</td>
+                            <td class="p-3">
+                                <span class="px-2 py-1 rounded text-xs font-semibold ${
+                                    test.status === 'PASS' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+                                    test.status === 'FAIL' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' :
+                                    'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                                }">
+                                    ${test.status}
+                                </span>
+                            </td>
+                            <td class="p-3">${test.points || 0}</td>
+                            <td class="p-3 font-mono text-sm">${test.expected || 'N/A'}</td>
+                            <td class="p-3">
+                                ${test.error ? `<div class="text-sm text-red-600">${test.error}</div>` : ''}
+                                ${test.mismatched ? `<div class="text-sm text-yellow-600">${test.mismatched} mismatched pixels</div>` : ''}
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                html += `
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            detailedResults.innerHTML = html;
+        }
+        
+        // Show detailed results modal
+        function viewDetailedResults() {
+            document.getElementById('resultsModal').classList.remove('hidden');
+        }
+        
+        // Close results modal
+        function closeResultsModal() {
+            document.getElementById('resultsModal').classList.add('hidden');
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize icons
+            lucide.createIcons();
+            
+            // Load task info
+            loadTaskInfo();
+            
+            // Initialize code editor
+            initCodeEditor();
+            
+            // Check if there's a job ID in URL (for returning to results)
+            const urlParams = new URLSearchParams(window.location.search);
+            const jobId = urlParams.get('jobId');
+            if (jobId) {
+                currentJobId = jobId;
+                updateJobStatus('pending', 'Checking previous job...');
+                startPolling();
+            }
+            
+            // Apply dark mode if set
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        });
+    </script>
 </body>
 </html>
