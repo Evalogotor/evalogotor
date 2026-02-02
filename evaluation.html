@@ -151,7 +151,7 @@
                     <!-- Submit Button -->
                     <div class="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                         <div>
-                            <button id="submitBtn" onclick="submitCode()" 
+                            <button id="submitBtn" type="button" onclick="submitCode(event)" 
                                 class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-lg flex items-center shadow-md hover:shadow-lg transition-all">
                                 <i data-lucide="play" class="w-5 h-5 mr-2"></i>
                                 <span id="submitText">Submit Solution</span>
@@ -538,7 +538,16 @@ END
         }
         
         // Submit code for evaluation
-        async function submitCode() {
+        async function submitCode(event) {
+            // Prevent default form submission if button is inside a form
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            console.log('=== SUBMIT BUTTON CLICKED ===');
+            
+            // Rest of your existing code...
             const code = codeEditor ? codeEditor.getValue() : '';
             if (!code.trim()) {
                 showNotification('Please enter FMSLogo code before submitting.', 'warning');
