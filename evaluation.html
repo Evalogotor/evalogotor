@@ -942,6 +942,8 @@ END`
         function startPolling() {
             if (pollInterval) clearInterval(pollInterval);
             
+            pollCount = 0;
+            
             pollInterval = setInterval(async () => {
                 pollCount++;
                 
@@ -965,53 +967,57 @@ END`
                 }
                 
                 try {
+                    console.log(`Polling for job ${currentJobId}, attempt ${pollCount}`);
                     const response = await fetch(`${CLOUDFLARE_WORKER_URL}/api/hll/status?id=${currentJobId}`);
                     
                     if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}`);
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                     }
                     
                     const data = await response.json();
+                    console.log('Poll response:', data);
                     
-                    switch (data.status) {
-                        case 'pending':
-                            updateJobStatus('pending', 'Waiting in queue...', 40);
-                            break;
-                        case 'processing':
-                            updateJobStatus('processing', 'Executing FMSLogo code...', 60);
-                            break;
-                        case 'completed':
-                            clearInterval(pollInterval);
-                            updateJobStatus('completed', 'Evaluation complete!', 100);
-                            resetSubmitButton();
-                            
-                            // Add processing time
-                            if (jobStartTime) {
-                                const processingTime = ((Date.now() - jobStartTime) / 1000).toFixed(2);
-                                data.processingTime = processingTime;
+                    // Check if data has "status" property or if it's a complete result
+                    if (data.status === 'completed' || data.success !== undefined) {
+                        // This is a complete result
+                        clearInterval(pollInterval);
+                        updateJobStatus('completed', 'Evaluation complete!', 100);
+                        resetSubmitButton();
+                        
+                        // Add processing time
+                        if (jobStartTime) {
+                            const processingTime = ((Date.now() - jobStartTime) / 1000).toFixed(2);
+                            data.processingTime = processingTime;
+                        }
+                        
+                        displayResults(data);
+                        
+                        // Celebrate if good score
+                        if (data.total_points && data.max_points) {
+                            const scorePercent = (data.total_points / data.max_points) * 100;
+                            if (scorePercent >= 80) {
+                                celebrate();
                             }
-                            
-                            displayResults(data);
-                            
-                            // Celebrate if good score
-                            if (data.total_points && data.max_points) {
-                                const scorePercent = (data.total_points / data.max_points) * 100;
-                                if (scorePercent >= 80) {
-                                    celebrate();
-                                }
-                            }
-                            
-                            showToast('Evaluation completed!', 'success');
-                            break;
-                        case 'error':
-                            clearInterval(pollInterval);
-                            updateJobStatus('error', `Error: ${data.error || 'Unknown error'}`, 0);
-                            resetSubmitButton();
-                            showToast(`Evaluation error: ${data.error}`, 'error');
-                            break;
-                        case 'not_found':
-                            // Job not found yet, continue polling
-                            break;
+                        }
+                        
+                        showToast('Evaluation completed!', 'success');
+                    } else if (data.status === 'processing' || data.status === 'pending') {
+                        // Still processing
+                        updateJobStatus(data.status, 
+                            data.status === 'processing' ? 'Executing FMSLogo code...' : 'Waiting in queue...', 
+                            data.status === 'processing' ? 60 : 40);
+                    } else if (data.status === 'error') {
+                        // Error occurred
+                        clearInterval(pollInterval);
+                        updateJobStatus('error', `Error: ${data.error || 'Unknown error'}`, 0);
+                        resetSubmitButton();
+                        showToast(`Evaluation error: ${data.error}`, 'error');
+                    } else if (data.status === 'not_found') {
+                        // Job not found yet, continue polling
+                        console.log('Job not found yet, continuing to poll...');
+                    } else {
+                        // Unexpected response
+                        console.warn('Unexpected poll response:', data);
                     }
                 } catch (error) {
                     console.error('Polling error:', error);
