@@ -2392,21 +2392,23 @@
         }
           
         function openPage(strGod, kolo, page, red) {
-            localStorage.setItem("kategorija", 'HLL');
-            localStorage.setItem("god", strGod.replace("_", "."));
-            localStorage.setItem("kolo", kolo+'.kolo');
-            localStorage.setItem("zadatak", ime_zadatak);
-            
-            // Set points based on 'red'
+            let points = 0;
             if (red === 1) {
-                bodovi = 20;
+                points = 20;
             } else if (red === 2) {
-                bodovi = 30;
+                points = 30;
             } else if (red === 3) {
-                bodovi = 50;
+                points = 50;
             } else {
-                bodovi = 80 + 20 * (red - 4);
+                points = 80 + 20 * (red - 4);
             }
+            
+            // Save to localStorage
+            localStorage.setItem('kategorija', 'HLL');
+            localStorage.setItem('god', strGod.replace("_", "."));
+            localStorage.setItem('kolo', kolo+'.kolo');
+            localStorage.setItem('zadatak', ime_zadatak);
+            localStorage.setItem('taskPoints', points.toString());
             
             const link = getKoloLink(strGod, kolo);
             var zadatak = `
@@ -2432,6 +2434,7 @@
     </script>
 </body>
 </html>
+
 
 
 
