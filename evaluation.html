@@ -562,11 +562,6 @@ END
             jobStartTime = Date.now();
             
             try {
-                // Validate Cloudflare Worker URL
-                if (!CLOUDFLARE_WORKER_URL || CLOUDFLARE_WORKER_URL.includes('YOUR-WORKER')) {
-                    throw new Error('Cloudflare Worker URL not configured. Please update the CLOUDFLARE_WORKER_URL variable.');
-                }
-                
                 // Submit job to Cloudflare Worker
                 const response = await fetch(`${CLOUDFLARE_WORKER_URL}/api/hll/submit`, {
                     method: 'POST',
@@ -575,7 +570,7 @@ END
                         'Accept': 'application/json'
                     },
                     body: JSON.stringify({
-                        code: code,
+                        code: userCode,
                         category: taskInfo.category,
                         year: taskInfo.year,
                         level: taskInfo.level,
@@ -584,6 +579,37 @@ END
                         timestamp: new Date().toISOString()
                     })
                 });
+                
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    // Try to get error message from response
+                    let errorMsg = `HTTP error! status: ${response.status}`;
+                    try {
+                        const errorData = await response.json();
+                        errorMsg = errorData.error || errorData.message || errorMsg;
+                    } catch (e) {
+                        // If response isn't JSON, use status text
+                        errorMsg = response.statusText || errorMsg;
+                    }
+                    throw new Error(errorMsg);
+                }
+                
+                const data = await response.json();
+                console.log('Submission response:', data);
+                
+                if (data.success && data.jobId) {
+                    // Success!
+                } else {
+                    throw new Error(data.error || data.message || 'Failed to submit job');
+                }
+                
+            } catch (error) {
+                console.error('Full submission error:', error);
+                updateJobStatus('error', `Submission failed: ${error.message}`, 0);
+                document.getElementById('submitBtn').disabled = false;
+                showNotification(`Submission failed: ${error.message}`, 'error');
+            }
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
