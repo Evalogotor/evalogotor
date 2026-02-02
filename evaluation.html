@@ -4,13 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EVALOGOTOR - Evaluate HLL Task</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+    
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <!-- CodeMirror for code editing -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/clike/clike.min.js"></script>
+    
+    <!-- Dark theme for CodeMirror -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
     
     <style>
         .highlight {
@@ -32,14 +42,40 @@
         .test-pass { background-color: #d1fae5; border-left: 4px solid #10b981; }
         .test-fail { background-color: #fee2e2; border-left: 4px solid #ef4444; }
         .test-error { background-color: #fef3c7; border-left: 4px solid #f59e0b; }
+        
+        /* Custom scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        .dark .custom-scrollbar::-webkit-scrollbar-track {
+            background: #374151;
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #6b7280;
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
     </style>
 </head>
 
 <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white min-h-screen flex flex-col transition-colors">
     
-    <!-- Navbar (same as hll.html) -->
+    <!-- Navbar -->
     <header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white dark:bg-gray-800" id="navbar">
-        <div class="flex items-center group cursor-pointer">
+        <div class="flex items-center group cursor-pointer" onclick="location.href='/'">
             <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span>
             <span class="highlight group-hover:text-[rgb(57,220,57)]">LOGO</span>
             <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
@@ -51,17 +87,23 @@
             <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-700" onclick="location.href='hll.html'">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i> <span>Back to HLL</span>
             </button>
+            
+            <!-- Theme Toggle -->
+            <button id="themeToggle" class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <i id="themeIcon" data-lucide="moon" class="w-4 h-4"></i>
+                <span id="themeLabel">Dark</span>
+            </button>
         </nav>
     </header>
 
-    <main class="max-w-6xl mx-auto w-full px-6 pt-24 pb-6 flex flex-col gap-6">
+    <main class="max-w-6xl mx-auto w-full px-4 md:px-6 pt-20 pb-6 flex flex-col gap-6">
         
         <!-- Task Info Banner -->
         <div id="taskInfo" class="rounded-xl p-4 shadow bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700">
-            <div class="flex justify-between items-center">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h1 class="text-2xl font-bold" id="taskTitle">Loading task...</h1>
-                    <div class="text-gray-600 dark:text-gray-300 mt-2" id="taskPath"></div>
+                    <div class="text-gray-600 dark:text-gray-300 mt-2 font-mono text-sm" id="taskPath"></div>
                 </div>
                 <div class="text-right">
                     <div class="text-sm text-gray-500">Maximum points</div>
@@ -74,33 +116,82 @@
             <!-- Left Column: Code Editor -->
             <div class="lg:col-span-2">
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
-                    <div class="flex justify-between items-center mb-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
                         <h2 class="text-lg font-semibold">FMSLogo Code</h2>
-                        <div class="flex gap-2">
-                            <button onclick="loadTemplate()" class="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600">
-                                <i data-lucide="file-text" class="w-4 h-4 inline mr-1"></i> Template
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="loadExample()" class="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center">
+                                <i data-lucide="lightbulb" class="w-4 h-4 mr-1"></i> Example
                             </button>
-                            <button onclick="clearCode()" class="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600">
-                                <i data-lucide="trash-2" class="w-4 h-4 inline mr-1"></i> Clear
+                            <button onclick="loadTemplate()" class="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center">
+                                <i data-lucide="file-text" class="w-4 h-4 mr-1"></i> Template
+                            </button>
+                            <button onclick="clearCode()" class="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center">
+                                <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Clear
                             </button>
                         </div>
                     </div>
-                    <textarea id="codeEditor" class="hidden"></textarea>
-                    <div id="editor" class="border rounded"></div>
                     
-                    <div class="mt-4 flex justify-between items-center">
+                    <!-- Code Editor Container -->
+                    <div id="editor" class="border dark:border-gray-700 rounded-lg overflow-hidden"></div>
+                    
+                    <!-- Editor Stats -->
+                    <div class="flex justify-between items-center mt-2 text-sm text-gray-500">
+                        <div>
+                            Lines: <span id="lineCount">0</span> | 
+                            Characters: <span id="charCount">0</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="flex items-center">
+                                <i data-lucide="zap" class="w-4 h-4 mr-1 text-yellow-500"></i>
+                                <span>FMSLogo</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                         <div>
                             <button id="submitBtn" onclick="submitCode()" 
-                                class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg flex items-center">
+                                class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-lg flex items-center shadow-md hover:shadow-lg transition-all">
                                 <i data-lucide="play" class="w-5 h-5 mr-2"></i>
                                 <span id="submitText">Submit Solution</span>
                             </button>
+                            <p class="text-sm text-gray-500 mt-2">Your code will be evaluated on our servers</p>
                         </div>
                         <div id="statusIndicator" class="flex items-center gap-2">
-                            <i data-lucide="circle" class="w-4 h-4 text-gray-400" id="statusIcon"></i>
-                            <span class="text-sm" id="statusText">Ready to submit</span>
+                            <div class="relative">
+                                <i data-lucide="circle" class="w-5 h-5 text-gray-400" id="statusIcon"></i>
+                                <div id="statusPulse" class="hidden absolute inset-0 animate-ping bg-current rounded-full opacity-75"></div>
+                            </div>
+                            <span class="text-sm font-medium" id="statusText">Ready to submit</span>
                         </div>
                     </div>
+                </div>
+                
+                <!-- Instructions Panel -->
+                <div class="mt-4 bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+                    <h3 class="text-lg font-semibold mb-3 flex items-center">
+                        <i data-lucide="info" class="w-5 h-5 mr-2 text-blue-500"></i>
+                        Instructions
+                    </h3>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                        <li class="flex items-start">
+                            <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-green-500 mt-0.5 flex-shrink-0"></i>
+                            Write your FMSLogo code in the editor above
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-green-500 mt-0.5 flex-shrink-0"></i>
+                            Your code should define the procedure specified in the task
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-green-500 mt-0.5 flex-shrink-0"></i>
+                            Click "Submit Solution" to evaluate against all test cases
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-green-500 mt-0.5 flex-shrink-0"></i>
+                            Results will appear in the panel on the right
+                        </li>
+                    </ul>
                 </div>
             </div>
             
@@ -108,7 +199,10 @@
             <div class="space-y-6">
                 <!-- Job Status Card -->
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
-                    <h3 class="text-lg font-semibold mb-4">Evaluation Status</h3>
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <i data-lucide="activity" class="w-5 h-5 mr-2 text-blue-500"></i>
+                        Evaluation Status
+                    </h3>
                     <div class="space-y-3">
                         <div id="jobStatus" class="text-center p-4 rounded-lg bg-gray-50 dark:bg-gray-700">
                             <div class="text-2xl font-bold mb-2" id="jobStatusTitle">Idle</div>
@@ -125,12 +219,26 @@
                                 <div class="font-bold" id="queuePos">-</div>
                             </div>
                         </div>
+                        
+                        <!-- Progress Bar -->
+                        <div class="pt-2">
+                            <div class="flex justify-between text-sm text-gray-500 mb-1">
+                                <span>Processing</span>
+                                <span id="progressPercent">0%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div id="progressBar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Results Preview -->
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
-                    <h3 class="text-lg font-semibold mb-4">Results Preview</h3>
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <i data-lucide="bar-chart-3" class="w-5 h-5 mr-2 text-green-500"></i>
+                        Results Preview
+                    </h3>
                     <div class="text-center p-6" id="resultsPlaceholder">
                         <i data-lucide="bar-chart-3" class="w-12 h-12 mx-auto text-gray-300 mb-3"></i>
                         <p class="text-gray-500">Results will appear here after evaluation</p>
@@ -148,30 +256,62 @@
                             </div>
                         </div>
                         
-                        <div class="space-y-2 max-h-60 overflow-y-auto" id="testResults">
+                        <!-- Test Results List -->
+                        <div class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar" id="testResults">
                             <!-- Test results will be inserted here -->
                         </div>
                         
+                        <!-- View Details Button -->
                         <div class="mt-4 pt-4 border-t dark:border-gray-700">
-                            <button onclick="viewDetailedResults()" class="w-full py-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded">
+                            <button onclick="viewDetailedResults()" class="w-full py-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded flex items-center justify-center">
+                                <i data-lucide="external-link" class="w-4 h-4 mr-2"></i>
                                 View Detailed Results
                             </button>
                         </div>
                     </div>
                 </div>
+                
+                <!-- Quick Actions -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <i data-lucide="zap" class="w-5 h-5 mr-2 text-yellow-500"></i>
+                        Quick Actions
+                    </h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="saveCode()" class="p-3 bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600 flex flex-col items-center justify-center">
+                            <i data-lucide="save" class="w-5 h-5 mb-1 text-blue-500"></i>
+                            <span class="text-sm">Save Code</span>
+                        </button>
+                        <button onclick="loadSavedCode()" class="p-3 bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600 flex flex-col items-center justify-center">
+                            <i data-lucide="download" class="w-5 h-5 mb-1 text-green-500"></i>
+                            <span class="text-sm">Load Saved</span>
+                        </button>
+                        <button onclick="shareResults()" class="p-3 bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600 flex flex-col items-center justify-center">
+                            <i data-lucide="share-2" class="w-5 h-5 mb-1 text-purple-500"></i>
+                            <span class="text-sm">Share Results</span>
+                        </button>
+                        <button onclick="location.href='hll.html'" class="p-3 bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600 flex flex-col items-center justify-center">
+                            <i data-lucide="arrow-left" class="w-5 h-5 mb-1 text-gray-500"></i>
+                            <span class="text-sm">New Task</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         
-        <!-- Detailed Results Modal (hidden by default) -->
+        <!-- Detailed Results Modal -->
         <div id="resultsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
                 <div class="p-6 border-b dark:border-gray-700 flex justify-between items-center">
-                    <h2 class="text-xl font-bold">Detailed Evaluation Results</h2>
+                    <h2 class="text-xl font-bold flex items-center">
+                        <i data-lucide="bar-chart-3" class="w-6 h-6 mr-2 text-blue-500"></i>
+                        Detailed Evaluation Results
+                    </h2>
                     <button onclick="closeResultsModal()" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
                         <i data-lucide="x" class="w-5 h-5"></i>
                     </button>
                 </div>
-                <div class="p-6 overflow-y-auto max-h-[70vh]" id="detailedResults">
+                <div class="p-6 overflow-y-auto max-h-[70vh] custom-scrollbar" id="detailedResults">
                     <!-- Detailed results will be inserted here -->
                 </div>
             </div>
@@ -180,54 +320,127 @@
     </main>
 
     <script>
-        // Cloudflare Worker URL
-        const CLOUDFLARE_WORKER_URL = 'https://yellow-meadow-676e.altmalt05.workers.dev/';
+        // ============================================
+        // CONFIGURATION - UPDATE THIS WITH YOUR URL!
+        // ============================================
+        const CLOUDFLARE_WORKER_URL = 'https://YOUR-WORKER-NAME.YOUR-ACCOUNT.workers.dev';
+        // Example: https://fmslogo-relay.johnsmith.workers.dev
+        // ============================================
         
         // Global variables
         let currentJobId = null;
         let pollInterval = null;
         let codeEditor = null;
+        let jobStartTime = null;
         
         // Initialize CodeMirror editor
         function initCodeEditor() {
             const editorElement = document.getElementById('editor');
+            
+            // Check if we're in dark mode
+            const isDark = document.documentElement.classList.contains('dark');
+            
             codeEditor = CodeMirror(editorElement, {
                 mode: 'clike',
                 lineNumbers: true,
-                theme: document.documentElement.classList.contains('dark') ? 'dracula' : 'default',
+                theme: isDark ? 'dracula' : 'default',
                 lineWrapping: true,
                 indentUnit: 2,
                 tabSize: 2,
-                autofocus: true
+                autofocus: true,
+                extraKeys: {
+                    "Ctrl-Space": "autocomplete"
+                }
             });
             
-            // Load default FMSLogo template
-            loadTemplate();
+            // Update editor stats
+            codeEditor.on('change', () => {
+                updateEditorStats();
+            });
+            
+            // Load example code
+            loadExample();
             
             // Update theme when dark mode changes
             const observer = new MutationObserver(() => {
                 if (codeEditor) {
-                    const isDark = document.documentElement.classList.contains('dark');
-                    codeEditor.setOption('theme', isDark ? 'dracula' : 'default');
+                    const isDarkNow = document.documentElement.classList.contains('dark');
+                    codeEditor.setOption('theme', isDarkNow ? 'dracula' : 'default');
                 }
             });
-            observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+            observer.observe(document.documentElement, { 
+                attributes: true, 
+                attributeFilter: ['class'] 
+            });
+        }
+        
+        // Update editor statistics
+        function updateEditorStats() {
+            if (!codeEditor) return;
+            
+            const content = codeEditor.getValue();
+            const lines = content.split('\n').length;
+            const chars = content.length;
+            
+            document.getElementById('lineCount').textContent = lines;
+            document.getElementById('charCount').textContent = chars;
+        }
+        
+        // Load example FMSLogo code
+        function loadExample() {
+            const example = `; HLL Task Example: Draw a Square Pattern
+; Define the main procedure (change name as needed)
+TO SQUARE :SIZE
+  REPEAT 4 [FD :SIZE RT 90]
+END
+
+; Recursive pattern procedure
+TO PATTERN :SIZE :LEVEL
+  IF :LEVEL = 0 [STOP]
+  REPEAT 4 [
+    SQUARE :SIZE
+    FD :SIZE
+    PATTERN :SIZE / 2 :LEVEL - 1
+    BK :SIZE
+    RT 90
+  ]
+END
+
+; Clear screen and draw
+CS
+HT
+PATTERN 100 3
+`;
+
+            if (codeEditor) {
+                codeEditor.setValue(example);
+                updateEditorStats();
+            }
         }
         
         // Load template FMSLogo code
         function loadTemplate() {
             const template = `; FMSLogo Solution Template
-; Define your main procedure here
-TO MAIN
-  ; Your code goes here
-  ; Example: Draw a square
-  REPEAT 4 [FD 100 RT 90]
+; Change procedure name and parameters as needed
+TO MAIN :PARAM1 :PARAM2
+  ; Your solution code here
+  ; Use CS to clear screen at beginning
+  ; Use HT to hide turtle
+  ; Return to starting position when done
+  
+  ; Example:
+  ; CS
+  ; HT
+  ; REPEAT :PARAM1 [FD :PARAM2 RT 360/:PARAM1]
 END
 
-; Call the main procedure
-MAIN`;
+; Uncomment and modify as needed:
+; MAIN 100 50
+`;
+
             if (codeEditor) {
                 codeEditor.setValue(template);
+                updateEditorStats();
             }
         }
         
@@ -235,7 +448,71 @@ MAIN`;
         function clearCode() {
             if (codeEditor) {
                 codeEditor.setValue('');
+                updateEditorStats();
             }
+        }
+        
+        // Save code to localStorage
+        function saveCode() {
+            if (!codeEditor) return;
+            
+            const code = codeEditor.getValue();
+            const taskInfo = loadTaskInfo();
+            const key = `saved_code_${taskInfo.category}_${taskInfo.year}_${taskInfo.level}_${taskInfo.task}`;
+            
+            localStorage.setItem(key, code);
+            
+            // Show notification
+            showNotification('Code saved successfully!', 'success');
+        }
+        
+        // Load saved code from localStorage
+        function loadSavedCode() {
+            const taskInfo = loadTaskInfo();
+            const key = `saved_code_${taskInfo.category}_${taskInfo.year}_${taskInfo.level}_${taskInfo.task}`;
+            const savedCode = localStorage.getItem(key);
+            
+            if (savedCode && codeEditor) {
+                codeEditor.setValue(savedCode);
+                updateEditorStats();
+                showNotification('Code loaded from storage', 'info');
+            } else {
+                showNotification('No saved code found', 'warning');
+            }
+        }
+        
+        // Show notification
+        function showNotification(message, type = 'info') {
+            // Remove existing notification
+            const existing = document.getElementById('notification');
+            if (existing) existing.remove();
+            
+            const colors = {
+                success: 'bg-green-500',
+                error: 'bg-red-500',
+                warning: 'bg-yellow-500',
+                info: 'bg-blue-500'
+            };
+            
+            const notification = document.createElement('div');
+            notification.id = 'notification';
+            notification.className = `fixed top-4 right-4 ${colors[type]} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-transform duration-300 translate-y-0`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i data-lucide="${type === 'success' ? 'check-circle' : type === 'error' ? 'alert-circle' : 'info'}" 
+                       class="w-5 h-5 mr-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            lucide.createIcons();
+            
+            // Auto-remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('translate-y-full');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
         }
         
         // Load task information from localStorage
@@ -244,63 +521,83 @@ MAIN`;
             const year = localStorage.getItem('god') || '';
             const level = localStorage.getItem('kolo') || '';
             const task = localStorage.getItem('zadatak') || '';
+            const points = localStorage.getItem('taskPoints') || '100';
             
             // Update UI
             document.getElementById('taskTitle').textContent = task || 'Unknown Task';
             document.getElementById('taskPath').textContent = `${category} → ${year} → ${level} → ${task}`;
-            
-            // Try to get points from localStorage (set in hll.html)
-            const points = localStorage.getItem('taskPoints') || '100';
             document.getElementById('maxPoints').textContent = points;
             
-            return { category, year, level, task };
+            return { 
+                category, 
+                year: year.replace('.', '_'), // Convert to folder format
+                level: level.replace('.kolo', '').trim(),
+                task,
+                points 
+            };
         }
         
         // Submit code for evaluation
         async function submitCode() {
             const code = codeEditor ? codeEditor.getValue() : '';
             if (!code.trim()) {
-                alert('Please enter FMSLogo code before submitting.');
+                showNotification('Please enter FMSLogo code before submitting.', 'warning');
                 return;
             }
             
             const taskInfo = loadTaskInfo();
             
             // Update UI
-            updateJobStatus('pending', 'Submitting job...');
+            updateJobStatus('pending', 'Submitting job...', 10);
             document.getElementById('submitBtn').disabled = true;
+            jobStartTime = Date.now();
             
             try {
+                // Validate Cloudflare Worker URL
+                if (!CLOUDFLARE_WORKER_URL || CLOUDFLARE_WORKER_URL.includes('YOUR-WORKER')) {
+                    throw new Error('Cloudflare Worker URL not configured. Please update the CLOUDFLARE_WORKER_URL variable.');
+                }
+                
                 // Submit job to Cloudflare Worker
                 const response = await fetch(`${CLOUDFLARE_WORKER_URL}/api/hll/submit`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
                     body: JSON.stringify({
                         code: code,
                         category: taskInfo.category,
                         year: taskInfo.year,
-                        level: taskInfo.level.replace('.kolo', '').trim(),
+                        level: taskInfo.level,
                         task: taskInfo.task,
-                        userId: localStorage.getItem('userId') || 'anonymous'
+                        userId: localStorage.getItem('userId') || 'anonymous',
+                        timestamp: new Date().toISOString()
                     })
                 });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
                 
                 const data = await response.json();
                 
                 if (data.success && data.jobId) {
                     currentJobId = data.jobId;
-                    updateJobStatus('queued', 'Job queued for processing...');
+                    updateJobStatus('queued', 'Job queued for processing...', 30);
                     document.getElementById('jobId').textContent = data.jobId;
                     
                     // Start polling for results
                     startPolling();
                 } else {
-                    throw new Error(data.error || 'Failed to submit job');
+                    throw new Error(data.error || data.message || 'Failed to submit job');
                 }
                 
             } catch (error) {
-                updateJobStatus('error', `Submission failed: ${error.message}`);
+                console.error('Submission error:', error);
+                updateJobStatus('error', `Submission failed: ${error.message}`, 0);
                 document.getElementById('submitBtn').disabled = false;
+                showNotification(`Submission failed: ${error.message}`, 'error');
             }
         }
         
@@ -308,80 +605,129 @@ MAIN`;
         function startPolling() {
             if (pollInterval) clearInterval(pollInterval);
             
+            let pollCount = 0;
+            const maxPolls = 60; // 2 minutes max (2 seconds * 60)
+            
             pollInterval = setInterval(async () => {
+                pollCount++;
+                
+                // Update progress based on time elapsed
+                if (jobStartTime) {
+                    const elapsed = Date.now() - jobStartTime;
+                    const progress = Math.min(30 + (elapsed / 1000), 90); // Max 90% while polling
+                    updateProgress(progress);
+                }
+                
                 try {
                     const response = await fetch(`${CLOUDFLARE_WORKER_URL}/api/hll/status?id=${currentJobId}`);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
                     const data = await response.json();
                     
                     switch (data.status) {
                         case 'pending':
-                            updateJobStatus('pending', 'Waiting in queue...');
+                            updateJobStatus('pending', 'Waiting in queue...', 40);
                             break;
                         case 'processing':
-                            updateJobStatus('processing', 'Executing FMSLogo code...');
+                            updateJobStatus('processing', 'Executing FMSLogo code...', 60);
                             break;
                         case 'completed':
                             clearInterval(pollInterval);
-                            updateJobStatus('completed', 'Evaluation complete!');
+                            updateJobStatus('completed', 'Evaluation complete!', 100);
                             document.getElementById('submitBtn').disabled = false;
+                            
+                            // Calculate processing time
+                            if (jobStartTime) {
+                                const processingTime = (Date.now() - jobStartTime) / 1000;
+                                data.result.processingTime = processingTime.toFixed(2);
+                            }
+                            
                             displayResults(data.result);
+                            showNotification('Evaluation completed successfully!', 'success');
                             break;
                         case 'error':
                             clearInterval(pollInterval);
-                            updateJobStatus('error', `Error: ${data.error || 'Unknown error'}`);
+                            updateJobStatus('error', `Error: ${data.error || 'Unknown error'}`, 0);
                             document.getElementById('submitBtn').disabled = false;
+                            showNotification(`Evaluation error: ${data.error}`, 'error');
+                            break;
+                        case 'not_found':
+                            if (pollCount > maxPolls) {
+                                clearInterval(pollInterval);
+                                updateJobStatus('error', 'Job not found or expired', 0);
+                                document.getElementById('submitBtn').disabled = false;
+                            }
                             break;
                         default:
-                            // Job not found or other status
+                            // Unknown status
                             break;
                     }
                 } catch (error) {
                     console.error('Polling error:', error);
+                    
+                    if (pollCount > maxPolls) {
+                        clearInterval(pollInterval);
+                        updateJobStatus('error', 'Polling timeout', 0);
+                        document.getElementById('submitBtn').disabled = false;
+                        showNotification('Evaluation timeout - please try again', 'warning');
+                    }
                 }
             }, 2000); // Poll every 2 seconds
         }
         
         // Update job status display
-        function updateJobStatus(status, message) {
+        function updateJobStatus(status, message, progress = 0) {
             const statusIcon = document.getElementById('statusIcon');
+            const statusPulse = document.getElementById('statusPulse');
             const statusText = document.getElementById('statusText');
             const jobStatusTitle = document.getElementById('jobStatusTitle');
             const jobStatusDesc = document.getElementById('jobStatusDesc');
             const jobStatusDiv = document.getElementById('jobStatus');
             
+            // Update progress
+            updateProgress(progress);
+            
             // Remove all status classes
-            jobStatusDiv.className = 'text-center p-4 rounded-lg';
-            statusIcon.className = 'w-4 h-4 mr-1';
+            jobStatusDiv.className = 'text-center p-4 rounded-lg transition-colors duration-300';
+            statusIcon.className = 'w-5 h-5';
             
             switch (status) {
                 case 'pending':
                     jobStatusDiv.classList.add('bg-yellow-50', 'dark:bg-yellow-900/20');
                     statusIcon.setAttribute('data-lucide', 'clock');
                     statusIcon.classList.add('text-yellow-500');
+                    statusPulse.classList.remove('hidden');
                     jobStatusTitle.textContent = 'Pending';
                     break;
                 case 'processing':
                     jobStatusDiv.classList.add('bg-blue-50', 'dark:bg-blue-900/20');
                     statusIcon.setAttribute('data-lucide', 'loader');
                     statusIcon.classList.add('text-blue-500', 'animate-spin');
+                    statusPulse.classList.remove('hidden');
                     jobStatusTitle.textContent = 'Processing';
                     break;
                 case 'completed':
                     jobStatusDiv.classList.add('bg-green-50', 'dark:bg-green-900/20');
                     statusIcon.setAttribute('data-lucide', 'check-circle');
                     statusIcon.classList.add('text-green-500');
+                    statusPulse.classList.add('hidden');
                     jobStatusTitle.textContent = 'Completed';
                     break;
                 case 'error':
                     jobStatusDiv.classList.add('bg-red-50', 'dark:bg-red-900/20');
                     statusIcon.setAttribute('data-lucide', 'alert-circle');
                     statusIcon.classList.add('text-red-500');
+                    statusPulse.classList.add('hidden');
                     jobStatusTitle.textContent = 'Error';
                     break;
                 default:
                     jobStatusDiv.classList.add('bg-gray-50', 'dark:bg-gray-700');
                     statusIcon.setAttribute('data-lucide', 'circle');
                     statusIcon.classList.add('text-gray-400');
+                    statusPulse.classList.add('hidden');
                     jobStatusTitle.textContent = 'Idle';
             }
             
@@ -390,11 +736,22 @@ MAIN`;
             lucide.createIcons();
         }
         
+        // Update progress bar
+        function updateProgress(percent) {
+            const progressBar = document.getElementById('progressBar');
+            const progressPercent = document.getElementById('progressPercent');
+            
+            percent = Math.max(0, Math.min(100, percent));
+            progressBar.style.width = `${percent}%`;
+            progressPercent.textContent = `${Math.round(percent)}%`;
+        }
+        
         // Display evaluation results
         function displayResults(result) {
             // Hide placeholder, show results
             document.getElementById('resultsPlaceholder').classList.add('hidden');
-            document.getElementById('resultsContent').classList.remove('hidden');
+            const resultsContent = document.getElementById('resultsContent');
+            resultsContent.classList.remove('hidden');
             
             if (result.error || !result.success) {
                 // Show error
@@ -405,11 +762,18 @@ MAIN`;
                 
                 const testResults = document.getElementById('testResults');
                 testResults.innerHTML = `
-                    <div class="p-3 rounded test-error">
-                        <div class="font-semibold">Evaluation Error</div>
-                        <div class="text-sm text-gray-600 dark:text-gray-300">${result.error || 'Unknown error occurred'}</div>
+                    <div class="p-4 rounded test-error">
+                        <div class="font-semibold flex items-center">
+                            <i data-lucide="alert-triangle" class="w-5 h-5 mr-2 text-yellow-500"></i>
+                            Evaluation Error
+                        </div>
+                        <div class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                            ${result.error || 'Unknown error occurred during evaluation'}
+                        </div>
                     </div>
                 `;
+                
+                prepareDetailedResults(result);
                 return;
             }
             
@@ -419,7 +783,18 @@ MAIN`;
             
             const passed = result.passed_tests || result.results.filter(r => r.status === 'PASS').length;
             const total = result.total_tests || result.results.length;
-            document.getElementById('passRate').textContent = `${passed}/${total} tests`;
+            const passRateDiv = document.getElementById('passRate');
+            passRateDiv.textContent = `${passed}/${total} tests`;
+            
+            // Set color based on pass rate
+            const passRate = total > 0 ? (passed / total) : 0;
+            if (passRate === 1) {
+                passRateDiv.className = 'text-sm px-3 py-1 rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200';
+            } else if (passRate >= 0.5) {
+                passRateDiv.className = 'text-sm px-3 py-1 rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200';
+            } else {
+                passRateDiv.className = 'text-sm px-3 py-1 rounded-full bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200';
+            }
             
             // Update test results list
             const testResults = document.getElementById('testResults');
@@ -433,14 +808,33 @@ MAIN`;
                         test.status === 'FAIL' ? 'test-fail' : 'test-error'
                     }`;
                     
+                    let statusIcon = 'check-circle';
+                    let statusColor = 'text-green-500';
+                    
+                    if (test.status === 'FAIL') {
+                        statusIcon = 'x-circle';
+                        statusColor = 'text-red-500';
+                    } else if (test.status === 'ERROR') {
+                        statusIcon = 'alert-circle';
+                        statusColor = 'text-yellow-500';
+                    }
+                    
                     testDiv.innerHTML = `
                         <div class="flex justify-between items-center">
-                            <div class="font-semibold">Test ${test.test}</div>
+                            <div class="font-semibold flex items-center">
+                                <i data-lucide="${statusIcon}" class="w-4 h-4 mr-2 ${statusColor}"></i>
+                                Test ${test.test}
+                            </div>
                             <div class="text-sm ${test.status === 'PASS' ? 'text-green-600' : 'text-red-600'}">
                                 ${test.status} (${test.points || 0} pts)
                             </div>
                         </div>
-                        ${test.error ? `<div class="text-sm text-gray-600 dark:text-gray-300 mt-1">${test.error}</div>` : ''}
+                        ${test.error ? `
+                            <div class="text-sm text-gray-600 dark:text-gray-300 mt-1 flex items-start">
+                                <i data-lucide="alert-circle" class="w-4 h-4 mr-1 mt-0.5 flex-shrink-0"></i>
+                                ${test.error}
+                            </div>
+                        ` : ''}
                     `;
                     
                     testResults.appendChild(testDiv);
@@ -449,6 +843,9 @@ MAIN`;
             
             // Prepare detailed results for modal
             prepareDetailedResults(result);
+            
+            // Update icons
+            lucide.createIcons();
         }
         
         // Prepare detailed results for modal view
@@ -457,32 +854,71 @@ MAIN`;
             
             let html = `
                 <div class="mb-6">
-                    <h3 class="text-lg font-bold mb-2">Summary</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded">
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <i data-lucide="clipboard-check" class="w-5 h-5 mr-2 text-blue-500"></i>
+                        Evaluation Summary
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                             <div class="text-sm text-gray-500">Total Points</div>
                             <div class="text-2xl font-bold">${result.total_points || 0}/${result.max_points || 0}</div>
                         </div>
-                        <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded">
+                        <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
                             <div class="text-sm text-gray-500">Tests Passed</div>
                             <div class="text-2xl font-bold">${result.passed_tests || 0}/${result.total_tests || 0}</div>
                         </div>
-                        <div class="p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded">
+                        <div class="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
                             <div class="text-sm text-gray-500">Success Rate</div>
                             <div class="text-2xl font-bold">${result.total_tests ? Math.round((result.passed_tests || 0) / result.total_tests * 100) : 0}%</div>
                         </div>
-                        <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded">
-                            <div class="text-sm text-gray-500">Task</div>
-                            <div class="text-lg font-bold truncate">${result.task_info?.task || 'Unknown'}</div>
+                        <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                            <div class="text-sm text-gray-500">Processing Time</div>
+                            <div class="text-lg font-bold">${result.processingTime || 'N/A'}s</div>
                         </div>
                     </div>
                 </div>
             `;
             
+            // Task Information
+            if (result.task_info) {
+                html += `
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold mb-2 flex items-center">
+                            <i data-lucide="folder" class="w-5 h-5 mr-2 text-gray-500"></i>
+                            Task Information
+                        </h3>
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <div class="text-sm text-gray-500">Category</div>
+                                    <div class="font-semibold">${result.task_info.category || 'HLL'}</div>
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-500">Year</div>
+                                    <div class="font-semibold">${result.task_info.year || 'N/A'}</div>
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-500">Level</div>
+                                    <div class="font-semibold">${result.task_info.level || 'N/A'}</div>
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-500">Task</div>
+                                    <div class="font-semibold">${result.task_info.task || 'N/A'}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Test Details
             if (result.results && result.results.length > 0) {
                 html += `
                     <div>
-                        <h3 class="text-lg font-bold mb-2">Test Details</h3>
+                        <h3 class="text-lg font-bold mb-4 flex items-center">
+                            <i data-lucide="list-checks" class="w-5 h-5 mr-2 text-green-500"></i>
+                            Test Case Details
+                        </h3>
                         <div class="overflow-x-auto">
                             <table class="w-full border-collapse">
                                 <thead>
@@ -498,23 +934,33 @@ MAIN`;
                 `;
                 
                 result.results.forEach((test, index) => {
+                    const statusColor = test.status === 'PASS' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+                                      test.status === 'FAIL' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' :
+                                      'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
+                    
                     html += `
-                        <tr class="${index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-800' : ''}">
-                            <td class="p-3">${test.test}</td>
+                        <tr class="${index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-800' : 'bg-white dark:bg-gray-900'}">
+                            <td class="p-3 font-mono">${test.test}</td>
                             <td class="p-3">
-                                <span class="px-2 py-1 rounded text-xs font-semibold ${
-                                    test.status === 'PASS' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
-                                    test.status === 'FAIL' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' :
-                                    'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-                                }">
+                                <span class="px-3 py-1 rounded-full text-xs font-semibold ${statusColor}">
                                     ${test.status}
                                 </span>
                             </td>
-                            <td class="p-3">${test.points || 0}</td>
+                            <td class="p-3 font-bold">${test.points || 0}</td>
                             <td class="p-3 font-mono text-sm">${test.expected || 'N/A'}</td>
                             <td class="p-3">
-                                ${test.error ? `<div class="text-sm text-red-600">${test.error}</div>` : ''}
-                                ${test.mismatched ? `<div class="text-sm text-yellow-600">${test.mismatched} mismatched pixels</div>` : ''}
+                                ${test.error ? `
+                                    <div class="text-sm text-red-600 dark:text-red-400 flex items-start">
+                                        <i data-lucide="alert-circle" class="w-4 h-4 mr-1 mt-0.5 flex-shrink-0"></i>
+                                        ${test.error}
+                                    </div>
+                                ` : ''}
+                                ${test.mismatched ? `
+                                    <div class="text-sm text-yellow-600 dark:text-yellow-400 flex items-start">
+                                        <i data-lucide="image" class="w-4 h-4 mr-1 mt-0.5 flex-shrink-0"></i>
+                                        ${test.mismatched} mismatched pixels
+                                    </div>
+                                ` : ''}
                             </td>
                         </tr>
                     `;
@@ -529,6 +975,7 @@ MAIN`;
             }
             
             detailedResults.innerHTML = html;
+            lucide.createIcons();
         }
         
         // Show detailed results modal
@@ -541,10 +988,89 @@ MAIN`;
             document.getElementById('resultsModal').classList.add('hidden');
         }
         
+        // Share results
+        function shareResults() {
+            if (!currentJobId) {
+                showNotification('No results to share', 'warning');
+                return;
+            }
+            
+            const score = document.getElementById('scoreValue').textContent;
+            const maxScore = document.getElementById('scoreMax').textContent;
+            const taskName = document.getElementById('taskTitle').textContent;
+            
+            const shareText = `I scored ${score}/${maxScore} on "${taskName}" using EVALOGOTOR!`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'EVALOGOTOR Results',
+                    text: shareText,
+                    url: window.location.href
+                });
+            } else {
+                // Fallback: Copy to clipboard
+                navigator.clipboard.writeText(shareText).then(() => {
+                    showNotification('Results copied to clipboard!', 'success');
+                });
+            }
+        }
+        
+        // Initialize theme toggle
+        function initThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const themeLabel = document.getElementById('themeLabel');
+            
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const isDark = savedTheme === 'dark';
+            
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                themeIcon.setAttribute('data-lucide', 'sun');
+                themeLabel.textContent = 'Light';
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeIcon.setAttribute('data-lucide', 'moon');
+                themeLabel.textContent = 'Dark';
+            }
+            
+            // Toggle theme
+            themeToggle.addEventListener('click', () => {
+                const isDarkNow = document.documentElement.classList.contains('dark');
+                
+                if (isDarkNow) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                    themeIcon.setAttribute('data-lucide', 'moon');
+                    themeLabel.textContent = 'Dark';
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeIcon.setAttribute('data-lucide', 'sun');
+                    themeLabel.textContent = 'Light';
+                }
+                
+                lucide.createIcons();
+                
+                // Update CodeMirror theme
+                if (codeEditor) {
+                    codeEditor.setOption('theme', 
+                        document.documentElement.classList.contains('dark') ? 'dracula' : 'default'
+                    );
+                }
+            });
+            
+            lucide.createIcons();
+        }
+        
         // Initialize page
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize icons
             lucide.createIcons();
+            
+            // Initialize theme
+            initThemeToggle();
             
             // Load task info
             loadTaskInfo();
@@ -552,18 +1078,19 @@ MAIN`;
             // Initialize code editor
             initCodeEditor();
             
-            // Check if there's a job ID in URL (for returning to results)
+            // Check for job ID in URL (for returning to results)
             const urlParams = new URLSearchParams(window.location.search);
             const jobId = urlParams.get('jobId');
             if (jobId) {
                 currentJobId = jobId;
-                updateJobStatus('pending', 'Checking previous job...');
+                updateJobStatus('pending', 'Checking previous job...', 10);
                 startPolling();
             }
             
-            // Apply dark mode if set
-            if (localStorage.getItem('theme') === 'dark') {
-                document.documentElement.classList.add('dark');
+            // Check Cloudflare Worker URL
+            if (!CLOUDFLARE_WORKER_URL || CLOUDFLARE_WORKER_URL.includes('YOUR-WORKER')) {
+                console.error('Cloudflare Worker URL not configured!');
+                showNotification('Warning: Cloudflare Worker URL not configured. Please update the CLOUDFLARE_WORKER_URL variable.', 'warning');
             }
         });
     </script>
