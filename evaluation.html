@@ -880,9 +880,14 @@ END`
             const submitText = document.getElementById('submitText');
             
             // Disable button and show loading state
-            submitBtn.disabled = true;
-            submitText.textContent = 'Submitting...';
-            submitBtn.innerHTML = '<i data-lucide="loader" class="w-5 h-5 mr-2 animate-spin"></i>Submitting...';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i data-lucide="loader" class="w-5 h-5 mr-2 animate-spin"></i>Submitting...';
+            }
+            
+            if (submitText) {
+                submitText.textContent = 'Submitting...';
+            }
             
             // Update status
             updateJobStatus('pending', 'Submitting job...', 10);
@@ -933,9 +938,7 @@ END`
                 showToast(`Submission failed: ${error.message}`, 'error');
                 
                 // Re-enable button
-                submitBtn.disabled = false;
-                submitText.textContent = 'Submit Solution';
-                submitBtn.innerHTML = '<i data-lucide="play" class="w-5 h-5 mr-2"></i>Submit Solution';
+                resetSubmitButton();
             }
         }
         
@@ -960,9 +963,10 @@ END`
                 // Check if max polls reached
                 if (pollCount > MAX_POLL_ATTEMPTS) {
                     clearInterval(pollInterval);
-                    updateJobStatus('error', 'Evaluation timeout', 0);
+                    pollInterval = null;
+                    updateJobStatus('error', 'Evaluation timeout (2 minutes)', 0);
                     showToast('Evaluation took too long. Please try again.', 'warning');
-                    resetSubmitButton();
+                    resetSubmitButton(); // Make sure this is called
                     return;
                 }
                 
@@ -977,10 +981,11 @@ END`
                     const data = await response.json();
                     console.log('Poll response:', data);
                     
-                    // Check if data has "status" property or if it's a complete result
-                    if (data.status === 'completed' || data.success !== undefined) {
+                    // Check if data has "success" property (completed result)
+                    if (data.success !== undefined) {
                         // This is a complete result
                         clearInterval(pollInterval);
+                        pollInterval = null;
                         updateJobStatus('completed', 'Evaluation complete!', 100);
                         resetSubmitButton();
                         
@@ -1001,6 +1006,20 @@ END`
                         }
                         
                         showToast('Evaluation completed!', 'success');
+                    } else if (data.status === 'completed' && data.result) {
+                        // Alternative response format
+                        clearInterval(pollInterval);
+                        pollInterval = null;
+                        updateJobStatus('completed', 'Evaluation complete!', 100);
+                        resetSubmitButton();
+                        
+                        if (jobStartTime) {
+                            const processingTime = ((Date.now() - jobStartTime) / 1000).toFixed(2);
+                            data.result.processingTime = processingTime;
+                        }
+                        
+                        displayResults(data.result);
+                        showToast('Evaluation completed!', 'success');
                     } else if (data.status === 'processing' || data.status === 'pending') {
                         // Still processing
                         updateJobStatus(data.status, 
@@ -1009,15 +1028,17 @@ END`
                     } else if (data.status === 'error') {
                         // Error occurred
                         clearInterval(pollInterval);
+                        pollInterval = null;
                         updateJobStatus('error', `Error: ${data.error || 'Unknown error'}`, 0);
                         resetSubmitButton();
                         showToast(`Evaluation error: ${data.error}`, 'error');
                     } else if (data.status === 'not_found') {
-                        // Job not found yet, continue polling
-                        console.log('Job not found yet, continuing to poll...');
-                    } else {
-                        // Unexpected response
-                        console.warn('Unexpected poll response:', data);
+                        // Job not found, something went wrong
+                        clearInterval(pollInterval);
+                        pollInterval = null;
+                        updateJobStatus('error', 'Job not found on server', 0);
+                        resetSubmitButton();
+                        showToast('Job lost on server. Please try again.', 'error');
                     }
                 } catch (error) {
                     console.error('Polling error:', error);
@@ -1030,9 +1051,17 @@ END`
             const submitBtn = document.getElementById('submitBtn');
             const submitText = document.getElementById('submitText');
             
-            submitBtn.disabled = false;
-            submitText.textContent = 'Submit Solution';
-            submitBtn.innerHTML = '<i data-lucide="play" class="w-5 h-5 mr-2"></i>Submit Solution';
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i data-lucide="play" class="w-5 h-5 mr-2"></i>Submit Solution';
+            }
+            
+            if (submitText) {
+                submitText.textContent = 'Submit Solution';
+            }
+            
+            // Recreate icons
+            lucide.createIcons();
         }
         
         // ============================================
