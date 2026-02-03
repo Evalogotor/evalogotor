@@ -1,16 +1,6 @@
 {
   "rewrites": [
-    { "source": "/index", "destination": "/index.html" },
-    { "source": "/tasks", "destination": "/tasks.html" },
-    { "source": "/Peti", "destination": "/Peti.html" },
-    { "source": "/Sesti", "destination": "/Sesti.html" },
-    { "source": "/Sedmi", "destination": "/Sedmi.html" },
-    { "source": "/Osmi", "destination": "/Osmi.html" },
-    { "source": "/hll", "destination": "/hll.html" },
-    { "source": "/hloz", "destination": "/hloz.html" },
-    { "source": "/scoreboard", "destination": "/scoreboard.html" },
-    { "source": "/login", "destination": "/login.html" },
-    { "source": "/signup", "destination": "/signup.html" },
-    { "source": "/", "destination": "/index.html" }
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/(.*)", "destination": "/$1.html" }
   ]
 }
