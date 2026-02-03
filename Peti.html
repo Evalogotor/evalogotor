@@ -105,9 +105,9 @@
       .vertical-buttons{
         display: flex;
         flex-direction: column;
-        align-items: flex-end; /* pushes to right */
+        align-items: flex-end;
         margin-top: 20px;
-        width: 150px; /* keeps them grouped under that column */
+        width: 150px;
       }
 
       .task-buttons {
@@ -247,14 +247,14 @@
       ru: { inp: 'Oткрыть задача', eval: 'оценивать', description: "Развивайте навыки FMSLogo, выполняя задания и поднимаясь в рейтинге.", practice: "Практика FMSLogo", practiceDesc: "Попробуйте различные задачи FMSLogo: от простых фигур до сложных узоров.", feedback: "Получите отзыв ИИ", feedbackDesc: "Отправьте свои работы и получите мгновенную оценку от ИИ.", ranks: "Поднимайтесь в рейтинге", ranksDesc: "Зарабатывайте очки и смотрите своё место в мировом рейтинге.", home:"Home",tasks: "Задания", scoreboard: "Рейтинг", login: "Войти", logout: "Выйти", dark: "Тёмный", light: "Светлый" }
     };
 
-    let lang = localStorage.getItem("lang") || "en"; // Default language
+    let lang = localStorage.getItem("lang") || "en";
     let savedTheme = localStorage.getItem("theme") || 'dark';
     if (savedTheme){
         darkMode = (savedTheme === 'dark');
     }
     
     if (langSelect) {
-      langSelect.value = lang; // Set dropdown to saved language
+      langSelect.value = lang;
       applyTranslations();
     
       langSelect.addEventListener("change", (e) => {
@@ -263,7 +263,6 @@
         applyTranslations();
       });
     } else {
-      // If no langSelect found, just call applyTranslations with default lang
       applyTranslations();
     }
       
@@ -352,27 +351,21 @@
 
         buttons.forEach(button => {
           button.addEventListener('click', () => {
-            // Remove 'active' from all buttons
             buttons.forEach(btn => btn.classList.remove('active'));
-            // Add 'active' to the clicked button
             button.classList.add('active');
           });
         });
 
         vbuttons.forEach(button => {
           button.addEventListener('click', () => {
-            // Remove 'active' from all buttons
             vbuttons.forEach(btn => btn.classList.remove('active'));
-            // Add 'active' to the clicked button
             button.classList.add('active');
           });
         });
 
         tbuttons.forEach(button => {
           button.addEventListener('click', () => {
-            // Remove 'active' from all buttons
             tbuttons.forEach(btn => btn.classList.remove('active'));
-            // Add 'active' to the clicked button
             button.classList.add('active');
           });
         });
@@ -609,7 +602,6 @@
                 attachTaskButtonListeners();
             }
 
-            // Za Kola poziv za gumbe i zadatke
             if (contentType === '111') {
                 var buttonZadaci = `
                 <div class="task-buttons">
@@ -1468,7 +1460,6 @@
             localStorage.setItem("kolo", razina);
             localStorage.setItem("zadatak", ime_zadatak);
             
-            // Set points based on 'red'
             if (tip === 1) {
                 if (red === 1) bodovi = 30;
                 else if (red === 2) bodovi = 50;
@@ -1480,20 +1471,16 @@
                 else bodovi = 70;
             }
         
-            // Decide what URL to use
             let url;
         
             if (strGod === "nema") {
-                url = null;  // no PDF
+                url = null;
             } else if (strGod.startsWith("http")) {
-                // NEW years 2025+ OR direct full PDF URL with #page=...
                 url = strGod;
             } else {
-                // OLD years (auto-generate link)
                 url = `https://informatika.azoo.hr/natjecanje/dobavi-dokument/${strGod}`;
             }
         
-            // Build HTML
             let zadatak = `
                 <div class="eval-basket">
                     <div class="score">${ime_zadatak}</div>
@@ -1531,9 +1518,3 @@
         }
     </script>
 </html>
-
-
-
-
-
-
