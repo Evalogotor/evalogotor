@@ -7,14 +7,13 @@
       <script src="https://cdn.tailwindcss.com"></script>
       <script src="https://unpkg.com/lucide@latest"></script>
       <style>
-        .container {
-          display: flex;
-          justify-content: center;
-          align-items: start;
-          flex-wrap: wrap;
-          text-align: center;
-          margin-right: 555px;
-        }
+         .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            margin-top: 20px;
+          }
         .hotbar {
           position: fixed;
           top: 0;
@@ -155,6 +154,12 @@
           font-size: 40px;
           font-weight: bold;
         }
+        .Dynamic-section{
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 100%; 
+          }
       </style>
     </head>
     <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors" id="body">
@@ -200,25 +205,27 @@
       </header>
     
       <!-- Year buttons -->
-      <div class="button-line">
-        <button onclick="changeContent('15')">2015/16</button>
-        <button onclick="changeContent('16')">2016/17</button>
-        <button onclick="changeContent('17')">2017/18</button>
-        <button onclick="changeContent('18')">2018/19</button>
-        <button onclick="changeContent('19')">2019/20</button>
-        <button onclick="changeContent('20')">2020/21</button>
-        <button onclick="changeContent('21')">2021/22</button>
-        <button onclick="changeContent('22')">2022/23</button>
-        <button onclick="changeContent('23')">2023/24</button>
-        <button onclick="changeContent('24')">2024/25</button>
-        <button onclick="changeContent('25')">2025/26</button>
-      </div>
+      <div class="Dynamic-section">
+          <div class="button-line">
+            <button onclick="changeContent('15')">2015/16</button>
+            <button onclick="changeContent('16')">2016/17</button>
+            <button onclick="changeContent('17')">2017/18</button>
+            <button onclick="changeContent('18')">2018/19</button>
+            <button onclick="changeContent('19')">2019/20</button>
+            <button onclick="changeContent('20')">2020/21</button>
+            <button onclick="changeContent('21')">2021/22</button>
+            <button onclick="changeContent('22')">2022/23</button>
+            <button onclick="changeContent('23')">2023/24</button>
+            <button onclick="changeContent('24')">2024/25</button>
+            <button onclick="changeContent('25')">2025/26</button>
+          </div>
     
       <div class="container">
         <div id="kola"></div>
         <div id="zadaci"></div>
         <div id="zadatak"></div>
       </div>
+    </div>
     
       <script>
 
@@ -2434,6 +2441,7 @@
     </script>
 </body>
 </html>
+
 
 
 
