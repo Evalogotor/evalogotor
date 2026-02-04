@@ -113,9 +113,9 @@
         .vertical-buttons{
           display: flex;
           flex-direction: column;
-          align-items: flex-end; /* pushes to right */
+          align-items: flex-end;
           margin-top: 20px;
-          width: 150px; /* keeps them grouped under that column */
+          width: 150px;
         }
 
         .task-buttons {
@@ -250,7 +250,7 @@
         };
         
         if (langSelect) {
-          langSelect.value = lang; // Set dropdown to saved language
+          langSelect.value = lang;
           applyTranslations();
         
           langSelect.addEventListener("change", (e) => {
@@ -259,7 +259,6 @@
             applyTranslations();
           });
         } else {
-          // If no langSelect found, just call applyTranslations with default lang
           applyTranslations();
         }
           
@@ -278,7 +277,6 @@
     
         function applyTheme() {
           if (darkMode) {
-            // Body + Navbar
             body.classList.remove("bg-gray-50","text-gray-900");
             body.classList.add("bg-gray-900","text-white");
             navbar.classList.remove("bg-white");
@@ -288,27 +286,24 @@
             body.classList.remove("light");
             themeLabel.textContent = translations[lang].light;
     
-            // Buttons (Dark mode)
             [themeToggle, loginBtn].forEach(btn => {
               btn.classList.remove("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
               btn.classList.add("bg-gray-900","text-white","border-gray-600","hover:bg-gray-700","hover:text-gray-200");
             });
     
-            // Language selector
             langSelect.classList.remove("text-gray-900");
             langSelect.classList.add("text-white");
             langSelect.parentElement.classList.remove("bg-white","border-gray-300");
             langSelect.parentElement.classList.add("bg-gray-900","border-gray-600");
 
             Array.from(langSelect.options).forEach(opt => {
-              opt.style.backgroundColor = "#1f2937"; // gray-800
+              opt.style.backgroundColor = "#1f2937";
               opt.style.color = "white";
             });
 
             body.classList.remove("light");
             body.classList.add("dark");
           } else {
-            // Body + Navbar
             body.classList.remove("bg-gray-900","text-white");
             body.classList.add("bg-gray-50","text-gray-900");
             navbar.classList.remove("bg-gray-800");
@@ -318,13 +313,11 @@
             body.classList.remove("dark");
               themeLabel.textContent = translations[lang].dark;
     
-            // Buttons (Light mode)
             [themeToggle, loginBtn].forEach(btn => {
               btn.classList.remove("bg-gray-900","text-white","hover:bg-gray-700","hover:text-gray-200");
               btn.classList.add("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
             });
     
-            // Language selector
             langSelect.classList.remove("text-white");
             langSelect.classList.add("text-gray-900");
             langSelect.parentElement.classList.remove("bg-gray-900","border-gray-600");
@@ -355,27 +348,21 @@
 
         buttons.forEach(button => {
           button.addEventListener('click', () => {
-            // Remove 'active' from all buttons
             buttons.forEach(btn => btn.classList.remove('active'));
-            // Add 'active' to the clicked button
             button.classList.add('active');
           });
         });
 
         vbuttons.forEach(button => {
           button.addEventListener('click', () => {
-            // Remove 'active' from all buttons
             vbuttons.forEach(btn => btn.classList.remove('active'));
-            // Add 'active' to the clicked button
             button.classList.add('active');
           });
         });
 
         tbuttons.forEach(button => {
           button.addEventListener('click', () => {
-            // Remove 'active' from all buttons
             tbuttons.forEach(btn => btn.classList.remove('active'));
-            // Add 'active' to the clicked button
             button.classList.add('active');
           });
         });
@@ -2388,12 +2375,10 @@
         }
 
         function getKoloLink(strGod, kolo) {
-            const currentyears = ['2025_2026']; // adjust for your years
+            const currentyears = ['2025_2026'];
             if (currentyears.includes(strGod)) {
-                // Current year kolos: no archive folder
                 return `https://logoliga.hsin.hr/kolo${kolo}_zadaci.pdf`;
             } else {
-                // Old year kolos: inside archive folder
                 return `https://logoliga.hsin.hr/arhiva/${strGod}/kolo${kolo}_zadaci.pdf`;
             }
         }
@@ -2410,7 +2395,6 @@
                 points = 80 + 20 * (red - 4);
             }
             
-            // Save to localStorage
             localStorage.setItem('kategorija', 'HLL');
             localStorage.setItem('god', strGod.replace("_", "."));
             localStorage.setItem('kolo', kolo+'.kolo');
@@ -2441,6 +2425,7 @@
     </script>
 </body>
 </html>
+
 
 
 
