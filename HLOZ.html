@@ -9,13 +9,13 @@
 <style>
   .container {
     display: flex;
-    justify-content: center; /* centers horizontally */
-    align-items: flex-start; /* can be center or flex-start for vertical alignment */
+    justify-content: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     text-align: center;
-    margin: 0 auto; /* removes fixed margin, auto centers container */
-    width: 100%; /* ensures it spans full width */
-    gap: 20px; /* optional spacing between items */
+    margin: 0 auto;
+    width: 100%;
+    gap: 20px;
   }
   .hotbar {
     position: fixed;
@@ -108,9 +108,9 @@
   .vertical-buttons{
     display: flex;
     flex-direction: column;
-    align-items: flex-end; /* pushes to right */
+    align-items: flex-end;
     margin-top: 20px;
-    width: 150px; /* keeps them grouped under that column */
+    width: 150px; 
   }
 
   .task-buttons {
@@ -196,7 +196,6 @@
 <!-- Buttons from Peti.html (kept same) -->
 <div class="button-line">
 <button onclick="changeContent('24')">2024</button>
-<button onclick="changeContent('25')">2025</button>
 </div>
 
 <div class="container">
@@ -204,9 +203,7 @@
 <div id="zadatak"></div>
 </div>
 
-<!-- Shared scripts for theme + lang -->
 <script src="theme-lang.js"></script>
-<!-- Your existing Peti button logic -->
 <script src="peti-logic.js"></script>
 </body>
 <script>
@@ -228,14 +225,14 @@ const translations = {
   ru: { inp: 'Oткрыть задача', eval: 'оценивать', description: "Развивайте навыки FMSLogo, выполняя задания и поднимаясь в рейтинге.", practice: "Практика FMSLogo", practiceDesc: "Попробуйте различные задачи FMSLogo: от простых фигур до сложных узоров.", feedback: "Получите отзыв ИИ", feedbackDesc: "Отправьте свои работы и получите мгновенную оценку от ИИ.", ranks: "Поднимайтесь в рейтинге", ranksDesc: "Зарабатывайте очки и смотрите своё место в мировом рейтинге.", home:"Home",tasks: "Задания", scoreboard: "Рейтинг", login: "Войти", logout: "Выйти", dark: "Тёмный", light: "Светлый" }
 };
 
-let lang = localStorage.getItem("lang") || "en"; // Default language
+let lang = localStorage.getItem("lang") || "en";
 let savedTheme = localStorage.getItem("theme") || 'dark';
 if (savedTheme){
   darkMode = (savedTheme === 'dark');
 }
 
 if (langSelect) {
-  langSelect.value = lang; // Set dropdown to saved language
+  langSelect.value = lang;
   applyTranslations();
 
   langSelect.addEventListener("change", (e) => {
@@ -244,7 +241,6 @@ if (langSelect) {
     applyTranslations();
   });
 } else {
-  // If no langSelect found, just call applyTranslations with default lang
   applyTranslations();
 }
   
@@ -263,7 +259,6 @@ function applyTranslations() {
 
 function applyTheme() {
   if (darkMode) {
-    // Body + Navbar
     body.classList.remove("bg-gray-50","text-gray-900");
     body.classList.add("bg-gray-900","text-white");
     navbar.classList.remove("bg-white");
@@ -273,27 +268,24 @@ function applyTheme() {
     body.classList.remove("light");
     themeLabel.textContent = translations[lang].light;
 
-    // Buttons (Dark mode)
     [themeToggle, loginBtn].forEach(btn => {
       btn.classList.remove("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
       btn.classList.add("bg-gray-900","text-white","border-gray-600","hover:bg-gray-700","hover:text-gray-200");
     });
 
-    // Language selector
     langSelect.classList.remove("text-gray-900");
     langSelect.classList.add("text-white");
     langSelect.parentElement.classList.remove("bg-white","border-gray-300");
     langSelect.parentElement.classList.add("bg-gray-900","border-gray-600");
 
     Array.from(langSelect.options).forEach(opt => {
-      opt.style.backgroundColor = "#1f2937"; // gray-800
+      opt.style.backgroundColor = "#1f2937";
       opt.style.color = "white";
     });
 
     body.classList.remove("light");
     body.classList.add("dark");
   } else {
-    // Body + Navbar
     body.classList.remove("bg-gray-900","text-white");
     body.classList.add("bg-gray-50","text-gray-900");
     navbar.classList.remove("bg-gray-800");
@@ -303,13 +295,11 @@ function applyTheme() {
     body.classList.remove("dark");
       themeLabel.textContent = translations[lang].dark;
 
-    // Buttons (Light mode)
     [themeToggle, loginBtn].forEach(btn => {
       btn.classList.remove("bg-gray-900","text-white","hover:bg-gray-700","hover:text-gray-200");
       btn.classList.add("bg-gray-50","text-gray-900","bg-white","hover:bg-gray-100","hover:text-blue-600");
     });
 
-    // Language selector
     langSelect.classList.remove("text-white");
     langSelect.classList.add("text-gray-900");
     langSelect.parentElement.classList.remove("bg-gray-900","border-gray-600");
@@ -339,27 +329,21 @@ applyTheme();
 
     buttons.forEach(button => {
       button.addEventListener('click', () => {
-        // Remove 'active' from all buttons
         buttons.forEach(btn => btn.classList.remove('active'));
-        // Add 'active' to the clicked button
         button.classList.add('active');
       });
     });
 
     vbuttons.forEach(button => {
       button.addEventListener('click', () => {
-        // Remove 'active' from all buttons
         vbuttons.forEach(btn => btn.classList.remove('active'));
-        // Add 'active' to the clicked button
         button.classList.add('active');
       });
     });
 
     tbuttons.forEach(button => {
       button.addEventListener('click', () => {
-        // Remove 'active' from all buttons
         tbuttons.forEach(btn => btn.classList.remove('active'));
-        // Add 'active' to the clicked button
         button.classList.add('active');
       });
     });
@@ -471,7 +455,6 @@ applyTheme();
         localStorage.setItem("god", strGod);
         localStorage.setItem("zadatak", ime_zadatak);
       
-        // Set points based on 'red'
           if (red != 2 && red != 3) {
               bodovi = red*20;
           } else if (red === 2) {
@@ -480,7 +463,6 @@ applyTheme();
               bodovi = 50;
           }
     
-        // Compose content with meaningful button labels
         var zadatak = `
             <div class="eval-basket">
                 <div class="score">${ime_zadatak}</div>
