@@ -138,7 +138,6 @@
         font-size: 18px;
     }
 
-    /* Login redirect text */
     .login-redirect {
         margin-top: 25px;
         font-size: 1em;
@@ -160,7 +159,6 @@
         color: #1d4ed8;
     }
 
-    /* Topbar */
     .topbar {
         display: flex;
         justify-content: flex-end;
@@ -276,7 +274,6 @@
         <button id="continueBtn" onclick="filledYet()">Continue</button>
     </div>
 
-    <!-- ⭐ LOGIN REDIRECT TEXT ⭐ -->
     <div class="login-redirect">
         <span id="alreadyText">Already have an account?</span>
         <a href="login" id="loginLink">Log in</a>
@@ -288,7 +285,6 @@
 <script>
 lucide.createIcons();
 
-/* ⭐ UPDATED TRANSLATIONS INCLUDING LOGIN TEXT ⭐ */
 const translations = {
     en: { 
         title: "Sign up",
@@ -501,9 +497,10 @@ function filledYet(){
 }
 
 function goHome() {
-    window.location.href = "/"; // change if needed
+    window.location.href = "/";
 }
 
 </script>
 </body>
 </html>
+
