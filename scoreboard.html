@@ -13,16 +13,14 @@
       color: rgb(57, 220, 57);
     }
 
-    /* Default (light mode) */
     #langSelect option {
       background-color: white;
       color: black;
     }
     
-    /* Dark mode */
     .dark #langSelect,
     .dark #langSelect option {
-      background-color: #1f2937; /* Tailwind gray-800 */
+      background-color: #1f2937;
       color: white;
     }
   </style>
@@ -192,7 +190,6 @@
       }
       lucide.createIcons();
       
-      // Save the theme preference to localStorage
     }
 
     themeToggle.addEventListener("click", () => {
