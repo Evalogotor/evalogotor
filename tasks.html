@@ -13,16 +13,14 @@
       color: rgb(57, 220, 57);
     }
 
-    /* Default (light mode) */
     #langSelect option {
       background-color: white;
       color: black;
     }
     
-    /* Dark mode */
     .dark #langSelect,
     .dark #langSelect option {
-      background-color: #1f2937; /* Tailwind gray-800 */
+      background-color: #1f2937;
       color: white;
     }
   </style>
@@ -133,7 +131,6 @@
     const loginBtn = document.getElementById("loginBtn");
     const instruction = document.getElementById("instruction");
 
-    // Card elements
     const card5 = document.getElementById("card5");
     const card6 = document.getElementById("card6");
     const card7 = document.getElementById("card7");
@@ -149,7 +146,6 @@
     
     darkMode = (savedTheme === "dark");
 
-    //Language pull
     let lang = localStorage.getItem('lang') || 'en';
 
     const translations = {
@@ -197,7 +193,7 @@
       },
       hr: {
         home:"Home",
-        scoreboard: "Rezultati",
+        scoreboard: "Ljestvica",
         login: "Prijava",
         themeDark: "Tamno",
         themeLight: "Svijetlo",
@@ -247,7 +243,6 @@
       instruction.textContent = t.instruction;
       themeLabel.textContent = darkMode ? t.themeLight : t.themeDark;
 
-      // Update card titles
       card5.textContent = t.card5;
       card6.textContent = t.card6;
       card7.textContent = t.card7;
@@ -315,7 +310,6 @@
       }
       lucide.createIcons();
       
-      // Save the theme preference to localStorage
       localStorage.setItem('theme', darkMode ? 'dark' : 'light');
     }
 
