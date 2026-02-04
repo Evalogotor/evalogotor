@@ -874,69 +874,78 @@ END`
                 showToast('Please write some code first', 'warning');
                 return;
             }
-            
+
             const taskInfo = loadTaskInfo();
             const submitBtn = document.getElementById('submitBtn');
             const submitText = document.getElementById('submitText');
-            
+
             // Disable button and show loading state
             if (submitBtn) {
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<i data-lucide="loader" class="w-5 h-5 mr-2 animate-spin"></i>Submitting...';
             }
-            
+
             if (submitText) {
                 submitText.textContent = 'Submitting...';
             }
-            
+
             // Update status
             updateJobStatus('pending', 'Submitting job...', 10);
             jobStartTime = Date.now();
             pollCount = 0;
-            
+
             try {
-                // Submit to Cloudflare Worker
-                const response = await fetch(`${CLOUDFLARE_WORKER_URL}/api/hll/submit`, {
+                // --- DIRECT CALL (no Worker/KV): GitHub Pages -> Cloudflare Tunnel -> your PC (Flask) ---
+                updateJobStatus('processing', 'Sending to evaluator...', 25);
+
+                // Normalize folder naming (safe for both 2016/2017 and 2016.2017 styles)
+                const yearFixed = (taskInfo.year || '')
+                    .replaceAll('/', '_')
+                    .replaceAll('.', '_')
+                    .trim();
+
+                // Normalize level naming (ensure e.g. "2.kolo")
+                const levelRaw = (taskInfo.level || '').trim();
+                const levelFixed = levelRaw.endsWith('.kolo') ? levelRaw : `${levelRaw}.kolo`;
+
+                const payload = {
+                    code: code,
+                    category: taskInfo.category,
+                    year: yearFixed,
+                    level: levelFixed,
+                    task: taskInfo.task
+                };
+
+                const response = await fetch(`${CLOUDFLARE_WORKER_URL}/api/run_tests`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        code: code,
-                        category: taskInfo.category,
-                        year: taskInfo.year.replace('.', '_'),
-                        level: taskInfo.level.replace('.kolo', '').trim(),
-                        task: taskInfo.task,
-                        userId: localStorage.getItem('userId') || `user_${Date.now()}`,
-                        timestamp: new Date().toISOString()
-                    })
+                    body: JSON.stringify(payload)
                 });
-                
+
                 if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    const text = await response.text();
+                    throw new Error(`HTTP ${response.status}: ${text}`);
                 }
-                
+
                 const data = await response.json();
-                
-                if (data.success && data.jobId) {
-                    currentJobId = data.jobId;
-                    updateJobStatus('queued', 'Job submitted successfully', 30);
-                    document.getElementById('jobId').textContent = data.jobId;
-                    
-                    // Save code locally
-                    saveCode();
-                    
-                    // Start polling for results
-                    startPolling();
-                    
-                    showToast('Code submitted successfully!', 'success');
-                } else {
-                    throw new Error(data.error || data.message || 'Failed to submit job');
+
+                // Add processing time
+                if (jobStartTime) {
+                    data.processingTime = ((Date.now() - jobStartTime) / 1000).toFixed(2);
                 }
-                
+
+                updateJobStatus('completed', 'Evaluation complete!', 100);
+                showToast('Evaluation completed!', 'success');
+                resetSubmitButton();
+
+                // Render results using existing UI
+                displayResults(data);
+
             } catch (error) {
                 console.error('Submission error:', error);
                 updateJobStatus('error', `Submission failed: ${error.message}`, 0);
                 showToast(`Submission failed: ${error.message}`, 'error');
-                
+
                 // Re-enable button
                 resetSubmitButton();
             }
