@@ -442,11 +442,11 @@
                         
                         <div class="grid grid-cols-2 gap-3 mb-4">
                             <div class="text-center p-3 rounded-lg bg-white dark:bg-gray-800 border">
-                                <div class="text-xs text-gray-500 mb-1"><span id="jobIdLabel">Job ID</span></div>
+                                <div class="text-xs text-gray-500 mb-1">Job ID</div>
                                 <div class="font-mono text-sm truncate" id="jobId">-</div>
                             </div>
                             <div class="text-center p-3 rounded-lg bg-white dark:bg-gray-800 border">
-                                <div class="text-xs text-gray-500 mb-1"><span id="queueLabel">Queue</span></div>
+                                <div class="text-xs text-gray-500 mb-1">Queue</div>
                                 <div class="font-bold" id="queuePos">-</div>
                             </div>
                         </div>
@@ -454,7 +454,7 @@
                         <!-- Progress Bar -->
                         <div>
                             <div class="flex justify-between text-sm mb-2">
-                                <span class="text-gray-600 dark:text-gray-300"><span id="progressLabel">Progress</span></span>
+                                <span class="text-gray-600 dark:text-gray-300">Progress</span>
                                 <span class="font-bold" id="progressPercent">0%</span>
                             </div>
                             <div class="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -466,15 +466,15 @@
                     <!-- Stats -->
                     <div class="grid grid-cols-3 gap-3">
                         <div class="text-center p-3 rounded-lg bg-gray-50 dark:bg-gray-900">
-                            <div class="text-xs text-gray-500"><span id="timeLabel">Time</span></div>
+                            <div class="text-xs text-gray-500">Time</div>
                             <div class="font-bold" id="elapsedTime">0s</div>
                         </div>
                         <div class="text-center p-3 rounded-lg bg-gray-50 dark:bg-gray-900">
-                            <div class="text-xs text-gray-500"><span id="testsLabel">Tests</span></div>
+                            <div class="text-xs text-gray-500">Tests</div>
                             <div class="font-bold" id="testCount">0</div>
                         </div>
                         <div class="text-center p-3 rounded-lg bg-gray-50 dark:bg-gray-900">
-                            <div class="text-xs text-gray-500"><span id="scoreLabel">Score</span></div>
+                            <div class="text-xs text-gray-500">Score</div>
                             <div class="font-bold" id="currentScore">0</div>
                         </div>
                     </div>
@@ -501,7 +501,7 @@
                             <div class="flex justify-between items-center mb-4">
                                 <div>
                                     <div class="text-3xl font-bold" id="scoreValue">0</div>
-                                    <div class="text-gray-500 text-sm"><span id="outOfPrefix">out of</span> <span id="scoreMax">0</span> <span id="outOfSuffix">points</span></div>
+                                    <div class="text-gray-500 text-sm">out of <span id="scoreMax">0</span> points</div>
                                 </div>
                                 <div class="px-4 py-2 rounded-full" id="passRateBadge">
                                     <span id="passRate">0/0</span> tests
@@ -629,33 +629,6 @@ const translations = {
         export: "Export",
         share: "Share",
         themeChanged: "Theme changed"
-        pending: "Pending",
-        processing: "Processing",
-        completed: "Completed",
-        error: "Error",
-        evaluationComplete: "Evaluation complete!",
-        evaluationCompletedToast: "Evaluation completed!",
-        submittingJob: "Submitting job...",
-        sendingToEvaluator: "Sending to evaluator...",
-        executingCode: "Executing FMSLogo code...",
-        waitingQueue: "Waiting in queue...",
-        loadingPreviousJob: "Loading previous job...",
-        jobNotFound: "Job not found on server",
-        jobId: "Job ID",
-        queue: "Queue",
-        progress: "Progress",
-        time: "Time",
-        tests: "Tests",
-        score: "Score",
-        outOf: "out of",
-        points: "points",
-        testsLower: "tests",
-        test: "Test",
-        pts: "pts",
-        mismatchedPixels: "mismatched pixels",
-        evaluationError: "Evaluation Error",
-        unknownEvalError: "Unknown error occurred during evaluation",
-
     },
     de: {
         backToTasks: "Zurück zu Aufgaben",
@@ -688,33 +661,6 @@ const translations = {
         export: "Exportieren",
         share: "Teilen",
         themeChanged: "Theme geändert"
-        pending: "Ausstehend",
-        processing: "Wird ausgeführt",
-        completed: "Abgeschlossen",
-        error: "Fehler",
-        evaluationComplete: "Auswertung abgeschlossen!",
-        evaluationCompletedToast: "Auswertung abgeschlossen!",
-        submittingJob: "Job wird gesendet...",
-        sendingToEvaluator: "An den Auswerter senden...",
-        executingCode: "FMSLogo-Code wird ausgeführt...",
-        waitingQueue: "Warten in der Warteschlange...",
-        loadingPreviousJob: "Vorherigen Job laden...",
-        jobNotFound: "Job nicht auf dem Server gefunden",
-        jobId: "Job-ID",
-        queue: "Warteschlange",
-        progress: "Fortschritt",
-        time: "Zeit",
-        tests: "Tests",
-        score: "Punkte",
-        outOf: "von",
-        points: "Punkten",
-        testsLower: "Tests",
-        test: "Test",
-        pts: "Pkt",
-        mismatchedPixels: "abweichende Pixel",
-        evaluationError: "Auswertungsfehler",
-        unknownEvalError: "Unbekannter Fehler während der Auswertung",
-
     },
     it: {
         backToTasks: "Torna ai compiti",
@@ -747,33 +693,6 @@ const translations = {
         export: "Esporta",
         share: "Condividi",
         themeChanged: "Tema cambiato"
-        pending: "In attesa",
-        processing: "In elaborazione",
-        completed: "Completato",
-        error: "Errore",
-        evaluationComplete: "Valutazione completata!",
-        evaluationCompletedToast: "Valutazione completata!",
-        submittingJob: "Invio del job...",
-        sendingToEvaluator: "Invio al valutatore...",
-        executingCode: "Esecuzione codice FMSLogo...",
-        waitingQueue: "In attesa in coda...",
-        loadingPreviousJob: "Caricamento job precedente...",
-        jobNotFound: "Job non trovato sul server",
-        jobId: "ID Job",
-        queue: "Coda",
-        progress: "Avanzamento",
-        time: "Tempo",
-        tests: "Test",
-        score: "Punteggio",
-        outOf: "su",
-        points: "punti",
-        testsLower: "test",
-        test: "Test",
-        pts: "pt",
-        mismatchedPixels: "pixel non corrispondenti",
-        evaluationError: "Errore di valutazione",
-        unknownEvalError: "Errore sconosciuto durante la valutazione",
-
     },
     hr: {
         backToTasks: "Natrag na zadatke",
@@ -806,33 +725,6 @@ const translations = {
         export: "Izvezi",
         share: "Podijeli",
         themeChanged: "Tema promijenjena"
-        pending: "Na čekanju",
-        processing: "Obrada",
-        completed: "Završeno",
-        error: "Greška",
-        evaluationComplete: "Evaluacija završena!",
-        evaluationCompletedToast: "Evaluacija završena!",
-        submittingJob: "Slanje zadatka...",
-        sendingToEvaluator: "Slanje evaluatoru...",
-        executingCode: "Izvršavam FMSLogo kod...",
-        waitingQueue: "Čekam u redu...",
-        loadingPreviousJob: "Učitavam prethodni zadatak...",
-        jobNotFound: "Zadatak nije pronađen na serveru",
-        jobId: "ID zadatka",
-        queue: "Red",
-        progress: "Napredak",
-        time: "Vrijeme",
-        tests: "Testovi",
-        score: "Rezultat",
-        outOf: "od",
-        points: "bodova",
-        testsLower: "testova",
-        test: "Test",
-        pts: "bod",
-        mismatchedPixels: "nepodudarnih piksela",
-        evaluationError: "Greška evaluacije",
-        unknownEvalError: "Nepoznata greška tijekom evaluacije",
-
     },
     fr: {
         backToTasks: "Retour aux tâches",
@@ -865,33 +757,6 @@ const translations = {
         export: "Exporter",
         share: "Partager",
         themeChanged: "Thème changé"
-        pending: "En attente",
-        processing: "Traitement",
-        completed: "Terminé",
-        error: "Erreur",
-        evaluationComplete: "Évaluation terminée !",
-        evaluationCompletedToast: "Évaluation terminée !",
-        submittingJob: "Envoi du job...",
-        sendingToEvaluator: "Envoi à l’évaluateur...",
-        executingCode: "Exécution du code FMSLogo...",
-        waitingQueue: "En attente dans la file...",
-        loadingPreviousJob: "Chargement du job précédent...",
-        jobNotFound: "Job introuvable sur le serveur",
-        jobId: "ID du job",
-        queue: "File",
-        progress: "Progression",
-        time: "Temps",
-        tests: "Tests",
-        score: "Score",
-        outOf: "sur",
-        points: "points",
-        testsLower: "tests",
-        test: "Test",
-        pts: "pts",
-        mismatchedPixels: "pixels différents",
-        evaluationError: "Erreur d’évaluation",
-        unknownEvalError: "Erreur inconnue lors de l’évaluation",
-
     },
     ru: {
         backToTasks: "Назад к заданиям",
@@ -1002,15 +867,6 @@ function applyTranslations() {
     setText('qaExport', t('export'));
     setText('qaShare', t('share'));
 
-    setText('jobIdLabel', t('jobId'));
-    setText('queueLabel', t('queue'));
-    setText('progressLabel', t('progress'));
-    setText('timeLabel', t('time'));
-    setText('testsLabel', t('tests'));
-    setText('scoreLabel', t('score'));
-    setText('outOfPrefix', t('outOf'));
-    setText('outOfSuffix', t('points'));
-
     // Only change statusText if we're currently idle/ready (avoid overwriting live status)
     const statusTextEl = document.getElementById('statusText');
     if (statusTextEl && isReadyStatusText(statusTextEl.textContent)) {
@@ -1027,12 +883,6 @@ function applyTranslations() {
     }
     // Update <html lang="">
     document.documentElement.setAttribute('lang', lang);
-
-    // Re-render dynamic sections in the current language
-    try {
-        if (typeof renderJobStatus === 'function') renderJobStatus();
-        if (lastResult) displayResults(lastResult);
-    } catch (e) { /* ignore */ }
 
     lucide.createIcons();
 }
@@ -1363,13 +1213,13 @@ END`
             }
 
             // Update status
-            updateJobStatus('pending', 'submittingJob', 10);
+            updateJobStatus('pending', 'Submitting job...', 10);
             jobStartTime = Date.now();
             pollCount = 0;
 
             try {
                 // --- DIRECT CALL (no Worker/KV): GitHub Pages -> Cloudflare Tunnel -> your PC (Flask) ---
-                updateJobStatus('processing', 'sendingToEvaluator', 25);
+                updateJobStatus('processing', 'Sending to evaluator...', 25);
 
                 // Normalize folder naming (safe for both 2016/2017 and 2016.2017 styles)
                 const yearFixed = (taskInfo.year || '')
@@ -1407,8 +1257,8 @@ END`
                     data.processingTime = ((Date.now() - jobStartTime) / 1000).toFixed(2);
                 }
 
-                updateJobStatus('completed', 'evaluationComplete', 100);
-                showToast('evaluationCompletedToast', 'success');
+                updateJobStatus('completed', 'Evaluation complete!', 100);
+                showToast('Evaluation completed!', 'success');
                 resetSubmitButton();
 
                 // Render results using existing UI
@@ -1468,7 +1318,7 @@ END`
                         // This is a complete result
                         clearInterval(pollInterval);
                         pollInterval = null;
-                        updateJobStatus('completed', 'evaluationComplete', 100);
+                        updateJobStatus('completed', 'Evaluation complete!', 100);
                         resetSubmitButton();
                         
                         // Add processing time
@@ -1487,12 +1337,12 @@ END`
                             }
                         }
                         
-                        showToast('evaluationCompletedToast', 'success');
+                        showToast('Evaluation completed!', 'success');
                     } else if (data.status === 'completed' && data.result) {
                         // Alternative response format
                         clearInterval(pollInterval);
                         pollInterval = null;
-                        updateJobStatus('completed', 'evaluationComplete', 100);
+                        updateJobStatus('completed', 'Evaluation complete!', 100);
                         resetSubmitButton();
                         
                         if (jobStartTime) {
@@ -1501,11 +1351,11 @@ END`
                         }
                         
                         displayResults(data.result);
-                        showToast('evaluationCompletedToast', 'success');
+                        showToast('Evaluation completed!', 'success');
                     } else if (data.status === 'processing' || data.status === 'pending') {
                         // Still processing
                         updateJobStatus(data.status, 
-                            data.status === 'processing' ? 'executingCode' : 'waitingQueue', 
+                            data.status === 'processing' ? 'Executing FMSLogo code...' : 'Waiting in queue...', 
                             data.status === 'processing' ? 60 : 40);
                     } else if (data.status === 'error') {
                         // Error occurred
@@ -1518,7 +1368,7 @@ END`
                         // Job not found, something went wrong
                         clearInterval(pollInterval);
                         pollInterval = null;
-                        updateJobStatus('error', 'jobNotFound', 0);
+                        updateJobStatus('error', 'Job not found on server', 0);
                         resetSubmitButton();
                         showToast('Job lost on server. Please try again.', 'error');
                     }
@@ -1549,82 +1399,56 @@ END`
         // ============================================
         // UI UPDATES
         // ============================================
-        // Keep status state so language switches can re-render correctly
-        const jobStatusState = {
-            status: 'ready',
-            message: 'readyStatus', // can be a translation key OR a freeform string
-            progress: 0
-        };
-
-        function hasTranslationKey(key) {
-            return !!(translations[lang] && Object.prototype.hasOwnProperty.call(translations[lang], key));
-        }
-
-        function renderJobStatus() {
+        function updateJobStatus(status, message, progress) {
             const statusIcon = document.getElementById('statusIcon');
             const statusPulse = document.getElementById('statusPulse');
             const statusText = document.getElementById('statusText');
             const jobStatusTitle = document.getElementById('jobStatusTitle');
             const jobStatusDesc = document.getElementById('jobStatusDesc');
-
-            const { status, message, progress } = jobStatusState;
-
+            
             // Update progress
             updateProgress(progress);
-
+            
             // Remove all classes
             statusIcon.className = 'w-4 h-4';
-
-            // Title label (translated)
-            const statusTitleKey = (status === 'pending' || status === 'processing' || status === 'completed' || status === 'error' || status === 'ready')
-                ? status
-                : 'ready';
-
-            // Icon / color / pulse
+            
             switch (status) {
                 case 'pending':
                     statusIcon.setAttribute('data-lucide', 'clock');
                     statusIcon.classList.add('text-yellow-500');
                     statusPulse.classList.remove('hidden');
+                    jobStatusTitle.textContent = 'Pending';
                     break;
                 case 'processing':
                     statusIcon.setAttribute('data-lucide', 'loader');
                     statusIcon.classList.add('text-blue-500', 'animate-spin');
                     statusPulse.classList.remove('hidden');
+                    jobStatusTitle.textContent = 'Processing';
                     break;
                 case 'completed':
                     statusIcon.setAttribute('data-lucide', 'check-circle');
                     statusIcon.classList.add('text-green-500');
                     statusPulse.classList.add('hidden');
+                    jobStatusTitle.textContent = 'Completed';
                     break;
                 case 'error':
                     statusIcon.setAttribute('data-lucide', 'alert-circle');
                     statusIcon.classList.add('text-red-500');
                     statusPulse.classList.add('hidden');
+                    jobStatusTitle.textContent = 'Error';
                     break;
                 default:
                     statusIcon.setAttribute('data-lucide', 'circle');
                     statusIcon.classList.add('text-gray-400');
                     statusPulse.classList.add('hidden');
+                    jobStatusTitle.textContent = 'Ready';
             }
-
-            jobStatusTitle.textContent = t(statusTitleKey);
-
-            // Message (translated if it matches a key)
-            const msg = hasTranslationKey(message) ? t(message) : message;
-            statusText.textContent = msg;
-            jobStatusDesc.textContent = msg;
-
+            
+            statusText.textContent = message;
+            jobStatusDesc.textContent = message;
             lucide.createIcons();
         }
-
-        function updateJobStatus(status, message, progress) {
-            jobStatusState.status = status || 'ready';
-            jobStatusState.message = message || 'readyStatus';
-            jobStatusState.progress = typeof progress === 'number' ? progress : (parseFloat(progress) || 0);
-            renderJobStatus();
-        }
-
+        
         function updateProgress(percent) {
             const progressBar = document.getElementById('progressBar');
             const progressPercent = document.getElementById('progressPercent');
@@ -1633,10 +1457,7 @@ END`
             progressPercent.textContent = `${Math.round(percent)}%`;
         }
         
-        let lastResult = null;
-
         function displayResults(result) {
-            lastResult = result;
             // Hide placeholder, show results
             document.getElementById('resultsPlaceholder').classList.add('hidden');
             const resultsContent = document.getElementById('resultsContent');
@@ -1654,10 +1475,10 @@ END`
                     <div class="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700/30">
                         <div class="font-semibold flex items-center gap-2 mb-2">
                             <i data-lucide="alert-triangle" class="w-5 h-5 text-red-500"></i>
-                            ${t('evaluationError')}
+                            Evaluation Error
                         </div>
                         <div class="text-sm text-gray-600 dark:text-gray-300">
-                            ${result.error || '${t('unknownEvalError')}'}
+                            ${result.error || 'Unknown error occurred during evaluation'}
                         </div>
                     </div>
                 `;
@@ -1682,7 +1503,7 @@ END`
             
             // Update pass rate badge
             const passRateBadge = document.getElementById('passRateBadge');
-            passRateBadge.textContent = `${passedTests}/${totalTests} ${t('testsLower')}`;
+            passRateBadge.textContent = `${passedTests}/${totalTests} tests`;
             passRateBadge.className = `px-4 py-2 rounded-full ${
                 passRate === 1 ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300' :
                 passRate >= 0.5 ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300' :
@@ -1721,10 +1542,10 @@ END`
                         <div class="flex justify-between items-center">
                             <div class="font-semibold flex items-center gap-2">
                                 <i data-lucide="${statusIcon}" class="w-5 h-5 ${statusColor}"></i>
-                                ${t('test')} ${test.test}
+                                Test ${test.test}
                             </div>
                             <div class="font-bold ${test.status === 'PASS' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}">
-                                ${test.points || 0} ${t('pts')}
+                                ${test.points || 0} pts
                             </div>
                         </div>
                         ${test.error ? `
@@ -1736,7 +1557,7 @@ END`
                         ${test.mismatched ? `
                             <div class="text-sm text-yellow-600 dark:text-yellow-400 mt-2 flex items-start gap-2">
                                 <i data-lucide="image" class="w-4 h-4 mt-0.5 flex-shrink-0"></i>
-                                ${test.mismatched} ${t('mismatchedPixels')}
+                                ${test.mismatched} mismatched pixels
                             </div>
                         ` : ''}
                     `;
@@ -1850,7 +1671,7 @@ END`
                             <div class="text-2xl font-bold">${result.total_tests ? Math.round((result.passed_tests || 0) / result.total_tests * 100) : 0}%</div>
                         </div>
                         <div class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900/20 dark:to-gray-800/20 p-4 rounded-xl">
-                            <div class="text-sm text-gray-600 dark:text-gray-400 mb-1"><span id="timeLabel">Time</span></div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">Time</div>
                             <div class="text-xl font-bold">${result.processingTime || 'N/A'}s</div>
                         </div>
                     </div>
@@ -1900,7 +1721,7 @@ END`
                                 ${test.mismatched ? `
                                     <div class="text-yellow-600 dark:text-yellow-400 flex items-start gap-2">
                                         <i data-lucide="image" class="w-4 h-4 mt-0.5 flex-shrink-0"></i>
-                                        ${test.mismatched} ${t('mismatchedPixels')}
+                                        ${test.mismatched} mismatched pixels
                                     </div>
                                 ` : ''}
                             </td>
@@ -1927,7 +1748,7 @@ END`
         
         function loadJobResults(jobId) {
             currentJobId = jobId;
-            updateJobStatus('pending', 'loadingPreviousJob', 10);
+            updateJobStatus('pending', 'Loading previous job...', 10);
             
             // You could implement loading previous job results here
             showToast('Loading previous job results...', 'info');
@@ -1987,7 +1808,7 @@ END`
             }[type];
             
             Toastify({
-                text: hasTranslationKey(message) ? t(message) : message,
+                text: message,
                 duration: 3000,
                 gravity: 'top',
                 position: 'right',
