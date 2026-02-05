@@ -1098,7 +1098,7 @@ END
         function initSnippets() {
             const snippets = {
                 square: 'TO SQUARE :SIZE\n  REPEAT 4 [FD :SIZE RT 90]\nEND',
-                circle: 'TO CIRCLE :RADIUS\n  CIRCLE 50 \nEND',
+                circle: 'TO CIRCLE :RADIUS\n  CIRCLE :RADIUS \nEND',
                 triangle: 'TO TRIANGLE :SIZE\n  REPEAT 3 [FD :SIZE RT 120]\nEND',
                 star: 'TO STAR :SIZE\n  REPEAT 5 [FD :SIZE RT 144]\nEND',
                 polygon: 'TO POLYGON :SIDES :SIZE\n  REPEAT :SIDES [FD :SIZE RT 360/:SIDES]\nEND',
