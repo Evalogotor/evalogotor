@@ -2376,12 +2376,15 @@
 
         function getKoloLink(strGod, kolo, page) {
             const currentyears = ['2025_2026'];
+        
             if (currentyears.includes(strGod)) {
-                return `window.open('https://logoliga.hsin.hr/kolo${kolo}_zadaci.pdf#page=${page}', '_blank');`;
-            } else if (strGod == '2021_2022' && kolo == '6'){
+                return `https://logoliga.hsin.hr/kolo${kolo}_zadaci.pdf#page=${page}`;
+            } 
+            else if (strGod === '2021_2022' && kolo === '6') {
                 return `https://logoliga.hsin.hr/arhiva/2021_2022/kolo6_zadaci.zip`;
-            } else {
-                return `window.open('https://logoliga.hsin.hr/arhiva/${strGod}/kolo${kolo}_zadaci.pdf#page=${page}', '_blank');`;
+            } 
+            else {
+                return `https://logoliga.hsin.hr/arhiva/${strGod}/kolo${kolo}_zadaci.pdf#page=${page}`;
             }
         }
           
@@ -2404,12 +2407,11 @@
             localStorage.setItem('taskPoints', points.toString());
             
             const link = getKoloLink(strGod, kolo, page);
-            https://logoliga.hsin.hr/arhiva/2021_2022/kolo1_zadaci.pdf
             var zadatak = `
                 <div class="eval-basket">
                     <div class="score">${ime_zadatak}</div>
                     <div class="zadatak_struk">
-                        <button class="text-blue-600" id="inp" onclick="window.open('${link}#page=${page}', '_blank');">
+                        <button class="text-blue-600" id="inp" onclick="window.open('${link}', '_blank');">
                             ${translations[lang].inp}
                         </button>
                     </div>
@@ -2428,6 +2430,7 @@
     </script>
 </body>
 </html>
+
 
 
 
