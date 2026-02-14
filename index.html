@@ -6,6 +6,9 @@
   <title>EVALOGOTOR</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
   <style>
     .highlight {
       font-weight: bold;
@@ -94,63 +97,79 @@
 
     <div class="mt-12 w-[800px] h-[480px] rounded-xl overflow-hidden relative">
     
-      <!-- Slides -->
       <div id="slides" class="w-full h-full relative">
     
-        <!-- Slide 1 -->
+        <!-- Slide -->
         <div class="slide absolute inset-0">
           <img src="slika.png" class="w-full h-full object-cover">
+    
+          <!-- gradient readability layer -->
+          <div class="absolute inset-0 bg-gradient-to-r from-white/70 via-white/20 to-transparent dark:from-black/70 dark:via-black/20"></div>
+    
+          <!-- glass panel -->
           <div class="absolute top-0 left-[15%] w-[30%] h-full
-                      bg-black/40 backdrop-blur-sm border-l border-white/20
-                      flex items-center justify-center text-white text-lg font-semibold text-center px-3">
+                      bg-white/40 dark:bg-black/40
+                      backdrop-blur-md
+                      border-l border-white/50 dark:border-white/10
+                      text-gray-900 dark:text-white
+                      flex items-center justify-center
+                      text-lg font-semibold text-center px-4 transition-colors">
             Kreator zadataka za Logo Ligu radi veliku grešku u novom kolu!
           </div>
         </div>
     
-        <!-- Slide 2 -->
         <div class="slide absolute inset-0 hidden">
           <img src="slika2.png" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-r from-white/70 via-white/20 to-transparent dark:from-black/70 dark:via-black/20"></div>
           <div class="absolute top-0 left-[15%] w-[30%] h-full
-                      bg-black/40 backdrop-blur-sm border-l border-white/20
-                      flex items-center justify-center text-white text-lg font-semibold text-center px-3">
+                      bg-white/40 dark:bg-black/40
+                      backdrop-blur-md
+                      border-l border-white/50 dark:border-white/10
+                      text-gray-900 dark:text-white
+                      flex items-center justify-center
+                      text-lg font-semibold text-center px-4 transition-colors">
             Novi AI sustav evaluacije je uveden ovaj tjedan!
           </div>
         </div>
     
-        <!-- Slide 3 -->
         <div class="slide absolute inset-0 hidden">
           <img src="slika3.png" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-r from-white/70 via-white/20 to-transparent dark:from-black/70 dark:via-black/20"></div>
           <div class="absolute top-0 left-[15%] w-[30%] h-full
-                      bg-black/40 backdrop-blur-sm border-l border-white/20
-                      flex items-center justify-center text-white text-lg font-semibold text-center px-3">
+                      bg-white/40 dark:bg-black/40
+                      backdrop-blur-md
+                      border-l border-white/50 dark:border-white/10
+                      text-gray-900 dark:text-white
+                      flex items-center justify-center
+                      text-lg font-semibold text-center px-4 transition-colors">
             Sezona 2 počinje uskoro — pripremite strategije!
           </div>
         </div>
     
       </div>
     
+      <!-- Left arrow -->
       <button onclick="prevSlide()" 
         class="absolute left-4 top-1/2 -translate-y-1/2
-               bg-white/80 backdrop-blur-md
-               hover:bg-white shadow-md
-               text-gray-800 p-3 rounded-full
-               transition hover:scale-110">
-      
+               bg-white/70 dark:bg-black/50
+               backdrop-blur-md
+               border border-white/50 dark:border-white/10
+               text-gray-800 dark:text-white
+               hover:scale-110 transition p-3 rounded-full shadow-lg">
         <i data-lucide="chevron-left" class="w-6 h-6"></i>
       </button>
-      
-      <!-- Right Arrow -->
+    
+      <!-- Right arrow -->
       <button onclick="nextSlide()" 
         class="absolute right-4 top-1/2 -translate-y-1/2
-               bg-white/80 backdrop-blur-md
-               hover:bg-white shadow-md
-               text-gray-800 p-3 rounded-full
-               transition hover:scale-110">
-      
+               bg-white/70 dark:bg-black/50
+               backdrop-blur-md
+               border border-white/50 dark:border-white/10
+               text-gray-800 dark:text-white
+               hover:scale-110 transition p-3 rounded-full shadow-lg">
         <i data-lucide="chevron-right" class="w-6 h-6"></i>
       </button>
     
-    </div>
     </div>
 
   </main>
@@ -392,5 +411,6 @@
   </script>
 </body>
 </html>
+
 
 
