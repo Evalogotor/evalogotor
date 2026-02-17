@@ -215,6 +215,7 @@
         <button onclick="changeContent('23')">2023</button>
         <button onclick="changeContent('24')">2024</button>
         <button onclick="changeContent('25')">2025</button>
+        <button onclick="changeContent('26')">2026</button>
       </div>
     
       <div class="container">
@@ -1115,6 +1116,41 @@
                 document.getElementById('zadaci').innerHTML = buttonZadaci;
                 document.getElementById('zadatak').innerHTML = '';
                 attachVerticalButtonListeners();
+            } else if (contentType === '261') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('kuverta')">Kuverta</button>
+                    <button onclick="changeContent('Strijela')">Strijela</button>
+                    <button onclick="changeContent('pikado')">Pikado</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '262') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('drive')">Drive</button>
+                    <button onclick="changeContent('produžni')">Produžni</button>
+                    <button onclick="changeContent('bomboni')">Bomboni</button>
+                    <button onclick="changeContent('javor')">Javor</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
+            } else if (contentType === '263') {
+                var buttonZadaci = `
+                <div class="task-buttons">
+                    <button onclick="changeContent('biograd')">Biograd</button>
+                    <button onclick="changeContent('poccado')">Poccado</button>
+                    <button onclick="changeContent('zrakoplov')">Zrakoplov</button>
+                    <button onclick="changeContent('lijenost')">Lijenost</button>
+                </div>
+                `;  
+                document.getElementById('zadaci').innerHTML = buttonZadaci;
+                document.getElementById('zadatak').innerHTML = '';
+                attachVerticalButtonListeners();
             }
 
 
@@ -1450,7 +1486,29 @@
                 openPage('https://hsin.hr/drzavno2025/zadaci/logo-5.zip', 3, 2);
             } else if (contentType === 'lijenost') {
                 openPage('https://hsin.hr/drzavno2025/zadaci/logo-5.zip', 4, 2);
-            } 
+            } else if (contentType === 'kuverta') {
+                openPage('https://hsin.hr/skolsko2026/zadaci/skolsko-2026-zadaci-logo-5.pdf#page=2', 1, 1);
+            } else if (contentType === 'Strijela') {
+                openPage('https://hsin.hr/skolsko2026/zadaci/skolsko-2026-zadaci-logo-5.pdf#page=3', 2, 1);
+            } else if (contentType === 'pikado') {
+                openPage('https://hsin.hr/skolsko2026/zadaci/skolsko-2026-zadaci-logo-5.pdf#page=4', 3, 1);
+            } else if (contentType === 'drive') {
+                openPage('https://hsin.hr/zupanijsko2026/zadaci/zupanijsko-2026-zadaci-logo-5.pdf#page=2', 1, 2);
+            } else if (contentType === 'produžni') {
+                openPage('https://hsin.hr/zupanijsko2026/zadaci/zupanijsko-2026-zadaci-logo-5.pdf#page=3', 2, 2);
+            } else if (contentType === 'bomboni') {
+                openPage('https://hsin.hr/zupanijsko2026/zadaci/zupanijsko-2026-zadaci-logo-5.pdf#page=4', 3, 2);
+            } else if (contentType === 'javor') {
+                openPage('https://hsin.hr/zupanijsko2026/zadaci/zupanijsko-2026-zadaci-logo-5.pdf#page=5', 4, 2);
+            }else if (contentType === '') {
+                openPage('', 1, 2);
+            } else if (contentType === '') {
+                openPage('', 2, 2);
+            } else if (contentType === '') {
+                openPage('', 3, 2);
+            } else if (contentType === '') {
+                openPage('', 4, 2);
+            }
         }
 
         function openPage(strGod, red, tip) {
@@ -1518,3 +1576,4 @@
         }
     </script>
 </html>
+
