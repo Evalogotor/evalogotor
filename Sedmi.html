@@ -213,6 +213,7 @@
     <button onclick="changeContent('23')">2023</button>
     <button onclick="changeContent('24')">2024</button>
     <button onclick="changeContent('25')">2025</button>
+    <button onclick="changeContent('26')">2026</button>
   </div>
 
   <div class="container">
@@ -590,6 +591,16 @@ applyTheme();
                 <button onclick="changeContent('251')">Školsko</button>
                 <button onclick="changeContent('252')">Županijsko</button>
                 <button onclick="changeContent('253')">Državno</button>
+            </div>
+        `;
+            document.getElementById('kola').innerHTML = buttonskola;
+            document.getElementById('zadaci').innerHTML = '';
+            attachTaskButtonListeners();
+        } else if (contentType === '26') {
+            var buttonskola = `
+            <div class="vertical-buttons">
+                <button onclick="changeContent('261')">Školsko</button>
+                <button onclick="changeContent('262')">Županijsko</button>
             </div>
         `;
             document.getElementById('kola').innerHTML = buttonskola;
@@ -1115,6 +1126,41 @@ applyTheme();
             document.getElementById('zadaci').innerHTML = buttonZadaci;
             document.getElementById('zadatak').innerHTML = '';
             attachVerticalButtonListeners();
+        } else if (contentType === '261') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('matcha')">Matcha</button>
+                <button onclick="changeContent('graf')">Graf</button>
+                <button onclick="changeContent('znamenka')">Znamenka</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '262') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('bicikl')">Bicikl</button>
+                <button onclick="changeContent('Štapići')">Štapići</button>
+                <button onclick="changeContent('konj')">Konj</button>
+                <button onclick="changeContent('kolodvor')">Kolodvor</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '253') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('')"></button>
+                <button onclick="changeContent('')"></button>
+                <button onclick="changeContent('')"></button>
+                <button onclick="changeContent('')"></button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
         }
 
 
@@ -1442,6 +1488,28 @@ applyTheme();
             openPage('https://hsin.hr/drzavno2025/zadaci/logo-7.zip', 3, 2);
         } else if (contentType === 'tarife') {
             openPage('https://hsin.hr/drzavno2025/zadaci/logo-7.zip', 4, 2);
+        } else if (contentType === 'matcha') {
+            openPage('https://hsin.hr/skolsko2026/zadaci/skolsko-2026-zadaci-logo-7.pdf#page=2', 1, 1);
+        } else if (contentType === 'graf') {
+            openPage('https://hsin.hr/skolsko2026/zadaci/skolsko-2026-zadaci-logo-7.pdf#page=3', 2, 1);
+        } else if (contentType === 'znamenka') {
+            openPage('https://hsin.hr/skolsko2026/zadaci/skolsko-2026-zadaci-logo-7.pdf#page=4', 3, 1);
+        }else if (contentType === 'bicikl') {
+            openPage('https://hsin.hr/zupanijsko2026/zadaci/zupanijsko-2026-zadaci-logo-7.pdf#page=2', 1, 2);
+        } else if (contentType === 'Štapići') {
+            openPage('https://hsin.hr/zupanijsko2026/zadaci/zupanijsko-2026-zadaci-logo-7.pdf#page=3', 2, 2);
+        } else if (contentType === 'Konj') {
+            openPage('https://hsin.hr/zupanijsko2026/zadaci/zupanijsko-2026-zadaci-logo-7.pdf#page=4', 3, 2);
+        } else if (contentType === 'Kolodvor') {
+            openPage('https://hsin.hr/zupanijsko2026/zadaci/zupanijsko-2026-zadaci-logo-7.pdf#page=6', 4, 2);
+        } else if (contentType === '') {
+            openPage('', 1, 2);
+        } else if (contentType === '') {
+            openPage('', 2, 2);
+        } else if (contentType === '') {
+            openPage('', 3, 2);
+        } else if (contentType === '') {
+            openPage('', 4, 2);
         } 
     }
 
