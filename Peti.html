@@ -601,6 +601,16 @@
                 document.getElementById('kola').innerHTML = buttonskola;
                 document.getElementById('zadaci').innerHTML = '';
                 attachTaskButtonListeners();
+            } else if (contentType === '26') {
+                var buttonskola = `
+                <div class="vertical-buttons">
+                    <button onclick="changeContent('261')">Školsko</button>
+                    <button onclick="changeContent('262')">Županijsko</button>
+                </div>
+            `;
+                document.getElementById('kola').innerHTML = buttonskola;
+                document.getElementById('zadaci').innerHTML = '';
+                attachTaskButtonListeners();
             }
 
             if (contentType === '111') {
@@ -1576,4 +1586,5 @@
         }
     </script>
 </html>
+
 
