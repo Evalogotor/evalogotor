@@ -213,6 +213,7 @@
     <button onclick="changeContent('23')">2023</button>
     <button onclick="changeContent('24')">2024</button>
     <button onclick="changeContent('25')">2025</button>
+    <button onclick="changeContent('26')">2026</button>
   </div>
 
   <div class="container">
@@ -593,6 +594,16 @@ applyTheme();
                 <button onclick="changeContent('251')">Školsko</button>
                 <button onclick="changeContent('252')">Županijsko</button>
                 <button onclick="changeContent('253')">Državno</button>
+            </div>
+        `;
+            document.getElementById('kola').innerHTML = buttonskola;
+            document.getElementById('zadaci').innerHTML = '';
+            attachTaskButtonListeners();
+        } else if (contentType === '26') {
+            var buttonskola = `
+            <div class="vertical-buttons">
+                <button onclick="changeContent('261')">Školsko</button>
+                <button onclick="changeContent('262')">Županijsko</button>
             </div>
         `;
             document.getElementById('kola').innerHTML = buttonskola;
@@ -1118,6 +1129,41 @@ applyTheme();
             document.getElementById('zadaci').innerHTML = buttonZadaci;
             document.getElementById('zadatak').innerHTML = '';
             attachVerticalButtonListeners();
+        } else if (contentType === '261') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('jaje')">Jaje</button>
+                <button onclick="changeContent('Mozaik')">Mozaik</button>
+                <button onclick="changeContent('skoro')">Skoro</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '262') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('zabavni')">Zabavni</button>
+                <button onclick="changeContent('dizalo')">Dizalo</button>
+                <button onclick="changeContent('fotoaparati')">Fotoaparati</button>
+                <button onclick="changeContent('fragmenti')">Fragmenti</button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
+        } else if (contentType === '263') {
+            var buttonZadaci = `
+            <div class="task-buttons">
+                <button onclick="changeContent('')"></button>
+                <button onclick="changeContent('')"></button>
+                <button onclick="changeContent('')"></button>
+                <button onclick="changeContent('')"></button>
+            </div>
+            `;  
+            document.getElementById('zadaci').innerHTML = buttonZadaci;
+            document.getElementById('zadatak').innerHTML = '';
+            attachVerticalButtonListeners();
         }
 
 
@@ -1432,7 +1478,7 @@ applyTheme();
         } else if (contentType === 'geo') {
             openPage('https://hsin.hr/zupanijsko2025/zadaci/zupanijsko-2025-zadaci-logo-8.pdf#page=2', 1, 2);
         } else if (contentType === 'zgrade') {
-            openPage('https://hsin.hr/zupanijsko2025/zadaci/zupanijsko-2025-zadaci-logo-8.pdf#page3=', 2, 2);
+            openPage('https://hsin.hr/zupanijsko2025/zadaci/zupanijsko-2025-zadaci-logo-8.pdf#page=3', 2, 2);
         } else if (contentType === 'virus') {
             openPage('https://hsin.hr/zupanijsko2025/zadaci/zupanijsko-2025-zadaci-logo-8.pdf#page=5', 3, 2);
         } else if (contentType === 'tokyo') {
@@ -1445,6 +1491,28 @@ applyTheme();
             openPage('https://hsin.hr/drzavno2025/zadaci/logo-8.zip', 3, 2);
         } else if (contentType === 'f1') {
             openPage('https://hsin.hr/drzavno2025/zadaci/logo-8.zip', 4, 2);
+        } else if (contentType === 'jaje') {
+            openPage('https://hsin.hr/skolsko2026/zadaci/skolsko-2026-zadaci-logo-8.pdf#page=2', 1, 1);
+        } else if (contentType === 'Mozaik') {
+            openPage('https://hsin.hr/skolsko2026/zadaci/skolsko-2026-zadaci-logo-8.pdf#page=3', 2, 1);
+        } else if (contentType === 'skoro') {
+            openPage('https://hsin.hr/skolsko2026/zadaci/skolsko-2026-zadaci-logo-8.pdf#page=4', 3, 1);
+        } else if (contentType === 'zabavni') {
+            openPage('https://hsin.hr/zupanijsko2026/zadaci/zupanijsko-2026-zadaci-logo-8.pdf#page=2', 1, 2);
+        } else if (contentType === 'dizalo') {
+            openPage('https://hsin.hr/zupanijsko2026/zadaci/zupanijsko-2026-zadaci-logo-8.pdf#page=3', 2, 2);
+        } else if (contentType === 'fotoaparati') {
+            openPage('https://hsin.hr/zupanijsko2026/zadaci/zupanijsko-2026-zadaci-logo-8.pdf#page=5', 3, 2);
+        } else if (contentType === 'fragmenti') {
+            openPage('https://hsin.hr/zupanijsko2026/zadaci/zupanijsko-2026-zadaci-logo-8.pdf#page=7', 4, 2);
+        } else if (contentType === '') {
+            openPage('', 1, 2);
+        } else if (contentType === '') {
+            openPage('', 2, 2);
+        } else if (contentType === '') {
+            openPage('', 3, 2);
+        } else if (contentType === '') {
+            openPage('', 4, 2);
         }
 
       
