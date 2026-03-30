@@ -910,17 +910,26 @@ function applyTranslations() {
                 candidates.push(normalized);
             };
 
-            const isHostedByFlask =
-                window.location.protocol === 'http:' ||
-                (window.location.protocol === 'https:' && !window.location.hostname.endsWith('github.io'));
+            const isLocalFrontend =
+                window.location.protocol === 'file:' ||
+                window.location.hostname === 'localhost' ||
+                window.location.hostname === '127.0.0.1';
+
+            const isFlaskServedFrontend =
+                !isLocalFrontend &&
+                (
+                    window.location.pathname === '/frontend' ||
+                    window.location.pathname === '/frontend/' ||
+                    window.location.pathname.startsWith('/frontend/')
+                );
 
             addCandidate(API_BASE_OVERRIDE);
 
-            if (isHostedByFlask) {
+            if (isFlaskServedFrontend) {
                 addCandidate(window.location.origin);
             }
 
-            if (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            if (isLocalFrontend) {
                 addCandidate('http://127.0.0.1:5000');
                 addCandidate('http://localhost:5000');
             }
@@ -951,7 +960,7 @@ function applyTranslations() {
                 throw lastError;
             }
 
-            throw new Error('No backend URL configured. Serve this page from Flask, or set localStorage.apiBaseUrl to your backend base URL.');
+            throw new Error('No backend URL configured. For hosted pages, set localStorage.apiBaseUrl or pass ?api=https://your-cloudflared-url.');
         }
         
         // ============================================
