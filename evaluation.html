@@ -1612,15 +1612,32 @@ END`
                         ` : ''}
                         ${test.generated_image ? `
                             <div class="mt-3">
-                                <div class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
-                                    
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div>
+                                        <div class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
+                                            Generated output
+                                        </div>
+                                        <img
+                                            src="${test.generated_image}"
+                                            alt="Generated output for test ${test.test}"
+                                            loading="lazy"
+                                            class="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 max-w-full"
+                                        />
+                                    </div>
+                                    ${test.expected_image ? `
+                                        <div>
+                                            <div class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
+                                                Expected output
+                                            </div>
+                                            <img
+                                                src="${test.expected_image}"
+                                                alt="Expected output for test ${test.test}"
+                                                loading="lazy"
+                                                class="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 max-w-full"
+                                            />
+                                        </div>
+                                    ` : ''}
                                 </div>
-                                <img
-                                    src="${test.generated_image}"
-                                    alt="Generated output for test ${test.test}"
-                                    loading="lazy"
-                                    class="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 max-w-full"
-                                />
                             </div>
                         ` : ''}
                     `;
