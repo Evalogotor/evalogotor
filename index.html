@@ -71,57 +71,6 @@
 
   <!-- Hero -->
   <main class="flex-1 flex flex-col items-center text-center px-6 py-12">
-    <section class="w-full max-w-5xl mb-10">
-      <div class="bg-white rounded-3xl shadow-md border border-blue-100 dark:border-blue-900/40 p-6 text-left">
-        <div class="flex flex-col gap-4">
-          <div>
-            <div class="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400" id="backendTitle">
-              Evaluator backend
-            </div>
-            <p class="mt-2 text-sm text-gray-600 dark:text-gray-300" id="backendDescription">
-              Paste the current Cloudflare tunnel URL here once on this PC. All pages will use it automatically until you change it again.
-            </p>
-          </div>
-
-          <div class="flex flex-col lg:flex-row gap-3">
-            <input
-              id="apiBaseInput"
-              type="url"
-              placeholder="https://your-current-tunnel.trycloudflare.com"
-              class="flex-1 rounded-2xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:bg-gray-800 dark:text-white dark:border-gray-600"
-            >
-            <div class="flex flex-wrap gap-3">
-              <button
-                id="saveApiBtn"
-                class="rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-700 transition"
-              >
-                Save URL
-              </button>
-              <button
-                id="testApiBtn"
-                class="rounded-2xl border border-gray-300 bg-white px-4 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-100 transition dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700"
-              >
-                Test
-              </button>
-              <button
-                id="clearApiBtn"
-                class="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700 hover:bg-red-100 transition dark:bg-red-900/20 dark:text-red-300 dark:border-red-800 dark:hover:bg-red-900/30"
-              >
-                Clear
-              </button>
-            </div>
-          </div>
-
-          <div
-            id="apiStatus"
-            class="rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700 dark:border-gray-700 dark:bg-gray-900/60 dark:text-gray-300"
-          >
-            No backend URL saved yet.
-          </div>
-        </div>
-      </div>
-    </section>
-
     <h1 id="welcome">
       <span class="font-bold text-xl">WELCOME TO </span><span class="font-bold text-xl text-blue-600">EVA</span><span class="highlight">LOGO</span><span class="font-bold text-xl !text-blue-600">TOR</span>
     </h1>
@@ -332,30 +281,6 @@
     const langSelect = document.getElementById("langSelect");
     const loginBtn = document.getElementById("loginBtn");
     const loginLabel = document.getElementById("login");
-    const apiBaseInput = document.getElementById("apiBaseInput");
-    const saveApiBtn = document.getElementById("saveApiBtn");
-    const testApiBtn = document.getElementById("testApiBtn");
-    const clearApiBtn = document.getElementById("clearApiBtn");
-    const apiStatus = document.getElementById("apiStatus");
-
-    function normalizeApiBase(url) {
-      return (url || "").trim().replace(/\/+$/, "");
-    }
-
-    function setApiStatus(message, tone = "neutral") {
-      apiStatus.textContent = message;
-      apiStatus.className = "rounded-2xl px-4 py-3 text-sm border";
-
-      if (tone === "success") {
-        apiStatus.classList.add("border-green-200", "bg-green-50", "text-green-700", "dark:border-green-800", "dark:bg-green-900/20", "dark:text-green-300");
-      } else if (tone === "error") {
-        apiStatus.classList.add("border-red-200", "bg-red-50", "text-red-700", "dark:border-red-800", "dark:bg-red-900/20", "dark:text-red-300");
-      } else if (tone === "info") {
-        apiStatus.classList.add("border-blue-200", "bg-blue-50", "text-blue-700", "dark:border-blue-800", "dark:bg-blue-900/20", "dark:text-blue-300");
-      } else {
-        apiStatus.classList.add("border-gray-200", "bg-gray-50", "text-gray-700", "dark:border-gray-700", "dark:bg-gray-900/60", "dark:text-gray-300");
-      }
-    }
 
     function renderLoginState() {
       const currentUser = window.EvalogotorApi && window.EvalogotorApi.getCurrentUser
@@ -371,63 +296,6 @@
         loginBtn.onclick = () => { location.href = "login"; };
         loginBtn.title = translations[lang].login;
       }
-    }
-
-    async function testApiBase(url) {
-      const normalized = normalizeApiBase(url || apiBaseInput.value);
-      if (!normalized) {
-        setApiStatus("Paste the current Cloudflare tunnel URL first.", "error");
-        return false;
-      }
-
-      setApiStatus(`Testing ${normalized} ...`, "info");
-
-      try {
-        const response = await fetch(`${normalized}/health`, {
-          headers: { "Accept": "application/json" }
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
-        }
-
-        setApiStatus(`Connected to ${normalized}`, "success");
-        return true;
-      } catch (error) {
-        setApiStatus(`Could not reach ${normalized}: ${error.message}`, "error");
-        return false;
-      }
-    }
-
-    function loadSavedApiBase() {
-      const saved = normalizeApiBase(localStorage.getItem(window.EvalogotorApi.API_BASE_STORAGE_KEY) || "");
-      apiBaseInput.value = saved;
-
-      if (saved) {
-        setApiStatus(`Saved backend URL: ${saved}`, "info");
-        testApiBase(saved);
-      } else {
-        setApiStatus("No backend URL saved yet.", "neutral");
-      }
-    }
-
-    async function saveApiBase() {
-      const normalized = normalizeApiBase(apiBaseInput.value);
-
-      if (!normalized.startsWith("http://") && !normalized.startsWith("https://")) {
-        setApiStatus("Use the full tunnel URL, for example https://example.trycloudflare.com", "error");
-        return;
-      }
-
-      localStorage.setItem(window.EvalogotorApi.API_BASE_STORAGE_KEY, normalized);
-      apiBaseInput.value = normalized;
-      await testApiBase(normalized);
-    }
-
-    function clearApiBase() {
-      localStorage.removeItem(window.EvalogotorApi.API_BASE_STORAGE_KEY);
-      apiBaseInput.value = "";
-      setApiStatus("Saved backend URL cleared. Paste the current tunnel URL when needed.", "neutral");
     }
     
     function applyTheme() {
@@ -525,15 +393,6 @@
       applyTranslations();
     });
 
-    saveApiBtn.addEventListener("click", saveApiBase);
-    testApiBtn.addEventListener("click", () => testApiBase());
-    clearApiBtn.addEventListener("click", clearApiBase);
-    apiBaseInput.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        saveApiBase();
-      }
-    });
-
     let currentSlide = 0;
     const slides = document.querySelectorAll(".slide");
     
@@ -553,12 +412,10 @@
     }
     
     showSlide(currentSlide);
-    loadSavedApiBase();
 
   </script>
 </body>
 </html>
-
 
 
 
