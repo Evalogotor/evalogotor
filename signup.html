@@ -1,11 +1,11 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EVALOGOTOR - Sign up</title>
+<title>EVALOGOTOR - Sign Up</title>
 <script src="https://unpkg.com/lucide@latest"></script>
-
+<script src="api-client.js"></script>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -17,7 +17,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        min-height: 100vh;
         transition: all 0.3s ease;
     }
 
@@ -29,11 +29,10 @@
     .container {
         background-color: rgb(31, 41, 55);
         border-radius: 20px;
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
-        padding: 80px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        padding: 56px;
         text-align: center;
-        width: 80%;
-        max-width: 800px;
+        width: min(92%, 840px);
         position: relative;
         transition: all 0.3s ease;
     }
@@ -45,8 +44,8 @@
 
     h1 {
         font-size: 3em;
-        margin-top: 40px;
-        margin-bottom: 40px;
+        margin-top: 32px;
+        margin-bottom: 32px;
     }
 
     .input-container {
@@ -54,13 +53,14 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        margin-top: 20px;
+        margin-top: 18px;
+        gap: 12px;
     }
 
     label {
-        font-size: 1.2em;
-        margin-bottom: 5px;
-        margin-right: 10px;
+        font-size: 1.1em;
+        min-width: 150px;
+        text-align: right;
     }
 
     input[type="text"],
@@ -70,8 +70,7 @@
         padding: 10px;
         border: 2px solid rgb(17, 24, 39);
         border-radius: 5px;
-        width: 80%;
-        max-width: 300px;
+        width: min(80%, 320px);
         background-color: rgb(55, 65, 81);
         color: white;
         transition: all 0.3s ease;
@@ -91,7 +90,7 @@
     }
 
     .button-container {
-        margin-top: 20px;
+        margin-top: 24px;
     }
 
     #continueBtn {
@@ -110,53 +109,35 @@
         background-color: #0056b3;
     }
 
+    #continueBtn:disabled {
+        opacity: 0.7;
+        cursor: wait;
+    }
+
     body.light #continueBtn:hover {
         background-color: #c0c0c0;
         color: #000;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
-    .warning {
-        background-color: #fff4f4;
-        color: #d32f2f;
-        border: 1px solid #f8d7da;
+    .message {
         padding: 12px 16px;
         border-radius: 16px;
-        margin: 10px 0;
+        margin: 16px auto 0;
         font-family: system-ui, sans-serif;
         font-size: 15px;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
         display: flex;
         align-items: center;
         gap: 10px;
-        max-width: 400px;
-        margin-left: auto;
-        margin-right: auto;
+        max-width: 460px;
+        text-align: left;
     }
 
-    .warning-icon {
-        font-size: 18px;
-    }
-
-    .login-redirect {
-        margin-top: 25px;
-        font-size: 1em;
-    }
-
-    .login-redirect a {
-        color: #3b82f6;
-        text-decoration: none;
-        font-weight: bold;
-        margin-left: 6px;
-        transition: 0.2s;
-    }
-
-    .login-redirect a:hover {
-        text-decoration: underline;
-    }
-
-    body.light .login-redirect a {
-        color: #1d4ed8;
+    .message.error {
+        background-color: #fff4f4;
+        color: #d32f2f;
+        border: 1px solid #f8d7da;
     }
 
     .topbar {
@@ -222,18 +203,25 @@
         opacity: 0.8;
     }
 
+    .login-redirect {
+        margin-top: 24px;
+    }
+
+    .login-redirect a {
+        color: #3b82f6;
+        text-decoration: none;
+        font-weight: bold;
+        margin-left: 6px;
+    }
 </style>
 </head>
 <body>
-
 <div class="container">
-    
     <button class="homeButton" onclick="goHome()">
         <i data-lucide="home"></i>
     </button>
 
     <div class="topbar">
-
         <select id="langSelect">
             <option value="en">EN</option>
             <option value="de">DE</option>
@@ -245,29 +233,28 @@
         <button class="themeToggle" id="themeToggle">
             <i id="themeIcon" data-lucide="moon"></i>
         </button>
-
     </div>
 
     <h1 id="title">Sign up</h1>
 
     <div class="input-container">
-        <label id="usernameLabel">Username</label>
-        <input type="text" id="username">
+        <label for="username" id="usernameLabel">Username</label>
+        <input type="text" id="username" autocomplete="username">
     </div>
 
     <div class="input-container">
-        <label id="emailLabel">Email</label>
-        <input type="email" id="email">
+        <label for="email" id="emailLabel">Email</label>
+        <input type="email" id="email" autocomplete="email">
     </div>
 
     <div class="input-container">
-        <label id="passwordLabel">Password</label>
-        <input type="password" id="password">
+        <label for="password" id="passwordLabel">Password</label>
+        <input type="password" id="password" autocomplete="new-password">
     </div>
 
     <div class="input-container">
-        <label id="password2Label">Repeat Password</label>
-        <input type="password" id="password2">
+        <label for="password2" id="password2Label">Repeat password</label>
+        <input type="password" id="password2" autocomplete="new-password">
     </div>
 
     <div class="button-container">
@@ -286,12 +273,12 @@
 lucide.createIcons();
 
 const translations = {
-    en: { 
+    en: {
         title: "Sign up",
         username: "Username",
         email: "Email",
         password: "Password",
-        password2: "Repeat Password",
+        password2: "Repeat password",
         already: "Already have an account?",
         login: "Log in",
         placeholderUser: "Enter username",
@@ -299,15 +286,14 @@ const translations = {
         placeholderPass: "Enter password",
         placeholderPass2: "Repeat password",
         continue: "Continue",
-        warnUser: "Please enter username",
-        warnEmail: "Please enter a valid email",
-        warnPass: "Please enter password",
+        creating: "Creating account...",
+        warnUser: "Please enter a username with at least 3 characters",
+        warnEmail: "Please enter a valid email address",
+        warnPass: "Please enter a password with at least 6 characters",
         warnPass2: "Please repeat the password",
-        warnMismatch: "Passwords do not match",
-        success: "successful"
+        warnMismatch: "Passwords do not match"
     },
-
-    de: { 
+    de: {
         title: "Registrieren",
         username: "Benutzername",
         email: "E-Mail",
@@ -320,135 +306,205 @@ const translations = {
         placeholderPass: "Passwort eingeben",
         placeholderPass2: "Passwort wiederholen",
         continue: "Weiter",
-        warnUser: "Bitte geben Sie einen Benutzernamen ein",
-        warnEmail: "Bitte geben Sie eine gültige E-Mail ein",
-        warnPass: "Bitte geben Sie ein Passwort ein",
-        warnPass2: "Bitte wiederholen Sie das Passwort",
-        warnMismatch: "Passwörter stimmen nicht überein",
-        success: "erfolgreich"
+        creating: "Konto wird erstellt...",
+        warnUser: "Bitte einen Benutzernamen mit mindestens 3 Zeichen eingeben",
+        warnEmail: "Bitte eine gueltige E-Mail eingeben",
+        warnPass: "Bitte ein Passwort mit mindestens 6 Zeichen eingeben",
+        warnPass2: "Bitte das Passwort wiederholen",
+        warnMismatch: "Passwoerter stimmen nicht ueberein"
     },
-
-    it: { 
+    it: {
         title: "Registrazione",
         username: "Nome utente",
         email: "Email",
         password: "Password",
         password2: "Ripeti password",
-        already: "Hai già un account?",
+        already: "Hai gia un account?",
         login: "Accedi",
         placeholderUser: "Inserisci nome utente",
         placeholderEmail: "Inserisci email",
         placeholderPass: "Inserisci password",
         placeholderPass2: "Ripeti password",
         continue: "Continua",
-        warnUser: "Per favore inserisci un nome utente",
-        warnEmail: "Per favore inserisci un'email valida",
-        warnPass: "Per favore inserisci una password",
-        warnPass2: "Per favore ripeti la password",
-        warnMismatch: "Le password non corrispondono",
-        success: "riuscito"
+        creating: "Creazione account...",
+        warnUser: "Inserisci un nome utente di almeno 3 caratteri",
+        warnEmail: "Inserisci un indirizzo email valido",
+        warnPass: "Inserisci una password di almeno 6 caratteri",
+        warnPass2: "Ripeti la password",
+        warnMismatch: "Le password non corrispondono"
     },
-
-    hr: { 
+    hr: {
         title: "Registracija",
-        username: "Ime",
+        username: "Korisnicko ime",
         email: "Email",
         password: "Lozinka",
         password2: "Ponovite lozinku",
-        already: "Već imate račun?",
+        already: "Vec imate racun?",
         login: "Prijava",
-        placeholderUser: "Upišite ime",
-        placeholderEmail: "Upišite email",
-        placeholderPass: "Upišite lozinku",
+        placeholderUser: "Upisite korisnicko ime",
+        placeholderEmail: "Upisite email",
+        placeholderPass: "Upisite lozinku",
         placeholderPass2: "Ponovite lozinku",
         continue: "Nastavi",
-        warnUser: "Molim vas unesite korisničko ime",
-        warnEmail: "Molim vas unesite važeći email",
-        warnPass: "Molim vas unesite lozinku",
-        warnPass2: "Molim vas ponovite lozinku",
-        warnMismatch: "Lozinke se ne podudaraju",
-        success: "uspješno"
+        creating: "Izrada racuna...",
+        warnUser: "Molim unesite korisnicko ime od barem 3 znaka",
+        warnEmail: "Molim unesite ispravnu email adresu",
+        warnPass: "Molim unesite lozinku od barem 6 znakova",
+        warnPass2: "Molim ponovite lozinku",
+        warnMismatch: "Lozinke se ne podudaraju"
     },
-
-    fr: { 
+    fr: {
         title: "Inscription",
         username: "Nom d'utilisateur",
         email: "Email",
         password: "Mot de passe",
-        password2: "Répéter le mot de passe",
-        already: "Vous avez déjà un compte ?",
+        password2: "Repeter le mot de passe",
+        already: "Vous avez deja un compte ?",
         login: "Connexion",
-        placeholderUser: "Entrez nom utilisateur",
+        placeholderUser: "Entrez nom d'utilisateur",
         placeholderEmail: "Entrez email",
         placeholderPass: "Entrez mot de passe",
-        placeholderPass2: "Répétez le mot de passe",
+        placeholderPass2: "Repetez le mot de passe",
         continue: "Continuer",
-        warnUser: "Veuillez entrer un nom d'utilisateur",
+        creating: "Creation du compte...",
+        warnUser: "Veuillez entrer un nom d'utilisateur d'au moins 3 caracteres",
         warnEmail: "Veuillez entrer une adresse email valide",
-        warnPass: "Veuillez entrer un mot de passe",
-        warnPass2: "Veuillez répéter le mot de passe",
-        warnMismatch: "Les mots de passe ne correspondent pas",
-        success: "réussi"
+        warnPass: "Veuillez entrer un mot de passe d'au moins 6 caracteres",
+        warnPass2: "Veuillez repeter le mot de passe",
+        warnMismatch: "Les mots de passe ne correspondent pas"
     },
-
-    ru: { 
-        title: "Регистрация",
-        username: "Имя пользователя",
+    ru: {
+        title: "Registratsiya",
+        username: "Polzovatel",
         email: "Email",
-        password: "Пароль",
-        password2: "Повторите пароль",
-        already: "Уже есть аккаунт?",
-        login: "Войти",
-        placeholderUser: "Введите имя пользователя",
-        placeholderEmail: "Введите email",
-        placeholderPass: "Введите пароль",
-        placeholderPass2: "Повторите пароль",
-        continue: "Продолжить",
-        warnUser: "Пожалуйста, введите имя пользователя",
-        warnEmail: "Пожалуйста, введите корректный email",
-        warnPass: "Пожалуйста, введите пароль",
-        warnPass2: "Пожалуйста, повторите пароль",
-        warnMismatch: "Пароли не совпадают",
-        success: "успешно"
+        password: "Parol",
+        password2: "Povtorite parol",
+        already: "Uzhe est akkaunt?",
+        login: "Vhod",
+        placeholderUser: "Vvedite imya",
+        placeholderEmail: "Vvedite email",
+        placeholderPass: "Vvedite parol",
+        placeholderPass2: "Povtorite parol",
+        continue: "Prodolzhit",
+        creating: "Sozdanie akkaunta...",
+        warnUser: "Pozhaluysta, vvedite imya ne koroche 3 simvolov",
+        warnEmail: "Pozhaluysta, vvedite korrektnyy email",
+        warnPass: "Pozhaluysta, vvedite parol ne koroche 6 simvolov",
+        warnPass2: "Pozhaluysta, povtorite parol",
+        warnMismatch: "Paroli ne sovpadayut"
     }
 };
 
 let darkMode = true;
 let currentLang = localStorage.getItem("lang") || "en";
-let savedTheme = localStorage.getItem("theme") || "dark";
+const savedTheme = localStorage.getItem("theme") || "dark";
 
-function updateLanguage(lang){
-    const t = translations[lang];
-
-    document.getElementById("title").textContent = t.title;
-
-    document.getElementById("usernameLabel").textContent = t.username;
-    document.getElementById("emailLabel").textContent = t.email;
-    document.getElementById("passwordLabel").textContent = t.password;
-    document.getElementById("password2Label").textContent = t.password2;
-
-    document.getElementById("alreadyText").textContent = t.already;
-    document.getElementById("loginLink").textContent = t.login;
-
-    document.getElementById("username").placeholder = t.placeholderUser;
-    document.getElementById("email").placeholder = t.placeholderEmail;
-    document.getElementById("password").placeholder = t.placeholderPass;
-    document.getElementById("password2").placeholder = t.placeholderPass2;
-
-    document.getElementById("continueBtn").textContent = t.continue;
+function t(key) {
+    return (translations[currentLang] || translations.en)[key];
 }
 
-function applyTheme(){
-    if(darkMode){
+function updateLanguage(lang) {
+    currentLang = lang;
+    document.getElementById("title").textContent = t("title");
+    document.getElementById("usernameLabel").textContent = t("username");
+    document.getElementById("emailLabel").textContent = t("email");
+    document.getElementById("passwordLabel").textContent = t("password");
+    document.getElementById("password2Label").textContent = t("password2");
+    document.getElementById("alreadyText").textContent = t("already");
+    document.getElementById("loginLink").textContent = t("login");
+    document.getElementById("username").placeholder = t("placeholderUser");
+    document.getElementById("email").placeholder = t("placeholderEmail");
+    document.getElementById("password").placeholder = t("placeholderPass");
+    document.getElementById("password2").placeholder = t("placeholderPass2");
+    document.getElementById("continueBtn").textContent = t("continue");
+}
+
+function applyTheme() {
+    if (darkMode) {
         document.body.classList.remove("light");
         document.body.classList.add("dark");
         document.getElementById("themeIcon").setAttribute("data-lucide", "sun");
     } else {
-        document.body.classList.remove("dark");
         document.body.classList.add("light");
+        document.body.classList.remove("dark");
         document.getElementById("themeIcon").setAttribute("data-lucide", "moon");
     }
     lucide.createIcons();
+}
+
+function showMessage(message) {
+    document.getElementById("warning").innerHTML =
+        `<div class="message error"><span>!</span><span>${message}</span></div>`;
+}
+
+function clearMessage() {
+    document.getElementById("warning").innerHTML = "";
+}
+
+function validateFields(username, email, password, password2) {
+    if (username.length < 3) {
+        return t("warnUser");
+    }
+    if (!email.includes("@") || !email.includes(".")) {
+        return t("warnEmail");
+    }
+    if (password.length < 6) {
+        return t("warnPass");
+    }
+    if (password2.length === 0) {
+        return t("warnPass2");
+    }
+    if (password !== password2) {
+        return t("warnMismatch");
+    }
+    return "";
+}
+
+async function filledYet() {
+    clearMessage();
+
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const password2 = document.getElementById("password2").value;
+
+    const validationError = validateFields(username, email, password, password2);
+    if (validationError) {
+        showMessage(validationError);
+        return;
+    }
+
+    const continueBtn = document.getElementById("continueBtn");
+    const originalLabel = continueBtn.textContent;
+    continueBtn.disabled = true;
+    continueBtn.textContent = t("creating");
+
+    try {
+        const data = await window.EvalogotorApi.apiRequest("/api/auth/signup", {
+            method: "POST",
+            auth: false,
+            body: {
+                username,
+                email,
+                password
+            }
+        });
+
+        window.EvalogotorApi.setAuthSession({
+            token: data.token,
+            user: data.user
+        });
+
+        window.location.href = "account";
+    } catch (error) {
+        showMessage(window.EvalogotorApi.getFriendlyErrorMessage(error));
+        continueBtn.disabled = false;
+        continueBtn.textContent = originalLabel;
+    }
+}
+
+function goHome() {
+    window.location.href = "/";
 }
 
 document.getElementById("langSelect").value = currentLang;
@@ -457,8 +513,8 @@ updateLanguage(currentLang);
 darkMode = savedTheme === "dark";
 applyTheme();
 
-document.getElementById("langSelect").addEventListener("change", (e) => {
-    currentLang = e.target.value;
+document.getElementById("langSelect").addEventListener("change", (event) => {
+    currentLang = event.target.value;
     localStorage.setItem("lang", currentLang);
     updateLanguage(currentLang);
 });
@@ -469,38 +525,18 @@ document.getElementById("themeToggle").addEventListener("click", () => {
     applyTheme();
 });
 
-function filledYet(){
-    document.getElementById("warning").innerHTML = "";
+["username", "email", "password", "password2"].forEach((id) => {
+    document.getElementById(id).addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            filledYet();
+        }
+    });
+});
 
-    const username = document.getElementById("username").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const password2 = document.getElementById("password2").value.trim();
-
-    const t = translations[currentLang];
-    let warn = "";
-
-    if (username === "") warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnUser}</div>`;
-    if (email === "" || !email.includes("@") || !email.includes("."))
-        warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnEmail}</div>`;
-    if (password === "") warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnPass}</div>`;
-    if (password2 === "") warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnPass2}</div>`;
-    if (password !== "" && password2 !== "" && password !== password2)
-        warn += `<div class="warning"><span class="warning-icon">⚠️</span> ${t.warnMismatch}</div>`;
-
-    if (warn !== ""){
-        document.getElementById("warning").innerHTML = warn;
-        return;
-    }
-
-    alert("✔️ " + t.title + " " + t.success + "!");
+const existingSession = window.EvalogotorApi.getAuthSession();
+if (existingSession && existingSession.token) {
+    window.location.href = "account";
 }
-
-function goHome() {
-    window.location.href = "/";
-}
-
 </script>
 </body>
 </html>
-

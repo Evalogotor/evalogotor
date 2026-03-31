@@ -37,6 +37,7 @@
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="api-client.js"></script>
     
     <!-- CodeMirror -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
@@ -938,6 +939,10 @@ function applyTranslations() {
         }
 
         async function fetchFromBackend(path, options = {}) {
+            if (window.EvalogotorApi && typeof window.EvalogotorApi.fetchFromBackend === 'function') {
+                return window.EvalogotorApi.fetchFromBackend(path, options);
+            }
+
             const candidates = getApiBaseCandidates();
             let lastError = null;
 
@@ -1298,9 +1303,17 @@ END`
                     task: taskInfo.task
                 };
 
+                const headers = { 'Content-Type': 'application/json' };
+                const authSession = window.EvalogotorApi && window.EvalogotorApi.getAuthSession
+                    ? window.EvalogotorApi.getAuthSession()
+                    : null;
+                if (authSession && authSession.token) {
+                    headers.Authorization = `Bearer ${authSession.token}`;
+                }
+
                 const response = await fetchFromBackend('/api/run_tests', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers,
                     body: JSON.stringify(payload)
                 });
 
@@ -1312,7 +1325,12 @@ END`
                 }
 
                 updateJobStatus('completed', 'Evaluation complete!', 100);
-                showToast('Evaluation completed!', 'success');
+                showToast(
+                    authSession && authSession.token
+                        ? 'Evaluation completed and saved to your account history!'
+                        : 'Evaluation completed!',
+                    'success'
+                );
                 resetSubmitButton();
 
                 // Render results using existing UI

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EVALOGOTOR - Account</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="api-client.js"></script>
+  <script>
+    tailwind.config = { darkMode: "class" };
+  </script>
+  <style>
+    .highlight {
+      font-weight: bold;
+      font-size: 1.25rem;
+      color: rgb(57, 220, 57);
+    }
+
+    #langSelect option {
+      background-color: white;
+      color: black;
+    }
+
+    .dark #langSelect,
+    .dark #langSelect option {
+      background-color: #1f2937;
+      color: white;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen transition-colors" id="body">
+  <header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white" id="navbar">
+    <div class="flex items-center group cursor-pointer" onclick="location.href='/'">
+      <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span><span class="highlight group-hover:text-[rgb(57,220,57)]">LOGO</span><span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
+    </div>
+    <nav class="flex items-center space-x-4">
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='/'">
+        <i data-lucide="home" class="w-4 h-4"></i> <span id="home">Home</span>
+      </button>
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='tasks'">
+        <i data-lucide="pen-tool" class="w-4 h-4"></i> <span id="tasks">Tasks</span>
+      </button>
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='scoreboard'">
+        <i data-lucide="bar-chart-3" class="w-4 h-4"></i> <span id="scoreboard">Scoreboard</span>
+      </button>
+      <button id="logoutBtn" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
+        <i data-lucide="log-out" class="w-4 h-4 mr-1"></i> <span id="logoutLabel">Log out</span>
+      </button>
+      <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
+        <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span>
+      </button>
+      <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white">
+        <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
+        <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900">
+          <option value="en">EN</option>
+          <option value="de">DE</option>
+          <option value="it">IT</option>
+          <option value="hr">HR</option>
+          <option value="fr">FR</option>
+          <option value="ru">RU</option>
+        </select>
+      </div>
+    </nav>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-10">
+    <section class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+      <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 p-8">
+        <p class="text-sm uppercase tracking-[0.25em] text-blue-600 dark:text-blue-400" id="accountEyebrow">My space</p>
+        <h1 class="text-4xl font-bold mt-2" id="accountTitle">Account</h1>
+        <p class="mt-3 text-gray-600 dark:text-gray-300 max-w-2xl" id="accountSubtitle">
+          Your evaluation history is stored automatically whenever you submit a solution while signed in.
+        </p>
+
+        <div id="messageBox" class="hidden mt-6 rounded-2xl px-4 py-3 text-sm"></div>
+
+        <div class="mt-8 grid gap-4 md:grid-cols-2">
+          <div class="rounded-2xl bg-gray-50 dark:bg-gray-900/70 border border-gray-100 dark:border-gray-700 p-5">
+            <div class="text-sm text-gray-500 dark:text-gray-400" id="usernameLabel">Username</div>
+            <div class="text-2xl font-bold mt-1" id="usernameValue">-</div>
+          </div>
+          <div class="rounded-2xl bg-gray-50 dark:bg-gray-900/70 border border-gray-100 dark:border-gray-700 p-5">
+            <div class="text-sm text-gray-500 dark:text-gray-400" id="emailLabel">Email</div>
+            <div class="text-xl font-semibold mt-1 break-all" id="emailValue">-</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+        <div class="rounded-3xl bg-gradient-to-br from-blue-600 to-cyan-500 text-white p-6 shadow-lg">
+          <div class="text-sm uppercase tracking-wide opacity-80" id="submissionCountLabel">Saved submissions</div>
+          <div class="text-4xl font-bold mt-2" id="submissionCountValue">0</div>
+        </div>
+        <div class="rounded-3xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 p-6 shadow-lg">
+          <div class="text-sm text-gray-500 dark:text-gray-400" id="bestScoreLabel">Best single score</div>
+          <div class="text-4xl font-bold mt-2" id="bestScoreValue">0</div>
+        </div>
+        <div class="rounded-3xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 p-6 shadow-lg">
+          <div class="text-sm text-gray-500 dark:text-gray-400" id="joinedLabel">Joined</div>
+          <div class="text-xl font-semibold mt-2" id="joinedValue">-</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-8 bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden">
+      <div class="flex items-center justify-between px-6 py-5 border-b border-gray-100 dark:border-gray-700">
+        <div>
+          <h2 class="text-xl font-semibold" id="historyTitle">Recent submissions</h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400" id="historySubtitle">Newest saved evaluations first.</p>
+        </div>
+        <button id="reloadBtn" class="rounded-xl border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700">
+          <span id="reloadText">Reload</span>
+        </button>
+      </div>
+
+      <div id="historyLoading" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+        <div class="flex justify-center mb-3">
+          <i data-lucide="loader-circle" class="w-8 h-8 animate-spin text-blue-500"></i>
+        </div>
+        <div id="loadingText">Loading account data...</div>
+      </div>
+
+      <div id="emptyHistory" class="hidden px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+        <div class="flex justify-center mb-3">
+          <i data-lucide="folder-open" class="w-10 h-10 text-blue-500"></i>
+        </div>
+        <div class="font-semibold text-lg" id="emptyTitle">No history yet</div>
+        <div class="mt-2" id="emptySubtitle">Submit a solution while logged in and it will appear here automatically.</div>
+      </div>
+
+      <div id="historyWrap" class="overflow-x-auto hidden">
+        <table class="w-full">
+          <thead class="bg-gray-50 dark:bg-gray-900">
+            <tr>
+              <th class="px-6 py-4 text-left text-sm font-semibold" id="taskHead">Task</th>
+              <th class="px-6 py-4 text-left text-sm font-semibold" id="scoreHead">Score</th>
+              <th class="px-6 py-4 text-left text-sm font-semibold" id="testsHead">Tests</th>
+              <th class="px-6 py-4 text-left text-sm font-semibold" id="whenHead">When</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody" class="divide-y divide-gray-100 dark:divide-gray-700"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const body = document.getElementById("body");
+    const navbar = document.getElementById("navbar");
+    const themeToggle = document.getElementById("themeToggle");
+    const themeLabel = document.getElementById("themeLabel");
+    const themeIcon = document.getElementById("themeIcon");
+    const langSelect = document.getElementById("langSelect");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const reloadBtn = document.getElementById("reloadBtn");
+    const historyLoading = document.getElementById("historyLoading");
+    const emptyHistory = document.getElementById("emptyHistory");
+    const historyWrap = document.getElementById("historyWrap");
+    const historyBody = document.getElementById("historyBody");
+    const messageBox = document.getElementById("messageBox");
+
+    let darkMode = (localStorage.getItem("theme") || "dark") === "dark";
+    let lang = localStorage.getItem("lang") || "en";
+
+    const translations = {
+      en: { home: "Home", tasks: "Tasks", scoreboard: "Scoreboard", logout: "Log out", themeDark: "Dark", themeLight: "Light", accountEyebrow: "My space", accountTitle: "Account", accountSubtitle: "Your evaluation history is stored automatically whenever you submit a solution while signed in.", username: "Username", email: "Email", submissionCount: "Saved submissions", bestScore: "Best single score", joined: "Joined", historyTitle: "Recent submissions", historySubtitle: "Newest saved evaluations first.", reload: "Reload", loading: "Loading account data...", emptyTitle: "No history yet", emptySubtitle: "Submit a solution while logged in and it will appear here automatically.", task: "Task", score: "Score", tests: "Tests", when: "When" },
+      de: { home: "Home", tasks: "Aufgaben", scoreboard: "Bestenliste", logout: "Abmelden", themeDark: "Dunkel", themeLight: "Hell", accountEyebrow: "Mein Bereich", accountTitle: "Konto", accountSubtitle: "Deine Auswertungshistorie wird automatisch gespeichert, wenn du angemeldet eine Loesung absendest.", username: "Benutzername", email: "E-Mail", submissionCount: "Gespeicherte Abgaben", bestScore: "Bester Einzelwert", joined: "Dabei seit", historyTitle: "Letzte Abgaben", historySubtitle: "Neueste gespeicherte Auswertungen zuerst.", reload: "Neu laden", loading: "Kontodaten werden geladen...", emptyTitle: "Noch keine Historie", emptySubtitle: "Sende angemeldet eine Loesung ab und sie erscheint automatisch hier.", task: "Aufgabe", score: "Punkte", tests: "Tests", when: "Zeit" },
+      it: { home: "Home", tasks: "Compiti", scoreboard: "Classifica", logout: "Esci", themeDark: "Scuro", themeLight: "Chiaro", accountEyebrow: "Il mio spazio", accountTitle: "Account", accountSubtitle: "La cronologia delle valutazioni viene salvata automaticamente quando invii una soluzione da loggato.", username: "Nome utente", email: "Email", submissionCount: "Invii salvati", bestScore: "Miglior punteggio singolo", joined: "Iscritto il", historyTitle: "Invii recenti", historySubtitle: "Prima le valutazioni salvate piu recenti.", reload: "Ricarica", loading: "Caricamento dati account...", emptyTitle: "Nessuna cronologia", emptySubtitle: "Invia una soluzione mentre sei loggato e comparira qui automaticamente.", task: "Compito", score: "Punteggio", tests: "Test", when: "Quando" },
+      hr: { home: "Home", tasks: "Zadaci", scoreboard: "Ljestvica", logout: "Odjava", themeDark: "Tamno", themeLight: "Svijetlo", accountEyebrow: "Moj prostor", accountTitle: "Racun", accountSubtitle: "Povijest evaluacija sprema se automatski kad prijavljen posaljes rjesenje.", username: "Korisnicko ime", email: "Email", submissionCount: "Spremljene predaje", bestScore: "Najbolji pojedinacni rezultat", joined: "Clan od", historyTitle: "Nedavne predaje", historySubtitle: "Najnovije spremljene evaluacije prve.", reload: "Ucitaj ponovo", loading: "Ucitavanje podataka racuna...", emptyTitle: "Jos nema povijesti", emptySubtitle: "Predaj rjesenje dok si prijavljen i automatski ce se pojaviti ovdje.", task: "Zadatak", score: "Rezultat", tests: "Testovi", when: "Vrijeme" },
+      fr: { home: "Home", tasks: "Taches", scoreboard: "Classement", logout: "Deconnexion", themeDark: "Sombre", themeLight: "Clair", accountEyebrow: "Mon espace", accountTitle: "Compte", accountSubtitle: "L'historique des evaluations est enregistre automatiquement lorsque vous envoyez une solution en etant connecte.", username: "Nom d'utilisateur", email: "Email", submissionCount: "Soumissions enregistrees", bestScore: "Meilleur score unique", joined: "Inscrit le", historyTitle: "Soumissions recentes", historySubtitle: "Les evaluations enregistrees les plus recentes d'abord.", reload: "Recharger", loading: "Chargement des donnees du compte...", emptyTitle: "Pas encore d'historique", emptySubtitle: "Soumettez une solution en etant connecte et elle apparaitra ici automatiquement.", task: "Tache", score: "Score", tests: "Tests", when: "Quand" },
+      ru: { home: "Home", tasks: "Zadaniya", scoreboard: "Tablica", logout: "Vyhod", themeDark: "Temnaya", themeLight: "Svetlaya", accountEyebrow: "Moe prostranstvo", accountTitle: "Akkount", accountSubtitle: "Istoriya proverok sokhranyaetsya avtomaticheski, kogda vy otpravlyaete reshenie vo vremya vhoda.", username: "Polzovatel", email: "Email", submissionCount: "Sokhranennye otpravki", bestScore: "Luchshiy odin rezultat", joined: "S nami s", historyTitle: "Nedavnie otpravki", historySubtitle: "Snachala samye novye sokhranennye proverki.", reload: "Obnovit", loading: "Zagruzka dannykh akkaunta...", emptyTitle: "Istorii poka net", emptySubtitle: "Otpravte reshenie vo vremya vhoda, i ono avtomaticheski poyavitsya zdes.", task: "Zadacha", score: "Ochki", tests: "Testy", when: "Kogda" }
+    };
+
+    function t(key) {
+      return (translations[lang] || translations.en)[key];
+    }
+
+    function updateLanguage() {
+      document.getElementById("home").textContent = t("home");
+      document.getElementById("tasks").textContent = t("tasks");
+      document.getElementById("scoreboard").textContent = t("scoreboard");
+      document.getElementById("logoutLabel").textContent = t("logout");
+      document.getElementById("accountEyebrow").textContent = t("accountEyebrow");
+      document.getElementById("accountTitle").textContent = t("accountTitle");
+      document.getElementById("accountSubtitle").textContent = t("accountSubtitle");
+      document.getElementById("usernameLabel").textContent = t("username");
+      document.getElementById("emailLabel").textContent = t("email");
+      document.getElementById("submissionCountLabel").textContent = t("submissionCount");
+      document.getElementById("bestScoreLabel").textContent = t("bestScore");
+      document.getElementById("joinedLabel").textContent = t("joined");
+      document.getElementById("historyTitle").textContent = t("historyTitle");
+      document.getElementById("historySubtitle").textContent = t("historySubtitle");
+      document.getElementById("reloadText").textContent = t("reload");
+      document.getElementById("loadingText").textContent = t("loading");
+      document.getElementById("emptyTitle").textContent = t("emptyTitle");
+      document.getElementById("emptySubtitle").textContent = t("emptySubtitle");
+      document.getElementById("taskHead").textContent = t("task");
+      document.getElementById("scoreHead").textContent = t("score");
+      document.getElementById("testsHead").textContent = t("tests");
+      document.getElementById("whenHead").textContent = t("when");
+      themeLabel.textContent = darkMode ? t("themeLight") : t("themeDark");
+    }
+
+    function applyTheme() {
+      if (darkMode) {
+        body.classList.add("dark", "bg-gray-900", "text-white");
+        body.classList.remove("light", "bg-gray-50", "text-gray-900");
+        navbar.classList.add("bg-gray-800");
+        navbar.classList.remove("bg-white");
+        themeIcon.setAttribute("data-lucide", "sun");
+        [themeToggle, logoutBtn].forEach((btn) => {
+          btn.classList.remove("bg-white", "text-gray-900", "hover:bg-gray-100", "border-gray-300");
+          btn.classList.add("bg-gray-900", "text-white", "hover:bg-gray-700", "border-gray-600");
+        });
+        langSelect.classList.remove("text-gray-900");
+        langSelect.classList.add("text-white");
+        langSelect.parentElement.classList.remove("bg-white", "border-gray-300");
+        langSelect.parentElement.classList.add("bg-gray-800", "border-gray-600");
+      } else {
+        body.classList.add("light", "bg-gray-50", "text-gray-900");
+        body.classList.remove("dark", "bg-gray-900", "text-white");
+        navbar.classList.add("bg-white");
+        navbar.classList.remove("bg-gray-800");
+        themeIcon.setAttribute("data-lucide", "moon");
+        [themeToggle, logoutBtn].forEach((btn) => {
+          btn.classList.add("bg-white", "text-gray-900", "hover:bg-gray-100", "border-gray-300");
+          btn.classList.remove("bg-gray-900", "text-white", "hover:bg-gray-700", "border-gray-600");
+        });
+        langSelect.classList.add("text-gray-900");
+        langSelect.classList.remove("text-white");
+        langSelect.parentElement.classList.add("bg-white", "border-gray-300");
+        langSelect.parentElement.classList.remove("bg-gray-800", "border-gray-600");
+      }
+      lucide.createIcons();
+    }
+
+    function showMessage(message) {
+      messageBox.className = "mt-6 rounded-2xl px-4 py-3 text-sm bg-red-50 text-red-700 border border-red-200 dark:bg-red-900/20 dark:text-red-300 dark:border-red-800";
+      messageBox.textContent = message;
+      messageBox.classList.remove("hidden");
+    }
+
+    function clearMessage() {
+      messageBox.classList.add("hidden");
+      messageBox.textContent = "";
+    }
+
+    function fillUser(user, stats) {
+      document.getElementById("usernameValue").textContent = user.username || "-";
+      document.getElementById("emailValue").textContent = user.email || "-";
+      document.getElementById("joinedValue").textContent = window.EvalogotorApi.formatDateTime(user.created_at);
+      document.getElementById("submissionCountValue").textContent = String(stats.submission_count || 0);
+      document.getElementById("bestScoreValue").textContent = String(stats.best_single_score || 0);
+    }
+
+    function renderHistory(items) {
+      historyBody.innerHTML = "";
+
+      if (!items.length) {
+        historyWrap.classList.add("hidden");
+        emptyHistory.classList.remove("hidden");
+        return;
+      }
+
+      emptyHistory.classList.add("hidden");
+      historyWrap.classList.remove("hidden");
+
+      items.forEach((item, index) => {
+        const row = document.createElement("tr");
+        row.className = index % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-900";
+        row.innerHTML = `
+          <td class="px-6 py-4">
+            <div class="font-semibold">${item.task}</div>
+            <div class="text-sm text-gray-500 dark:text-gray-400">${item.category} / ${item.year} / ${item.level}</div>
+          </td>
+          <td class="px-6 py-4"><span class="font-bold text-blue-600 dark:text-blue-400">${item.total_points}/${item.max_points}</span></td>
+          <td class="px-6 py-4"><span class="inline-flex rounded-full px-3 py-1 text-xs font-semibold ${item.passed_tests === item.total_tests ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300" : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300"}">${item.passed_tests}/${item.total_tests}</span></td>
+          <td class="px-6 py-4 text-sm">${window.EvalogotorApi.formatDateTime(item.created_at)}</td>
+        `;
+        historyBody.appendChild(row);
+      });
+    }
+
+    async function loadAccountData() {
+      clearMessage();
+      historyLoading.classList.remove("hidden");
+      emptyHistory.classList.add("hidden");
+      historyWrap.classList.add("hidden");
+
+      try {
+        const [meData, historyData] = await Promise.all([
+          window.EvalogotorApi.apiRequest("/api/auth/me"),
+          window.EvalogotorApi.apiRequest("/api/users/history?limit=25")
+        ]);
+
+        fillUser(meData.user, meData.stats || {});
+        renderHistory(historyData.items || []);
+      } catch (error) {
+        const message = window.EvalogotorApi.getFriendlyErrorMessage(error);
+        if ((error.message || "").includes("401") || message === "Unauthorized") {
+          window.EvalogotorApi.clearAuthSession();
+          window.location.href = "login";
+          return;
+        }
+        showMessage(message);
+      } finally {
+        historyLoading.classList.add("hidden");
+        lucide.createIcons();
+      }
+    }
+
+    async function logout() {
+      try {
+        await window.EvalogotorApi.apiRequest("/api/auth/logout", { method: "POST" });
+      } catch (error) {
+        // Clear local session even if server logout fails.
+      }
+      window.EvalogotorApi.clearAuthSession();
+      window.location.href = "login";
+    }
+
+    const session = window.EvalogotorApi.getAuthSession();
+    if (!session || !session.token) {
+      window.location.href = "login";
+    } else {
+      langSelect.value = lang;
+      updateLanguage();
+      applyTheme();
+      loadAccountData();
+
+      langSelect.addEventListener("change", (event) => {
+        lang = event.target.value;
+        localStorage.setItem("lang", lang);
+        updateLanguage();
+        applyTheme();
+      });
+
+      themeToggle.addEventListener("click", () => {
+        darkMode = !darkMode;
+        localStorage.setItem("theme", darkMode ? "dark" : "light");
+        applyTheme();
+        updateLanguage();
+      });
+
+      reloadBtn.addEventListener("click", loadAccountData);
+      logoutBtn.addEventListener("click", logout);
+    }
+  </script>
+</body>
+</html>
