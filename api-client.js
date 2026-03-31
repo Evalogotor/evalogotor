@@ -22,8 +22,9 @@
 
   function getApiBaseCandidates() {
     const params = new URLSearchParams(window.location.search);
-    const override = normalizeBaseUrl(
-      params.get("api") || localStorage.getItem(API_BASE_STORAGE_KEY) || ""
+    const queryOverride = normalizeBaseUrl(params.get("api") || "");
+    const storedOverride = normalizeBaseUrl(
+      localStorage.getItem(API_BASE_STORAGE_KEY) || ""
     );
 
     const candidates = [];
@@ -44,11 +45,17 @@
         window.location.pathname === "/frontend/" ||
         window.location.pathname.startsWith("/frontend/"));
 
-    addCandidate(override);
+    addCandidate(queryOverride);
 
     if (isFlaskServedFrontend) {
       addCandidate(window.location.origin);
     }
+
+    if (!isLocalFrontend && !isFlaskServedFrontend) {
+      addCandidate(window.location.origin);
+    }
+
+    addCandidate(storedOverride);
 
     if (isLocalFrontend) {
       addCandidate("http://127.0.0.1:5000");
