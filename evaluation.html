@@ -514,6 +514,25 @@
                             <div class="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-2">
                                 <div id="scoreBar" class="h-full bg-gradient-to-r from-green-400 to-blue-500 rounded-full transition-all duration-1000" style="width: 0%"></div>
                             </div>
+
+                            <div id="reviewRequestBox" class="hidden mt-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-4 dark:border-amber-800/40 dark:bg-amber-900/20">
+                                <div class="font-semibold text-amber-800 dark:text-amber-200">Need a manual review?</div>
+                                <p id="reviewRequestHint" class="mt-1 text-sm text-amber-700 dark:text-amber-300">
+                                    If the evaluator looks wrong because of FMSLogo quirks, you can send this saved submission to the admin queue.
+                                </p>
+                                <textarea
+                                    id="reviewReasonInput"
+                                    rows="3"
+                                    class="mt-3 w-full rounded-xl border border-amber-300 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 dark:border-amber-700 dark:bg-gray-900 dark:text-white"
+                                    placeholder="Optional note for the admin, for example what looks correct in your drawing."
+                                ></textarea>
+                                <div class="mt-3 flex flex-wrap items-center gap-3">
+                                    <button id="requestReviewBtn" onclick="requestManualReview()" class="rounded-xl bg-amber-500 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-600">
+                                        Request admin review
+                                    </button>
+                                    <span id="reviewRequestStatus" class="text-sm text-amber-700 dark:text-amber-300"></span>
+                                </div>
+                            </div>
                         </div>
                         
                         <!-- Test Results -->
@@ -978,6 +997,7 @@ function applyTranslations() {
         let pollCount = 0;
         let jobStartTime = null;
         let isDarkMode = false;
+        let latestEvaluationResult = null;
         
         // ============================================
         // INITIALIZATION
@@ -1525,14 +1545,110 @@ END`
             progressBar.style.width = `${percent}%`;
             progressPercent.textContent = `${Math.round(percent)}%`;
         }
-        
+
+        function renderReviewRequestBox(result) {
+            const reviewRequestBox = document.getElementById('reviewRequestBox');
+            const reviewReasonInput = document.getElementById('reviewReasonInput');
+            const requestReviewBtn = document.getElementById('requestReviewBtn');
+            const reviewRequestStatus = document.getElementById('reviewRequestStatus');
+            const reviewRequestHint = document.getElementById('reviewRequestHint');
+
+            if (!reviewRequestBox || !reviewReasonInput || !requestReviewBtn || !reviewRequestStatus || !reviewRequestHint) {
+                return;
+            }
+
+            reviewRequestBox.classList.add('hidden');
+            reviewRequestStatus.textContent = '';
+            reviewReasonInput.disabled = false;
+            requestReviewBtn.disabled = false;
+            requestReviewBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+
+            if (!result || result.error || !result.success) {
+                return;
+            }
+
+            const totalPoints = Number(result.total_points || 0);
+            const maxPoints = Number(result.max_points || 0);
+            const submission = result.submission || null;
+            const reviewStatus = submission
+                ? (submission.review_status || (submission.review && submission.review.status) || 'none')
+                : 'none';
+
+            if (maxPoints > 0 && totalPoints >= maxPoints) {
+                return;
+            }
+
+            reviewRequestBox.classList.remove('hidden');
+
+            if (!submission || !submission.id) {
+                reviewRequestHint.textContent = 'Sign in before submitting if you want to save the result and request admin review.';
+                reviewReasonInput.classList.add('hidden');
+                requestReviewBtn.classList.add('hidden');
+                reviewRequestStatus.textContent = 'This result was not saved to an account.';
+                return;
+            }
+
+            reviewReasonInput.classList.remove('hidden');
+            requestReviewBtn.classList.remove('hidden');
+            reviewRequestHint.textContent = 'If the evaluator looks wrong because of FMSLogo quirks, you can send this saved submission to the admin queue.';
+
+            if (reviewStatus === 'pending') {
+                requestReviewBtn.disabled = true;
+                requestReviewBtn.classList.add('opacity-60', 'cursor-not-allowed');
+                reviewReasonInput.disabled = true;
+                reviewRequestStatus.textContent = 'This submission is already waiting for admin review.';
+            } else if (reviewStatus === 'approved') {
+                requestReviewBtn.disabled = true;
+                requestReviewBtn.classList.add('opacity-60', 'cursor-not-allowed');
+                reviewReasonInput.disabled = true;
+                reviewRequestStatus.textContent = 'This submission was already approved by an admin.';
+            } else if (reviewStatus === 'rejected') {
+                reviewReasonInput.disabled = false;
+                requestReviewBtn.disabled = false;
+                reviewRequestStatus.textContent = 'This submission was reviewed before. You can request another check if needed.';
+            } else {
+                reviewRequestStatus.textContent = 'Only this saved submission will be sent to the admin queue.';
+            }
+        }
+
+        async function requestManualReview() {
+            if (!latestEvaluationResult || !latestEvaluationResult.submission || !latestEvaluationResult.submission.id) {
+                showToast('No saved submission is available for manual review.', 'warning');
+                return;
+            }
+
+            const reviewReasonInput = document.getElementById('reviewReasonInput');
+            const requestReviewBtn = document.getElementById('requestReviewBtn');
+            const submissionId = latestEvaluationResult.submission.id;
+            const reason = reviewReasonInput ? reviewReasonInput.value.trim() : '';
+
+            requestReviewBtn.disabled = true;
+            requestReviewBtn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            try {
+                const data = await window.EvalogotorApi.apiRequest(`/api/submissions/${submissionId}/request-review`, {
+                    method: 'POST',
+                    body: { reason }
+                });
+                latestEvaluationResult.submission = data.item;
+                renderReviewRequestBox(latestEvaluationResult);
+                showToast('Submission added to the admin review queue.', 'success');
+            } catch (error) {
+                requestReviewBtn.disabled = false;
+                requestReviewBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+                showToast(window.EvalogotorApi.getFriendlyErrorMessage(error), 'error');
+            }
+        }
+
         function displayResults(result) {
+            latestEvaluationResult = result;
             // Hide placeholder, show results
             document.getElementById('resultsPlaceholder').classList.add('hidden');
             const resultsContent = document.getElementById('resultsContent');
             resultsContent.classList.remove('hidden');
             
             if (result.error || !result.success) {
+                renderReviewRequestBox(result);
                 // Show error
                 document.getElementById('scoreValue').textContent = '0';
                 document.getElementById('scoreMax').textContent = document.getElementById('maxPoints').textContent;
@@ -1665,6 +1781,7 @@ END`
                 });
             }
             
+            renderReviewRequestBox(result);
             // Prepare detailed results
             prepareDetailedResults(result);
             

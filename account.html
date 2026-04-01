@@ -88,6 +88,15 @@
         <p class="mt-3 text-gray-600 dark:text-gray-300 max-w-2xl" id="accountSubtitle">
           Your evaluation history is stored automatically whenever you submit a solution while signed in.
         </p>
+        <div class="mt-5 flex flex-wrap gap-3">
+          <a
+            id="adminLink"
+            href="admin"
+            class="hidden inline-flex items-center rounded-2xl border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-100 dark:border-blue-800 dark:bg-blue-900/20 dark:text-blue-300 dark:hover:bg-blue-900/30"
+          >
+            Open admin dashboard
+          </a>
+        </div>
 
         <div id="messageBox" class="hidden mt-6 rounded-2xl px-4 py-3 text-sm"></div>
 
@@ -179,8 +188,16 @@
       ru: { home: "Home", tasks: "Zadaniya", scoreboard: "Tablica", logout: "Vyhod", themeDark: "Temnaya", themeLight: "Svetlaya", accountEyebrow: "Moe prostranstvo", accountTitle: "Akkount", accountSubtitle: "Istoriya proverok sokhranyaetsya avtomaticheski, kogda vy otpravlyaete reshenie vo vremya vhoda.", username: "Polzovatel", email: "Email", submissionCount: "Sokhranennye otpravki", bestScore: "Luchshiy odin rezultat", joined: "S nami s", historyTitle: "Nedavnie otpravki", historySubtitle: "Sgruppirovano po zadaniyu, s noveyshimi popytkami snachala.", reload: "Obnovit", loading: "Zagruzka dannykh akkaunta...", emptyTitle: "Istorii poka net", emptySubtitle: "Otpravte reshenie vo vremya vhoda, i ono avtomaticheski poyavitsya zdes.", task: "Zadacha", score: "Ochki", tests: "Testy", when: "Kogda", attempts: "popytok", bestForTask: "Luchshee dlya zadachi", latestAttempt: "Poslednyaya popytka", showAttempts: "Pokazat popytki", hideAttempts: "Skryt popytki", attempt: "Popytka" }
     };
 
+    const fallbackLabels = {
+      adminDashboard: "Open admin dashboard",
+      reviewPending: "Review pending",
+      reviewApproved: "Approved by admin",
+      reviewRejected: "Rejected by admin",
+    };
+
     function t(key) {
-      return (translations[lang] || translations.en)[key];
+      const locale = translations[lang] || translations.en;
+      return locale[key] || translations.en[key] || fallbackLabels[key] || key;
     }
 
     function updateLanguage() {
@@ -202,6 +219,10 @@
       document.getElementById("loadingText").textContent = t("loading");
       document.getElementById("emptyTitle").textContent = t("emptyTitle");
       document.getElementById("emptySubtitle").textContent = t("emptySubtitle");
+      const adminLink = document.getElementById("adminLink");
+      if (adminLink) {
+        adminLink.textContent = t("adminDashboard");
+      }
       themeLabel.textContent = darkMode ? t("themeLight") : t("themeDark");
       if (latestHistoryItems.length) {
         renderHistory(latestHistoryItems);
@@ -258,6 +279,24 @@
       document.getElementById("joinedValue").textContent = window.EvalogotorApi.formatDateTime(user.created_at);
       document.getElementById("submissionCountValue").textContent = String(stats.submission_count || 0);
       document.getElementById("bestScoreValue").textContent = String(stats.best_single_score || 0);
+      const adminLink = document.getElementById("adminLink");
+      if (adminLink) {
+        adminLink.classList.toggle("hidden", !user.is_admin);
+      }
+    }
+
+    function reviewBadgeMarkup(item) {
+      const reviewStatus = item.review && item.review.status ? item.review.status : "none";
+      if (reviewStatus === "pending") {
+        return `<span class="inline-flex rounded-full px-3 py-1 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">${t("reviewPending")}</span>`;
+      }
+      if (reviewStatus === "approved") {
+        return `<span class="inline-flex rounded-full px-3 py-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300">${t("reviewApproved")}</span>`;
+      }
+      if (reviewStatus === "rejected") {
+        return `<span class="inline-flex rounded-full px-3 py-1 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300">${t("reviewRejected")}</span>`;
+      }
+      return "";
     }
 
     function groupHistory(items) {
@@ -350,6 +389,7 @@
                   <div class="flex flex-wrap gap-2 text-sm">
                     <span class="inline-flex rounded-full px-3 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">${t("score")}: ${item.total_points}/${item.max_points}</span>
                     <span class="inline-flex rounded-full px-3 py-1 ${item.passed_tests === item.total_tests ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300" : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300"}">${t("tests")}: ${item.passed_tests}/${item.total_tests}</span>
+                    ${reviewBadgeMarkup(item)}
                   </div>
                 </div>
               </div>
@@ -372,6 +412,14 @@
           window.EvalogotorApi.apiRequest("/api/auth/me"),
           window.EvalogotorApi.apiRequest("/api/users/history?limit=25")
         ]);
+
+        const existingSession = window.EvalogotorApi.getAuthSession();
+        if (existingSession && existingSession.token) {
+          window.EvalogotorApi.setAuthSession({
+            token: existingSession.token,
+            user: meData.user,
+          });
+        }
 
         latestHistoryItems = historyData.items || [];
         fillUser(meData.user, meData.stats || {});

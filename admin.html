@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EVALOGOTOR - Admin</title>
+  <script src="theme-preload.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="api-client.js"></script>
+  <script>
+    tailwind.config = { darkMode: "class" };
+  </script>
+  <style>
+    .highlight {
+      font-weight: bold;
+      font-size: 1.25rem;
+      color: rgb(57, 220, 57);
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen transition-colors" id="body">
+  <header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white" id="navbar">
+    <div class="flex items-center group cursor-pointer" onclick="location.href='/'">
+      <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span><span class="highlight group-hover:text-[rgb(57,220,57)]">LOGO</span><span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
+    </div>
+    <nav class="flex items-center space-x-4">
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='/'">
+        <i data-lucide="home" class="w-4 h-4"></i> <span>Home</span>
+      </button>
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='tasks'">
+        <i data-lucide="pen-tool" class="w-4 h-4"></i> <span>Tasks</span>
+      </button>
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='scoreboard'">
+        <i data-lucide="bar-chart-3" class="w-4 h-4"></i> <span>Scoreboard</span>
+      </button>
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='account'">
+        <i data-lucide="user-circle-2" class="w-4 h-4"></i> <span>Account</span>
+      </button>
+      <button id="logoutBtn" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
+        <i data-lucide="log-out" class="w-4 h-4 mr-1"></i> <span>Log out</span>
+      </button>
+      <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
+        <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-10 space-y-8">
+    <section class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+      <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 p-8">
+        <p class="text-sm uppercase tracking-[0.25em] text-blue-600 dark:text-blue-400">Moderation</p>
+        <h1 class="text-4xl font-bold mt-2">Admin dashboard</h1>
+        <p class="mt-3 text-gray-600 dark:text-gray-300 max-w-2xl">
+          Review evaluator edge cases, override unfair results, and manage the user base from one place.
+        </p>
+        <div class="mt-6 inline-flex rounded-2xl bg-gray-100 dark:bg-gray-900 px-4 py-2 text-sm text-gray-600 dark:text-gray-300">
+          Signed in as <span class="font-semibold ml-2" id="adminIdentity">-</span>
+        </div>
+        <div id="pageMessage" class="hidden mt-6 rounded-2xl px-4 py-3 text-sm"></div>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+        <div class="rounded-3xl bg-gradient-to-br from-blue-600 to-cyan-500 text-white p-6 shadow-lg">
+          <div class="text-sm uppercase tracking-wide opacity-80">Pending reviews</div>
+          <div class="text-4xl font-bold mt-2" id="pendingCount">0</div>
+        </div>
+        <div class="rounded-3xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 p-6 shadow-lg">
+          <div class="text-sm text-gray-500 dark:text-gray-400">Total users</div>
+          <div class="text-4xl font-bold mt-2" id="userCount">0</div>
+        </div>
+        <div class="rounded-3xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 p-6 shadow-lg">
+          <div class="text-sm text-gray-500 dark:text-gray-400">Saved submissions</div>
+          <div class="text-4xl font-bold mt-2" id="submissionCount">0</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden">
+      <div class="flex flex-col gap-4 border-b border-gray-100 dark:border-gray-700 px-6 py-5 lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <h2 class="text-xl font-semibold">Manual review queue</h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Submissions that users asked an admin to review.</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button class="review-filter rounded-xl border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700" data-status="pending">Pending</button>
+          <button class="review-filter rounded-xl border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700" data-status="approved">Approved</button>
+          <button class="review-filter rounded-xl border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700" data-status="rejected">Rejected</button>
+          <button class="review-filter rounded-xl border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700" data-status="all">All</button>
+          <button id="reloadReviewsBtn" class="rounded-xl border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700">Reload</button>
+        </div>
+      </div>
+      <div id="reviewsEmpty" class="hidden px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+        No submissions matched this filter.
+      </div>
+      <div id="reviewsWrap" class="space-y-4 px-6 py-6"></div>
+    </section>
+
+    <section class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden">
+      <div class="flex flex-col gap-4 border-b border-gray-100 dark:border-gray-700 px-6 py-5 lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <h2 class="text-xl font-semibold">Users</h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Promote admins, monitor activity, or remove accounts.</p>
+        </div>
+        <button id="reloadUsersBtn" class="rounded-xl border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700">Reload users</button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead class="bg-gray-50 dark:bg-gray-900/60">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">User</th>
+              <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Joined</th>
+              <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Submissions</th>
+              <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Best score</th>
+              <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Pending reviews</th>
+              <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="usersBody" class="divide-y divide-gray-200 dark:divide-gray-700"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const body = document.getElementById("body");
+    const navbar = document.getElementById("navbar");
+    const themeToggle = document.getElementById("themeToggle");
+    const themeLabel = document.getElementById("themeLabel");
+    const themeIcon = document.getElementById("themeIcon");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const pageMessage = document.getElementById("pageMessage");
+    const adminIdentity = document.getElementById("adminIdentity");
+    const pendingCount = document.getElementById("pendingCount");
+    const userCount = document.getElementById("userCount");
+    const submissionCount = document.getElementById("submissionCount");
+    const reviewsWrap = document.getElementById("reviewsWrap");
+    const reviewsEmpty = document.getElementById("reviewsEmpty");
+    const usersBody = document.getElementById("usersBody");
+
+    let darkMode = (localStorage.getItem("theme") || "dark") === "dark";
+    let currentFilter = "pending";
+    let currentAdmin = null;
+    let overviewStats = null;
+    let reviewItems = [];
+    let userItems = [];
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function showMessage(message, type = "error") {
+      const styles = {
+        error: "bg-red-50 text-red-700 border border-red-200 dark:bg-red-900/20 dark:text-red-300 dark:border-red-800",
+        success: "bg-green-50 text-green-700 border border-green-200 dark:bg-green-900/20 dark:text-green-300 dark:border-green-800",
+        info: "bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-900/20 dark:text-blue-300 dark:border-blue-800",
+      };
+      pageMessage.className = `mt-6 rounded-2xl px-4 py-3 text-sm ${styles[type] || styles.info}`;
+      pageMessage.textContent = message;
+      pageMessage.classList.remove("hidden");
+    }
+
+    function clearMessage() {
+      pageMessage.classList.add("hidden");
+      pageMessage.textContent = "";
+    }
+
+    function applyTheme() {
+      if (window.clearThemePreloadStyle) {
+        window.clearThemePreloadStyle();
+      }
+
+      document.documentElement.classList.toggle("dark", darkMode);
+      document.documentElement.classList.toggle("light", !darkMode);
+
+      if (darkMode) {
+        body.classList.add("dark", "bg-gray-900", "text-white");
+        body.classList.remove("light", "bg-gray-50", "text-gray-900");
+        navbar.classList.add("bg-gray-800");
+        navbar.classList.remove("bg-white");
+        themeIcon.setAttribute("data-lucide", "sun");
+        themeLabel.textContent = "Light";
+        [themeToggle, logoutBtn].forEach((btn) => {
+          btn.classList.remove("bg-white", "text-gray-900", "hover:bg-gray-100", "border-gray-300");
+          btn.classList.add("bg-gray-900", "text-white", "hover:bg-gray-700", "border-gray-600");
+        });
+      } else {
+        body.classList.add("light", "bg-gray-50", "text-gray-900");
+        body.classList.remove("dark", "bg-gray-900", "text-white");
+        navbar.classList.add("bg-white");
+        navbar.classList.remove("bg-gray-800");
+        themeIcon.setAttribute("data-lucide", "moon");
+        themeLabel.textContent = "Dark";
+        [themeToggle, logoutBtn].forEach((btn) => {
+          btn.classList.add("bg-white", "text-gray-900", "hover:bg-gray-100", "border-gray-300");
+          btn.classList.remove("bg-gray-900", "text-white", "hover:bg-gray-700", "border-gray-600");
+        });
+      }
+
+      window.EvalogotorApi.syncNavbarTheme(darkMode);
+      lucide.createIcons();
+    }
+
+    function getReviewStatusBadge(status) {
+      const styles = {
+        pending: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
+        approved: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+        rejected: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
+        none: "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300",
+      };
+      return `<span class="inline-flex rounded-full px-3 py-1 text-sm font-medium ${styles[status] || styles.none}">${escapeHtml(status)}</span>`;
+    }
+
+    function getNoteValue(submissionId) {
+      const textarea = document.getElementById(`review-note-${submissionId}`);
+      return textarea ? textarea.value.trim() : "";
+    }
+
+    async function loadOverview() {
+      const overview = await window.EvalogotorApi.apiRequest("/api/admin/overview");
+      overviewStats = overview.stats || {};
+      pendingCount.textContent = String(overviewStats.pending_review_count || 0);
+      userCount.textContent = String(overviewStats.user_count || 0);
+      submissionCount.textContent = String(overviewStats.submission_count || 0);
+    }
+
+    function renderReviewCards() {
+      reviewsWrap.innerHTML = "";
+
+      document.querySelectorAll(".review-filter").forEach((button) => {
+        const active = button.dataset.status === currentFilter;
+        button.classList.toggle("bg-blue-600", active);
+        button.classList.toggle("text-white", active);
+        button.classList.toggle("border-blue-600", active);
+      });
+
+      if (!reviewItems.length) {
+        reviewsEmpty.classList.remove("hidden");
+        return;
+      }
+
+      reviewsEmpty.classList.add("hidden");
+
+      reviewItems.forEach((item) => {
+        const testsMarkup = (item.results || []).map((test) => {
+          const statusClass = test.status === "PASS"
+            ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800/40"
+            : test.status === "FAIL"
+              ? "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800/40"
+              : "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800/40";
+
+          const imageMarkup = test.generated_image || test.expected_image
+            ? `
+              <div class="mt-3 grid gap-3 md:grid-cols-2">
+                ${test.generated_image ? `<div><div class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Generated</div><img src="${test.generated_image}" alt="Generated output" class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white"></div>` : ""}
+                ${test.expected_image ? `<div><div class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Expected</div><img src="${test.expected_image}" alt="Expected output" class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white"></div>` : ""}
+              </div>
+            `
+            : "";
+
+          return `
+            <div class="rounded-2xl border p-4 ${statusClass}">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="font-semibold">Test ${escapeHtml(test.test)}</div>
+                <div class="text-sm font-medium">${escapeHtml(test.status)}</div>
+              </div>
+              ${test.mismatched !== undefined ? `<div class="mt-2 text-sm text-gray-600 dark:text-gray-300">Mismatched pixels: ${escapeHtml(test.mismatched)}</div>` : ""}
+              ${test.error ? `<div class="mt-2 text-sm text-gray-600 dark:text-gray-300">${escapeHtml(test.error)}</div>` : ""}
+              ${imageMarkup}
+            </div>
+          `;
+        }).join("");
+
+        const originalScoreChanged = item.has_manual_override && item.total_points !== item.original_total_points;
+
+        const card = document.createElement("article");
+        card.className = "rounded-3xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40 p-6 space-y-5";
+        card.innerHTML = `
+          <div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+            <div>
+              <div class="text-2xl font-bold">${escapeHtml(item.task)}</div>
+              <div class="mt-2 text-sm text-gray-500 dark:text-gray-400">${escapeHtml(item.category)} / ${escapeHtml(item.year)} / ${escapeHtml(item.level)}</div>
+              <div class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                Submitted by <span class="font-semibold text-gray-700 dark:text-gray-200">${escapeHtml(item.user.username)}</span>
+                on ${escapeHtml(window.EvalogotorApi.formatDateTime(item.created_at))}
+              </div>
+              ${item.review.reason ? `<div class="mt-3 rounded-2xl bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700"><span class="font-semibold text-gray-800 dark:text-gray-100">Review reason:</span> ${escapeHtml(item.review.reason)}</div>` : ""}
+              ${item.review.notes ? `<div class="mt-3 rounded-2xl bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700"><span class="font-semibold text-gray-800 dark:text-gray-100">Admin note:</span> ${escapeHtml(item.review.notes)}</div>` : ""}
+            </div>
+            <div class="flex flex-wrap gap-2">
+              ${getReviewStatusBadge(item.review.status)}
+              <span class="inline-flex rounded-full px-3 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 text-sm font-medium">
+                Score: ${escapeHtml(item.total_points)}/${escapeHtml(item.max_points)}
+              </span>
+              <span class="inline-flex rounded-full px-3 py-1 bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300 text-sm font-medium">
+                Tests: ${escapeHtml(item.passed_tests)}/${escapeHtml(item.total_tests)}
+              </span>
+              ${originalScoreChanged ? `<span class="inline-flex rounded-full px-3 py-1 bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 text-sm font-medium">Override from ${escapeHtml(item.original_total_points)}/${escapeHtml(item.max_points)}</span>` : ""}
+            </div>
+          </div>
+
+          <div class="grid gap-5 lg:grid-cols-[0.95fr_1.05fr]">
+            <div class="space-y-3">
+              <div>
+                <div class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Submitted code</div>
+                <pre class="max-h-72 overflow-auto rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 text-sm font-mono">${escapeHtml(item.code)}</pre>
+              </div>
+              <div>
+                <label class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2 block" for="review-note-${item.id}">Admin note</label>
+                <textarea id="review-note-${item.id}" class="w-full rounded-2xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Optional note shown in the submission review details.">${escapeHtml(item.review.notes || "")}</textarea>
+              </div>
+              <div class="flex flex-wrap gap-3">
+                <button class="rounded-2xl bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700" onclick="reviewSubmission(${item.id}, 'approve')">Approve</button>
+                <button class="rounded-2xl bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700" onclick="reviewSubmission(${item.id}, 'reject')">Reject</button>
+              </div>
+            </div>
+            <div>
+              <div class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Evaluator results</div>
+              <div class="space-y-3 max-h-[34rem] overflow-y-auto pr-1">
+                ${testsMarkup || '<div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 text-sm text-gray-500 dark:text-gray-400">No per-test details were saved for this submission.</div>'}
+              </div>
+            </div>
+          </div>
+        `;
+        reviewsWrap.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    async function loadReviews() {
+      const data = await window.EvalogotorApi.apiRequest(`/api/admin/submissions?status=${encodeURIComponent(currentFilter)}&limit=40`);
+      reviewItems = data.items || [];
+      renderReviewCards();
+    }
+
+    function renderUsers() {
+      usersBody.innerHTML = "";
+
+      if (!userItems.length) {
+        usersBody.innerHTML = `
+          <tr>
+            <td colspan="6" class="px-6 py-10 text-center text-gray-500 dark:text-gray-400">No users found.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      userItems.forEach((user) => {
+        const isSelf = currentAdmin && currentAdmin.id === user.id;
+        const row = document.createElement("tr");
+        row.className = "bg-white dark:bg-gray-800";
+        row.innerHTML = `
+          <td class="px-6 py-4 align-top">
+            <div class="font-semibold">${escapeHtml(user.username)}</div>
+            <div class="text-sm text-gray-500 dark:text-gray-400">${escapeHtml(user.email)}</div>
+            <div class="mt-2 flex flex-wrap gap-2">
+              ${user.is_admin ? '<span class="inline-flex rounded-full px-3 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 text-xs font-semibold">Admin</span>' : ''}
+              ${isSelf ? '<span class="inline-flex rounded-full px-3 py-1 bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300 text-xs font-semibold">You</span>' : ''}
+            </div>
+          </td>
+          <td class="px-6 py-4 align-top text-sm text-gray-600 dark:text-gray-300">${escapeHtml(window.EvalogotorApi.formatDateTime(user.created_at))}</td>
+          <td class="px-6 py-4 align-top text-sm font-semibold">${escapeHtml(user.submission_count)}</td>
+          <td class="px-6 py-4 align-top text-sm font-semibold">${escapeHtml(user.best_single_score)}</td>
+          <td class="px-6 py-4 align-top text-sm font-semibold">${escapeHtml(user.pending_review_count)}</td>
+          <td class="px-6 py-4 align-top">
+            <div class="flex flex-wrap gap-2">
+              <button class="rounded-xl border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 ${isSelf ? "opacity-60 cursor-not-allowed" : ""}" onclick="toggleAdmin(${user.id}, ${user.is_admin ? "false" : "true"})" ${isSelf ? "disabled" : ""}>
+                ${user.is_admin ? "Remove admin" : "Make admin"}
+              </button>
+              <button class="rounded-xl border border-red-300 px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50 dark:border-red-700 dark:text-red-300 dark:hover:bg-red-900/20 ${isSelf ? "opacity-60 cursor-not-allowed" : ""}" onclick='deleteUser(${user.id}, ${JSON.stringify(user.username)})' ${isSelf ? "disabled" : ""}>
+                Delete user
+              </button>
+            </div>
+          </td>
+        `;
+        usersBody.appendChild(row);
+      });
+    }
+
+    async function loadUsers() {
+      const data = await window.EvalogotorApi.apiRequest("/api/admin/users");
+      userItems = data.items || [];
+      renderUsers();
+    }
+
+    async function loadDashboard() {
+      clearMessage();
+      try {
+        const meData = await window.EvalogotorApi.apiRequest("/api/auth/me");
+        if (!meData.user || !meData.user.is_admin) {
+          window.location.href = "account";
+          return;
+        }
+
+        currentAdmin = meData.user;
+        const existingSession = window.EvalogotorApi.getAuthSession();
+        if (existingSession && existingSession.token) {
+          window.EvalogotorApi.setAuthSession({
+            token: existingSession.token,
+            user: meData.user,
+          });
+        }
+        adminIdentity.textContent = currentAdmin.username;
+
+        await Promise.all([loadOverview(), loadReviews(), loadUsers()]);
+      } catch (error) {
+        const message = window.EvalogotorApi.getFriendlyErrorMessage(error);
+        if ((error.message || "").includes("401") || message === "Unauthorized") {
+          window.EvalogotorApi.clearAuthSession();
+          window.location.href = "login";
+          return;
+        }
+        if (message === "Forbidden") {
+          window.location.href = "account";
+          return;
+        }
+        showMessage(message);
+      }
+    }
+
+    async function reviewSubmission(submissionId, action) {
+      try {
+        clearMessage();
+        const notes = getNoteValue(submissionId);
+        await window.EvalogotorApi.apiRequest(`/api/admin/submissions/${submissionId}/review`, {
+          method: "POST",
+          body: { action, notes },
+        });
+        await Promise.all([loadOverview(), loadReviews(), loadUsers()]);
+        const actionLabel = action === "approve" ? "approved" : "rejected";
+        showMessage(`Submission ${actionLabel} successfully.`, "success");
+      } catch (error) {
+        showMessage(window.EvalogotorApi.getFriendlyErrorMessage(error));
+      }
+    }
+
+    async function toggleAdmin(userId, shouldBeAdmin) {
+      const actionLabel = shouldBeAdmin ? "promote this user to admin" : "remove this user's admin access";
+      if (!confirm(`Are you sure you want to ${actionLabel}?`)) {
+        return;
+      }
+
+      try {
+        clearMessage();
+        await window.EvalogotorApi.apiRequest(`/api/admin/users/${userId}/admin`, {
+          method: "POST",
+          body: { is_admin: shouldBeAdmin },
+        });
+        await Promise.all([loadOverview(), loadUsers()]);
+        showMessage("User permissions updated.", "success");
+      } catch (error) {
+        showMessage(window.EvalogotorApi.getFriendlyErrorMessage(error));
+      }
+    }
+
+    async function deleteUser(userId, username) {
+      if (!confirm(`Delete ${username}? This also removes their submissions and saved sessions.`)) {
+        return;
+      }
+
+      try {
+        clearMessage();
+        await window.EvalogotorApi.apiRequest(`/api/admin/users/${userId}`, {
+          method: "DELETE",
+        });
+        await Promise.all([loadOverview(), loadUsers(), loadReviews()]);
+        showMessage("User deleted.", "success");
+      } catch (error) {
+        showMessage(window.EvalogotorApi.getFriendlyErrorMessage(error));
+      }
+    }
+
+    async function logout() {
+      try {
+        await window.EvalogotorApi.apiRequest("/api/auth/logout", { method: "POST" });
+      } catch (error) {
+        // Clear local session even if the server-side logout fails.
+      }
+      window.EvalogotorApi.clearAuthSession();
+      window.location.href = "login";
+    }
+
+    document.querySelectorAll(".review-filter").forEach((button) => {
+      button.addEventListener("click", async () => {
+        currentFilter = button.dataset.status;
+        await loadReviews();
+      });
+    });
+
+    document.getElementById("reloadReviewsBtn").addEventListener("click", loadReviews);
+    document.getElementById("reloadUsersBtn").addEventListener("click", async () => {
+      await Promise.all([loadOverview(), loadUsers()]);
+    });
+
+    themeToggle.addEventListener("click", () => {
+      darkMode = !darkMode;
+      localStorage.setItem("theme", darkMode ? "dark" : "light");
+      applyTheme();
+    });
+
+    logoutBtn.addEventListener("click", logout);
+
+    const session = window.EvalogotorApi.getAuthSession();
+    if (!session || !session.token) {
+      window.location.href = "login";
+    } else {
+      applyTheme();
+      loadDashboard();
+    }
+  </script>
+</body>
+</html>
