@@ -6,6 +6,7 @@
   <title>EVALOGOTOR - Tasks</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="api-client.js"></script>
   <style>
     .highlight {
       font-weight: bold;
@@ -239,7 +240,7 @@
       
       const t = translations[lang];
       document.getElementById("scoreboard").textContent = t.scoreboard;
-      document.getElementById("login").textContent = t.login;
+      window.EvalogotorApi.syncLoginButton(t.login);
       instruction.textContent = t.instruction;
       themeLabel.textContent = darkMode ? t.themeLight : t.themeDark;
 

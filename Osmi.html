@@ -6,6 +6,7 @@
 <title>EVALOGOTOR - 8</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
+<script src="api-client.js"></script>
 <style>
   .container {
     display: flex;
@@ -267,7 +268,7 @@ if (langSelect) {
 function applyTranslations() {
   document.getElementById("tasks").textContent = translations[lang].tasks;
   document.getElementById("scoreboard").textContent = translations[lang].scoreboard;
-  document.getElementById("login").textContent = translations[lang].login;
+  window.EvalogotorApi.syncLoginButton(translations[lang].login);
 
     const evalBtn = document.getElementById("evalbtn");
     const inpBtn = document.getElementById("inp");

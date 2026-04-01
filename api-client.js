@@ -114,6 +114,31 @@
     return session && session.user ? session.user : null;
   }
 
+  function syncLoginButton(defaultLabel = "Login") {
+    const loginBtn = document.getElementById("loginBtn");
+    const loginLabel = document.getElementById("login");
+    const currentUser = getCurrentUser();
+
+    if (!loginBtn || !loginLabel) {
+      return;
+    }
+
+    if (currentUser && currentUser.username) {
+      loginLabel.textContent = currentUser.username;
+      loginBtn.onclick = () => {
+        window.location.href = "account";
+      };
+      loginBtn.title = "Open account";
+      return;
+    }
+
+    loginLabel.textContent = defaultLabel;
+    loginBtn.onclick = () => {
+      window.location.href = "login";
+    };
+    loginBtn.title = defaultLabel;
+  }
+
   function getFriendlyErrorMessage(error) {
     const raw = error && error.message ? String(error.message) : "Request failed";
     const jsonStart = raw.indexOf("{");
@@ -187,6 +212,7 @@
     apiRequest,
     getAuthSession,
     getCurrentUser,
+    syncLoginButton,
     setAuthSession,
     clearAuthSession,
     getFriendlyErrorMessage,

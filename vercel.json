@@ -1,7 +1,7 @@
 {
   "rewrites": [
-    { "source": "/health", "destination": "https://mature-seattle-productions-myers.trycloudflare.com/health" },
-    { "source": "/api/:path*", "destination": "https://mature-seattle-productions-myers.trycloudflare.com/api/:path*" },
+    { "source": "/health", "destination": "https://depth-discipline-oxygen-dialog.trycloudflare.com/health" },
+    { "source": "/api/:path*", "destination": "https://depth-discipline-oxygen-dialog.trycloudflare.com/api/:path*" },
     { "source": "/", "destination": "/index.html" },
     { "source": "/:path*", "destination": "/:path*.html" }
   ]
