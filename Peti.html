@@ -283,6 +283,10 @@
     }
 
     function applyTheme() {
+      if (window.clearThemePreloadStyle) {
+        window.clearThemePreloadStyle();
+      }
+
       if (!body) return;
     
       if (darkMode) {
@@ -337,7 +341,7 @@
           });
         }
       }
-    
+      window.EvalogotorApi.syncNavbarTheme(darkMode);
       lucide.createIcons();
     }
     applyTranslations();

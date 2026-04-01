@@ -139,6 +139,34 @@
     loginBtn.title = defaultLabel;
   }
 
+  function syncNavbarTheme(darkMode) {
+    const navbar = document.getElementById("navbar");
+    if (!navbar) {
+      return;
+    }
+
+    const navButtons = Array.from(navbar.querySelectorAll("nav > button")).filter(
+      (button) => button.id !== "loginBtn" && button.id !== "themeToggle"
+    );
+
+    navButtons.forEach((button) => {
+      button.classList.remove(
+        "text-gray-500",
+        "text-gray-200",
+        "hover:text-blue-600",
+        "hover:text-white",
+        "hover:bg-gray-100",
+        "hover:bg-gray-700"
+      );
+
+      if (darkMode) {
+        button.classList.add("text-gray-200", "hover:text-white", "hover:bg-gray-700");
+      } else {
+        button.classList.add("text-gray-500", "hover:text-blue-600", "hover:bg-gray-100");
+      }
+    });
+  }
+
   function getFriendlyErrorMessage(error) {
     const raw = error && error.message ? String(error.message) : "Request failed";
     const jsonStart = raw.indexOf("{");
@@ -213,6 +241,7 @@
     getAuthSession,
     getCurrentUser,
     syncLoginButton,
+    syncNavbarTheme,
     setAuthSession,
     clearAuthSession,
     getFriendlyErrorMessage,

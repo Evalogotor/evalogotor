@@ -25,6 +25,18 @@
     ].join("\n") : "";
 
     document.head.appendChild(style);
+
+    function clearThemePreloadStyle() {
+      var preloadStyle = document.getElementById("theme-preload-style");
+      if (preloadStyle) {
+        preloadStyle.remove();
+      }
+    }
+
+    window.clearThemePreloadStyle = clearThemePreloadStyle;
+    document.addEventListener("DOMContentLoaded", function () {
+      requestAnimationFrame(clearThemePreloadStyle);
+    }, { once: true });
   } catch (error) {
     // Ignore preload issues and let the normal page script handle the theme.
   }

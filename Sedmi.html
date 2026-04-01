@@ -277,6 +277,10 @@ function applyTranslations() {
 }
 
 function applyTheme() {
+  if (window.clearThemePreloadStyle) {
+    window.clearThemePreloadStyle();
+  }
+
   if (darkMode) {
     body.classList.remove("bg-gray-50","text-gray-900");
     body.classList.add("bg-gray-900","text-white");
@@ -331,6 +335,7 @@ function applyTheme() {
       opt.style.color = "black";
     });
   }
+  window.EvalogotorApi.syncNavbarTheme(darkMode);
   lucide.createIcons();
 }
 

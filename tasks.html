@@ -260,6 +260,10 @@
     });
 
     function applyTheme() {
+      if (window.clearThemePreloadStyle) {
+        window.clearThemePreloadStyle();
+      }
+
       if (darkMode) {
         body.classList.add("dark");
         body.classList.remove("light");
@@ -310,6 +314,7 @@
           card.classList.add("bg-white","text-gray-900");
         });
       }
+      window.EvalogotorApi.syncNavbarTheme(darkMode);
       lucide.createIcons();
       
       localStorage.setItem('theme', darkMode ? 'dark' : 'light');
