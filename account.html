@@ -383,7 +383,7 @@
               <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80 px-4 py-3">
                 <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                   <div>
-                    <div class="font-medium">${t("attempt")} ${itemIndex + 1}</div>
+                    <div class="font-medium">${t("attempt")} ${group.items.length - itemIndex}</div>
                     <div class="text-sm text-gray-500 dark:text-gray-400">${window.EvalogotorApi.formatDateTime(item.created_at)}</div>
                   </div>
                   <div class="flex flex-wrap gap-2 text-sm">
