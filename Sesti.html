@@ -70,9 +70,9 @@
         color: white;
         cursor: pointer;
       }
-      .light .button-line button,
-      .light .vertical-buttons button,
-      .light .task-buttons button {
+      body.light .button-line button,
+      body.light .vertical-buttons button,
+      body.light .task-buttons button {
         margin: 5px;
         padding: 10px 15px;
         font-size: 14px;
@@ -82,15 +82,15 @@
         color: black;
         cursor: pointer;
       }
-      .dark .button-line button,
-      .dark .vertical-buttons button,
-      .dark .task-buttons button {
+      body.dark .button-line button,
+      body.dark .vertical-buttons button,
+      body.dark .task-buttons button {
         margin: 5px;
         padding: 10px 15px;
         font-size: 14px;
         border: none;
         border-radius: 5px;
-        background-color: gray-800;
+        background-color: #1f2937;
         color: white;
         cursor: pointer;
       }
@@ -281,6 +281,9 @@
       if (window.clearThemePreloadStyle) {
         window.clearThemePreloadStyle();
       }
+
+      document.documentElement.classList.toggle("dark", darkMode);
+      document.documentElement.classList.toggle("light", !darkMode);
 
       if (darkMode) {
         body.classList.remove("bg-gray-50","text-gray-900");
