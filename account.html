@@ -160,6 +160,29 @@
     </section>
   </main>
 
+  <div id="codeModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm p-4">
+    <div class="mx-auto mt-10 max-w-4xl rounded-3xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-800">
+      <div class="flex items-center justify-between border-b border-gray-200 px-6 py-4 dark:border-gray-700">
+        <div>
+          <div class="text-sm uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400" id="codeModalEyebrow">Saved attempt</div>
+          <h3 class="text-xl font-semibold" id="codeModalTitle">Attempt code</h3>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400" id="codeModalMeta">-</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="downloadCodeBtn" class="rounded-xl border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-700">
+            Download .lgo
+          </button>
+          <button id="closeCodeModalBtn" class="rounded-xl border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-700">
+            Close
+          </button>
+        </div>
+      </div>
+      <div class="px-6 py-5">
+        <pre id="codeModalContent" class="max-h-[65vh] overflow-auto rounded-2xl bg-gray-50 p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100"></pre>
+      </div>
+    </div>
+  </div>
+
   <script>
     const body = document.getElementById("body");
     const navbar = document.getElementById("navbar");
@@ -174,10 +197,17 @@
     const historyWrap = document.getElementById("historyWrap");
     const historyBody = document.getElementById("historyBody");
     const messageBox = document.getElementById("messageBox");
+    const codeModal = document.getElementById("codeModal");
+    const codeModalTitle = document.getElementById("codeModalTitle");
+    const codeModalMeta = document.getElementById("codeModalMeta");
+    const codeModalContent = document.getElementById("codeModalContent");
+    const closeCodeModalBtn = document.getElementById("closeCodeModalBtn");
+    const downloadCodeBtn = document.getElementById("downloadCodeBtn");
 
     let darkMode = (localStorage.getItem("theme") || "dark") === "dark";
     let lang = localStorage.getItem("lang") || "en";
     let latestHistoryItems = [];
+    let selectedCodeAttempt = null;
 
     const translations = {
       en: { home: "Home", tasks: "Tasks", scoreboard: "Scoreboard", logout: "Log out", themeDark: "Dark", themeLight: "Light", accountEyebrow: "My space", accountTitle: "Account", accountSubtitle: "Your evaluation history is stored automatically whenever you submit a solution while signed in.", username: "Username", email: "Email", submissionCount: "Saved submissions", bestScore: "Best single score", joined: "Joined", historyTitle: "Recent submissions", historySubtitle: "Grouped by task, with the newest attempts first.", reload: "Reload", loading: "Loading account data...", emptyTitle: "No history yet", emptySubtitle: "Submit a solution while logged in and it will appear here automatically.", task: "Task", score: "Score", tests: "Tests", when: "When", attempts: "attempts", bestForTask: "Best for task", latestAttempt: "Latest attempt", showAttempts: "Show attempts", hideAttempts: "Hide attempts", attempt: "Attempt" },
@@ -193,6 +223,12 @@
       reviewPending: "Review pending",
       reviewApproved: "Approved by admin",
       reviewRejected: "Rejected by admin",
+      viewCode: "View code",
+      downloadCode: "Download .lgo",
+      close: "Close",
+      savedAttempt: "Saved attempt",
+      attemptCode: "Attempt code",
+      codeUnavailable: "No saved code is available for this attempt.",
     };
 
     function t(key) {
@@ -222,6 +258,16 @@
       const adminLink = document.getElementById("adminLink");
       if (adminLink) {
         adminLink.textContent = t("adminDashboard");
+      }
+      if (downloadCodeBtn) {
+        downloadCodeBtn.textContent = t("downloadCode");
+      }
+      if (closeCodeModalBtn) {
+        closeCodeModalBtn.textContent = t("close");
+      }
+      const codeModalEyebrow = document.getElementById("codeModalEyebrow");
+      if (codeModalEyebrow) {
+        codeModalEyebrow.textContent = t("savedAttempt");
       }
       themeLabel.textContent = darkMode ? t("themeLight") : t("themeDark");
       if (latestHistoryItems.length) {
@@ -297,6 +343,63 @@
         return `<span class="inline-flex rounded-full px-3 py-1 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300">${t("reviewRejected")}</span>`;
       }
       return "";
+    }
+
+    function getSubmissionById(submissionId) {
+      return latestHistoryItems.find((item) => item.id === submissionId) || null;
+    }
+
+    function buildAttemptFilename(item, attemptNumber) {
+      const safeParts = [
+        item.category,
+        item.year,
+        item.level,
+        item.task,
+        `attempt-${attemptNumber}`
+      ].map((part) => String(part || "")
+        .trim()
+        .replace(/[<>:"/\\|?*\x00-\x1F]+/g, "-")
+        .replace(/\s+/g, "_"));
+      return `${safeParts.join("__")}.lgo`;
+    }
+
+    function openAttemptCode(submissionId, attemptNumber) {
+      const item = getSubmissionById(submissionId);
+      if (!item) {
+        showMessage("Could not find the saved attempt.");
+        return;
+      }
+
+      selectedCodeAttempt = { item, attemptNumber };
+      codeModalTitle.textContent = `${t("attemptCode")} ${attemptNumber}`;
+      codeModalMeta.textContent = `${item.task} | ${item.category} / ${item.year} / ${item.level} | ${window.EvalogotorApi.formatDateTime(item.created_at)}`;
+      codeModalContent.textContent = item.code || t("codeUnavailable");
+      codeModal.classList.remove("hidden");
+      document.body.classList.add("overflow-hidden");
+    }
+
+    function closeCodeModal() {
+      selectedCodeAttempt = null;
+      codeModal.classList.add("hidden");
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    function downloadAttemptCode(submissionId, attemptNumber) {
+      const item = getSubmissionById(submissionId);
+      if (!item || !item.code) {
+        showMessage(t("codeUnavailable"));
+        return;
+      }
+
+      const blob = new Blob([item.code], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = buildAttemptFilename(item, attemptNumber);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
     }
 
     function groupHistory(items) {
@@ -392,6 +495,14 @@
                     ${reviewBadgeMarkup(item)}
                   </div>
                 </div>
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <button onclick="openAttemptCode(${item.id}, ${group.items.length - itemIndex})" class="rounded-xl border border-gray-300 px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-700">
+                    ${t("viewCode")}
+                  </button>
+                  <button onclick="downloadAttemptCode(${item.id}, ${group.items.length - itemIndex})" class="rounded-xl border border-blue-200 bg-blue-50 px-3 py-2 text-sm font-medium text-blue-700 hover:bg-blue-100 dark:border-blue-800 dark:bg-blue-900/20 dark:text-blue-300 dark:hover:bg-blue-900/30">
+                    ${t("downloadCode")}
+                  </button>
+                </div>
               </div>
             `).join("")}
           </div>
@@ -474,6 +585,22 @@
 
       reloadBtn.addEventListener("click", loadAccountData);
       logoutBtn.addEventListener("click", logout);
+      closeCodeModalBtn.addEventListener("click", closeCodeModal);
+      downloadCodeBtn.addEventListener("click", () => {
+        if (selectedCodeAttempt) {
+          downloadAttemptCode(selectedCodeAttempt.item.id, selectedCodeAttempt.attemptNumber);
+        }
+      });
+      codeModal.addEventListener("click", (event) => {
+        if (event.target === codeModal) {
+          closeCodeModal();
+        }
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !codeModal.classList.contains("hidden")) {
+          closeCodeModal();
+        }
+      });
     }
   </script>
 </body>
