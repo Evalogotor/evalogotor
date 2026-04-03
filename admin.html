@@ -226,6 +226,11 @@
       return textarea ? textarea.value.trim() : "";
     }
 
+    function getSelectedReviewTests(submissionId) {
+      return Array.from(document.querySelectorAll(`input[data-review-test="${submissionId}"]:checked`))
+        .map((input) => input.value);
+    }
+
     async function loadOverview() {
       const overview = await window.EvalogotorApi.apiRequest("/api/admin/overview");
       overviewStats = overview.stats || {};
@@ -252,12 +257,16 @@
       reviewsEmpty.classList.add("hidden");
 
       reviewItems.forEach((item) => {
+        const selectedTests = new Set((item.review && item.review.selected_tests) || []);
         const testsMarkup = (item.results || []).map((test) => {
           const statusClass = test.status === "PASS"
             ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800/40"
             : test.status === "FAIL"
               ? "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800/40"
               : "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800/40";
+
+          const canSelectTest = test.status !== "PASS";
+          const isSelected = selectedTests.has(String(test.test));
 
           const imageMarkup = test.generated_image || test.expected_image
             ? `
@@ -271,7 +280,13 @@
           return `
             <div class="rounded-2xl border p-4 ${statusClass}">
               <div class="flex flex-wrap items-center justify-between gap-2">
-                <div class="font-semibold">Test ${escapeHtml(test.test)}</div>
+                <div class="flex items-center gap-3">
+                  ${canSelectTest ? `<label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200">
+                    <input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" data-review-test="${item.id}" value="${escapeHtml(test.test)}" ${isSelected ? "checked" : ""}>
+                    <span>Approve</span>
+                  </label>` : `<span class="inline-flex rounded-full px-3 py-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300 text-xs font-semibold">Auto pass</span>`}
+                  <div class="font-semibold">Test ${escapeHtml(test.test)}</div>
+                </div>
                 <div class="text-sm font-medium">${escapeHtml(test.status)}</div>
               </div>
               ${test.mismatched !== undefined ? `<div class="mt-2 text-sm text-gray-600 dark:text-gray-300">Mismatched pixels: ${escapeHtml(test.mismatched)}</div>` : ""}
@@ -320,7 +335,8 @@
                 <textarea id="review-note-${item.id}" class="w-full rounded-2xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Optional note shown in the submission review details.">${escapeHtml(item.review.notes || "")}</textarea>
               </div>
               <div class="flex flex-wrap gap-3">
-                <button class="rounded-2xl bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700" onclick="reviewSubmission(${item.id}, 'approve')">Approve</button>
+                <button class="rounded-2xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700" onclick="reviewSubmission(${item.id}, 'approve-selected')">Approve selected</button>
+                <button class="rounded-2xl bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700" onclick="reviewSubmission(${item.id}, 'approve-all')">Approve all</button>
                 <button class="rounded-2xl bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700" onclick="reviewSubmission(${item.id}, 'reject')">Reject</button>
               </div>
             </div>
@@ -436,12 +452,22 @@
       try {
         clearMessage();
         const notes = getNoteValue(submissionId);
+        const selectedTests = getSelectedReviewTests(submissionId);
+        const requestAction = action === "reject" ? "reject" : "approve";
         await window.EvalogotorApi.apiRequest(`/api/admin/submissions/${submissionId}/review`, {
           method: "POST",
-          body: { action, notes },
+          body: {
+            action: requestAction,
+            notes,
+            selected_tests: action === "approve-selected" ? selectedTests : [],
+          },
         });
         await Promise.all([loadOverview(), loadReviews(), loadUsers()]);
-        const actionLabel = action === "approve" ? "approved" : "rejected";
+        const actionLabel = action === "reject"
+          ? "rejected"
+          : action === "approve-selected"
+            ? "partially approved"
+            : "approved";
         showMessage(`Submission ${actionLabel} successfully.`, "success");
       } catch (error) {
         showMessage(window.EvalogotorApi.getFriendlyErrorMessage(error));
