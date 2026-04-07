@@ -1786,6 +1786,27 @@ END`
             progressPercent.textContent = `${Math.round(percent)}%`;
         }
 
+        function getResultRuntimeSeconds(result) {
+            if (!result) return 0;
+            const candidate = result.fmslogo_time_seconds ?? result.processingTime ?? 0;
+            const numeric = Number(candidate);
+            return Number.isFinite(numeric) ? numeric : 0;
+        }
+
+        function formatDuration(seconds) {
+            const numeric = Number(seconds);
+            if (!Number.isFinite(numeric) || numeric <= 0) {
+                return `0.00s`;
+            }
+            if (numeric < 60) {
+                return `${numeric.toFixed(2)}s`;
+            }
+
+            const minutes = Math.floor(numeric / 60);
+            const remainingSeconds = numeric - (minutes * 60);
+            return `${minutes}m ${remainingSeconds.toFixed(2)}s`;
+        }
+
         function renderReviewRequestBox(result) {
             const reviewRequestBox = document.getElementById('reviewRequestBox');
             const reviewReasonInput = document.getElementById('reviewReasonInput');
@@ -1892,6 +1913,7 @@ END`
                 // Show error
                 document.getElementById('scoreValue').textContent = '0';
                 document.getElementById('scoreMax').textContent = document.getElementById('maxPoints').textContent;
+                document.getElementById('elapsedTime').textContent = formatDuration(getResultRuntimeSeconds(result));
                 document.getElementById('passRateBadge').textContent = t('errorState');
                 document.getElementById('passRateBadge').className = 'px-4 py-2 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300';
                 
@@ -1925,6 +1947,7 @@ END`
             document.getElementById('scoreMax').textContent = maxPoints;
             document.getElementById('currentScore').textContent = totalPoints;
             document.getElementById('testCount').textContent = totalTests;
+            document.getElementById('elapsedTime').textContent = formatDuration(getResultRuntimeSeconds(result));
             
             // Update pass rate badge
             const passRateBadge = document.getElementById('passRateBadge');
@@ -2128,7 +2151,7 @@ END`
                         </div>
                         <div class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900/20 dark:to-gray-800/20 p-4 rounded-xl">
                             <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">${t('time')}</div>
-                            <div class="text-xl font-bold">${result.processingTime || t('notAvailableShort')}s</div>
+                            <div class="text-xl font-bold">${formatDuration(getResultRuntimeSeconds(result))}</div>
                         </div>
                     </div>
             `;
