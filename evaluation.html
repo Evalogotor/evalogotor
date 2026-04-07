@@ -1997,7 +1997,7 @@ END`
                         <div class="flex justify-between items-center">
                             <div class="font-semibold flex items-center gap-2">
                                 <i data-lucide="${statusIcon}" class="w-5 h-5 ${statusColor}"></i>
-                                ${t('testNumberHeader')} ${test.test}
+                                ${t('testNumberHeader')}${test.test}
                             </div>
                             <div class="font-bold ${test.status === 'PASS' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}">
                                 ${test.points || 0} ${t('points')}
