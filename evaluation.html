@@ -1013,6 +1013,13 @@ Object.keys(translationExtras).forEach((language) => {
     translations[language] = { ...(translations[language] || {}), ...translationExtras[language] };
 });
 
+Object.keys(translations).forEach((language) => {
+    if (translations[language]) {
+        translations[language].submitSolution = translations[language].submit;
+        translations[language].evaluationDone = translations[language].evaluationCompleted;
+    }
+});
+
 translations.en.loadingTask = "Loading task...";
 translations.de.loadingTask = "Aufgabe wird geladen...";
 translations.it.loadingTask = "Caricamento del compito...";
@@ -1540,7 +1547,7 @@ END`
             // Disable button and show loading state
             if (submitBtn) {
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 mr-2 animate-spin"></i>${t('submitting')}`;
+                submitBtn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 mr-2 animate-spin"></i><span id="submitText">${t('submitting')}</span>`;
             }
 
             if (submitText) {
@@ -1714,7 +1721,7 @@ END`
             
             if (submitBtn) {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = `<i data-lucide="play" class="w-5 h-5 mr-2"></i>${t('submit')}`;
+                submitBtn.innerHTML = `<i data-lucide="play" class="w-5 h-5 mr-2"></i><span id="submitText">${t('submit')}</span>`;
             }
             
             if (submitText) {
@@ -1990,7 +1997,7 @@ END`
                         <div class="flex justify-between items-center">
                             <div class="font-semibold flex items-center gap-2">
                                 <i data-lucide="${statusIcon}" class="w-5 h-5 ${statusColor}"></i>
-                                ${t('testNumberHeader')}${test.test}
+                                ${t('testNumberHeader')} ${test.test}
                             </div>
                             <div class="font-bold ${test.status === 'PASS' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}">
                                 ${test.points || 0} ${t('points')}
