@@ -349,15 +349,15 @@
                             <div class="flex items-center gap-4">
                                 <span class="text-gray-500">
                                     <i data-lucide="file-text" class="w-4 h-4 inline mr-1"></i>
-                                    Lines: <span id="lineCount" class="font-medium">0</span>
+                                    <span id="linesLabel">Lines</span>: <span id="lineCount" class="font-medium">0</span>
                                 </span>
                                 <span class="text-gray-500">
                                     <i data-lucide="type" class="w-4 h-4 inline mr-1"></i>
-                                    Chars: <span id="charCount" class="font-medium">0</span>
+                                    <span id="charsLabel">Chars</span>: <span id="charCount" class="font-medium">0</span>
                                 </span>
                                 <span class="text-gray-500">
                                     <i data-lucide="cpu" class="w-4 h-4 inline mr-1"></i>
-                                    FMSLogo
+                                    <span id="engineLabel">FMSLogo</span>
                                 </span>
                             </div>
                             <button onclick="formatCode()" class="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1">
@@ -444,11 +444,11 @@
                         
                         <div class="grid grid-cols-2 gap-3 mb-4">
                             <div class="text-center p-3 rounded-lg bg-white dark:bg-gray-800 border">
-                                <div class="text-xs text-gray-500 mb-1">Job ID</div>
+                                <div id="jobIdLabel" class="text-xs text-gray-500 mb-1">Job ID</div>
                                 <div class="font-mono text-sm truncate" id="jobId">-</div>
                             </div>
                             <div class="text-center p-3 rounded-lg bg-white dark:bg-gray-800 border">
-                                <div class="text-xs text-gray-500 mb-1">Queue</div>
+                                <div id="queueLabel" class="text-xs text-gray-500 mb-1">Queue</div>
                                 <div class="font-bold" id="queuePos">-</div>
                             </div>
                         </div>
@@ -456,7 +456,7 @@
                         <!-- Progress Bar -->
                         <div>
                             <div class="flex justify-between text-sm mb-2">
-                                <span class="text-gray-600 dark:text-gray-300">Progress</span>
+                                <span id="progressLabel" class="text-gray-600 dark:text-gray-300">Progress</span>
                                 <span class="font-bold" id="progressPercent">0%</span>
                             </div>
                             <div class="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -468,15 +468,15 @@
                     <!-- Stats -->
                     <div class="grid grid-cols-3 gap-3">
                         <div class="text-center p-3 rounded-lg bg-gray-50 dark:bg-gray-900">
-                            <div class="text-xs text-gray-500">Time</div>
+                            <div id="timeLabel" class="text-xs text-gray-500">Time</div>
                             <div class="font-bold" id="elapsedTime">0s</div>
                         </div>
                         <div class="text-center p-3 rounded-lg bg-gray-50 dark:bg-gray-900">
-                            <div class="text-xs text-gray-500">Tests</div>
+                            <div id="testsLabel" class="text-xs text-gray-500">Tests</div>
                             <div class="font-bold" id="testCount">0</div>
                         </div>
                         <div class="text-center p-3 rounded-lg bg-gray-50 dark:bg-gray-900">
-                            <div class="text-xs text-gray-500">Score</div>
+                            <div id="scoreLabel" class="text-xs text-gray-500">Score</div>
                             <div class="font-bold" id="currentScore">0</div>
                         </div>
                     </div>
@@ -503,10 +503,10 @@
                             <div class="flex justify-between items-center mb-4">
                                 <div>
                                     <div class="text-3xl font-bold" id="scoreValue">0</div>
-                                    <div class="text-gray-500 text-sm">out of <span id="scoreMax">0</span> points</div>
+                                    <div class="text-gray-500 text-sm"><span id="outOfLabel">out of</span> <span id="scoreMax">0</span> <span id="pointsLabel">points</span></div>
                                 </div>
                                 <div class="px-4 py-2 rounded-full" id="passRateBadge">
-                                    <span id="passRate">0/0</span> tests
+                                    <span id="passRate">0/0</span> <span id="testsSuffix">tests</span>
                                 </div>
                             </div>
                             
@@ -516,7 +516,7 @@
                             </div>
 
                             <div id="reviewRequestBox" class="hidden mt-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-4 dark:border-amber-800/40 dark:bg-amber-900/20">
-                                <div class="font-semibold text-amber-800 dark:text-amber-200">Need a manual review?</div>
+                                <div id="reviewRequestTitle" class="font-semibold text-amber-800 dark:text-amber-200">Need a manual review?</div>
                                 <p id="reviewRequestHint" class="mt-1 text-sm text-amber-700 dark:text-amber-300">
                                     If the evaluator looks wrong because of FMSLogo quirks, you can send this saved submission to the admin queue.
                                 </p>
@@ -528,7 +528,7 @@
                                 ></textarea>
                                 <div class="mt-3 flex flex-wrap items-center gap-3">
                                     <button id="requestReviewBtn" onclick="requestManualReview()" class="rounded-xl bg-amber-500 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-600">
-                                        Request admin review
+                                        <span id="requestReviewBtnText">Request admin review</span>
                                     </button>
                                     <span id="reviewRequestStatus" class="text-sm text-amber-700 dark:text-amber-300"></span>
                                 </div>
@@ -584,7 +584,7 @@
             <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
                 <h2 class="text-xl font-bold flex items-center gap-2">
                     <i data-lucide="bar-chart-3" class="w-6 h-6 text-blue-500"></i>
-                    Detailed Results
+                    <span id="detailedResultsTitle">Detailed Results</span>
                 </h2>
                 <button onclick="closeModal('detailedResultsModal')" 
                         class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
@@ -603,9 +603,9 @@
             <div class="p-6 border-b border-gray-200 dark:border-gray-700">
                 <h2 class="text-xl font-bold flex items-center gap-2">
                     <i data-lucide="library" class="w-6 h-6 text-green-500"></i>
-                    Code Snippets Library
+                    <span id="snippetsModalTitle">Code Snippets Library</span>
                 </h2>
-                <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Click to insert into editor</p>
+                <p id="snippetsModalDesc" class="text-gray-500 dark:text-gray-400 text-sm mt-1">Click to insert into editor</p>
             </div>
             <div class="p-6 overflow-y-auto max-h-[60vh] custom-scrollbar" id="snippetsList">
                 <!-- Snippets will be loaded here -->
@@ -813,6 +813,213 @@ const translations = {
     }
 };
 
+const translationExtras = {
+    en: {
+        languageChanged: "Language changed", lines: "Lines", chars: "Chars", engine: "FMSLogo", jobId: "Job ID",
+        queue: "Queue", progress: "Progress", time: "Time", tests: "Tests", score: "Score", outOf: "out of", points: "points",
+        testsWord: "tests", manualReviewTitle: "Need a manual review?",
+        manualReviewHint: "If the evaluator looks wrong because of FMSLogo quirks, you can send this saved submission to the admin queue.",
+        manualReviewPlaceholder: "Optional note for the admin, for example what looks correct in your drawing.",
+        requestAdminReview: "Request admin review", detailedResults: "Detailed Results", snippetsLibrary: "Code Snippets Library",
+        clickToInsert: "Click to insert into editor", pending: "Pending", processing: "Processing", completed: "Completed",
+        sendingToEvaluator: "Sending to evaluator...", statusPass: "PASS", statusFail: "FAIL", statusError: "ERROR",
+        errorState: "Error", evaluationError: "Evaluation Error", unknownEvaluationError: "Unknown error occurred during evaluation",
+        mismatchedPixels: "mismatched pixels", generatedOutput: "Generated output", expectedOutput: "Expected output",
+        signInForReview: "Sign in before submitting if you want to save the result and request admin review.",
+        resultNotSaved: "This result was not saved to an account.", reviewPending: "This submission is already waiting for admin review.",
+        reviewApproved: "This submission was already approved by an admin.",
+        reviewRejected: "This submission was reviewed before. You can request another check if needed.",
+        reviewOnlySaved: "Only this saved submission will be sent to the admin queue.",
+        noSavedSubmissionReview: "No saved submission is available for manual review.", reviewQueued: "Submission added to the admin review queue.",
+        codeFormatted: "Code formatted", exampleLoaded: "Example loaded", templateLoaded: "Template loaded", editorCleared: "Editor cleared",
+        insertedSnippet: "Inserted {name} snippet", noSnippets: "No snippets available", writeCodeFirst: "Please write some code first",
+        submitting: "Submitting...", submissionFailed: "Submission failed: {message}",
+        evaluationTooLong: "Evaluation took too long. Please try again.", evaluationCompleted: "Evaluation completed!",
+        evaluationCompletedSaved: "Evaluation completed and code saved!",
+        evaluationApiError: "Evaluation error: {message}", jobLost: "Job lost on server. Please try again.",
+        codeSaved: "Code saved successfully!", codeLoaded: "Code loaded from storage", noSavedCode: "No saved code found",
+        codeExported: "Code exported as {filename}", totalScore: "Total Score", testsPassed: "Tests Passed", successRate: "Success Rate",
+        notAvailableShort: "N/A", testResults: "Test Results", testNumberHeader: "Test #", statusHeader: "Status",
+        pointsHeader: "Points", detailsHeader: "Details", loadingPreviousResults: "Loading previous job results...",
+        noResultsToShare: "No results to share", shareTitle: "EVALOGOTOR Results",
+        shareText: "I scored {score}/{maxScore} on \"{taskName}\" ({passRate}) using EVALOGOTOR!",
+        resultsShared: "Results shared successfully!", resultsCopied: "Results copied to clipboard!", clipboardError: "Could not copy to clipboard",
+        noBackendConfigured: "No backend URL configured. For hosted pages, set localStorage.apiBaseUrl or pass ?api=https://your-cloudflared-url."
+        ,clearEditorConfirm: "Are you sure you want to clear the editor?"
+    },
+    de: {
+        languageChanged: "Sprache geandert", lines: "Zeilen", chars: "Zeichen", engine: "FMSLogo", jobId: "Job-ID",
+        queue: "Warteschlange", progress: "Fortschritt", time: "Zeit", tests: "Tests", score: "Punktzahl", outOf: "von", points: "Punkten",
+        testsWord: "Tests", manualReviewTitle: "Manuelle Prufung benotigt?",
+        manualReviewHint: "Wenn die Auswertung wegen FMSLogo-Eigenheiten falsch aussieht, kannst du diese gespeicherte Einsendung an die Admin-Warteschlange senden.",
+        manualReviewPlaceholder: "Optionale Notiz fur den Admin, zum Beispiel was in deiner Zeichnung korrekt aussieht.",
+        requestAdminReview: "Admin-Prufung anfordern", detailedResults: "Detaillierte Ergebnisse", snippetsLibrary: "Code-Snippet-Bibliothek",
+        clickToInsert: "Klicken zum Einfugen in den Editor", pending: "Ausstehend", processing: "Wird verarbeitet", completed: "Abgeschlossen",
+        sendingToEvaluator: "Wird an den Evaluator gesendet...", statusPass: "BESTANDEN", statusFail: "NICHT BESTANDEN", statusError: "FEHLER",
+        errorState: "Fehler", evaluationError: "Auswertungsfehler", unknownEvaluationError: "Unbekannter Fehler bei der Auswertung",
+        mismatchedPixels: "abweichende Pixel", generatedOutput: "Erzeugte Ausgabe", expectedOutput: "Erwartete Ausgabe",
+        signInForReview: "Melde dich vor dem Senden an, wenn du das Ergebnis speichern und eine Admin-Prufung anfordern mochtest.",
+        resultNotSaved: "Dieses Ergebnis wurde keinem Konto gespeichert.", reviewPending: "Diese Einsendung wartet bereits auf eine Admin-Prufung.",
+        reviewApproved: "Diese Einsendung wurde bereits von einem Admin genehmigt.",
+        reviewRejected: "Diese Einsendung wurde bereits gepruft. Du kannst bei Bedarf eine weitere Prufung anfordern.",
+        reviewOnlySaved: "Nur diese gespeicherte Einsendung wird an die Admin-Warteschlange gesendet.",
+        noSavedSubmissionReview: "Keine gespeicherte Einsendung fur eine manuelle Prufung verfugbar.", reviewQueued: "Einsendung zur Admin-Prufung hinzugefugt.",
+        codeFormatted: "Code formatiert", exampleLoaded: "Beispiel geladen", templateLoaded: "Vorlage geladen", editorCleared: "Editor geleert",
+        insertedSnippet: "Snippet {name} eingefugt", noSnippets: "Keine Snippets verfugbar", writeCodeFirst: "Bitte schreibe zuerst etwas Code",
+        submitting: "Wird gesendet...", submissionFailed: "Senden fehlgeschlagen: {message}",
+        evaluationTooLong: "Die Auswertung hat zu lange gedauert. Bitte versuche es erneut.", evaluationCompleted: "Auswertung abgeschlossen!",
+        evaluationCompletedSaved: "Auswertung abgeschlossen und Code gespeichert!",
+        evaluationApiError: "Auswertungsfehler: {message}", jobLost: "Auftrag auf dem Server verloren. Bitte versuche es erneut.",
+        codeSaved: "Code erfolgreich gespeichert!", codeLoaded: "Code aus dem Speicher geladen", noSavedCode: "Kein gespeicherter Code gefunden",
+        codeExported: "Code exportiert als {filename}", totalScore: "Gesamtpunktzahl", testsPassed: "Bestandene Tests", successRate: "Erfolgsquote",
+        notAvailableShort: "k. A.", testResults: "Testergebnisse", testNumberHeader: "Test #", statusHeader: "Status",
+        pointsHeader: "Punkte", detailsHeader: "Details", loadingPreviousResults: "Vorherige Auftragsergebnisse werden geladen...",
+        noResultsToShare: "Keine Ergebnisse zum Teilen", shareTitle: "EVALOGOTOR-Ergebnisse",
+        shareText: "Ich habe {score}/{maxScore} bei \"{taskName}\" ({passRate}) mit EVALOGOTOR erreicht!",
+        resultsShared: "Ergebnisse erfolgreich geteilt!", resultsCopied: "Ergebnisse in die Zwischenablage kopiert!", clipboardError: "Konnte nicht in die Zwischenablage kopieren",
+        noBackendConfigured: "Keine Backend-URL konfiguriert. Fur gehostete Seiten setze localStorage.apiBaseUrl oder ubergebe ?api=https://deine-cloudflared-url."
+        ,clearEditorConfirm: "Mochtest du den Editor wirklich leeren?"
+    },
+    it: {
+        languageChanged: "Lingua cambiata", lines: "Righe", chars: "Caratteri", engine: "FMSLogo", jobId: "ID lavoro",
+        queue: "Coda", progress: "Progresso", time: "Tempo", tests: "Test", score: "Punteggio", outOf: "su", points: "punti",
+        testsWord: "test", manualReviewTitle: "Serve una revisione manuale?",
+        manualReviewHint: "Se la valutazione sembra sbagliata a causa delle stranezze di FMSLogo, puoi inviare questo tentativo salvato alla coda admin.",
+        manualReviewPlaceholder: "Nota facoltativa per l'admin, ad esempio cosa sembra corretto nel tuo disegno.",
+        requestAdminReview: "Richiedi revisione admin", detailedResults: "Risultati dettagliati", snippetsLibrary: "Libreria snippet di codice",
+        clickToInsert: "Clicca per inserire nell'editor", pending: "In attesa", processing: "Elaborazione", completed: "Completato",
+        sendingToEvaluator: "Invio al valutatore...", statusPass: "OK", statusFail: "FALLITO", statusError: "ERRORE",
+        errorState: "Errore", evaluationError: "Errore di valutazione", unknownEvaluationError: "Errore sconosciuto durante la valutazione",
+        mismatchedPixels: "pixel non corrispondenti", generatedOutput: "Output generato", expectedOutput: "Output atteso",
+        signInForReview: "Accedi prima di inviare se vuoi salvare il risultato e richiedere la revisione admin.",
+        resultNotSaved: "Questo risultato non e stato salvato in un account.", reviewPending: "Questo invio e gia in attesa di revisione admin.",
+        reviewApproved: "Questo invio e gia stato approvato da un admin.", reviewRejected: "Questo invio e gia stato rivisto. Se serve puoi richiedere un altro controllo.",
+        reviewOnlySaved: "Solo questo invio salvato verra inviato alla coda admin.", noSavedSubmissionReview: "Nessun invio salvato disponibile per la revisione manuale.",
+        reviewQueued: "Invio aggiunto alla coda di revisione admin.", codeFormatted: "Codice formattato", exampleLoaded: "Esempio caricato",
+        templateLoaded: "Modello caricato", editorCleared: "Editor pulito", insertedSnippet: "Snippet {name} inserito", noSnippets: "Nessuno snippet disponibile",
+        writeCodeFirst: "Scrivi prima del codice", submitting: "Invio in corso...", submissionFailed: "Invio fallito: {message}",
+        evaluationTooLong: "La valutazione ha richiesto troppo tempo. Riprova.", evaluationCompleted: "Valutazione completata!",
+        evaluationCompletedSaved: "Valutazione completata e codice salvato!",
+        evaluationApiError: "Errore di valutazione: {message}", jobLost: "Lavoro perso sul server. Riprova.",
+        codeSaved: "Codice salvato con successo!", codeLoaded: "Codice caricato dallo storage", noSavedCode: "Nessun codice salvato trovato",
+        codeExported: "Codice esportato come {filename}", totalScore: "Punteggio totale", testsPassed: "Test superati", successRate: "Percentuale di successo",
+        notAvailableShort: "N/D", testResults: "Risultati dei test", testNumberHeader: "Test #", statusHeader: "Stato",
+        pointsHeader: "Punti", detailsHeader: "Dettagli", loadingPreviousResults: "Caricamento dei risultati precedenti...",
+        noResultsToShare: "Nessun risultato da condividere", shareTitle: "Risultati EVALOGOTOR",
+        shareText: "Ho ottenuto {score}/{maxScore} in \"{taskName}\" ({passRate}) usando EVALOGOTOR!",
+        resultsShared: "Risultati condivisi con successo!", resultsCopied: "Risultati copiati negli appunti!", clipboardError: "Impossibile copiare negli appunti",
+        noBackendConfigured: "Nessun URL backend configurato. Per le pagine ospitate imposta localStorage.apiBaseUrl o passa ?api=https://tuo-cloudflared-url."
+        ,clearEditorConfirm: "Sei sicuro di voler svuotare l'editor?"
+    },
+    hr: {
+        languageChanged: "Jezik promijenjen", lines: "Linije", chars: "Znakovi", engine: "FMSLogo", jobId: "ID posla",
+        queue: "Red", progress: "Napredak", time: "Vrijeme", tests: "Testovi", score: "Rezultat", outOf: "od", points: "bodova",
+        testsWord: "testova", manualReviewTitle: "Trebas rucnu provjeru?",
+        manualReviewHint: "Ako evaluator izgleda pogresno zbog FMSLogo nepreciznosti, mozes poslati ovu spremljenu predaju admin redu za provjeru.",
+        manualReviewPlaceholder: "Neobavezna napomena za admina, na primjer sto izgleda tocno na tvojem crtezu.",
+        requestAdminReview: "Zatrazi admin provjeru", detailedResults: "Detaljni rezultati", snippetsLibrary: "Biblioteka isjecaka koda",
+        clickToInsert: "Klikni za umetanje u editor", pending: "Na cekanju", processing: "Obrada", completed: "Zavrseno",
+        sendingToEvaluator: "Slanje evaluatoru...", statusPass: "PROSAO", statusFail: "PAO", statusError: "GRESKA",
+        errorState: "Greska", evaluationError: "Greska evaluacije", unknownEvaluationError: "Dogodila se nepoznata greska tijekom evaluacije",
+        mismatchedPixels: "nepodudarnih piksela", generatedOutput: "Generirani izlaz", expectedOutput: "Ocekivani izlaz",
+        signInForReview: "Prijavi se prije slanja ako zelis spremiti rezultat i zatraziti admin provjeru.",
+        resultNotSaved: "Ovaj rezultat nije spremljen na korisnicki racun.", reviewPending: "Ova predaja vec ceka admin provjeru.",
+        reviewApproved: "Ovu predaju je admin vec odobrio.", reviewRejected: "Ova predaja je vec bila pregledana. Mozes opet zatraziti provjeru ako treba.",
+        reviewOnlySaved: "Samo ova spremljena predaja bit ce poslana u admin red za provjeru.",
+        noSavedSubmissionReview: "Nema spremljene predaje dostupne za rucnu provjeru.", reviewQueued: "Predaja je dodana u admin red za provjeru.",
+        codeFormatted: "Kod formatiran", exampleLoaded: "Primjer ucitan", templateLoaded: "Predlozak ucitan", editorCleared: "Editor ociscen",
+        insertedSnippet: "Umetnut je isjecak {name}", noSnippets: "Nema dostupnih isjecaka", writeCodeFirst: "Prvo napisi malo koda",
+        submitting: "Slanje...", submissionFailed: "Slanje nije uspjelo: {message}",
+        evaluationTooLong: "Evaluacija je trajala predugo. Pokusaj ponovno.", evaluationCompleted: "Evaluacija zavrsena!",
+        evaluationCompletedSaved: "Evaluacija zavrsena i kod spremljen!",
+        evaluationApiError: "Greska evaluacije: {message}", jobLost: "Posao je izgubljen na serveru. Pokusaj ponovno.",
+        codeSaved: "Kod je uspjesno spremljen!", codeLoaded: "Kod ucitan iz spremista", noSavedCode: "Nije pronaden spremljeni kod",
+        codeExported: "Kod izvezen kao {filename}", totalScore: "Ukupan rezultat", testsPassed: "Polozeni testovi", successRate: "Postotak uspjeha",
+        notAvailableShort: "N/A", testResults: "Rezultati testova", testNumberHeader: "Test #", statusHeader: "Status",
+        pointsHeader: "Bodovi", detailsHeader: "Detalji", loadingPreviousResults: "Ucitavanje prethodnih rezultata...",
+        noResultsToShare: "Nema rezultata za dijeljenje", shareTitle: "EVALOGOTOR rezultati",
+        shareText: "Osvojio/la sam {score}/{maxScore} na zadatku \"{taskName}\" ({passRate}) koristeci EVALOGOTOR!",
+        resultsShared: "Rezultati su uspjesno podijeljeni!", resultsCopied: "Rezultati su kopirani u meduspremnik!", clipboardError: "Nije moguce kopirati u meduspremnik",
+        noBackendConfigured: "Backend URL nije postavljen. Za hostane stranice postavi localStorage.apiBaseUrl ili koristi ?api=https://tvoj-cloudflared-url."
+        ,clearEditorConfirm: "Jesi li siguran/sigurna da zelis ocistiti editor?"
+    },
+    fr: {
+        languageChanged: "Langue modifiee", lines: "Lignes", chars: "Caracteres", engine: "FMSLogo", jobId: "ID du job",
+        queue: "File", progress: "Progression", time: "Temps", tests: "Tests", score: "Score", outOf: "sur", points: "points",
+        testsWord: "tests", manualReviewTitle: "Besoin d'une verification manuelle ?",
+        manualReviewHint: "Si l'evaluateur semble incorrect a cause des bizarreries de FMSLogo, tu peux envoyer cette soumission sauvegardee a la file admin.",
+        manualReviewPlaceholder: "Note facultative pour l'admin, par exemple ce qui semble correct dans ton dessin.",
+        requestAdminReview: "Demander une verification admin", detailedResults: "Resultats detailles", snippetsLibrary: "Bibliotheque d'extraits de code",
+        clickToInsert: "Clique pour inserer dans l'editeur", pending: "En attente", processing: "Traitement", completed: "Termine",
+        sendingToEvaluator: "Envoi a l'evaluateur...", statusPass: "OK", statusFail: "ECHEC", statusError: "ERREUR",
+        errorState: "Erreur", evaluationError: "Erreur d'evaluation", unknownEvaluationError: "Erreur inconnue pendant l'evaluation",
+        mismatchedPixels: "pixels differents", generatedOutput: "Sortie generee", expectedOutput: "Sortie attendue",
+        signInForReview: "Connecte-toi avant d'envoyer si tu veux sauvegarder le resultat et demander une verification admin.",
+        resultNotSaved: "Ce resultat n'a pas ete sauvegarde sur un compte.", reviewPending: "Cette soumission attend deja une verification admin.",
+        reviewApproved: "Cette soumission a deja ete approuvee par un admin.", reviewRejected: "Cette soumission a deja ete examinee. Tu peux demander une nouvelle verification si besoin.",
+        reviewOnlySaved: "Seule cette soumission sauvegardee sera envoyee a la file admin.",
+        noSavedSubmissionReview: "Aucune soumission sauvegardee disponible pour une verification manuelle.", reviewQueued: "Soumission ajoutee a la file de verification admin.",
+        codeFormatted: "Code formate", exampleLoaded: "Exemple charge", templateLoaded: "Modele charge", editorCleared: "Editeur vide",
+        insertedSnippet: "Extrait {name} insere", noSnippets: "Aucun extrait disponible", writeCodeFirst: "Ecris d'abord du code",
+        submitting: "Envoi...", submissionFailed: "Envoi impossible : {message}",
+        evaluationTooLong: "L'evaluation a pris trop de temps. Reessaie.", evaluationCompleted: "Evaluation terminee !",
+        evaluationCompletedSaved: "Evaluation terminee et code sauvegarde !",
+        evaluationApiError: "Erreur d'evaluation : {message}", jobLost: "Job perdu sur le serveur. Merci de reessayer.",
+        codeSaved: "Code enregistre avec succes !", codeLoaded: "Code charge depuis le stockage", noSavedCode: "Aucun code sauvegarde trouve",
+        codeExported: "Code exporte sous {filename}", totalScore: "Score total", testsPassed: "Tests reussis", successRate: "Taux de reussite",
+        notAvailableShort: "N/D", testResults: "Resultats des tests", testNumberHeader: "Test #", statusHeader: "Statut",
+        pointsHeader: "Points", detailsHeader: "Details", loadingPreviousResults: "Chargement des resultats precedents...",
+        noResultsToShare: "Aucun resultat a partager", shareTitle: "Resultats EVALOGOTOR",
+        shareText: "J'ai obtenu {score}/{maxScore} sur \"{taskName}\" ({passRate}) avec EVALOGOTOR !",
+        resultsShared: "Resultats partages avec succes !", resultsCopied: "Resultats copies dans le presse-papiers !", clipboardError: "Impossible de copier dans le presse-papiers",
+        noBackendConfigured: "Aucune URL backend configuree. Pour les pages hebergees, definis localStorage.apiBaseUrl ou passe ?api=https://ton-cloudflared-url."
+        ,clearEditorConfirm: "Veux-tu vraiment vider l'editeur ?"
+    },
+    ru: {
+        languageChanged: "Yazyk izmenen", lines: "Stroki", chars: "Znaki", engine: "FMSLogo", jobId: "ID zadaniya",
+        queue: "Ochered", progress: "Progress", time: "Vremya", tests: "Testy", score: "Ball", outOf: "iz", points: "ballov",
+        testsWord: "testov", manualReviewTitle: "Nuzhna ruchnaya proverka?",
+        manualReviewHint: "Esli otsenka vyglyadit neverno iz-za osobennostei FMSLogo, mozhno otpravit etu sokhranennuyu popytku v ochered admina.",
+        manualReviewPlaceholder: "Neobyazatelnaya zametka dlya admina o tom, chto v risunke kazhetsya pravilnym.",
+        requestAdminReview: "Zaprosit proverku admina", detailedResults: "Podrobnye rezultaty", snippetsLibrary: "Biblioteka fragmentov koda",
+        clickToInsert: "Nazhmi, chtoby vstavit v redaktor", pending: "Ozhidaetsya", processing: "Obrabotka", completed: "Zaversheno",
+        sendingToEvaluator: "Otpravka v evaluator...", statusPass: "USPESHNO", statusFail: "NEUDACHA", statusError: "OSHIBKA",
+        errorState: "Oshibka", evaluationError: "Oshibka otsenki", unknownEvaluationError: "Neizvestnaya oshibka vo vremya otsenki",
+        mismatchedPixels: "nesovpadayushchikh pikselei", generatedOutput: "Sgenerirovannyi rezultat", expectedOutput: "Ozhidaemyi rezultat",
+        signInForReview: "Voidite v sistemu pered otpravkoi, esli khotite sokhranit rezultat i zaprosit proverku admina.",
+        resultNotSaved: "Etot rezultat ne byl sokhranen v akkaunt.", reviewPending: "Eta popytka uzhe zhdet proverki admina.",
+        reviewApproved: "Eta popytka uzhe byla odobrena adminom.", reviewRejected: "Eta popytka uzhe rassmatrivalas. Pri neobkhodimosti mozhno zaprosit povtornuyu proverku.",
+        reviewOnlySaved: "V ochered admina budet otpravlena tolko eta sokhranennaya popytka.",
+        noSavedSubmissionReview: "Net sokhranennoi popytki dlya ruchnoi proverki.", reviewQueued: "Popytka dobavlena v ochered admina.",
+        codeFormatted: "Kod otformatirovan", exampleLoaded: "Primer zagruzhen", templateLoaded: "Shablon zagruzhen", editorCleared: "Redaktor ochishchen",
+        insertedSnippet: "Vstavlen fragment {name}", noSnippets: "Fragmenty otsutstvuyut", writeCodeFirst: "Snachala napishite kod",
+        submitting: "Otpravka...", submissionFailed: "Otpravka ne udalas: {message}",
+        evaluationTooLong: "Otsenka dlilas slishkom dolgo. Poprobuite eshche raz.", evaluationCompleted: "Otsenka zavershena!",
+        evaluationCompletedSaved: "Otsenka zavershena i kod sokhranen!",
+        evaluationApiError: "Oshibka otsenki: {message}", jobLost: "Zadanie poteryano na servere. Poprobuite eshche raz.",
+        codeSaved: "Kod uspeshno sokhranen!", codeLoaded: "Kod zagruzhen iz khranilishcha", noSavedCode: "Sokhranennyi kod ne naiden",
+        codeExported: "Kod eksportirovan kak {filename}", totalScore: "Obshchii ball", testsPassed: "Proideno testov", successRate: "Protsent uspekha",
+        notAvailableShort: "N/D", testResults: "Rezultaty testov", testNumberHeader: "Test #", statusHeader: "Status",
+        pointsHeader: "Bally", detailsHeader: "Podrobnosti", loadingPreviousResults: "Zagruzka predydushchikh rezultatov...",
+        noResultsToShare: "Net rezultatov dlya podelitsya", shareTitle: "Rezultaty EVALOGOTOR",
+        shareText: "Ya nabral(a) {score}/{maxScore} v zadache \"{taskName}\" ({passRate}) s EVALOGOTOR!",
+        resultsShared: "Rezultaty uspeshno podeleny!", resultsCopied: "Rezultaty skopirovany v bufer obmena!", clipboardError: "Ne udalos skopirovat v bufer obmena",
+        noBackendConfigured: "URL backenda ne nastroen. Dlya khostingovykh stranits ustanovi localStorage.apiBaseUrl ili ispolzui ?api=https://tvoy-cloudflared-url."
+        ,clearEditorConfirm: "Ty deistvitelno khochesh ochistit redaktor?"
+    }
+};
+
+Object.keys(translationExtras).forEach((language) => {
+    translations[language] = { ...(translations[language] || {}), ...translationExtras[language] };
+});
+
+translations.en.loadingTask = "Loading task...";
+translations.de.loadingTask = "Aufgabe wird geladen...";
+translations.it.loadingTask = "Caricamento del compito...";
+translations.hr.loadingTask = "Ucitavanje zadatka...";
+translations.fr.loadingTask = "Chargement de la tache...";
+translations.ru.loadingTask = "Zagruzka zadachi...";
+
 // Treat some UI strings as stateful (so language switching doesn't get "stuck")
 function isReadyStatusText(txt) {
     const norm = (txt || '').trim().toLowerCase();
@@ -840,6 +1047,14 @@ function t(key) {
     return (pack && pack[key]) ? pack[key] : (translations.en[key] || key);
 }
 
+function tf(key, vars = {}) {
+    let template = t(key);
+    Object.entries(vars).forEach(([name, value]) => {
+        template = template.replaceAll(`{${name}}`, value);
+    });
+    return template;
+}
+
 function initLanguage() {
     const sel = document.getElementById('langSelect');
     if (!sel) return;
@@ -849,7 +1064,7 @@ function initLanguage() {
         lang = e.target.value;
         localStorage.setItem('lang', lang);
         applyTranslations();
-        showToast('Language changed', 'info');
+        showToast(t('languageChanged'), 'info');
     });
 
     applyTranslations();
@@ -887,6 +1102,27 @@ function applyTranslations() {
     setText('qaLoad', t('loadSaved'));
     setText('qaExport', t('export'));
     setText('qaShare', t('share'));
+    setText('linesLabel', t('lines'));
+    setText('charsLabel', t('chars'));
+    setText('engineLabel', t('engine'));
+    setText('jobIdLabel', t('jobId'));
+    setText('queueLabel', t('queue'));
+    setText('progressLabel', t('progress'));
+    setText('timeLabel', t('time'));
+    setText('testsLabel', t('tests'));
+    setText('scoreLabel', t('score'));
+    setText('outOfLabel', t('outOf'));
+    setText('pointsLabel', t('points'));
+    setText('testsSuffix', t('testsWord'));
+    setText('reviewRequestTitle', t('manualReviewTitle'));
+    setText('requestReviewBtnText', t('requestAdminReview'));
+    setText('detailedResultsTitle', t('detailedResults'));
+    setText('snippetsModalTitle', t('snippetsLibrary'));
+    setText('snippetsModalDesc', t('clickToInsert'));
+    const reviewReasonInputEl = document.getElementById('reviewReasonInput');
+    if (reviewReasonInputEl) reviewReasonInputEl.placeholder = t('manualReviewPlaceholder');
+    const taskTitleEl = document.getElementById('taskTitle');
+    if (taskTitleEl && taskTitleEl.textContent === 'Loading task...') taskTitleEl.textContent = t('loadingTask');
 
     // Only change statusText if we're currently idle/ready (avoid overwriting live status)
     const statusTextEl = document.getElementById('statusText');
@@ -904,6 +1140,10 @@ function applyTranslations() {
     }
     // Update <html lang="">
     document.documentElement.setAttribute('lang', lang);
+
+    if (latestEvaluationResult) {
+        displayResults(latestEvaluationResult);
+    }
 
     lucide.createIcons();
 }
@@ -985,7 +1225,7 @@ function applyTranslations() {
                 throw lastError;
             }
 
-            throw new Error('No backend URL configured. For hosted pages, set localStorage.apiBaseUrl or pass ?api=https://your-cloudflared-url.');
+        throw new Error(t('noBackendConfigured'));
         }
         
         // ============================================
@@ -1112,7 +1352,7 @@ function applyTranslations() {
                 .trim() + '\n';
             
             codeEditor.setValue(formatted);
-            showToast('Code formatted', 'success');
+            showToast(t('codeFormatted'), 'success');
         }
         
         // ============================================
@@ -1151,7 +1391,7 @@ PATTERN 100 3
 
             codeEditor.setValue(example);
             updateEditorStats();
-            showToast('Example loaded', 'info');
+            showToast(t('exampleLoaded'), 'info');
         }
         
         function loadTemplate() {
@@ -1176,14 +1416,14 @@ END
 
             codeEditor.setValue(template);
             updateEditorStats();
-            showToast('Template loaded', 'info');
+            showToast(t('templateLoaded'), 'info');
         }
         
         function clearCode() {
-            if (confirm('Are you sure you want to clear the editor?')) {
+            if (confirm(t('clearEditorConfirm'))) {
                 codeEditor.setValue('');
                 updateEditorStats();
-                showToast('Editor cleared', 'warning');
+                showToast(t('editorCleared'), 'warning');
             }
         }
         
@@ -1230,7 +1470,7 @@ END`
             const snippet = window.snippets[key];
             
             codeEditor.replaceRange(snippet + '\n\n', cursor);
-            showToast(`Inserted ${key} snippet`, 'success');
+            showToast(tf('insertedSnippet', { name: key }), 'success');
         }
         
         function showSnippetsModal() {
@@ -1238,7 +1478,7 @@ END`
             const list = document.getElementById('snippetsList');
             
             if (!window.snippets) {
-                list.innerHTML = '<p class="text-gray-500 text-center py-8">No snippets available</p>';
+                list.innerHTML = `<p class="text-gray-500 text-center py-8">${t('noSnippets')}</p>`;
                 modal.classList.remove('hidden');
                 return;
             }
@@ -1289,7 +1529,7 @@ END`
         async function submitCode() {
             const code = codeEditor.getValue();
             if (!code.trim()) {
-                showToast('Please write some code first', 'warning');
+                showToast(t('writeCodeFirst'), 'warning');
                 return;
             }
 
@@ -1300,21 +1540,21 @@ END`
             // Disable button and show loading state
             if (submitBtn) {
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i data-lucide="loader" class="w-5 h-5 mr-2 animate-spin"></i>Submitting...';
+                submitBtn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 mr-2 animate-spin"></i>${t('submitting')}`;
             }
 
             if (submitText) {
-                submitText.textContent = 'Submitting...';
+                submitText.textContent = t('submitting');
             }
 
             // Update status
-            updateJobStatus('pending', 'Submitting job...', 10);
+            updateJobStatus('pending', t('submitting'), 10);
             jobStartTime = Date.now();
             pollCount = 0;
 
             try {
                 // Submit directly to the Flask backend.
-                updateJobStatus('processing', 'Sending to evaluator...', 25);
+                updateJobStatus('processing', t('sendingToEvaluator'), 25);
 
                 const payload = {
                     code: code,
@@ -1345,11 +1585,11 @@ END`
                     data.processingTime = ((Date.now() - jobStartTime) / 1000).toFixed(2);
                 }
 
-                updateJobStatus('completed', 'Evaluation complete!', 100);
+                updateJobStatus('completed', t('evaluationCompleted'), 100);
                 showToast(
                     authSession && authSession.token
-                        ? 'Evaluation completed and saved to your account history!'
-                        : 'Evaluation completed!',
+                        ? t('evaluationCompletedSaved')
+                        : t('evaluationCompleted'),
                     'success'
                 );
                 resetSubmitButton();
@@ -1359,8 +1599,8 @@ END`
 
             } catch (error) {
                 console.error('Submission error:', error);
-                updateJobStatus('error', `Submission failed: ${error.message}`, 0);
-                showToast(`Submission failed: ${error.message}`, 'error');
+                updateJobStatus('error', tf('submissionFailed', { message: error.message }), 0);
+                showToast(tf('submissionFailed', { message: error.message }), 'error');
 
                 // Re-enable button
                 resetSubmitButton();
@@ -1389,8 +1629,8 @@ END`
                 if (pollCount > MAX_POLL_ATTEMPTS) {
                     clearInterval(pollInterval);
                     pollInterval = null;
-                    updateJobStatus('error', 'Evaluation timeout (2 minutes)', 0);
-                    showToast('Evaluation took too long. Please try again.', 'warning');
+                    updateJobStatus('error', t('evaluationTooLong'), 0);
+                    showToast(t('evaluationTooLong'), 'warning');
                     resetSubmitButton(); // Make sure this is called
                     return;
                 }
@@ -1407,7 +1647,7 @@ END`
                         // This is a complete result
                         clearInterval(pollInterval);
                         pollInterval = null;
-                        updateJobStatus('completed', 'Evaluation complete!', 100);
+                        updateJobStatus('completed', t('evaluationCompleted'), 100);
                         resetSubmitButton();
                         
                         // Add processing time
@@ -1426,12 +1666,12 @@ END`
                             }
                         }
                         
-                        showToast('Evaluation completed!', 'success');
+                        showToast(t('evaluationCompleted'), 'success');
                     } else if (data.status === 'completed' && data.result) {
                         // Alternative response format
                         clearInterval(pollInterval);
                         pollInterval = null;
-                        updateJobStatus('completed', 'Evaluation complete!', 100);
+                        updateJobStatus('completed', t('evaluationCompleted'), 100);
                         resetSubmitButton();
                         
                         if (jobStartTime) {
@@ -1440,26 +1680,26 @@ END`
                         }
                         
                         displayResults(data.result);
-                        showToast('Evaluation completed!', 'success');
+                        showToast(t('evaluationCompleted'), 'success');
                     } else if (data.status === 'processing' || data.status === 'pending') {
                         // Still processing
                         updateJobStatus(data.status, 
-                            data.status === 'processing' ? 'Executing FMSLogo code...' : 'Waiting in queue...', 
+                            data.status === 'processing' ? t('processing') : t('pending'), 
                             data.status === 'processing' ? 60 : 40);
                     } else if (data.status === 'error') {
                         // Error occurred
                         clearInterval(pollInterval);
                         pollInterval = null;
-                        updateJobStatus('error', `Error: ${data.error || 'Unknown error'}`, 0);
+                        updateJobStatus('error', `${t('errorState')}: ${data.error || t('unknownEvaluationError')}`, 0);
                         resetSubmitButton();
-                        showToast(`Evaluation error: ${data.error}`, 'error');
+                        showToast(tf('evaluationApiError', { message: data.error || t('unknownEvaluationError') }), 'error');
                     } else if (data.status === 'not_found') {
                         // Job not found, something went wrong
                         clearInterval(pollInterval);
                         pollInterval = null;
-                        updateJobStatus('error', 'Job not found on server', 0);
+                        updateJobStatus('error', t('jobLost'), 0);
                         resetSubmitButton();
-                        showToast('Job lost on server. Please try again.', 'error');
+                        showToast(t('jobLost'), 'error');
                     }
                 } catch (error) {
                     console.error('Polling error:', error);
@@ -1474,11 +1714,11 @@ END`
             
             if (submitBtn) {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i data-lucide="play" class="w-5 h-5 mr-2"></i>Submit Solution';
+                submitBtn.innerHTML = `<i data-lucide="play" class="w-5 h-5 mr-2"></i>${t('submitSolution')}`;
             }
             
             if (submitText) {
-                submitText.textContent = 'Submit Solution';
+                submitText.textContent = t('submitSolution');
             }
             
             // Recreate icons
@@ -1506,31 +1746,31 @@ END`
                     statusIcon.setAttribute('data-lucide', 'clock');
                     statusIcon.classList.add('text-yellow-500');
                     statusPulse.classList.remove('hidden');
-                    jobStatusTitle.textContent = 'Pending';
+                    jobStatusTitle.textContent = t('pending');
                     break;
                 case 'processing':
                     statusIcon.setAttribute('data-lucide', 'loader');
                     statusIcon.classList.add('text-blue-500', 'animate-spin');
                     statusPulse.classList.remove('hidden');
-                    jobStatusTitle.textContent = 'Processing';
+                    jobStatusTitle.textContent = t('processing');
                     break;
                 case 'completed':
                     statusIcon.setAttribute('data-lucide', 'check-circle');
                     statusIcon.classList.add('text-green-500');
                     statusPulse.classList.add('hidden');
-                    jobStatusTitle.textContent = 'Completed';
+                    jobStatusTitle.textContent = t('completed');
                     break;
                 case 'error':
                     statusIcon.setAttribute('data-lucide', 'alert-circle');
                     statusIcon.classList.add('text-red-500');
                     statusPulse.classList.add('hidden');
-                    jobStatusTitle.textContent = 'Error';
+                    jobStatusTitle.textContent = t('errorState');
                     break;
                 default:
                     statusIcon.setAttribute('data-lucide', 'circle');
                     statusIcon.classList.add('text-gray-400');
                     statusPulse.classList.add('hidden');
-                    jobStatusTitle.textContent = 'Ready';
+                    jobStatusTitle.textContent = t('ready');
             }
             
             statusText.textContent = message;
@@ -1581,39 +1821,39 @@ END`
             reviewRequestBox.classList.remove('hidden');
 
             if (!submission || !submission.id) {
-                reviewRequestHint.textContent = 'Sign in before submitting if you want to save the result and request admin review.';
+                reviewRequestHint.textContent = t('signInForReview');
                 reviewReasonInput.classList.add('hidden');
                 requestReviewBtn.classList.add('hidden');
-                reviewRequestStatus.textContent = 'This result was not saved to an account.';
+                reviewRequestStatus.textContent = t('resultNotSaved');
                 return;
             }
 
             reviewReasonInput.classList.remove('hidden');
             requestReviewBtn.classList.remove('hidden');
-            reviewRequestHint.textContent = 'If the evaluator looks wrong because of FMSLogo quirks, you can send this saved submission to the admin queue.';
+            reviewRequestHint.textContent = t('manualReviewHint');
 
             if (reviewStatus === 'pending') {
                 requestReviewBtn.disabled = true;
                 requestReviewBtn.classList.add('opacity-60', 'cursor-not-allowed');
                 reviewReasonInput.disabled = true;
-                reviewRequestStatus.textContent = 'This submission is already waiting for admin review.';
+                reviewRequestStatus.textContent = t('reviewPending');
             } else if (reviewStatus === 'approved') {
                 requestReviewBtn.disabled = true;
                 requestReviewBtn.classList.add('opacity-60', 'cursor-not-allowed');
                 reviewReasonInput.disabled = true;
-                reviewRequestStatus.textContent = 'This submission was already approved by an admin.';
+                reviewRequestStatus.textContent = t('reviewApproved');
             } else if (reviewStatus === 'rejected') {
                 reviewReasonInput.disabled = false;
                 requestReviewBtn.disabled = false;
-                reviewRequestStatus.textContent = 'This submission was reviewed before. You can request another check if needed.';
+                reviewRequestStatus.textContent = t('reviewRejected');
             } else {
-                reviewRequestStatus.textContent = 'Only this saved submission will be sent to the admin queue.';
+                reviewRequestStatus.textContent = t('reviewOnlySaved');
             }
         }
 
         async function requestManualReview() {
             if (!latestEvaluationResult || !latestEvaluationResult.submission || !latestEvaluationResult.submission.id) {
-                showToast('No saved submission is available for manual review.', 'warning');
+                showToast(t('noSavedSubmissionReview'), 'warning');
                 return;
             }
 
@@ -1632,7 +1872,7 @@ END`
                 });
                 latestEvaluationResult.submission = data.item;
                 renderReviewRequestBox(latestEvaluationResult);
-                showToast('Submission added to the admin review queue.', 'success');
+                showToast(t('reviewQueued'), 'success');
             } catch (error) {
                 requestReviewBtn.disabled = false;
                 requestReviewBtn.classList.remove('opacity-60', 'cursor-not-allowed');
@@ -1652,7 +1892,7 @@ END`
                 // Show error
                 document.getElementById('scoreValue').textContent = '0';
                 document.getElementById('scoreMax').textContent = document.getElementById('maxPoints').textContent;
-                document.getElementById('passRateBadge').textContent = 'Error';
+                document.getElementById('passRateBadge').textContent = t('errorState');
                 document.getElementById('passRateBadge').className = 'px-4 py-2 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300';
                 
                 const testResults = document.getElementById('testResults');
@@ -1660,10 +1900,10 @@ END`
                     <div class="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700/30">
                         <div class="font-semibold flex items-center gap-2 mb-2">
                             <i data-lucide="alert-triangle" class="w-5 h-5 text-red-500"></i>
-                            Evaluation Error
+                            ${t('evaluationError')}
                         </div>
                         <div class="text-sm text-gray-600 dark:text-gray-300">
-                            ${result.error || 'Unknown error occurred during evaluation'}
+                            ${result.error || t('unknownEvaluationError')}
                         </div>
                     </div>
                 `;
@@ -1688,7 +1928,7 @@ END`
             
             // Update pass rate badge
             const passRateBadge = document.getElementById('passRateBadge');
-            passRateBadge.textContent = `${passedTests}/${totalTests} tests`;
+            passRateBadge.textContent = `${passedTests}/${totalTests} ${t('testsWord')}`;
             passRateBadge.className = `px-4 py-2 rounded-full ${
                 passRate === 1 ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300' :
                 passRate >= 0.5 ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300' :
@@ -1727,10 +1967,10 @@ END`
                         <div class="flex justify-between items-center">
                             <div class="font-semibold flex items-center gap-2">
                                 <i data-lucide="${statusIcon}" class="w-5 h-5 ${statusColor}"></i>
-                                Test ${test.test}
+                                ${t('testNumberHeader')} ${test.test}
                             </div>
                             <div class="font-bold ${test.status === 'PASS' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}">
-                                ${test.points || 0} pts
+                                ${test.points || 0} ${t('points')}
                             </div>
                         </div>
                         ${test.error ? `
@@ -1742,7 +1982,7 @@ END`
                         ${test.mismatched ? `
                             <div class="text-sm text-yellow-600 dark:text-yellow-400 mt-2 flex items-start gap-2">
                                 <i data-lucide="image" class="w-4 h-4 mt-0.5 flex-shrink-0"></i>
-                                ${test.mismatched} mismatched pixels
+                                ${test.mismatched} ${t('mismatchedPixels')}
                             </div>
                         ` : ''}
                         ${test.generated_image ? `
@@ -1750,11 +1990,11 @@ END`
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     <div>
                                         <div class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
-                                            Generated output
+                                            ${t('generatedOutput')}
                                         </div>
                                         <img
                                             src="${test.generated_image}"
-                                            alt="Generated output for test ${test.test}"
+                                            alt="${t('generatedOutput')} ${test.test}"
                                             loading="lazy"
                                             class="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 max-w-full"
                                         />
@@ -1762,11 +2002,11 @@ END`
                                     ${test.expected_image ? `
                                         <div>
                                             <div class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
-                                                Expected output
+                                                ${t('expectedOutput')}
                                             </div>
                                             <img
                                                 src="${test.expected_image}"
-                                                alt="Expected output for test ${test.test}"
+                                                alt="${t('expectedOutput')} ${test.test}"
                                                 loading="lazy"
                                                 class="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 max-w-full"
                                             />
@@ -1827,7 +2067,7 @@ END`
             history = history.slice(0, 20);
             localStorage.setItem(historyKey, JSON.stringify(history));
             
-            showToast('Code saved successfully!', 'success');
+            showToast(t('codeSaved'), 'success');
         }
         
         function loadSavedCode() {
@@ -1838,9 +2078,9 @@ END`
             if (savedCode && codeEditor) {
                 codeEditor.setValue(savedCode);
                 updateEditorStats();
-                showToast('Code loaded from storage', 'info');
+                showToast(t('codeLoaded'), 'info');
             } else {
-                showToast('No saved code found', 'warning');
+                showToast(t('noSavedCode'), 'warning');
             }
         }
         
@@ -1862,7 +2102,7 @@ END`
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
             
-            showToast(`Code exported as ${filename}`, 'success');
+            showToast(tf('codeExported', { filename }), 'success');
         }
         
         // ============================================
@@ -1875,20 +2115,20 @@ END`
                 <div class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-4 rounded-xl">
-                            <div class="text-sm text-blue-600 dark:text-blue-400 mb-1">Total Score</div>
+                            <div class="text-sm text-blue-600 dark:text-blue-400 mb-1">${t('totalScore')}</div>
                             <div class="text-2xl font-bold">${result.total_points || 0}/${result.max_points || 0}</div>
                         </div>
                         <div class="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 p-4 rounded-xl">
-                            <div class="text-sm text-green-600 dark:text-green-400 mb-1">Tests Passed</div>
+                            <div class="text-sm text-green-600 dark:text-green-400 mb-1">${t('testsPassed')}</div>
                             <div class="text-2xl font-bold">${result.passed_tests || 0}/${result.total_tests || 0}</div>
                         </div>
                         <div class="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 p-4 rounded-xl">
-                            <div class="text-sm text-purple-600 dark:text-purple-400 mb-1">Success Rate</div>
+                            <div class="text-sm text-purple-600 dark:text-purple-400 mb-1">${t('successRate')}</div>
                             <div class="text-2xl font-bold">${result.total_tests ? Math.round((result.passed_tests || 0) / result.total_tests * 100) : 0}%</div>
                         </div>
                         <div class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900/20 dark:to-gray-800/20 p-4 rounded-xl">
-                            <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">Time</div>
-                            <div class="text-xl font-bold">${result.processingTime || 'N/A'}s</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">${t('time')}</div>
+                            <div class="text-xl font-bold">${result.processingTime || t('notAvailableShort')}s</div>
                         </div>
                     </div>
             `;
@@ -1898,16 +2138,16 @@ END`
                     <div>
                         <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
                             <i data-lucide="list-checks" class="w-5 h-5 text-blue-500"></i>
-                            Test Results
+                            ${t('testResults')}
                         </h3>
                         <div class="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
                             <table class="w-full">
                                 <thead class="bg-gray-50 dark:bg-gray-900">
                                     <tr>
-                                        <th class="p-3 text-left text-sm font-semibold">Test #</th>
-                                        <th class="p-3 text-left text-sm font-semibold">Status</th>
-                                        <th class="p-3 text-left text-sm font-semibold">Points</th>
-                                        <th class="p-3 text-left text-sm font-semibold">Details</th>
+                                        <th class="p-3 text-left text-sm font-semibold">${t('testNumberHeader')}</th>
+                                        <th class="p-3 text-left text-sm font-semibold">${t('statusHeader')}</th>
+                                        <th class="p-3 text-left text-sm font-semibold">${t('pointsHeader')}</th>
+                                        <th class="p-3 text-left text-sm font-semibold">${t('detailsHeader')}</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -1923,7 +2163,7 @@ END`
                             <td class="p-3 font-mono">${test.test}</td>
                             <td class="p-3">
                                 <span class="px-3 py-1 rounded-full text-xs font-semibold ${statusColor}">
-                                    ${test.status}
+                                    ${test.status === 'PASS' ? t('statusPass') : test.status === 'FAIL' ? t('statusFail') : t('statusError')}
                                 </span>
                             </td>
                             <td class="p-3 font-bold">${test.points || 0}</td>
@@ -1937,7 +2177,7 @@ END`
                                 ${test.mismatched ? `
                                     <div class="text-yellow-600 dark:text-yellow-400 flex items-start gap-2">
                                         <i data-lucide="image" class="w-4 h-4 mt-0.5 flex-shrink-0"></i>
-                                        ${test.mismatched} mismatched pixels
+                                        ${test.mismatched} ${t('mismatchedPixels')}
                                     </div>
                                 ` : ''}
                             </td>
@@ -1964,10 +2204,10 @@ END`
         
         function loadJobResults(jobId) {
             currentJobId = jobId;
-            updateJobStatus('pending', 'Loading previous job...', 10);
+            updateJobStatus('pending', t('loadingPreviousResults'), 10);
             
             // You could implement loading previous job results here
-            showToast('Loading previous job results...', 'info');
+            showToast(t('loadingPreviousResults'), 'info');
         }
         
         // ============================================
@@ -1975,7 +2215,7 @@ END`
         // ============================================
         async function shareResults() {
             if (!currentJobId) {
-                showToast('No results to share', 'warning');
+                showToast(t('noResultsToShare'), 'warning');
                 return;
             }
             
@@ -1984,16 +2224,16 @@ END`
             const taskName = document.getElementById('taskTitle').textContent;
             const passRate = document.getElementById('passRateBadge').textContent;
             
-            const shareText = `🎯 I scored ${score}/${maxScore} on "${taskName}" (${passRate}) using EVALOGOTOR!`;
+            const shareText = tf('shareText', { score, maxScore, taskName, passRate });
             
             if (navigator.share) {
                 try {
                     await navigator.share({
-                        title: 'EVALOGOTOR Results',
+                        title: t('shareTitle'),
                         text: shareText,
                         url: window.location.href
                     });
-                    showToast('Results shared successfully!', 'success');
+                    showToast(t('resultsShared'), 'success');
                 } catch (error) {
                     if (error.name !== 'AbortError') {
                         fallbackShare(shareText);
@@ -2006,9 +2246,9 @@ END`
         
         function fallbackShare(text) {
             navigator.clipboard.writeText(text).then(() => {
-                showToast('Results copied to clipboard!', 'success');
+                showToast(t('resultsCopied'), 'success');
             }).catch(() => {
-                showToast('Could not copy to clipboard', 'error');
+                showToast(t('clipboardError'), 'error');
             });
         }
         
