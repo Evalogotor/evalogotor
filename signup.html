@@ -140,6 +140,12 @@
         border: 1px solid #f8d7da;
     }
 
+    .message.success {
+        background-color: #eefbf3;
+        color: #1f7a3d;
+        border: 1px solid #b7e4c7;
+    }
+
     .topbar {
         display: flex;
         justify-content: flex-end;
@@ -257,6 +263,11 @@
         <input type="password" id="password2" autocomplete="new-password">
     </div>
 
+    <div class="input-container" id="verificationWrap" style="display:none;">
+        <label for="verificationCode" id="verificationLabel">Verification code</label>
+        <input type="text" id="verificationCode" inputmode="numeric" maxlength="6" autocomplete="one-time-code">
+    </div>
+
     <div class="button-container">
         <button id="continueBtn" onclick="filledYet()">Continue</button>
     </div>
@@ -285,13 +296,21 @@ const translations = {
         placeholderEmail: "Enter email",
         placeholderPass: "Enter password",
         placeholderPass2: "Repeat password",
+        placeholderCode: "Enter 6-digit code",
+        verificationLabel: "Verification code",
         continue: "Continue",
+        sendCode: "Send verification code",
+        verifying: "Verifying...",
+        verify: "Verify and create account",
         creating: "Creating account...",
         warnUser: "Please enter a username with at least 3 characters",
         warnEmail: "Please enter a valid email address",
         warnPass: "Please enter a password with at least 6 characters",
         warnPass2: "Please repeat the password",
-        warnMismatch: "Passwords do not match"
+        warnMismatch: "Passwords do not match",
+        warnCode: "Please enter the 6-digit code from your email",
+        codeSent: "Verification code sent. Check your email and enter the code below.",
+        resendHint: "If the email does not arrive, wait a bit and press the button again."
     },
     de: {
         title: "Registrieren",
@@ -305,13 +324,21 @@ const translations = {
         placeholderEmail: "E-Mail eingeben",
         placeholderPass: "Passwort eingeben",
         placeholderPass2: "Passwort wiederholen",
+        placeholderCode: "6-stelligen Code eingeben",
+        verificationLabel: "Bestatigungscode",
         continue: "Weiter",
+        sendCode: "Bestatigungscode senden",
+        verifying: "Wird bestatigt...",
+        verify: "Bestatigen und Konto erstellen",
         creating: "Konto wird erstellt...",
         warnUser: "Bitte einen Benutzernamen mit mindestens 3 Zeichen eingeben",
         warnEmail: "Bitte eine gueltige E-Mail eingeben",
         warnPass: "Bitte ein Passwort mit mindestens 6 Zeichen eingeben",
         warnPass2: "Bitte das Passwort wiederholen",
-        warnMismatch: "Passwoerter stimmen nicht ueberein"
+        warnMismatch: "Passwoerter stimmen nicht ueberein",
+        warnCode: "Bitte gib den 6-stelligen Code aus der E-Mail ein",
+        codeSent: "Der Bestatigungscode wurde gesendet. Prufe deine E-Mail und trage ihn unten ein.",
+        resendHint: "Falls die E-Mail nicht ankommt, warte kurz und drucke den Knopf erneut."
     },
     it: {
         title: "Registrazione",
@@ -325,13 +352,21 @@ const translations = {
         placeholderEmail: "Inserisci email",
         placeholderPass: "Inserisci password",
         placeholderPass2: "Ripeti password",
+        placeholderCode: "Inserisci codice a 6 cifre",
+        verificationLabel: "Codice di verifica",
         continue: "Continua",
+        sendCode: "Invia codice di verifica",
+        verifying: "Verifica in corso...",
+        verify: "Verifica e crea account",
         creating: "Creazione account...",
         warnUser: "Inserisci un nome utente di almeno 3 caratteri",
         warnEmail: "Inserisci un indirizzo email valido",
         warnPass: "Inserisci una password di almeno 6 caratteri",
         warnPass2: "Ripeti la password",
-        warnMismatch: "Le password non corrispondono"
+        warnMismatch: "Le password non corrispondono",
+        warnCode: "Inserisci il codice di 6 cifre ricevuto via email",
+        codeSent: "Codice inviato. Controlla la tua email e inseriscilo qui sotto.",
+        resendHint: "Se l'email non arriva, aspetta un attimo e premi di nuovo il pulsante."
     },
     hr: {
         title: "Registracija",
@@ -345,13 +380,21 @@ const translations = {
         placeholderEmail: "Upisite email",
         placeholderPass: "Upisite lozinku",
         placeholderPass2: "Ponovite lozinku",
+        placeholderCode: "Upisite 6-znamenkasti kod",
+        verificationLabel: "Verifikacijski kod",
         continue: "Nastavi",
+        sendCode: "Posalji verifikacijski kod",
+        verifying: "Provjera...",
+        verify: "Potvrdi i izradi racun",
         creating: "Izrada racuna...",
         warnUser: "Molim unesite korisnicko ime od barem 3 znaka",
         warnEmail: "Molim unesite ispravnu email adresu",
         warnPass: "Molim unesite lozinku od barem 6 znakova",
         warnPass2: "Molim ponovite lozinku",
-        warnMismatch: "Lozinke se ne podudaraju"
+        warnMismatch: "Lozinke se ne podudaraju",
+        warnCode: "Molim upisite 6-znamenkasti kod iz emaila",
+        codeSent: "Kod je poslan. Provjeri email i upisi ga ispod.",
+        resendHint: "Ako email ne stigne, pricekaj malo pa ponovno pritisni gumb."
     },
     fr: {
         title: "Inscription",
@@ -365,13 +408,21 @@ const translations = {
         placeholderEmail: "Entrez email",
         placeholderPass: "Entrez mot de passe",
         placeholderPass2: "Repetez le mot de passe",
+        placeholderCode: "Entrez le code a 6 chiffres",
+        verificationLabel: "Code de verification",
         continue: "Continuer",
+        sendCode: "Envoyer le code de verification",
+        verifying: "Verification...",
+        verify: "Verifier et creer le compte",
         creating: "Creation du compte...",
         warnUser: "Veuillez entrer un nom d'utilisateur d'au moins 3 caracteres",
         warnEmail: "Veuillez entrer une adresse email valide",
         warnPass: "Veuillez entrer un mot de passe d'au moins 6 caracteres",
         warnPass2: "Veuillez repeter le mot de passe",
-        warnMismatch: "Les mots de passe ne correspondent pas"
+        warnMismatch: "Les mots de passe ne correspondent pas",
+        warnCode: "Veuillez entrer le code a 6 chiffres recu par email",
+        codeSent: "Code envoye. Verifiez votre email et saisissez-le ci-dessous.",
+        resendHint: "Si l'email n'arrive pas, attendez un peu puis appuyez de nouveau sur le bouton."
     },
     ru: {
         title: "Registratsiya",
@@ -385,19 +436,28 @@ const translations = {
         placeholderEmail: "Vvedite email",
         placeholderPass: "Vvedite parol",
         placeholderPass2: "Povtorite parol",
+        placeholderCode: "Vvedite 6-znachnyy kod",
+        verificationLabel: "Kod podtverzhdeniya",
         continue: "Prodolzhit",
+        sendCode: "Otpravit kod podtverzhdeniya",
+        verifying: "Proverka...",
+        verify: "Podtverdit i sozdat akkaunt",
         creating: "Sozdanie akkaunta...",
         warnUser: "Pozhaluysta, vvedite imya ne koroche 3 simvolov",
         warnEmail: "Pozhaluysta, vvedite korrektnyy email",
         warnPass: "Pozhaluysta, vvedite parol ne koroche 6 simvolov",
         warnPass2: "Pozhaluysta, povtorite parol",
-        warnMismatch: "Paroli ne sovpadayut"
+        warnMismatch: "Paroli ne sovpadayut",
+        warnCode: "Pozhaluysta, vvedite 6-znachnyy kod iz email",
+        codeSent: "Kod otpravlen. Proverte pochtu i vvedite ego nizhe.",
+        resendHint: "Esli email ne prishel, nemnogo podozhdite i nazhmite knopku eshche raz."
     }
 };
 
 let darkMode = true;
 let currentLang = localStorage.getItem("lang") || "en";
 const savedTheme = localStorage.getItem("theme") || "dark";
+let pendingVerificationEmail = "";
 
 function t(key) {
     return (translations[currentLang] || translations.en)[key];
@@ -416,7 +476,9 @@ function updateLanguage(lang) {
     document.getElementById("email").placeholder = t("placeholderEmail");
     document.getElementById("password").placeholder = t("placeholderPass");
     document.getElementById("password2").placeholder = t("placeholderPass2");
-    document.getElementById("continueBtn").textContent = t("continue");
+    document.getElementById("verificationLabel").textContent = t("verificationLabel");
+    document.getElementById("verificationCode").placeholder = t("placeholderCode");
+    document.getElementById("continueBtn").textContent = pendingVerificationEmail ? t("verify") : t("sendCode");
 }
 
 function applyTheme() {
@@ -432,13 +494,20 @@ function applyTheme() {
     lucide.createIcons();
 }
 
-function showMessage(message) {
+function showMessage(message, type = "error") {
     document.getElementById("warning").innerHTML =
-        `<div class="message error"><span>!</span><span>${message}</span></div>`;
+        `<div class="message ${type}"><span>${type === "success" ? "✓" : "!"}</span><span>${message}</span></div>`;
 }
 
 function clearMessage() {
     document.getElementById("warning").innerHTML = "";
+}
+
+function resetVerificationState() {
+    pendingVerificationEmail = "";
+    document.getElementById("verificationWrap").style.display = "none";
+    document.getElementById("verificationCode").value = "";
+    document.getElementById("continueBtn").textContent = t("sendCode");
 }
 
 function validateFields(username, email, password, password2) {
@@ -467,26 +536,46 @@ async function filledYet() {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
     const password2 = document.getElementById("password2").value;
+    const code = document.getElementById("verificationCode").value.trim();
 
     const validationError = validateFields(username, email, password, password2);
     if (validationError) {
         showMessage(validationError);
         return;
     }
+    if (pendingVerificationEmail && code.length !== 6) {
+        showMessage(t("warnCode"));
+        return;
+    }
 
     const continueBtn = document.getElementById("continueBtn");
     const originalLabel = continueBtn.textContent;
     continueBtn.disabled = true;
-    continueBtn.textContent = t("creating");
+    continueBtn.textContent = pendingVerificationEmail ? t("verifying") : t("creating");
 
     try {
-        const data = await window.EvalogotorApi.apiRequest("/api/auth/signup", {
+        if (!pendingVerificationEmail) {
+            await window.EvalogotorApi.apiRequest("/api/auth/signup/request-code", {
+                method: "POST",
+                auth: false,
+                body: { username, email, password }
+            });
+
+            pendingVerificationEmail = email;
+            document.getElementById("verificationWrap").style.display = "flex";
+            document.getElementById("verificationCode").focus();
+            continueBtn.disabled = false;
+            continueBtn.textContent = t("verify");
+            showMessage(`${t("codeSent")} ${t("resendHint")}`, "success");
+            return;
+        }
+
+        const data = await window.EvalogotorApi.apiRequest("/api/auth/signup/verify-code", {
             method: "POST",
             auth: false,
             body: {
-                username,
-                email,
-                password
+                email: pendingVerificationEmail,
+                code
             }
         });
 
@@ -526,6 +615,15 @@ document.getElementById("themeToggle").addEventListener("click", () => {
 });
 
 ["username", "email", "password", "password2"].forEach((id) => {
+    document.getElementById(id).addEventListener("input", () => {
+        if (pendingVerificationEmail) {
+            resetVerificationState();
+            clearMessage();
+        }
+    });
+});
+
+["username", "email", "password", "password2", "verificationCode"].forEach((id) => {
     document.getElementById(id).addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
             filledYet();
