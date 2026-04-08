@@ -236,7 +236,7 @@
                 
                 <!-- Right buttons -->
                 <div class="flex items-center space-x-4">
-                    <button onclick="location.href='hll.html'" 
+                    <button id="backToTasksButton" onclick="goBackToTasks()" 
                             class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium flex items-center space-x-2 transition-all duration-300 hover:shadow-lg">
                         <i data-lucide="arrow-left" class="w-4 h-4"></i>
                         <span id="backToTasksText">Back to Tasks</span>
@@ -1254,6 +1254,7 @@ function applyTranslations() {
         document.addEventListener('DOMContentLoaded', () => {
             initTheme();
             initLanguage();
+            initBackToTasksButton();
             initCodeEditor();
             initSnippets();
             loadTaskInfo();
@@ -1266,6 +1267,45 @@ function applyTranslations() {
                 loadJobResults(jobId);
             }
         });
+
+        function getBackToTasksHref() {
+            const storedPage = (localStorage.getItem('taskSourcePage') || '').trim();
+            if (storedPage) {
+                return storedPage;
+            }
+
+            const category = (localStorage.getItem('kategorija') || '').trim();
+            const fallbackPages = {
+                'Peti': 'Peti.html',
+                'Sesti': 'Sesti.html',
+                'Sedmi': 'Sedmi.html',
+                'Osmi': 'Osmi.html',
+                'HLL': 'hll.html',
+                'HLOZ': 'HLOZ.html',
+                '5r': 'Peti.html',
+                '6r': 'Sesti.html',
+                '7r': 'Sedmi.html',
+                '8r': 'Osmi.html'
+            };
+
+            return fallbackPages[category] || 'tasks.html';
+        }
+
+        function initBackToTasksButton() {
+            const backButton = document.getElementById('backToTasksButton');
+            if (!backButton) {
+                return;
+            }
+
+            const backHref = getBackToTasksHref();
+            backButton.dataset.href = backHref;
+        }
+
+        function goBackToTasks() {
+            const backButton = document.getElementById('backToTasksButton');
+            const backHref = (backButton && backButton.dataset.href) || getBackToTasksHref();
+            window.location.href = backHref;
+        }
         
         // ============================================
         // THEME MANAGEMENT

@@ -1545,6 +1545,7 @@
             localStorage.setItem("god", godina);
             localStorage.setItem("kolo", razina);
             localStorage.setItem("zadatak", ime_zadatak);
+            localStorage.setItem("taskSourcePage", 'Peti.html');
             localStorage.removeItem("taskPoints");
         
             let url;
@@ -1600,7 +1601,10 @@
                     level: razina,
                     task: ime_zadatak
                 });
-                const taskInfo = await window.EvalogotorApi.apiRequest(`/api/task_info?${params.toString()}`);
+                params.set('_', Date.now().toString());
+                const taskInfo = await window.EvalogotorApi.apiRequest(`/api/task_info?${params.toString()}`, {
+                    cache: 'no-store'
+                });
                 if (taskInfo && taskInfo.success && taskInfo.max_points !== undefined) {
                     localStorage.setItem("taskPoints", String(taskInfo.max_points));
                     const taskPointsPreview = document.getElementById('taskPointsPreview');
