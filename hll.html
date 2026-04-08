@@ -2453,7 +2453,10 @@
                     level: `${kolo}.kolo`,
                     task: ime_zadatak
                 });
-                const taskInfo = await window.EvalogotorApi.apiRequest(`/api/task_info?${params.toString()}`);
+                params.set('_', Date.now().toString());
+                const taskInfo = await window.EvalogotorApi.apiRequest(`/api/task_info?${params.toString()}`, {
+                    cache: 'no-store'
+                });
                 if (taskInfo && taskInfo.success) {
                     if (taskInfo.max_points !== undefined) {
                         localStorage.setItem('taskPoints', String(taskInfo.max_points));

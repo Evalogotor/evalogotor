@@ -506,7 +506,9 @@ applyTheme();
         }
 
         try {
-            const history = await window.EvalogotorApi.apiRequest('/api/users/history?limit=200');
+            const history = await window.EvalogotorApi.apiRequest(`/api/users/history?limit=200&_=${Date.now()}`, {
+                cache: 'no-store'
+            });
             if (history && history.success && Array.isArray(history.items)) {
                 const matches = history.items.filter((item) =>
                     item.category === 'HLOZ' &&

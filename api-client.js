@@ -197,6 +197,7 @@
       body,
       auth = true,
       headers = {},
+      cache,
     } = config;
 
     const finalHeaders = { ...headers };
@@ -215,6 +216,7 @@
       method,
       headers: finalHeaders,
       body: body === undefined ? undefined : JSON.stringify(body),
+      cache,
     });
 
     const contentType = response.headers.get("content-type") || "";

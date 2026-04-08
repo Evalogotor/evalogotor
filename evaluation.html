@@ -1548,7 +1548,10 @@ END`
                     level: taskInfo.level,
                     task: taskInfo.task
                 });
-                const response = await fetchFromBackend(`/api/task_info?${params.toString()}`);
+        params.set('_', Date.now().toString());
+        const response = await fetchFromBackend(`/api/task_info?${params.toString()}`, {
+            cache: 'no-store'
+        });
                 const taskMetadata = await response.json();
                 if (!taskMetadata || !taskMetadata.success) {
                     return null;
