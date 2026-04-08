@@ -1535,23 +1535,12 @@
             }
         }
 
-        function openPage(strGod, red, tip) {
-            let bodovi;
+        async function openPage(strGod, red, tip) {
             localStorage.setItem("kategorija", 'Sesti');
             localStorage.setItem("god", godina);
             localStorage.setItem("kolo", razina);
             localStorage.setItem("zadatak", ime_zadatak);
-            
-            if (tip === 1) {
-                if (red === 1) bodovi = 30;
-                else if (red === 2) bodovi = 50;
-                else if (red === 3) bodovi = 70;
-            } else {
-                if (red === 1) bodovi = 30;
-                else if (red === 2) bodovi = 40;
-                else if (red === 3) bodovi = 60;
-                else bodovi = 70;
-            }
+            localStorage.removeItem("taskPoints");
         
             let url;
         
@@ -1587,7 +1576,7 @@
             zadatak += `
                     </div>
                     <button class="eval-button" id="evalbtn" onclick="location.href='evaluation'">${translations[lang].eval}</button>
-                    <div class="score">0 / ${bodovi}</div>
+                    <div class="score">0 / <span id="taskPointsPreview">...</span></div>
                 </div>
             `;
         
@@ -1596,6 +1585,30 @@
                 zadatakDiv.innerHTML = zadatak;
             } else {
                 console.error("Element with id 'zadatak' not found");
+                return;
+            }
+
+            try {
+                const params = new URLSearchParams({
+                    category: 'Sesti',
+                    year: godina,
+                    level: razina,
+                    task: ime_zadatak
+                });
+                const taskInfo = await window.EvalogotorApi.apiRequest(`/api/task_info?${params.toString()}`, { auth: false });
+                if (taskInfo && taskInfo.success && taskInfo.max_points !== undefined) {
+                    localStorage.setItem("taskPoints", String(taskInfo.max_points));
+                    const taskPointsPreview = document.getElementById('taskPointsPreview');
+                    if (taskPointsPreview) {
+                        taskPointsPreview.textContent = taskInfo.max_points;
+                    }
+                }
+            } catch (error) {
+                console.warn("Unable to load task points", error);
+                const taskPointsPreview = document.getElementById('taskPointsPreview');
+                if (taskPointsPreview) {
+                    taskPointsPreview.textContent = '?';
+                }
             }
         }
     </script>

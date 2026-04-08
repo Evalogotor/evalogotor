@@ -727,7 +727,7 @@ const translations = {
         format: "Formatiraj",
         readyToSubmit: "Spreman za predaju?",
         readyToSubmitDesc: "Tvoj kod će se evaluirati na svim testovima. Provjeri da je definirana ispravna procedura.",
-        submit: "Predaj Rješenje",
+        submit: "Predaj rješenje",
         readyStatus: "Spremno za predaju",
         ready: "Spremno",
         waitingSubmission: "Čeka slanje",
@@ -1245,6 +1245,8 @@ function applyTranslations() {
         let jobStartTime = null;
         let isDarkMode = false;
         let latestEvaluationResult = null;
+        let currentTaskInfoKey = null;
+        const taskMetadataCache = new Map();
         
         // ============================================
         // INITIALIZATION
@@ -1514,20 +1516,72 @@ END`
         // ============================================
         // TASK MANAGEMENT
         // ============================================
+        function getTaskInfoKey(taskInfo) {
+            return [taskInfo.category, taskInfo.year, taskInfo.level, taskInfo.task].join('::');
+        }
+
+        function applyTaskMetadata(taskMetadata) {
+            if (!taskMetadata) return;
+
+            document.getElementById('taskTitle').textContent = taskMetadata.task;
+            document.getElementById('taskCategory').textContent = taskMetadata.category;
+            document.getElementById('taskYear').textContent = taskMetadata.year;
+            document.getElementById('taskLevel').textContent = taskMetadata.level;
+            document.getElementById('maxPoints').textContent = taskMetadata.max_points;
+            document.getElementById('scoreMax').textContent = taskMetadata.max_points;
+            localStorage.setItem('taskPoints', String(taskMetadata.max_points));
+        }
+
+        async function syncTaskMetadata(taskInfo) {
+            const taskKey = getTaskInfoKey(taskInfo);
+            currentTaskInfoKey = taskKey;
+
+            if (taskMetadataCache.has(taskKey)) {
+                applyTaskMetadata(taskMetadataCache.get(taskKey));
+                return taskMetadataCache.get(taskKey);
+            }
+
+            try {
+                const params = new URLSearchParams({
+                    category: taskInfo.category,
+                    year: taskInfo.year,
+                    level: taskInfo.level,
+                    task: taskInfo.task
+                });
+                const response = await fetchFromBackend(`/api/task_info?${params.toString()}`);
+                const taskMetadata = await response.json();
+                if (!taskMetadata || !taskMetadata.success) {
+                    return null;
+                }
+
+                taskMetadataCache.set(taskKey, taskMetadata);
+                if (currentTaskInfoKey === taskKey) {
+                    applyTaskMetadata(taskMetadata);
+                }
+                return taskMetadata;
+            } catch (error) {
+                console.warn('Unable to load live task metadata:', error);
+                return null;
+            }
+        }
+
         function loadTaskInfo() {
             const category = localStorage.getItem('kategorija') || 'HLL';
             const year = localStorage.getItem('god') || '2024';
             const level = localStorage.getItem('kolo') || '1.kolo';
             const task = localStorage.getItem('zadatak') || 'Unknown Task';
-            const points = localStorage.getItem('taskPoints') || '100';
+            const points = '...';
             
             document.getElementById('taskTitle').textContent = task;
             document.getElementById('taskCategory').textContent = category;
             document.getElementById('taskYear').textContent = year;
             document.getElementById('taskLevel').textContent = level;
             document.getElementById('maxPoints').textContent = points;
-            
-            return { category, year, level, task, points };
+            document.getElementById('scoreMax').textContent = points;
+
+            const taskInfo = { category, year, level, task, points };
+            syncTaskMetadata(taskInfo);
+            return taskInfo;
         }
         
         // ============================================
@@ -1997,7 +2051,7 @@ END`
                         <div class="flex justify-between items-center">
                             <div class="font-semibold flex items-center gap-2">
                                 <i data-lucide="${statusIcon}" class="w-5 h-5 ${statusColor}"></i>
-                                ${t('testNumberHeader')}${test.test}
+                                ${t('testNumberHeader')} ${test.test}
                             </div>
                             <div class="font-bold ${test.status === 'PASS' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}">
                                 ${test.points || 0} ${t('points')}
