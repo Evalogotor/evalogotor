@@ -1576,7 +1576,7 @@
             zadatak += `
                     </div>
                     <button class="eval-button" id="evalbtn" onclick="location.href='evaluation'">${translations[lang].eval}</button>
-                    <div class="score">0 / <span id="taskPointsPreview">...</span></div>
+                    <div class="score"><span id="taskScorePreview">0</span> / <span id="taskPointsPreview">...</span></div>
                 </div>
             `;
         
@@ -1595,19 +1595,27 @@
                     level: razina,
                     task: ime_zadatak
                 });
-                const taskInfo = await window.EvalogotorApi.apiRequest(`/api/task_info?${params.toString()}`, { auth: false });
+                const taskInfo = await window.EvalogotorApi.apiRequest(`/api/task_info?${params.toString()}`);
                 if (taskInfo && taskInfo.success && taskInfo.max_points !== undefined) {
                     localStorage.setItem("taskPoints", String(taskInfo.max_points));
                     const taskPointsPreview = document.getElementById('taskPointsPreview');
+                    const taskScorePreview = document.getElementById('taskScorePreview');
                     if (taskPointsPreview) {
                         taskPointsPreview.textContent = taskInfo.max_points;
+                    }
+                    if (taskScorePreview) {
+                        taskScorePreview.textContent = taskInfo.user_progress ? taskInfo.user_progress.best_points : 0;
                     }
                 }
             } catch (error) {
                 console.warn("Unable to load task points", error);
                 const taskPointsPreview = document.getElementById('taskPointsPreview');
+                const taskScorePreview = document.getElementById('taskScorePreview');
                 if (taskPointsPreview) {
                     taskPointsPreview.textContent = '?';
+                }
+                if (taskScorePreview) {
+                    taskScorePreview.textContent = '0';
                 }
             }
         }

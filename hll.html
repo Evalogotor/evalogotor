@@ -2406,7 +2406,7 @@
             }
         }
           
-        function openPage(strGod, kolo, page, red) {
+        async function openPage(strGod, kolo, page, red) {
             let points = 0;
             if (red === 1) {
                 points = 20;
@@ -2434,7 +2434,7 @@
                         </button>
                     </div>
                     <button class="eval-button" id="evalbtn" onclick="location.href='evaluation'">${translations[lang].eval}</button>
-                    <div class="score">0 / ${points}</div>
+                    <div class="score"><span id="taskScorePreview">0</span> / <span id="taskPointsPreview">${points}</span></div>
                 </div>
             `;
         
@@ -2443,6 +2443,32 @@
                 zadatakDiv.innerHTML = zadatak;
             } else {
                 console.error("Element with id 'zadatak' not found");
+                return;
+            }
+
+            try {
+                const params = new URLSearchParams({
+                    category: 'HLL',
+                    year: strGod,
+                    level: `${kolo}.kolo`,
+                    task: ime_zadatak
+                });
+                const taskInfo = await window.EvalogotorApi.apiRequest(`/api/task_info?${params.toString()}`);
+                if (taskInfo && taskInfo.success) {
+                    if (taskInfo.max_points !== undefined) {
+                        localStorage.setItem('taskPoints', String(taskInfo.max_points));
+                        const taskPointsPreview = document.getElementById('taskPointsPreview');
+                        if (taskPointsPreview) {
+                            taskPointsPreview.textContent = taskInfo.max_points;
+                        }
+                    }
+                    const taskScorePreview = document.getElementById('taskScorePreview');
+                    if (taskScorePreview) {
+                        taskScorePreview.textContent = taskInfo.user_progress ? taskInfo.user_progress.best_points : 0;
+                    }
+                }
+            } catch (error) {
+                console.warn("Unable to load HLL task info", error);
             }
         }
     </script>

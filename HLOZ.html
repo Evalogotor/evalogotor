@@ -470,7 +470,7 @@ applyTheme();
         }
     }
 
-    function openPage(strGod, red, pag) {
+    async function openPage(strGod, red, pag) {
   	    localStorage.setItem("kategorija", "HLOZ");
         localStorage.setItem("god", strGod);
         localStorage.setItem("zadatak", ime_zadatak);
@@ -482,6 +482,7 @@ applyTheme();
           } else if (red === 3) {
               bodovi = 50;
           }
+          localStorage.setItem("taskPoints", String(bodovi));
     
         var zadatak = `
             <div class="eval-basket">
@@ -492,7 +493,7 @@ applyTheme();
                     </button>
                 </div>
                 <button class="eval-button" id="evalbtn" onclick="location.href='evaluation'">${translations[lang].eval}</button>
-                <div class="score">0 / ${bodovi}</div>
+                <div class="score"><span id="taskScorePreview">0</span> / <span id="taskPointsPreview">${bodovi}</span></div>
             </div>
         `;
     
@@ -501,6 +502,25 @@ applyTheme();
             zadatakDiv.innerHTML = zadatak;
         } else {
             console.error("Element with id 'zadatak' not found");
+            return;
+        }
+
+        try {
+            const history = await window.EvalogotorApi.apiRequest('/api/users/history?limit=200');
+            if (history && history.success && Array.isArray(history.items)) {
+                const matches = history.items.filter((item) =>
+                    item.category === 'HLOZ' &&
+                    item.year === strGod &&
+                    item.task === ime_zadatak
+                );
+                const bestPoints = matches.reduce((best, item) => Math.max(best, Number(item.total_points || 0)), 0);
+                const taskScorePreview = document.getElementById('taskScorePreview');
+                if (taskScorePreview) {
+                    taskScorePreview.textContent = bestPoints;
+                }
+            }
+        } catch (error) {
+            console.warn("Unable to load HLOZ task progress", error);
         }
     }
 </script>
