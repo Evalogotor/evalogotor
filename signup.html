@@ -457,7 +457,6 @@ const translations = {
 let darkMode = true;
 let currentLang = localStorage.getItem("lang") || "en";
 const savedTheme = localStorage.getItem("theme") || "dark";
-let pendingVerificationEmail = "";
 
 function t(key) {
     return (translations[currentLang] || translations.en)[key];
@@ -478,7 +477,7 @@ function updateLanguage(lang) {
     document.getElementById("password2").placeholder = t("placeholderPass2");
     document.getElementById("verificationLabel").textContent = t("verificationLabel");
     document.getElementById("verificationCode").placeholder = t("placeholderCode");
-    document.getElementById("continueBtn").textContent = pendingVerificationEmail ? t("verify") : t("sendCode");
+    document.getElementById("continueBtn").textContent = t("continue");
 }
 
 function applyTheme() {
@@ -504,10 +503,9 @@ function clearMessage() {
 }
 
 function resetVerificationState() {
-    pendingVerificationEmail = "";
     document.getElementById("verificationWrap").style.display = "none";
     document.getElementById("verificationCode").value = "";
-    document.getElementById("continueBtn").textContent = t("sendCode");
+    document.getElementById("continueBtn").textContent = t("continue");
 }
 
 function validateFields(username, email, password, password2) {
@@ -536,47 +534,23 @@ async function filledYet() {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
     const password2 = document.getElementById("password2").value;
-    const code = document.getElementById("verificationCode").value.trim();
 
     const validationError = validateFields(username, email, password, password2);
     if (validationError) {
         showMessage(validationError);
         return;
     }
-    if (pendingVerificationEmail && code.length !== 6) {
-        showMessage(t("warnCode"));
-        return;
-    }
 
     const continueBtn = document.getElementById("continueBtn");
     const originalLabel = continueBtn.textContent;
     continueBtn.disabled = true;
-    continueBtn.textContent = pendingVerificationEmail ? t("verifying") : t("creating");
+    continueBtn.textContent = t("creating");
 
     try {
-        if (!pendingVerificationEmail) {
-            await window.EvalogotorApi.apiRequest("/api/auth/signup/request-code", {
-                method: "POST",
-                auth: false,
-                body: { username, email, password }
-            });
-
-            pendingVerificationEmail = email;
-            document.getElementById("verificationWrap").style.display = "flex";
-            document.getElementById("verificationCode").focus();
-            continueBtn.disabled = false;
-            continueBtn.textContent = t("verify");
-            showMessage(`${t("codeSent")} ${t("resendHint")}`, "success");
-            return;
-        }
-
-        const data = await window.EvalogotorApi.apiRequest("/api/auth/signup/verify-code", {
+        const data = await window.EvalogotorApi.apiRequest("/api/auth/signup", {
             method: "POST",
             auth: false,
-            body: {
-                email: pendingVerificationEmail,
-                code
-            }
+            body: { username, email, password }
         });
 
         window.EvalogotorApi.setAuthSession({
@@ -616,14 +590,11 @@ document.getElementById("themeToggle").addEventListener("click", () => {
 
 ["username", "email", "password", "password2"].forEach((id) => {
     document.getElementById(id).addEventListener("input", () => {
-        if (pendingVerificationEmail) {
-            resetVerificationState();
-            clearMessage();
-        }
+        clearMessage();
     });
 });
 
-["username", "email", "password", "password2", "verificationCode"].forEach((id) => {
+["username", "email", "password", "password2"].forEach((id) => {
     document.getElementById(id).addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
             filledYet();
