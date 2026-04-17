@@ -57,6 +57,16 @@
         gap: 12px;
     }
 
+    .honeypot-field {
+        position: absolute;
+        left: -10000px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+    }
+
     label {
         font-size: 1.1em;
         min-width: 150px;
@@ -91,6 +101,36 @@
 
     .button-container {
         margin-top: 24px;
+    }
+
+    .captcha-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        width: min(80%, 320px);
+    }
+
+    .captcha-question {
+        min-width: 120px;
+        font-weight: 600;
+        text-align: left;
+    }
+
+    #captchaRefreshBtn {
+        padding: 8px 10px;
+        border-radius: 5px;
+        border: 1px solid rgb(55, 65, 81);
+        background-color: rgb(55, 65, 81);
+        color: white;
+        cursor: pointer;
+    }
+
+    body.light #captchaRefreshBtn {
+        background-color: #fff;
+        color: #000;
+        border: 1px solid #ccc;
     }
 
     #continueBtn {
@@ -263,6 +303,20 @@
         <input type="password" id="password2" autocomplete="new-password">
     </div>
 
+    <div class="honeypot-field" aria-hidden="true">
+        <label for="website">Website</label>
+        <input type="text" id="website" tabindex="-1" autocomplete="url">
+    </div>
+
+    <div class="input-container" id="captchaWrap">
+        <label for="captchaAnswer" id="captchaLabel">Security check</label>
+        <div class="captcha-group">
+            <span class="captcha-question" id="captchaQuestion">Loading...</span>
+            <input type="text" id="captchaAnswer" autocomplete="off" inputmode="numeric">
+            <button type="button" id="captchaRefreshBtn" onclick="refreshSignupChallenge()">Refresh</button>
+        </div>
+    </div>
+
     <div class="input-container" id="verificationWrap" style="display:none;">
         <label for="verificationCode" id="verificationLabel">Verification code</label>
         <input type="text" id="verificationCode" inputmode="numeric" maxlength="6" autocomplete="one-time-code">
@@ -296,7 +350,11 @@ const translations = {
         placeholderEmail: "Enter email",
         placeholderPass: "Enter password",
         placeholderPass2: "Repeat password",
+        placeholderCaptcha: "Answer",
         placeholderCode: "Enter 6-digit code",
+        captchaLabel: "Security check",
+        captchaLoading: "Loading...",
+        captchaRefresh: "Refresh",
         verificationLabel: "Verification code",
         continue: "Continue",
         sendCode: "Send verification code",
@@ -308,6 +366,7 @@ const translations = {
         warnPass: "Please enter a password with at least 6 characters",
         warnPass2: "Please repeat the password",
         warnMismatch: "Passwords do not match",
+        warnCaptcha: "Please complete the security check",
         warnCode: "Please enter the 6-digit code from your email",
         codeSent: "Verification code sent. Check your email and enter the code below.",
         resendHint: "If the email does not arrive, wait a bit and press the button again."
@@ -324,7 +383,11 @@ const translations = {
         placeholderEmail: "E-Mail eingeben",
         placeholderPass: "Passwort eingeben",
         placeholderPass2: "Passwort wiederholen",
+        placeholderCaptcha: "Antwort",
         placeholderCode: "6-stelligen Code eingeben",
+        captchaLabel: "Sicherheitspruefung",
+        captchaLoading: "Wird geladen...",
+        captchaRefresh: "Neu laden",
         verificationLabel: "Bestatigungscode",
         continue: "Weiter",
         sendCode: "Bestatigungscode senden",
@@ -336,6 +399,7 @@ const translations = {
         warnPass: "Bitte ein Passwort mit mindestens 6 Zeichen eingeben",
         warnPass2: "Bitte das Passwort wiederholen",
         warnMismatch: "Passwoerter stimmen nicht ueberein",
+        warnCaptcha: "Bitte die Sicherheitspruefung ausfuellen",
         warnCode: "Bitte gib den 6-stelligen Code aus der E-Mail ein",
         codeSent: "Der Bestatigungscode wurde gesendet. Prufe deine E-Mail und trage ihn unten ein.",
         resendHint: "Falls die E-Mail nicht ankommt, warte kurz und drucke den Knopf erneut."
@@ -352,7 +416,11 @@ const translations = {
         placeholderEmail: "Inserisci email",
         placeholderPass: "Inserisci password",
         placeholderPass2: "Ripeti password",
+        placeholderCaptcha: "Risposta",
         placeholderCode: "Inserisci codice a 6 cifre",
+        captchaLabel: "Controllo di sicurezza",
+        captchaLoading: "Caricamento...",
+        captchaRefresh: "Aggiorna",
         verificationLabel: "Codice di verifica",
         continue: "Continua",
         sendCode: "Invia codice di verifica",
@@ -364,6 +432,7 @@ const translations = {
         warnPass: "Inserisci una password di almeno 6 caratteri",
         warnPass2: "Ripeti la password",
         warnMismatch: "Le password non corrispondono",
+        warnCaptcha: "Completa il controllo di sicurezza",
         warnCode: "Inserisci il codice di 6 cifre ricevuto via email",
         codeSent: "Codice inviato. Controlla la tua email e inseriscilo qui sotto.",
         resendHint: "Se l'email non arriva, aspetta un attimo e premi di nuovo il pulsante."
@@ -380,7 +449,11 @@ const translations = {
         placeholderEmail: "Upisite email",
         placeholderPass: "Upisite lozinku",
         placeholderPass2: "Ponovite lozinku",
+        placeholderCaptcha: "Odgovor",
         placeholderCode: "Upisite 6-znamenkasti kod",
+        captchaLabel: "Sigurnosna provjera",
+        captchaLoading: "Ucitavanje...",
+        captchaRefresh: "Osvjezi",
         verificationLabel: "Verifikacijski kod",
         continue: "Nastavi",
         sendCode: "Posalji verifikacijski kod",
@@ -392,6 +465,7 @@ const translations = {
         warnPass: "Molim unesite lozinku od barem 6 znakova",
         warnPass2: "Molim ponovite lozinku",
         warnMismatch: "Lozinke se ne podudaraju",
+        warnCaptcha: "Molim rijesite sigurnosnu provjeru",
         warnCode: "Molim upisite 6-znamenkasti kod iz emaila",
         codeSent: "Kod je poslan. Provjeri email i upisi ga ispod.",
         resendHint: "Ako email ne stigne, pricekaj malo pa ponovno pritisni gumb."
@@ -408,7 +482,11 @@ const translations = {
         placeholderEmail: "Entrez email",
         placeholderPass: "Entrez mot de passe",
         placeholderPass2: "Repetez le mot de passe",
+        placeholderCaptcha: "Reponse",
         placeholderCode: "Entrez le code a 6 chiffres",
+        captchaLabel: "Verification de securite",
+        captchaLoading: "Chargement...",
+        captchaRefresh: "Actualiser",
         verificationLabel: "Code de verification",
         continue: "Continuer",
         sendCode: "Envoyer le code de verification",
@@ -420,6 +498,7 @@ const translations = {
         warnPass: "Veuillez entrer un mot de passe d'au moins 6 caracteres",
         warnPass2: "Veuillez repeter le mot de passe",
         warnMismatch: "Les mots de passe ne correspondent pas",
+        warnCaptcha: "Veuillez completer la verification de securite",
         warnCode: "Veuillez entrer le code a 6 chiffres recu par email",
         codeSent: "Code envoye. Verifiez votre email et saisissez-le ci-dessous.",
         resendHint: "Si l'email n'arrive pas, attendez un peu puis appuyez de nouveau sur le bouton."
@@ -436,7 +515,11 @@ const translations = {
         placeholderEmail: "Vvedite email",
         placeholderPass: "Vvedite parol",
         placeholderPass2: "Povtorite parol",
+        placeholderCaptcha: "Otvet",
         placeholderCode: "Vvedite 6-znachnyy kod",
+        captchaLabel: "Proverka bezopasnosti",
+        captchaLoading: "Zagruzka...",
+        captchaRefresh: "Obnovit",
         verificationLabel: "Kod podtverzhdeniya",
         continue: "Prodolzhit",
         sendCode: "Otpravit kod podtverzhdeniya",
@@ -448,6 +531,7 @@ const translations = {
         warnPass: "Pozhaluysta, vvedite parol ne koroche 6 simvolov",
         warnPass2: "Pozhaluysta, povtorite parol",
         warnMismatch: "Paroli ne sovpadayut",
+        warnCaptcha: "Pozhaluysta, proydite proverku bezopasnosti",
         warnCode: "Pozhaluysta, vvedite 6-znachnyy kod iz email",
         codeSent: "Kod otpravlen. Proverte pochtu i vvedite ego nizhe.",
         resendHint: "Esli email ne prishel, nemnogo podozhdite i nazhmite knopku eshche raz."
@@ -457,6 +541,8 @@ const translations = {
 let darkMode = true;
 let currentLang = localStorage.getItem("lang") || "en";
 const savedTheme = localStorage.getItem("theme") || "dark";
+const SIGNUP_DEVICE_ID_KEY = "evalogotor_signup_device_id";
+let signupChallengeToken = "";
 
 function t(key) {
     return (translations[currentLang] || translations.en)[key];
@@ -475,6 +561,12 @@ function updateLanguage(lang) {
     document.getElementById("email").placeholder = t("placeholderEmail");
     document.getElementById("password").placeholder = t("placeholderPass");
     document.getElementById("password2").placeholder = t("placeholderPass2");
+    document.getElementById("captchaLabel").textContent = t("captchaLabel");
+    document.getElementById("captchaAnswer").placeholder = t("placeholderCaptcha");
+    document.getElementById("captchaRefreshBtn").textContent = t("captchaRefresh");
+    if (!signupChallengeToken) {
+        document.getElementById("captchaQuestion").textContent = t("captchaLoading");
+    }
     document.getElementById("verificationLabel").textContent = t("verificationLabel");
     document.getElementById("verificationCode").placeholder = t("placeholderCode");
     document.getElementById("continueBtn").textContent = t("continue");
@@ -508,6 +600,78 @@ function resetVerificationState() {
     document.getElementById("continueBtn").textContent = t("continue");
 }
 
+function getOrCreateSignupDeviceId() {
+    let deviceId = localStorage.getItem(SIGNUP_DEVICE_ID_KEY) || "";
+    if (!deviceId) {
+        if (window.crypto && window.crypto.randomUUID) {
+            deviceId = window.crypto.randomUUID().replace(/-/g, "");
+        } else {
+            deviceId = `${Date.now().toString(36)}${Math.random().toString(36).slice(2)}`;
+        }
+        localStorage.setItem(SIGNUP_DEVICE_ID_KEY, deviceId);
+    }
+    return deviceId;
+}
+
+async function sha256Hex(input) {
+    if (!(window.crypto && crypto.subtle && window.TextEncoder)) {
+        let hash = 0;
+        for (let index = 0; index < input.length; index += 1) {
+            hash = ((hash << 5) - hash + input.charCodeAt(index)) | 0;
+        }
+        return Math.abs(hash).toString(16);
+    }
+    const encoder = new TextEncoder();
+    const bytes = encoder.encode(input);
+    const digest = await crypto.subtle.digest("SHA-256", bytes);
+    return Array.from(new Uint8Array(digest)).map((value) => value.toString(16).padStart(2, "0")).join("");
+}
+
+async function buildSignupDevicePayload() {
+    const nav = navigator || {};
+    const screenInfo = window.screen || {};
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+    const modelBits = [
+        nav.userAgent || "",
+        nav.platform || "",
+        nav.language || "",
+        String(nav.hardwareConcurrency || ""),
+        String(screenInfo.width || ""),
+        String(screenInfo.height || ""),
+        String(screenInfo.colorDepth || ""),
+        timezone
+    ];
+    const fingerprint = await sha256Hex(modelBits.join("|"));
+    const deviceLabel = [nav.platform || "browser", nav.language || "", timezone].filter(Boolean).join(" | ");
+    return {
+        device_id: getOrCreateSignupDeviceId(),
+        device_fingerprint: fingerprint,
+        device_label: deviceLabel.slice(0, 255)
+    };
+}
+
+async function loadSignupChallenge() {
+    signupChallengeToken = "";
+    document.getElementById("captchaQuestion").textContent = t("captchaLoading");
+    try {
+        const data = await window.EvalogotorApi.apiRequest("/api/auth/signup/challenge", {
+            method: "GET",
+            auth: false,
+            cache: "no-store"
+        });
+        signupChallengeToken = data.token || "";
+        document.getElementById("captchaQuestion").textContent = data.question || t("captchaLoading");
+        document.getElementById("captchaAnswer").value = "";
+    } catch (_error) {
+        document.getElementById("captchaQuestion").textContent = t("captchaLoading");
+    }
+}
+
+function refreshSignupChallenge() {
+    clearMessage();
+    loadSignupChallenge();
+}
+
 function validateFields(username, email, password, password2) {
     if (username.length < 3) {
         return t("warnUser");
@@ -524,6 +688,9 @@ function validateFields(username, email, password, password2) {
     if (password !== password2) {
         return t("warnMismatch");
     }
+    if (!document.getElementById("captchaAnswer").value.trim()) {
+        return t("warnCaptcha");
+    }
     return "";
 }
 
@@ -534,6 +701,8 @@ async function filledYet() {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
     const password2 = document.getElementById("password2").value;
+    const website = document.getElementById("website").value.trim();
+    const captchaAnswer = document.getElementById("captchaAnswer").value.trim();
 
     const validationError = validateFields(username, email, password, password2);
     if (validationError) {
@@ -547,10 +716,22 @@ async function filledYet() {
     continueBtn.textContent = t("creating");
 
     try {
+        if (!signupChallengeToken) {
+            await loadSignupChallenge();
+        }
+        const devicePayload = await buildSignupDevicePayload();
         const data = await window.EvalogotorApi.apiRequest("/api/auth/signup", {
             method: "POST",
             auth: false,
-            body: { username, email, password }
+            body: {
+                username,
+                email,
+                password,
+                website,
+                challenge_token: signupChallengeToken,
+                challenge_answer: captchaAnswer,
+                ...devicePayload
+            }
         });
 
         window.EvalogotorApi.setAuthSession({
@@ -561,6 +742,7 @@ async function filledYet() {
         window.location.href = "account";
     } catch (error) {
         showMessage(window.EvalogotorApi.getFriendlyErrorMessage(error));
+        await loadSignupChallenge();
         continueBtn.disabled = false;
         continueBtn.textContent = originalLabel;
     }
@@ -572,6 +754,7 @@ function goHome() {
 
 document.getElementById("langSelect").value = currentLang;
 updateLanguage(currentLang);
+loadSignupChallenge();
 
 darkMode = savedTheme === "dark";
 applyTheme();
@@ -588,13 +771,13 @@ document.getElementById("themeToggle").addEventListener("click", () => {
     applyTheme();
 });
 
-["username", "email", "password", "password2"].forEach((id) => {
+["username", "email", "password", "password2", "captchaAnswer"].forEach((id) => {
     document.getElementById(id).addEventListener("input", () => {
         clearMessage();
     });
 });
 
-["username", "email", "password", "password2"].forEach((id) => {
+["username", "email", "password", "password2", "captchaAnswer"].forEach((id) => {
     document.getElementById(id).addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
             filledYet();
