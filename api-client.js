@@ -14,7 +14,6 @@
         localStorage.setItem(API_BASE_STORAGE_KEY, override);
       }
     } catch (error) {
-      // Ignore storage/query parsing issues and fall back to runtime detection.
     }
   }
 
@@ -95,17 +94,32 @@
 
   function getAuthSession() {
     try {
-      return JSON.parse(localStorage.getItem(AUTH_SESSION_KEY) || "null");
+      const sessionValue = sessionStorage.getItem(AUTH_SESSION_KEY);
+      if (sessionValue) {
+        return JSON.parse(sessionValue);
+      }
+
+      const legacyValue = localStorage.getItem(AUTH_SESSION_KEY);
+      if (legacyValue) {
+        sessionStorage.setItem(AUTH_SESSION_KEY, legacyValue);
+        localStorage.removeItem(AUTH_SESSION_KEY);
+        return JSON.parse(legacyValue);
+      }
+
+      return null;
     } catch (error) {
       return null;
     }
   }
 
   function setAuthSession(payload) {
-    localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify(payload));
+    const serialized = JSON.stringify(payload);
+    sessionStorage.setItem(AUTH_SESSION_KEY, serialized);
+    localStorage.removeItem(AUTH_SESSION_KEY);
   }
 
   function clearAuthSession() {
+    sessionStorage.removeItem(AUTH_SESSION_KEY);
     localStorage.removeItem(AUTH_SESSION_KEY);
   }
 
@@ -179,7 +193,6 @@
           return parsed.error || parsed.message || raw;
         }
       } catch (parseError) {
-        // Fall through to prefix stripping below.
       }
     }
 

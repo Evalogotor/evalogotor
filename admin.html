@@ -394,15 +394,29 @@
               <button class="rounded-xl border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 ${isSelf ? "opacity-60 cursor-not-allowed" : ""}" onclick="toggleAdmin(${user.id}, ${user.is_admin ? "false" : "true"})" ${isSelf ? "disabled" : ""}>
                 ${user.is_admin ? "Remove admin" : "Make admin"}
               </button>
-              <button class="rounded-xl border border-amber-300 px-3 py-2 text-sm font-medium text-amber-700 hover:bg-amber-50 dark:border-amber-700 dark:text-amber-300 dark:hover:bg-amber-900/20" onclick='setUserPassword(${user.id}, ${JSON.stringify(user.username)})'>
+              <button class="set-password-btn rounded-xl border border-amber-300 px-3 py-2 text-sm font-medium text-amber-700 hover:bg-amber-50 dark:border-amber-700 dark:text-amber-300 dark:hover:bg-amber-900/20" data-user-id="${escapeHtml(user.id)}" data-username="${escapeHtml(user.username)}">
                 Set password
               </button>
-              <button class="rounded-xl border border-red-300 px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50 dark:border-red-700 dark:text-red-300 dark:hover:bg-red-900/20 ${isSelf ? "opacity-60 cursor-not-allowed" : ""}" onclick='deleteUser(${user.id}, ${JSON.stringify(user.username)})' ${isSelf ? "disabled" : ""}>
+              <button class="delete-user-btn rounded-xl border border-red-300 px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50 dark:border-red-700 dark:text-red-300 dark:hover:bg-red-900/20 ${isSelf ? "opacity-60 cursor-not-allowed" : ""}" data-user-id="${escapeHtml(user.id)}" data-username="${escapeHtml(user.username)}" ${isSelf ? "disabled" : ""}>
                 Delete user
               </button>
             </div>
           </td>
         `;
+        const setPasswordButton = row.querySelector(".set-password-btn");
+        if (setPasswordButton) {
+          setPasswordButton.addEventListener("click", () => {
+            setUserPassword(Number(setPasswordButton.dataset.userId), setPasswordButton.dataset.username || "");
+          });
+        }
+
+        const deleteUserButton = row.querySelector(".delete-user-btn");
+        if (deleteUserButton) {
+          deleteUserButton.addEventListener("click", () => {
+            deleteUser(Number(deleteUserButton.dataset.userId), deleteUserButton.dataset.username || "");
+          });
+        }
+
         usersBody.appendChild(row);
       });
     }
