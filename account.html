@@ -110,6 +110,16 @@
             <div class="text-xl font-semibold mt-1 break-all" id="emailValue">-</div>
           </div>
         </div>
+
+        <div class="mt-4 rounded-2xl bg-gray-50 dark:bg-gray-900/70 border border-gray-100 dark:border-gray-700 p-5">
+          <div class="text-sm text-gray-500 dark:text-gray-400" id="groupLabel">Group</div>
+          <div class="mt-3 flex flex-col gap-3 md:flex-row md:items-center">
+            <select id="groupSelect" class="rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm dark:border-gray-600 dark:bg-gray-800"></select>
+            <button id="saveGroupBtn" class="rounded-xl border border-blue-300 bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-700 hover:bg-blue-100 dark:border-blue-800 dark:bg-blue-900/20 dark:text-blue-300 dark:hover:bg-blue-900/30">
+              Save group
+            </button>
+          </div>
+        </div>
       </div>
 
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
@@ -197,6 +207,8 @@
     const historyWrap = document.getElementById("historyWrap");
     const historyBody = document.getElementById("historyBody");
     const messageBox = document.getElementById("messageBox");
+    const groupSelect = document.getElementById("groupSelect");
+    const saveGroupBtn = document.getElementById("saveGroupBtn");
     const codeModal = document.getElementById("codeModal");
     const codeModalTitle = document.getElementById("codeModalTitle");
     const codeModalMeta = document.getElementById("codeModalMeta");
@@ -208,11 +220,13 @@
     let lang = localStorage.getItem("lang") || "en";
     let latestHistoryItems = [];
     let selectedCodeAttempt = null;
+    let availableGroups = [];
+    let currentUser = null;
 
     const translations = {
-      en: { home: "Home", tasks: "Tasks", scoreboard: "Scoreboard", logout: "Log out", themeDark: "Dark", themeLight: "Light", accountEyebrow: "My space", accountTitle: "Account", accountSubtitle: "Your evaluation history is stored automatically whenever you submit a solution while signed in.", username: "Username", email: "Email", submissionCount: "Saved submissions", bestScore: "Best single score", joined: "Joined", historyTitle: "Recent submissions", historySubtitle: "Grouped by task, with the newest attempts first.", reload: "Reload", loading: "Loading account data...", emptyTitle: "No history yet", emptySubtitle: "Submit a solution while logged in and it will appear here automatically.", task: "Task", score: "Score", tests: "Tests", when: "When", attempts: "attempts", bestForTask: "Best for task", latestAttempt: "Latest attempt", showAttempts: "Show attempts", hideAttempts: "Hide attempts", attempt: "Attempt" },
-      de: { home: "Home", tasks: "Aufgaben", scoreboard: "Bestenliste", logout: "Abmelden", themeDark: "Dunkel", themeLight: "Hell", accountEyebrow: "Mein Bereich", accountTitle: "Konto", accountSubtitle: "Deine Auswertungshistorie wird automatisch gespeichert, wenn du angemeldet eine Loesung absendest.", username: "Benutzername", email: "E-Mail", submissionCount: "Gespeicherte Abgaben", bestScore: "Bester Einzelwert", joined: "Dabei seit", historyTitle: "Letzte Abgaben", historySubtitle: "Nach Aufgabe gruppiert, mit den neuesten Versuchen zuerst.", reload: "Neu laden", loading: "Kontodaten werden geladen...", emptyTitle: "Noch keine Historie", emptySubtitle: "Sende angemeldet eine Loesung ab und sie erscheint automatisch hier.", task: "Aufgabe", score: "Punkte", tests: "Tests", when: "Zeit", attempts: "Versuche", bestForTask: "Beste Aufgabe", latestAttempt: "Neuester Versuch", showAttempts: "Versuche zeigen", hideAttempts: "Versuche ausblenden", attempt: "Versuch" },
-      it: { home: "Home", tasks: "Compiti", scoreboard: "Classifica", logout: "Esci", themeDark: "Scuro", themeLight: "Chiaro", accountEyebrow: "Il mio spazio", accountTitle: "Account", accountSubtitle: "La cronologia delle valutazioni viene salvata automaticamente quando invii una soluzione da loggato.", username: "Nome utente", email: "Email", submissionCount: "Invii salvati", bestScore: "Miglior punteggio singolo", joined: "Iscritto il", historyTitle: "Invii recenti", historySubtitle: "Raggruppati per compito, con i tentativi piu recenti in alto.", reload: "Ricarica", loading: "Caricamento dati account...", emptyTitle: "Nessuna cronologia", emptySubtitle: "Invia una soluzione mentre sei loggato e comparira qui automaticamente.", task: "Compito", score: "Punteggio", tests: "Test", when: "Quando", attempts: "tentativi", bestForTask: "Migliore per compito", latestAttempt: "Ultimo tentativo", showAttempts: "Mostra tentativi", hideAttempts: "Nascondi tentativi", attempt: "Tentativo" },
+      en: { home: "Home", tasks: "Tasks", scoreboard: "Scoreboard", logout: "Log out", themeDark: "Dark", themeLight: "Light", accountEyebrow: "My space", accountTitle: "Account", accountSubtitle: "Your evaluation history is stored automatically whenever you submit a solution while signed in.", username: "Username", email: "Email", group: "Group", saveGroup: "Save group", loadingGroups: "Loading groups...", submissionCount: "Saved submissions", bestScore: "Best single score", joined: "Joined", historyTitle: "Recent submissions", historySubtitle: "Grouped by task, with the newest attempts first.", reload: "Reload", loading: "Loading account data...", emptyTitle: "No history yet", emptySubtitle: "Submit a solution while logged in and it will appear here automatically.", task: "Task", score: "Score", tests: "Tests", when: "When", attempts: "attempts", bestForTask: "Best for task", latestAttempt: "Latest attempt", showAttempts: "Show attempts", hideAttempts: "Hide attempts", attempt: "Attempt" },
+      de: { home: "Home", tasks: "Aufgaben", scoreboard: "Bestenliste", logout: "Abmelden", themeDark: "Dunkel", themeLight: "Hell", accountEyebrow: "Mein Bereich", accountTitle: "Konto", accountSubtitle: "Deine Auswertungshistorie wird automatisch gespeichert, wenn du angemeldet eine Loesung absendest.", username: "Benutzername", email: "E-Mail", group: "Gruppe", saveGroup: "Gruppe speichern", loadingGroups: "Gruppen werden geladen...", submissionCount: "Gespeicherte Abgaben", bestScore: "Bester Einzelwert", joined: "Dabei seit", historyTitle: "Letzte Abgaben", historySubtitle: "Nach Aufgabe gruppiert, mit den neuesten Versuchen zuerst.", reload: "Neu laden", loading: "Kontodaten werden geladen...", emptyTitle: "Noch keine Historie", emptySubtitle: "Sende angemeldet eine Loesung ab und sie erscheint automatisch hier.", task: "Aufgabe", score: "Punkte", tests: "Tests", when: "Zeit", attempts: "Versuche", bestForTask: "Beste Aufgabe", latestAttempt: "Neuester Versuch", showAttempts: "Versuche zeigen", hideAttempts: "Versuche ausblenden", attempt: "Versuch" },
+      it: { home: "Home", tasks: "Compiti", scoreboard: "Classifica", logout: "Esci", themeDark: "Scuro", themeLight: "Chiaro", accountEyebrow: "Il mio spazio", accountTitle: "Account", accountSubtitle: "La cronologia delle valutazioni viene salvata automaticamente quando invii una soluzione da loggato.", username: "Nome utente", email: "Email", group: "Gruppo", saveGroup: "Salva gruppo", loadingGroups: "Caricamento gruppi...", submissionCount: "Invii salvati", bestScore: "Miglior punteggio singolo", joined: "Iscritto il", historyTitle: "Invii recenti", historySubtitle: "Raggruppati per compito, con i tentativi piu recenti in alto.", reload: "Ricarica", loading: "Caricamento dati account...", emptyTitle: "Nessuna cronologia", emptySubtitle: "Invia una soluzione mentre sei loggato e comparira qui automaticamente.", task: "Compito", score: "Punteggio", tests: "Test", when: "Quando", attempts: "tentativi", bestForTask: "Migliore per compito", latestAttempt: "Ultimo tentativo", showAttempts: "Mostra tentativi", hideAttempts: "Nascondi tentativi", attempt: "Tentativo" },
       hr: { home: "Home", tasks: "Zadaci", scoreboard: "Ljestvica", logout: "Odjava", themeDark: "Tamno", themeLight: "Svijetlo", accountEyebrow: "Moj prostor", accountTitle: "Račun", accountSubtitle: "Povijest evaluacija sprema se automatski kad prijavljen pošalješ rješenje.", username: "Korisničko ime", email: "Email", submissionCount: "Spremljene predaje", bestScore: "Najbolji pojedinačni rezultat", joined: "Napravljen račun", historyTitle: "Nedavne predaje", historySubtitle: "Najnovije spremljene evaluacije prve.", reload: "Učitaj ponovo", loading: "Učitavanje podataka računa...", emptyTitle: "Joč nema povijesti", emptySubtitle: "Predaj rješenje dok si prijavljen i automatski će se pojaviti ovdje.", task: "Zadatak", score: "Rezultat", tests: "Testovi", when: "Vrijeme", attempts: "Pokušaji", bestForTask: "Najbolje riješeno za ovaj zadatak", latestAttempt: "Zadnje predano rješenje", showAttempts: "Prikaži pokušaje", hideAttempts: "Sakrij pokušaje", attempt: "Pokušaj" },
       fr: { home: "Home", tasks: "Taches", scoreboard: "Classement", logout: "Deconnexion", themeDark: "Sombre", themeLight: "Clair", accountEyebrow: "Mon espace", accountTitle: "Compte", accountSubtitle: "L'historique des evaluations est enregistre automatiquement lorsque vous envoyez une solution en etant connecte.", username: "Nom d'utilisateur", email: "Email", submissionCount: "Soumissions enregistrees", bestScore: "Meilleur score unique", joined: "Inscrit le", historyTitle: "Soumissions recentes", historySubtitle: "Regroupees par tache, avec les essais les plus recents en premier.", reload: "Recharger", loading: "Chargement des donnees du compte...", emptyTitle: "Pas encore d'historique", emptySubtitle: "Soumettez une solution en etant connecte et elle apparaitra ici automatiquement.", task: "Tache", score: "Score", tests: "Tests", when: "Quand", attempts: "essais", bestForTask: "Meilleur pour la tache", latestAttempt: "Dernier essai", showAttempts: "Afficher les essais", hideAttempts: "Masquer les essais", attempt: "Essai" },
       ru: { home: "Home", tasks: "Zadaniya", scoreboard: "Tablica", logout: "Vyhod", themeDark: "Temnaya", themeLight: "Svetlaya", accountEyebrow: "Moe prostranstvo", accountTitle: "Akkount", accountSubtitle: "Istoriya proverok sokhranyaetsya avtomaticheski, kogda vy otpravlyaete reshenie vo vremya vhoda.", username: "Polzovatel", email: "Email", submissionCount: "Sokhranennye otpravki", bestScore: "Luchshiy odin rezultat", joined: "S nami s", historyTitle: "Nedavnie otpravki", historySubtitle: "Sgruppirovano po zadaniyu, s noveyshimi popytkami snachala.", reload: "Obnovit", loading: "Zagruzka dannykh akkaunta...", emptyTitle: "Istorii poka net", emptySubtitle: "Otpravte reshenie vo vremya vhoda, i ono avtomaticheski poyavitsya zdes.", task: "Zadacha", score: "Ochki", tests: "Testy", when: "Kogda", attempts: "popytok", bestForTask: "Luchshee dlya zadachi", latestAttempt: "Poslednyaya popytka", showAttempts: "Pokazat popytki", hideAttempts: "Skryt popytki", attempt: "Popytka" }
@@ -246,6 +260,8 @@
       document.getElementById("accountSubtitle").textContent = t("accountSubtitle");
       document.getElementById("usernameLabel").textContent = t("username");
       document.getElementById("emailLabel").textContent = t("email");
+      document.getElementById("groupLabel").textContent = t("group");
+      saveGroupBtn.textContent = t("saveGroup");
       document.getElementById("submissionCountLabel").textContent = t("submissionCount");
       document.getElementById("bestScoreLabel").textContent = t("bestScore");
       document.getElementById("joinedLabel").textContent = t("joined");
@@ -273,6 +289,7 @@
       if (latestHistoryItems.length) {
         renderHistory(latestHistoryItems);
       }
+      renderGroupOptions();
     }
 
     function applyTheme() {
@@ -319,12 +336,48 @@
       messageBox.textContent = "";
     }
 
+    function renderGroupOptions() {
+      const selectedGroupId = groupSelect.value;
+      if (!availableGroups.length) {
+        groupSelect.innerHTML = `<option value="">${escapeHtml(t("loadingGroups"))}</option>`;
+        groupSelect.disabled = true;
+        saveGroupBtn.disabled = true;
+        return;
+      }
+
+      groupSelect.innerHTML = availableGroups.map((group) => {
+        const selected = String(group.id) === String(selectedGroupId) ? "selected" : "";
+        return `<option value="${escapeHtml(group.id)}" ${selected}>${escapeHtml(group.name)}</option>`;
+      }).join("");
+
+      if (!groupSelect.value && currentUser && currentUser.group) {
+        groupSelect.value = String(currentUser.group.id);
+      }
+
+      groupSelect.disabled = false;
+      saveGroupBtn.disabled = false;
+    }
+
+    async function loadGroups() {
+      const data = await window.EvalogotorApi.apiRequest("/api/groups", {
+        method: "GET",
+        cache: "no-store",
+      });
+      availableGroups = data.items || [];
+      renderGroupOptions();
+    }
+
     function fillUser(user, stats) {
+      currentUser = user;
       document.getElementById("usernameValue").textContent = user.username || "-";
       document.getElementById("emailValue").textContent = user.email || "-";
       document.getElementById("joinedValue").textContent = window.EvalogotorApi.formatDateTime(user.created_at);
       document.getElementById("submissionCountValue").textContent = String(stats.submission_count || 0);
       document.getElementById("bestScoreValue").textContent = String(stats.best_single_score || 0);
+      if (user.group) {
+        groupSelect.value = String(user.group.id);
+      }
+      renderGroupOptions();
       const adminLink = document.getElementById("adminLink");
       if (adminLink) {
         adminLink.classList.toggle("hidden", !user.is_admin);
@@ -533,6 +586,8 @@
           window.EvalogotorApi.apiRequest("/api/users/history?limit=25")
         ]);
 
+        await loadGroups();
+
         const existingSession = window.EvalogotorApi.getAuthSession();
         if (existingSession && existingSession.token) {
           window.EvalogotorApi.setAuthSession({
@@ -556,6 +611,29 @@
       } finally {
         historyLoading.classList.add("hidden");
         lucide.createIcons();
+      }
+    }
+
+    async function saveGroup() {
+      if (!groupSelect.value) {
+        return;
+      }
+
+      try {
+        clearMessage();
+        saveGroupBtn.disabled = true;
+        await window.EvalogotorApi.apiRequest("/api/users/group", {
+          method: "POST",
+          body: { group_id: groupSelect.value },
+        });
+        await loadAccountData();
+        messageBox.className = "mt-6 rounded-2xl px-4 py-3 text-sm bg-green-50 text-green-700 border border-green-200 dark:bg-green-900/20 dark:text-green-300 dark:border-green-800";
+        messageBox.textContent = "Group updated successfully.";
+        messageBox.classList.remove("hidden");
+      } catch (error) {
+        showMessage(window.EvalogotorApi.getFriendlyErrorMessage(error));
+      } finally {
+        saveGroupBtn.disabled = false;
       }
     }
 
@@ -593,6 +671,7 @@
       });
 
       reloadBtn.addEventListener("click", loadAccountData);
+      saveGroupBtn.addEventListener("click", saveGroup);
       logoutBtn.addEventListener("click", logout);
       closeCodeModalBtn.addEventListener("click", closeCodeModal);
       downloadCodeBtn.addEventListener("click", () => {

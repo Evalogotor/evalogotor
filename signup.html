@@ -86,9 +86,25 @@
         transition: all 0.3s ease;
     }
 
+    #groupSelect {
+        font-size: 1em;
+        padding: 10px;
+        border: 2px solid rgb(17, 24, 39);
+        border-radius: 5px;
+        width: min(80%, 320px);
+        background-color: rgb(55, 65, 81);
+        color: white;
+    }
+
     body.light input[type="text"],
     body.light input[type="password"],
     body.light input[type="email"] {
+        background-color: #fff;
+        color: #000;
+        border: 2px solid #ccc;
+    }
+
+    body.light #groupSelect {
         background-color: #fff;
         color: #000;
         border: 2px solid #ccc;
@@ -278,6 +294,11 @@
     </div>
 
     <div class="input-container">
+        <label for="groupSelect" id="groupLabel">Group</label>
+        <select id="groupSelect"></select>
+    </div>
+
+    <div class="input-container">
         <label for="password" id="passwordLabel">Password</label>
         <input type="password" id="password" autocomplete="new-password">
     </div>
@@ -325,12 +346,15 @@ const translations = {
         title: "Sign up",
         username: "Username",
         email: "Email",
+        group: "Group",
         password: "Password",
         password2: "Repeat password",
         already: "Already have an account?",
         login: "Log in",
         placeholderUser: "Enter username",
         placeholderEmail: "Enter email",
+        placeholderGroupLoading: "Loading groups...",
+        placeholderGroupDefault: "No Group (default)",
         placeholderPass: "Enter password",
         placeholderPass2: "Repeat password",
         placeholderCode: "Enter 6-digit code",
@@ -357,12 +381,15 @@ const translations = {
         title: "Registrieren",
         username: "Benutzername",
         email: "E-Mail",
+        group: "Gruppe",
         password: "Passwort",
         password2: "Passwort wiederholen",
         already: "Bereits ein Konto?",
         login: "Anmelden",
         placeholderUser: "Benutzernamen eingeben",
         placeholderEmail: "E-Mail eingeben",
+        placeholderGroupLoading: "Gruppen werden geladen...",
+        placeholderGroupDefault: "Keine Gruppe (Standard)",
         placeholderPass: "Passwort eingeben",
         placeholderPass2: "Passwort wiederholen",
         placeholderCode: "6-stelligen Code eingeben",
@@ -389,12 +416,15 @@ const translations = {
         title: "Registrazione",
         username: "Nome utente",
         email: "Email",
+        group: "Gruppo",
         password: "Password",
         password2: "Ripeti password",
         already: "Hai gia un account?",
         login: "Accedi",
         placeholderUser: "Inserisci nome utente",
         placeholderEmail: "Inserisci email",
+        placeholderGroupLoading: "Caricamento gruppi...",
+        placeholderGroupDefault: "Nessun gruppo (predefinito)",
         placeholderPass: "Inserisci password",
         placeholderPass2: "Ripeti password",
         placeholderCode: "Inserisci codice a 6 cifre",
@@ -421,12 +451,15 @@ const translations = {
         title: "Registracija",
         username: "Korisnicko ime",
         email: "Email",
+        group: "Grupa",
         password: "Lozinka",
         password2: "Ponovite lozinku",
         already: "Vec imate racun?",
         login: "Prijava",
         placeholderUser: "Upisite korisnicko ime",
         placeholderEmail: "Upisite email",
+        placeholderGroupLoading: "Ucitavanje grupa...",
+        placeholderGroupDefault: "Bez grupe (zadano)",
         placeholderPass: "Upisite lozinku",
         placeholderPass2: "Ponovite lozinku",
         placeholderCode: "Upisite 6-znamenkasti kod",
@@ -453,12 +486,15 @@ const translations = {
         title: "Inscription",
         username: "Nom d'utilisateur",
         email: "Email",
+        group: "Groupe",
         password: "Mot de passe",
         password2: "Repeter le mot de passe",
         already: "Vous avez deja un compte ?",
         login: "Connexion",
         placeholderUser: "Entrez nom d'utilisateur",
         placeholderEmail: "Entrez email",
+        placeholderGroupLoading: "Chargement des groupes...",
+        placeholderGroupDefault: "Sans groupe (par defaut)",
         placeholderPass: "Entrez mot de passe",
         placeholderPass2: "Repetez le mot de passe",
         placeholderCode: "Entrez le code a 6 chiffres",
@@ -485,12 +521,15 @@ const translations = {
         title: "Registratsiya",
         username: "Polzovatel",
         email: "Email",
+        group: "Gruppa",
         password: "Parol",
         password2: "Povtorite parol",
         already: "Uzhe est akkaunt?",
         login: "Vhod",
         placeholderUser: "Vvedite imya",
         placeholderEmail: "Vvedite email",
+        placeholderGroupLoading: "Zagruzka grupp...",
+        placeholderGroupDefault: "Bez gruppy (po umolchaniyu)",
         placeholderPass: "Vvedite parol",
         placeholderPass2: "Povtorite parol",
         placeholderCode: "Vvedite 6-znachnyy kod",
@@ -519,10 +558,11 @@ let darkMode = true;
 let currentLang = localStorage.getItem("lang") || "en";
 const savedTheme = localStorage.getItem("theme") || "dark";
 const SIGNUP_DEVICE_ID_KEY = "evalogotor_signup_device_id";
-let recaptchaSiteKey = "6LcsSbwsAAAAABrAK1Dv2hzE9N_YjpFHe_XnUURz";
+let recaptchaSiteKey = "";
 let recaptchaWidgetId = null;
 let recaptchaApiPromise = null;
 let recaptchaLanguageLoaded = "";
+let availableGroups = [];
 
 function t(key) {
     return (translations[currentLang] || translations.en)[key];
@@ -533,6 +573,7 @@ function updateLanguage(lang) {
     document.getElementById("title").textContent = t("title");
     document.getElementById("usernameLabel").textContent = t("username");
     document.getElementById("emailLabel").textContent = t("email");
+    document.getElementById("groupLabel").textContent = t("group");
     document.getElementById("passwordLabel").textContent = t("password");
     document.getElementById("password2Label").textContent = t("password2");
     document.getElementById("alreadyText").textContent = t("already");
@@ -541,6 +582,7 @@ function updateLanguage(lang) {
     document.getElementById("email").placeholder = t("placeholderEmail");
     document.getElementById("password").placeholder = t("placeholderPass");
     document.getElementById("password2").placeholder = t("placeholderPass2");
+    renderGroupOptions();
     document.getElementById("captchaLabel").textContent = t("captchaLabel");
     document.getElementById("captchaNote").textContent = recaptchaSiteKey ? "" : t("captchaLoading");
     document.getElementById("verificationLabel").textContent = t("verificationLabel");
@@ -590,6 +632,42 @@ function getOrCreateSignupDeviceId() {
         localStorage.setItem(SIGNUP_DEVICE_ID_KEY, deviceId);
     }
     return deviceId;
+}
+
+function renderGroupOptions() {
+    const select = document.getElementById("groupSelect");
+    const selectedValue = select.value;
+    if (!availableGroups.length) {
+        select.innerHTML = `<option value="">${t("placeholderGroupLoading")}</option>`;
+        return;
+    }
+
+    select.innerHTML = availableGroups.map((group) => {
+        const label = group.is_fallback ? t("placeholderGroupDefault") : group.name;
+        return `<option value="${group.id}" ${selectedValue === String(group.id) ? "selected" : ""}>${label}</option>`;
+    }).join("");
+
+    if (!select.value) {
+        const fallbackGroup = availableGroups.find((group) => group.is_fallback) || availableGroups[0];
+        select.value = fallbackGroup ? String(fallbackGroup.id) : "";
+    }
+}
+
+async function loadGroups() {
+    const select = document.getElementById("groupSelect");
+    select.innerHTML = `<option value="">${t("placeholderGroupLoading")}</option>`;
+    try {
+        const data = await window.EvalogotorApi.apiRequest("/api/groups", {
+            method: "GET",
+            auth: false,
+            cache: "no-store"
+        });
+        availableGroups = data.items || [];
+        renderGroupOptions();
+    } catch (_error) {
+        availableGroups = [];
+        select.innerHTML = `<option value="">${t("placeholderGroupDefault")}</option>`;
+    }
 }
 
 async function sha256Hex(input) {
@@ -732,6 +810,7 @@ async function filledYet() {
 
     const username = document.getElementById("username").value.trim();
     const email = document.getElementById("email").value.trim();
+    const groupId = document.getElementById("groupSelect").value;
     const password = document.getElementById("password").value;
     const password2 = document.getElementById("password2").value;
     const website = document.getElementById("website").value.trim();
@@ -763,6 +842,7 @@ async function filledYet() {
             body: {
                 username,
                 email,
+                group_id: groupId,
                 password,
                 website,
                 recaptcha_token: recaptchaToken,
@@ -790,6 +870,7 @@ function goHome() {
 
 document.getElementById("langSelect").value = currentLang;
 updateLanguage(currentLang);
+loadGroups();
 ensureRecaptchaReady().catch((error) => {
     document.getElementById("captchaNote").textContent =
         error && error.message ? error.message : t("captchaUnavailable");

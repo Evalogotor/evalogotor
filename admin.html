@@ -104,26 +104,15 @@
     <section class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden">
       <div class="flex flex-col gap-4 border-b border-gray-100 dark:border-gray-700 px-6 py-5 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h2 class="text-xl font-semibold">Users</h2>
-          <p class="text-sm text-gray-500 dark:text-gray-400">Promote admins, monitor activity, or remove accounts.</p>
+          <h2 class="text-xl font-semibold">Groups</h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Organize users by group, rename groups, and create accounts directly inside them.</p>
         </div>
-        <button id="reloadUsersBtn" class="rounded-xl border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700">Reload users</button>
+        <div class="flex flex-wrap gap-2">
+          <button id="createGroupBtn" class="rounded-xl border border-emerald-300 px-4 py-2 text-sm font-medium text-emerald-700 hover:bg-emerald-50 dark:border-emerald-700 dark:text-emerald-300 dark:hover:bg-emerald-900/20">Create group</button>
+          <button id="reloadUsersBtn" class="rounded-xl border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700">Reload groups</button>
+        </div>
       </div>
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead class="bg-gray-50 dark:bg-gray-900/60">
-            <tr>
-              <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">User</th>
-              <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Joined</th>
-              <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Submissions</th>
-              <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Best score</th>
-              <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Pending reviews</th>
-              <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="usersBody" class="divide-y divide-gray-200 dark:divide-gray-700"></tbody>
-        </table>
-      </div>
+      <div id="groupsWrap" class="space-y-4 px-6 py-6"></div>
     </section>
   </main>
 
@@ -141,7 +130,7 @@
     const submissionCount = document.getElementById("submissionCount");
     const reviewsWrap = document.getElementById("reviewsWrap");
     const reviewsEmpty = document.getElementById("reviewsEmpty");
-    const usersBody = document.getElementById("usersBody");
+    const groupsWrap = document.getElementById("groupsWrap");
 
     let darkMode = (localStorage.getItem("theme") || "dark") === "dark";
     let currentFilter = "pending";
@@ -360,64 +349,141 @@
       renderReviewCards();
     }
 
+    function buildGroupOptions(selectedGroupId) {
+      return userItems.map((group) => `
+        <option value="${escapeHtml(group.id)}" ${String(group.id) === String(selectedGroupId) ? "selected" : ""}>
+          ${escapeHtml(group.name)}
+        </option>
+      `).join("");
+    }
+
     function renderUsers() {
-      usersBody.innerHTML = "";
+      groupsWrap.innerHTML = "";
 
       if (!userItems.length) {
-        usersBody.innerHTML = `
-          <tr>
-            <td colspan="6" class="px-6 py-10 text-center text-gray-500 dark:text-gray-400">No users found.</td>
-          </tr>
-        `;
+        groupsWrap.innerHTML = `<div class="rounded-2xl border border-dashed border-gray-300 dark:border-gray-700 px-6 py-10 text-center text-gray-500 dark:text-gray-400">No groups found.</div>`;
         return;
       }
 
-      userItems.forEach((user) => {
-        const isSelf = currentAdmin && currentAdmin.id === user.id;
-        const row = document.createElement("tr");
-        row.className = "bg-white dark:bg-gray-800";
-        row.innerHTML = `
-          <td class="px-6 py-4 align-top">
-            <div class="font-semibold">${escapeHtml(user.username)}</div>
-            <div class="text-sm text-gray-500 dark:text-gray-400">${escapeHtml(user.email)}</div>
-            <div class="mt-2 flex flex-wrap gap-2">
-              ${user.is_admin ? '<span class="inline-flex rounded-full px-3 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 text-xs font-semibold">Admin</span>' : ''}
-              ${isSelf ? '<span class="inline-flex rounded-full px-3 py-1 bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300 text-xs font-semibold">You</span>' : ''}
+      userItems.forEach((group) => {
+        const details = document.createElement("details");
+        details.className = "rounded-3xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40 overflow-hidden";
+        if (!group.is_fallback) {
+          details.open = true;
+        }
+
+        const usersMarkup = (group.users || []).map((user) => {
+          const isSelf = currentAdmin && currentAdmin.id === user.id;
+          return `
+            <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
+              <div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+                <div>
+                  <div class="font-semibold text-lg">${escapeHtml(user.username)}</div>
+                  <div class="text-sm text-gray-500 dark:text-gray-400">${escapeHtml(user.email)}</div>
+                  <div class="mt-2 flex flex-wrap gap-2">
+                    ${user.is_admin ? '<span class="inline-flex rounded-full px-3 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 text-xs font-semibold">Admin</span>' : ''}
+                    ${isSelf ? '<span class="inline-flex rounded-full px-3 py-1 bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300 text-xs font-semibold">You</span>' : ''}
+                  </div>
+                </div>
+                <div class="grid gap-2 text-sm text-gray-600 dark:text-gray-300 md:grid-cols-3">
+                  <div><span class="font-semibold">Joined:</span> ${escapeHtml(window.EvalogotorApi.formatDateTime(user.created_at))}</div>
+                  <div><span class="font-semibold">Submissions:</span> ${escapeHtml(user.submission_count)}</div>
+                  <div><span class="font-semibold">Best:</span> ${escapeHtml(user.best_single_score)}</div>
+                </div>
+              </div>
+              <div class="mt-4 flex flex-col gap-3">
+                <div class="flex flex-wrap items-center gap-2">
+                  <button class="rounded-xl border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 ${isSelf ? "opacity-60 cursor-not-allowed" : ""}" onclick="toggleAdmin(${user.id}, ${user.is_admin ? "false" : "true"})" ${isSelf ? "disabled" : ""}>
+                    ${user.is_admin ? "Remove admin" : "Make admin"}
+                  </button>
+                  <button class="set-password-btn rounded-xl border border-amber-300 px-3 py-2 text-sm font-medium text-amber-700 hover:bg-amber-50 dark:border-amber-700 dark:text-amber-300 dark:hover:bg-amber-900/20" data-user-id="${escapeHtml(user.id)}" data-username="${escapeHtml(user.username)}">
+                    Set password
+                  </button>
+                  <button class="delete-user-btn rounded-xl border border-red-300 px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50 dark:border-red-700 dark:text-red-300 dark:hover:bg-red-900/20 ${isSelf ? "opacity-60 cursor-not-allowed" : ""}" data-user-id="${escapeHtml(user.id)}" data-username="${escapeHtml(user.username)}" ${isSelf ? "disabled" : ""}>
+                    Delete user
+                  </button>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <label class="text-sm font-medium text-gray-600 dark:text-gray-300" for="move-group-${user.id}">Move to group</label>
+                  <select id="move-group-${user.id}" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900">
+                    ${buildGroupOptions(user.group && user.group.id)}
+                  </select>
+                  <button class="move-user-btn rounded-xl border border-cyan-300 px-3 py-2 text-sm font-medium text-cyan-700 hover:bg-cyan-50 dark:border-cyan-700 dark:text-cyan-300 dark:hover:bg-cyan-900/20" data-user-id="${escapeHtml(user.id)}" data-username="${escapeHtml(user.username)}">
+                    Move
+                  </button>
+                </div>
+              </div>
             </div>
-          </td>
-          <td class="px-6 py-4 align-top text-sm text-gray-600 dark:text-gray-300">${escapeHtml(window.EvalogotorApi.formatDateTime(user.created_at))}</td>
-          <td class="px-6 py-4 align-top text-sm font-semibold">${escapeHtml(user.submission_count)}</td>
-          <td class="px-6 py-4 align-top text-sm font-semibold">${escapeHtml(user.best_single_score)}</td>
-          <td class="px-6 py-4 align-top text-sm font-semibold">${escapeHtml(user.pending_review_count)}</td>
-          <td class="px-6 py-4 align-top">
-            <div class="flex flex-wrap gap-2">
-              <button class="rounded-xl border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 ${isSelf ? "opacity-60 cursor-not-allowed" : ""}" onclick="toggleAdmin(${user.id}, ${user.is_admin ? "false" : "true"})" ${isSelf ? "disabled" : ""}>
-                ${user.is_admin ? "Remove admin" : "Make admin"}
-              </button>
-              <button class="set-password-btn rounded-xl border border-amber-300 px-3 py-2 text-sm font-medium text-amber-700 hover:bg-amber-50 dark:border-amber-700 dark:text-amber-300 dark:hover:bg-amber-900/20" data-user-id="${escapeHtml(user.id)}" data-username="${escapeHtml(user.username)}">
-                Set password
-              </button>
-              <button class="delete-user-btn rounded-xl border border-red-300 px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50 dark:border-red-700 dark:text-red-300 dark:hover:bg-red-900/20 ${isSelf ? "opacity-60 cursor-not-allowed" : ""}" data-user-id="${escapeHtml(user.id)}" data-username="${escapeHtml(user.username)}" ${isSelf ? "disabled" : ""}>
-                Delete user
+          `;
+        }).join("");
+
+        details.innerHTML = `
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5">
+            <div>
+              <div class="text-xl font-semibold">${escapeHtml(group.name)}</div>
+              <div class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                ${escapeHtml(group.user_count)} users, ${escapeHtml(group.submission_count)} submissions, best score ${escapeHtml(group.best_single_score)}
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              ${group.is_fallback ? '<span class="inline-flex rounded-full px-3 py-1 bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300 text-xs font-semibold">Fallback group</span>' : ''}
+              <button class="rename-group-btn rounded-xl border border-blue-300 px-3 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50 dark:border-blue-700 dark:text-blue-300 dark:hover:bg-blue-900/20" data-group-id="${escapeHtml(group.id)}" data-group-name="${escapeHtml(group.name)}" ${group.is_fallback ? "disabled" : ""}>
+                Rename
               </button>
             </div>
-          </td>
+          </summary>
+          <div class="space-y-4 border-t border-gray-200 px-6 py-5 dark:border-gray-700">
+            <div class="rounded-2xl border border-dashed border-gray-300 px-4 py-4 dark:border-gray-700">
+              <div class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Create account in ${escapeHtml(group.name)}</div>
+              <div class="mt-3 grid gap-3 lg:grid-cols-4">
+                <input id="create-username-${group.id}" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" placeholder="Username">
+                <input id="create-email-${group.id}" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" placeholder="Email">
+                <input id="create-password-${group.id}" type="password" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" placeholder="Password">
+                <button class="create-user-btn rounded-xl border border-emerald-300 px-3 py-2 text-sm font-medium text-emerald-700 hover:bg-emerald-50 dark:border-emerald-700 dark:text-emerald-300 dark:hover:bg-emerald-900/20" data-group-id="${escapeHtml(group.id)}" data-group-name="${escapeHtml(group.name)}">
+                  Create user
+                </button>
+              </div>
+            </div>
+            <div class="space-y-3">
+              ${usersMarkup || '<div class="rounded-2xl border border-dashed border-gray-300 px-4 py-6 text-center text-sm text-gray-500 dark:border-gray-700 dark:text-gray-400">No users in this group yet.</div>'}
+            </div>
+          </div>
         `;
-        const setPasswordButton = row.querySelector(".set-password-btn");
-        if (setPasswordButton) {
-          setPasswordButton.addEventListener("click", () => {
-            setUserPassword(Number(setPasswordButton.dataset.userId), setPasswordButton.dataset.username || "");
-          });
-        }
 
-        const deleteUserButton = row.querySelector(".delete-user-btn");
-        if (deleteUserButton) {
-          deleteUserButton.addEventListener("click", () => {
-            deleteUser(Number(deleteUserButton.dataset.userId), deleteUserButton.dataset.username || "");
+        details.querySelectorAll(".set-password-btn").forEach((button) => {
+          button.addEventListener("click", () => {
+            setUserPassword(Number(button.dataset.userId), button.dataset.username || "");
           });
-        }
+        });
 
-        usersBody.appendChild(row);
+        details.querySelectorAll(".delete-user-btn").forEach((button) => {
+          button.addEventListener("click", () => {
+            deleteUser(Number(button.dataset.userId), button.dataset.username || "");
+          });
+        });
+
+        details.querySelectorAll(".rename-group-btn").forEach((button) => {
+          button.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            renameGroup(Number(button.dataset.groupId), button.dataset.groupName || "");
+          });
+        });
+
+        details.querySelectorAll(".create-user-btn").forEach((button) => {
+          button.addEventListener("click", () => {
+            createUserInGroup(Number(button.dataset.groupId), button.dataset.groupName || "");
+          });
+        });
+
+        details.querySelectorAll(".move-user-btn").forEach((button) => {
+          button.addEventListener("click", () => {
+            const select = document.getElementById(`move-group-${button.dataset.userId}`);
+            moveUserToGroup(Number(button.dataset.userId), button.dataset.username || "", select ? select.value : "");
+          });
+        });
+
+        groupsWrap.appendChild(details);
       });
     }
 
@@ -425,6 +491,102 @@
       const data = await window.EvalogotorApi.apiRequest("/api/admin/users");
       userItems = data.items || [];
       renderUsers();
+    }
+
+    async function createGroup() {
+      const name = prompt("Create a new group:");
+      if (name === null) {
+        return;
+      }
+
+      if (!name.trim()) {
+        showMessage("Group name cannot be empty.");
+        return;
+      }
+
+      try {
+        clearMessage();
+        await window.EvalogotorApi.apiRequest("/api/admin/groups", {
+          method: "POST",
+          body: { name },
+        });
+        await Promise.all([loadUsers(), loadOverview()]);
+        showMessage("Group created.", "success");
+      } catch (error) {
+        showMessage(window.EvalogotorApi.getFriendlyErrorMessage(error));
+      }
+    }
+
+    async function renameGroup(groupId, currentName) {
+      const name = prompt(`Rename group ${currentName}:`, currentName);
+      if (name === null) {
+        return;
+      }
+
+      if (!name.trim()) {
+        showMessage("Group name cannot be empty.");
+        return;
+      }
+
+      try {
+        clearMessage();
+        await window.EvalogotorApi.apiRequest(`/api/admin/groups/${groupId}`, {
+          method: "POST",
+          body: { name },
+        });
+        await loadUsers();
+        showMessage("Group renamed.", "success");
+      } catch (error) {
+        showMessage(window.EvalogotorApi.getFriendlyErrorMessage(error));
+      }
+    }
+
+    async function createUserInGroup(groupId, groupName) {
+      const usernameInput = document.getElementById(`create-username-${groupId}`);
+      const emailInput = document.getElementById(`create-email-${groupId}`);
+      const passwordInput = document.getElementById(`create-password-${groupId}`);
+      const username = usernameInput ? usernameInput.value.trim() : "";
+      const email = emailInput ? emailInput.value.trim() : "";
+      const password = passwordInput ? passwordInput.value : "";
+
+      if (!username || !email || !password) {
+        showMessage(`Fill in username, email, and password to create an account in ${groupName}.`);
+        return;
+      }
+
+      try {
+        clearMessage();
+        await window.EvalogotorApi.apiRequest(`/api/admin/groups/${groupId}/users`, {
+          method: "POST",
+          body: { username, email, password },
+        });
+        if (usernameInput) usernameInput.value = "";
+        if (emailInput) emailInput.value = "";
+        if (passwordInput) passwordInput.value = "";
+        await Promise.all([loadUsers(), loadOverview()]);
+        showMessage(`User created in ${groupName}.`, "success");
+      } catch (error) {
+        showMessage(window.EvalogotorApi.getFriendlyErrorMessage(error));
+      }
+    }
+
+    async function moveUserToGroup(userId, username, groupId) {
+      if (!groupId) {
+        showMessage("Select a group first.");
+        return;
+      }
+
+      try {
+        clearMessage();
+        await window.EvalogotorApi.apiRequest(`/api/admin/users/${userId}/group`, {
+          method: "POST",
+          body: { group_id: groupId },
+        });
+        await loadUsers();
+        showMessage(`${username} moved successfully.`, "success");
+      } catch (error) {
+        showMessage(window.EvalogotorApi.getFriendlyErrorMessage(error));
+      }
     }
 
     async function loadDashboard() {
@@ -564,6 +726,7 @@
       });
     });
 
+    document.getElementById("createGroupBtn").addEventListener("click", createGroup);
     document.getElementById("reloadReviewsBtn").addEventListener("click", loadReviews);
     document.getElementById("reloadUsersBtn").addEventListener("click", async () => {
       await Promise.all([loadOverview(), loadUsers()]);
