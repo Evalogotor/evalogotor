@@ -3,36 +3,91 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EVALOGOTOR - HLOŽ</title>
+  <title>EVALOGOTOR - HLOZ</title>
   <script src="theme-preload.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="api-client.js"></script>
   <link rel="stylesheet" href="task-browser.css" />
-  <style>.highlight { font-weight: bold; font-size: 1.25rem; color: rgb(57, 220, 57); }</style>
+  <style>
+    .highlight {
+      color: rgb(57, 220, 57);
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors" id="body">
   <header class="flex items-center justify-between px-6 py-4 shadow-sm bg-white" id="navbar">
-    <div class="flex items-center group cursor-pointer" onclick="location.href='index.html'"><span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span><span class="highlight group-hover:text-[rgb(57,220,57)]">LOGO</span><span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span></div>
+    <div class="flex items-center group cursor-pointer" onclick="location.href='index.html'">
+      <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span><span class="highlight group-hover:text-[rgb(57,220,57)]">LOGO</span><span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
+    </div>
     <nav class="flex items-center space-x-4">
-      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='index.html'"><i data-lucide="home" class="w-4 h-4"></i> <span id="home">Home</span></button>
-      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='tasks.html'"><i data-lucide="pen-tool" class="w-4 h-4"></i> <span id="tasksNav">Tasks</span></button>
-      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='scoreboard.html'"><i data-lucide="bar-chart-3" class="w-4 h-4"></i> <span id="scoreboard">Scoreboard</span></button>
-      <button id="loginBtn" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1" onclick="location.href='login.html'"><i data-lucide="user" class="w-4 h-4 mr-1"></i> <span id="login">Login</span></button>
-      <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1"><i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span></button>
-      <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white"><i data-lucide="globe" class="w-4 h-4 mr-1"></i><select id="langSelect" class="bg-transparent focus:outline-none text-gray-900"><option value="en">EN</option><option value="de">DE</option><option value="it">IT</option><option value="hr">HR</option><option value="fr">FR</option><option value="ru">RU</option></select></div>
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='index.html'">
+        <i data-lucide="home" class="w-4 h-4"></i> <span id="home">Home</span>
+      </button>
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='tasks.html'">
+        <i data-lucide="pen-tool" class="w-4 h-4"></i> <span id="tasksNav">Tasks</span>
+      </button>
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='scoreboard.html'">
+        <i data-lucide="bar-chart-3" class="w-4 h-4"></i> <span id="scoreboard">Scoreboard</span>
+      </button>
+      <button id="loginBtn" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1" onclick="location.href='login.html'">
+        <i data-lucide="user" class="w-4 h-4 mr-1"></i> <span id="login">Login</span>
+      </button>
+      <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
+        <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span>
+      </button>
+      <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white">
+        <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
+        <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900">
+          <option value="en">EN</option>
+          <option value="de">DE</option>
+          <option value="it">IT</option>
+          <option value="hr">HR</option>
+          <option value="fr">FR</option>
+          <option value="ru">RU</option>
+        </select>
+      </div>
     </nav>
   </header>
-  <main class="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-8 px-6 py-10">
-    <section class="rounded-3xl border border-gray-200 bg-white p-8 shadow-sm"><h1 id="pageTitle" class="text-3xl font-bold text-gray-900">HLOŽ</h1><p id="pageIntro" class="mt-3 text-base text-gray-600">Browse the full hierarchy or jump straight to a task with search.</p></section>
-    <section class="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm"><label id="searchLabel" for="taskSearch" class="mb-2 block text-sm font-semibold text-gray-700">Search tasks</label><input id="taskSearch" type="search" class="w-full rounded-2xl border border-gray-300 px-4 py-3 text-base text-gray-900 outline-none focus:border-blue-500" /><p id="taskSearchHint" class="mt-2 text-sm text-gray-500"></p><div id="taskSearchResults" class="mt-4 grid gap-3"></div></section>
-    <div class="grid gap-6 xl:grid-cols-[1.2fr_1fr_1.2fr]">
-      <section class="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm"><h2 id="yearsHeading" class="mb-4 text-lg font-semibold text-gray-900">Years</h2><div id="yearButtons" class="flex flex-wrap gap-2"></div></section>
-      <section class="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm"><h2 id="levelsHeading" class="mb-4 text-lg font-semibold text-gray-900">Rounds</h2><div id="levelButtons" class="flex flex-wrap gap-2"></div><h2 id="tasksHeading" class="mb-4 mt-6 text-lg font-semibold text-gray-900">Tasks</h2><div id="taskButtons" class="flex flex-wrap gap-2"></div></section>
-      <section class="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm"><h2 id="selectedHeading" class="mb-4 text-lg font-semibold text-gray-900">Selected task</h2><div id="selectedTask"></div></section>
+
+  <main class="browser-main">
+    <section class="browser-panel">
+      <div class="browser-toolbar">
+        <h1 id="pageTitle" class="browser-title">HLOZ</h1>
+        <div class="browser-search-block">
+          <label id="searchLabel" for="taskSearch" class="browser-search-label">Search tasks</label>
+          <input id="taskSearch" type="search" class="browser-search-input" />
+          <p id="taskSearchHint" class="browser-search-hint"></p>
+        </div>
+      </div>
+      <div id="taskSearchResults" class="browser-results"></div>
+    </section>
+
+    <div id="hierarchySection" class="browser-grid">
+      <section class="browser-panel">
+        <h2 id="yearsHeading" class="browser-panel-title">Years</h2>
+        <div id="yearButtons" class="chip-wrap"></div>
+      </section>
+
+      <section class="browser-panel">
+        <h2 id="levelsHeading" class="browser-panel-title">Rounds</h2>
+        <div id="levelButtons" class="chip-wrap"></div>
+        <h2 id="tasksHeading" class="browser-panel-title mt-6">Tasks</h2>
+        <div id="taskButtons" class="chip-wrap"></div>
+      </section>
+
+      <section class="browser-panel">
+        <h2 id="selectedHeading" class="browser-panel-title">Selected task</h2>
+        <div id="selectedTask"></div>
+      </section>
     </div>
   </main>
+
   <script src="task-browser.js"></script>
-  <script>window.TaskBrowser.initPageBrowser({ pageKey: "HLOZ" });</script>
+  <script>
+    window.TaskBrowser.initPageBrowser({ pageKey: "HLOZ" });
+  </script>
 </body>
 </html>

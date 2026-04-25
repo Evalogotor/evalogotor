@@ -11,9 +11,9 @@
   <link rel="stylesheet" href="task-browser.css" />
   <style>
     .highlight {
-      font-weight: bold;
-      font-size: 1.25rem;
       color: rgb(57, 220, 57);
+      font-size: 1.25rem;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -52,34 +52,34 @@
     </nav>
   </header>
 
-  <main class="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-8 px-6 py-10">
-    <section class="rounded-3xl border border-gray-200 bg-white p-8 shadow-sm">
-      <h1 id="pageTitle" class="text-3xl font-bold text-gray-900">Fifth Grade</h1>
-      <p id="pageIntro" class="mt-3 text-base text-gray-600">Browse the full hierarchy or jump straight to a task with search.</p>
+  <main class="browser-main">
+    <section class="browser-panel">
+      <div class="browser-toolbar">
+        <h1 id="pageTitle" class="browser-title">Fifth Grade</h1>
+        <div class="browser-search-block">
+          <label id="searchLabel" for="taskSearch" class="browser-search-label">Search tasks</label>
+          <input id="taskSearch" type="search" class="browser-search-input" />
+          <p id="taskSearchHint" class="browser-search-hint"></p>
+        </div>
+      </div>
+      <div id="taskSearchResults" class="browser-results"></div>
     </section>
 
-    <section class="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-      <label id="searchLabel" for="taskSearch" class="mb-2 block text-sm font-semibold text-gray-700">Search tasks</label>
-      <input id="taskSearch" type="search" class="w-full rounded-2xl border border-gray-300 px-4 py-3 text-base text-gray-900 outline-none focus:border-blue-500" />
-      <p id="taskSearchHint" class="mt-2 text-sm text-gray-500"></p>
-      <div id="taskSearchResults" class="mt-4 grid gap-3"></div>
-    </section>
-
-    <div class="grid gap-6 xl:grid-cols-[1.2fr_1fr_1.2fr]">
-      <section class="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-        <h2 id="yearsHeading" class="mb-4 text-lg font-semibold text-gray-900">Years</h2>
-        <div id="yearButtons" class="flex flex-wrap gap-2"></div>
+    <div id="hierarchySection" class="browser-grid">
+      <section class="browser-panel">
+        <h2 id="yearsHeading" class="browser-panel-title">Years</h2>
+        <div id="yearButtons" class="chip-wrap"></div>
       </section>
 
-      <section class="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-        <h2 id="levelsHeading" class="mb-4 text-lg font-semibold text-gray-900">Rounds</h2>
-        <div id="levelButtons" class="flex flex-wrap gap-2"></div>
-        <h2 id="tasksHeading" class="mb-4 mt-6 text-lg font-semibold text-gray-900">Tasks</h2>
-        <div id="taskButtons" class="flex flex-wrap gap-2"></div>
+      <section class="browser-panel">
+        <h2 id="levelsHeading" class="browser-panel-title">Rounds</h2>
+        <div id="levelButtons" class="chip-wrap"></div>
+        <h2 id="tasksHeading" class="browser-panel-title mt-6">Tasks</h2>
+        <div id="taskButtons" class="chip-wrap"></div>
       </section>
 
-      <section class="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-        <h2 id="selectedHeading" class="mb-4 text-lg font-semibold text-gray-900">Selected task</h2>
+      <section class="browser-panel">
+        <h2 id="selectedHeading" class="browser-panel-title">Selected task</h2>
         <div id="selectedTask"></div>
       </section>
     </div>

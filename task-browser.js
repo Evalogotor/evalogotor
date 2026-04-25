@@ -8,6 +8,15 @@
     HLOZ: { route: "HLOZ.html", category: "HLOZ" },
   };
 
+  const CATEGORY_BAR_CLASSES = [
+    "bg-blue-500",
+    "bg-green-500",
+    "bg-purple-500",
+    "bg-red-500",
+    "bg-yellow-500",
+    "bg-indigo-500",
+  ];
+
   const PAGE_TITLES = {
     en: {
       Peti: "Fifth Grade",
@@ -15,15 +24,15 @@
       Sedmi: "Seventh Grade",
       Osmi: "Eighth Grade",
       HLL: "HLL",
-      HLOZ: "HLOŽ",
+      HLOZ: "HLOZ",
     },
     hr: {
       Peti: "Peti razred",
-      Sesti: "Šesti razred",
+      Sesti: "Sesti razred",
       Sedmi: "Sedmi razred",
       Osmi: "Osmi razred",
       HLL: "HLL",
-      HLOZ: "HLOŽ",
+      HLOZ: "HLOZ",
     },
   };
 
@@ -36,7 +45,7 @@
       themeDark: "Dark",
       themeLight: "Light",
       pageIntro: "Browse the full hierarchy or jump straight to a task with search.",
-      globalIntro: "Search every task across 5th, 6th, 7th, 8th grade, HLL and HLOŽ.",
+      globalIntro: "Search every task across 5th, 6th, 7th, 8th grade, HLL and HLOZ.",
       searchLabel: "Search tasks",
       searchPlaceholder: "Start typing a task name...",
       searchHint: "Same-name matches are sorted from most popular to least popular.",
@@ -55,7 +64,6 @@
       chooseHierarchy: "Choose hierarchy",
       globalSearchTitle: "Task Search",
       categoriesTitle: "Competition Categories",
-      openPage: "Open page",
       unavailable: "Unavailable",
     },
     hr: {
@@ -65,12 +73,12 @@
       login: "Prijava",
       themeDark: "Tamno",
       themeLight: "Svijetlo",
-      pageIntro: "Pregledaj hijerarhiju ili odmah pronađi zadatak kroz pretragu.",
-      globalIntro: "Pretraži sve zadatke za 5., 6., 7., 8. razred, HLL i HLOŽ.",
-      searchLabel: "Pretraži zadatke",
-      searchPlaceholder: "Počni upisivati naziv zadatka...",
+      pageIntro: "Pregledaj hijerarhiju ili odmah pronadi zadatak kroz pretragu.",
+      globalIntro: "Pretrazi sve zadatke za 5., 6., 7., 8. razred, HLL i HLOZ.",
+      searchLabel: "Pretrazi zadatke",
+      searchPlaceholder: "Pocni upisivati naziv zadatka...",
       searchHint: "Zadaci istog imena sortirani su od najpopularnijeg prema manje popularnima.",
-      noResults: "Nema odgovarajućih zadataka.",
+      noResults: "Nema odgovarajucih zadataka.",
       years: "Godine",
       levels: "Kola",
       tasksHeading: "Zadaci",
@@ -78,14 +86,13 @@
       chooseTask: "Odaberi zadatak kako bi vidio detalje i otvorio evaluaciju.",
       openTask: "Otvori zadatak",
       evaluate: "Evaluiraj",
-      evaluatorMissing: "Ovaj zadatak još nije dodan u evaluator.",
+      evaluatorMissing: "Ovaj zadatak jos nije dodan u evaluator.",
       points: "Bodovi",
-      attempts: "pokušaja",
+      attempts: "pokusaja",
       openHierarchy: "Otvori hijerarhiju",
       chooseHierarchy: "Odaberi hijerarhiju",
       globalSearchTitle: "Pretraga zadataka",
       categoriesTitle: "Kategorije natjecanja",
-      openPage: "Otvori stranicu",
       unavailable: "Nedostupno",
     },
   };
@@ -130,6 +137,7 @@
 
   function buildHierarchyLabel(item, includePage, lang) {
     const bits = [];
+
     if (includePage) {
       bits.push(pageTitle(item.page_key, lang));
     }
@@ -142,7 +150,8 @@
     if (typeof item.submission_count === "number") {
       bits.push(`${item.submission_count} ${tr(lang, "attempts")}`);
     }
-    return bits.join(" · ");
+
+    return bits.join(" | ");
   }
 
   function groupSearchResults(items) {
@@ -168,6 +177,7 @@
       darkMode = "dark";
       localStorage.setItem("theme", darkMode);
     }
+
     const isDark = darkMode === "dark";
 
     if (window.clearThemePreloadStyle) {
@@ -239,6 +249,7 @@
       const homeLabel = document.getElementById("home");
       const tasksLabel = document.getElementById("tasksNav");
       const scoreboardLabel = document.getElementById("scoreboard");
+
       if (homeLabel) {
         homeLabel.textContent = tr(currentLang, "home");
       }
@@ -251,6 +262,7 @@
       if (window.EvalogotorApi && window.EvalogotorApi.syncLoginButton) {
         window.EvalogotorApi.syncLoginButton(tr(currentLang, "login"));
       }
+
       applyTheme({ ...elements, lang: currentLang });
       if (typeof options.onLanguageChanged === "function") {
         options.onLanguageChanged(currentLang);
@@ -286,6 +298,7 @@
       task: item.task,
       _: Date.now().toString(),
     });
+
     return window.EvalogotorApi.apiRequest(`/api/task_info?${params.toString()}`, {
       cache: "no-store",
     });
@@ -301,11 +314,17 @@
 
   function createSearchResultMarkup(groups, includePage, lang) {
     if (!groups.length) {
-      return `<div class="rounded-xl border border-dashed border-gray-300 px-4 py-3 text-sm text-gray-500">${escapeHtml(tr(lang, "noResults"))}</div>`;
+      return `<div class="browser-empty">${escapeHtml(tr(lang, "noResults"))}</div>`;
     }
 
     return groups
       .map((group, groupIndex) => {
+        const firstItem = group.items[0];
+        const subtitle =
+          group.items.length > 1
+            ? tr(lang, "chooseHierarchy")
+            : buildHierarchyLabel(firstItem, includePage, lang);
+
         const options = group.items
           .map((item, itemIndex) => {
             const label = buildHierarchyLabel(item, includePage, lang);
@@ -314,17 +333,17 @@
           .join("");
 
         return `
-          <div class="rounded-2xl border border-gray-200 bg-white/80 p-4 shadow-sm">
-            <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <div class="search-result-card">
+            <div class="search-result-top">
               <div>
-                <div class="text-lg font-semibold text-gray-900">${escapeHtml(group.title)}</div>
-                <div class="text-sm text-gray-500">${escapeHtml(tr(lang, "searchHint"))}</div>
+                <div class="search-result-title">${escapeHtml(group.title)}</div>
+                <div class="search-result-subtitle">${escapeHtml(subtitle)}</div>
               </div>
-              <div class="flex w-full flex-col gap-2 md:w-auto md:flex-row">
-                <select class="task-search-select min-w-[280px] rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900" data-group-index="${groupIndex}">
+              <div class="search-result-controls">
+                <select class="task-search-select search-result-select" data-group-index="${groupIndex}">
                   ${options}
                 </select>
-                <button class="task-search-open rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700" data-group-index="${groupIndex}">
+                <button class="task-search-open search-result-button" data-group-index="${groupIndex}">
                   ${escapeHtml(tr(lang, "openHierarchy"))}
                 </button>
               </div>
@@ -358,6 +377,7 @@
       levelButtons: document.getElementById("levelButtons"),
       taskButtons: document.getElementById("taskButtons"),
       selectedTask: document.getElementById("selectedTask"),
+      hierarchySection: document.getElementById("hierarchySection"),
     };
 
     function selectedTaskIdentity(item) {
@@ -386,15 +406,35 @@
 
     function updateText() {
       lang = getLanguage();
-      elements.pageTitle.textContent = pageTitle(config.pageKey, lang);
-      elements.pageIntro.textContent = tr(lang, "pageIntro");
-      elements.searchLabel.textContent = tr(lang, "searchLabel");
-      elements.searchInput.placeholder = tr(lang, "searchPlaceholder");
-      elements.searchHint.textContent = tr(lang, "searchHint");
-      elements.yearsHeading.textContent = tr(lang, "years");
-      elements.levelsHeading.textContent = tr(lang, "levels");
-      elements.tasksHeading.textContent = tr(lang, "tasksHeading");
-      elements.selectedHeading.textContent = tr(lang, "selectedTask");
+
+      if (elements.pageTitle) {
+        elements.pageTitle.textContent = pageTitle(config.pageKey, lang);
+      }
+      if (elements.pageIntro) {
+        elements.pageIntro.textContent = tr(lang, "pageIntro");
+      }
+      if (elements.searchLabel) {
+        elements.searchLabel.textContent = tr(lang, "searchLabel");
+      }
+      if (elements.searchInput) {
+        elements.searchInput.placeholder = tr(lang, "searchPlaceholder");
+      }
+      if (elements.searchHint) {
+        elements.searchHint.textContent = tr(lang, "searchHint");
+      }
+      if (elements.yearsHeading) {
+        elements.yearsHeading.textContent = tr(lang, "years");
+      }
+      if (elements.levelsHeading) {
+        elements.levelsHeading.textContent = tr(lang, "levels");
+      }
+      if (elements.tasksHeading) {
+        elements.tasksHeading.textContent = tr(lang, "tasksHeading");
+      }
+      if (elements.selectedHeading) {
+        elements.selectedHeading.textContent = tr(lang, "selectedTask");
+      }
+
       renderAll();
     }
 
@@ -405,11 +445,13 @@
       }
 
       elements.yearButtons.innerHTML = payload.years
-        .map((entry) => `
-          <button class="catalog-chip ${entry.value === selectedYear ? "catalog-chip-active" : ""}" data-year="${escapeHtml(entry.value)}">
-            ${escapeHtml(entry.label)}
-          </button>
-        `)
+        .map((entry) => {
+          return `
+            <button class="catalog-chip ${entry.value === selectedYear ? "catalog-chip-active" : ""}" data-year="${escapeHtml(entry.value)}">
+              ${escapeHtml(entry.label)}
+            </button>
+          `;
+        })
         .join("");
 
       elements.yearButtons.querySelectorAll("[data-year]").forEach((button) => {
@@ -418,11 +460,7 @@
           const levels = currentYearEntry() ? currentYearEntry().levels : [];
           selectedLevel = levels[0] ? levels[0].value : "";
           const levelEntry = currentLevelEntry();
-          if (levelEntry && levelEntry.tasks.length) {
-            selectedTaskKey = selectedTaskIdentity(levelEntry.tasks[0]);
-          } else {
-            selectedTaskKey = "";
-          }
+          selectedTaskKey = levelEntry && levelEntry.tasks.length ? selectedTaskIdentity(levelEntry.tasks[0]) : "";
           renderAll();
         });
       });
@@ -447,22 +485,20 @@
       }
 
       elements.levelButtons.innerHTML = levels
-        .map((entry) => `
-          <button class="catalog-chip ${entry.value === selectedLevel ? "catalog-chip-active" : ""}" data-level="${escapeHtml(entry.value)}">
-            ${escapeHtml(entry.label || tr(lang, "levels"))}
-          </button>
-        `)
+        .map((entry) => {
+          return `
+            <button class="catalog-chip ${entry.value === selectedLevel ? "catalog-chip-active" : ""}" data-level="${escapeHtml(entry.value)}">
+              ${escapeHtml(entry.label || tr(lang, "levels"))}
+            </button>
+          `;
+        })
         .join("");
 
       elements.levelButtons.querySelectorAll("[data-level]").forEach((button) => {
         button.addEventListener("click", () => {
           selectedLevel = button.dataset.level;
           const levelEntry = currentLevelEntry();
-          if (levelEntry && levelEntry.tasks.length) {
-            selectedTaskKey = selectedTaskIdentity(levelEntry.tasks[0]);
-          } else {
-            selectedTaskKey = "";
-          }
+          selectedTaskKey = levelEntry && levelEntry.tasks.length ? selectedTaskIdentity(levelEntry.tasks[0]) : "";
           renderAll();
         });
       });
@@ -480,11 +516,14 @@
       }
 
       elements.taskButtons.innerHTML = levelEntry.tasks
-        .map((item) => `
-          <button class="catalog-chip ${selectedTaskIdentity(item) === selectedTaskKey ? "catalog-chip-active" : ""}" data-task-key="${escapeHtml(selectedTaskIdentity(item))}">
-            ${escapeHtml(item.display_task)}
-          </button>
-        `)
+        .map((item) => {
+          const isActive = selectedTaskIdentity(item) === selectedTaskKey;
+          return `
+            <button class="catalog-chip ${isActive ? "catalog-chip-active" : ""}" data-task-key="${escapeHtml(selectedTaskIdentity(item))}">
+              ${escapeHtml(item.display_task)}
+            </button>
+          `;
+        })
         .join("");
 
       elements.taskButtons.querySelectorAll("[data-task-key]").forEach((button) => {
@@ -497,33 +536,30 @@
 
     async function renderSelectedTask() {
       const item = currentTaskEntry();
+
       if (!item) {
-        elements.selectedTask.innerHTML = `
-          <div class="rounded-2xl border border-dashed border-gray-300 bg-white/70 p-6 text-sm text-gray-500">
-            ${escapeHtml(tr(lang, "chooseTask"))}
-          </div>
-        `;
+        elements.selectedTask.innerHTML = `<div class="browser-empty">${escapeHtml(tr(lang, "chooseTask"))}</div>`;
         return;
       }
 
       const token = ++renderToken;
       elements.selectedTask.innerHTML = `
-        <div class="rounded-3xl border border-gray-200 bg-white p-6 shadow-lg">
-          <div class="mb-3 text-2xl font-bold text-gray-900">${escapeHtml(item.display_task)}</div>
-          <div class="mb-6 text-sm text-gray-500">${escapeHtml(buildHierarchyLabel(item, false, lang))}</div>
-          <div class="flex flex-wrap gap-3">
+        <div class="selected-task-card">
+          <div class="selected-task-title">${escapeHtml(item.display_task)}</div>
+          <div class="selected-task-subtitle">${escapeHtml(buildHierarchyLabel(item, false, lang))}</div>
+          <div class="selected-task-actions">
             ${
               item.source_url
-                ? `<button id="openTaskBtn" class="rounded-xl border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-100">${escapeHtml(tr(lang, "openTask"))}</button>`
-                : `<button class="rounded-xl border border-gray-200 bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-400" disabled>${escapeHtml(tr(lang, "openTask"))}</button>`
+                ? `<button id="openTaskBtn" class="selected-task-button selected-task-button-secondary">${escapeHtml(tr(lang, "openTask"))}</button>`
+                : `<button class="selected-task-button selected-task-button-disabled" disabled>${escapeHtml(tr(lang, "openTask"))}</button>`
             }
             ${
               item.has_local_task
-                ? `<button id="evaluateTaskBtn" class="rounded-xl bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700">${escapeHtml(tr(lang, "evaluate"))}</button>`
-                : `<button class="rounded-xl bg-gray-300 px-4 py-2 text-sm font-semibold text-gray-600" disabled>${escapeHtml(tr(lang, "unavailable"))}</button>`
+                ? `<button id="evaluateTaskBtn" class="selected-task-button selected-task-button-primary">${escapeHtml(tr(lang, "evaluate"))}</button>`
+                : `<button class="selected-task-button selected-task-button-disabled" disabled>${escapeHtml(tr(lang, "unavailable"))}</button>`
             }
           </div>
-          <div id="selectedTaskMeta" class="mt-5 text-sm text-gray-600">${escapeHtml(tr(lang, "chooseTask"))}</div>
+          <div id="selectedTaskMeta" class="selected-task-meta">${escapeHtml(tr(lang, "chooseTask"))}</div>
         </div>
       `;
 
@@ -545,13 +581,16 @@
         if (token !== renderToken) {
           return;
         }
+
         const maxPoints = info && info.max_points != null ? info.max_points : item.max_points;
         const bestPoints = info && info.user_progress ? info.user_progress.best_points : 0;
+
         if (maxPoints != null) {
           localStorage.setItem("taskPoints", String(maxPoints));
         } else {
           localStorage.removeItem("taskPoints");
         }
+
         const meta = item.has_local_task
           ? `${tr(lang, "points")}: ${bestPoints} / ${maxPoints != null ? maxPoints : "?"}`
           : tr(lang, "evaluatorMissing");
@@ -583,46 +622,54 @@
       selectedLevel = item.level;
       selectedTaskKey = selectedTaskIdentity(item);
       renderAll();
-      elements.selectedTask.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      const scrollTarget = elements.hierarchySection || elements.selectedTask;
+      if (scrollTarget) {
+        scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
 
-    let searchTimer = null;
-    elements.searchInput.addEventListener("input", () => {
-      const query = elements.searchInput.value.trim();
-      clearTimeout(searchTimer);
+    if (elements.searchInput) {
+      let searchTimer = null;
 
-      if (query.length < 2) {
-        searchContainer.innerHTML = "";
-        return;
-      }
+      elements.searchInput.addEventListener("input", () => {
+        const query = elements.searchInput.value.trim();
+        clearTimeout(searchTimer);
 
-      searchTimer = setTimeout(async () => {
-        const params = new URLSearchParams({
-          page_key: config.pageKey,
-          q: query,
-          limit: "80",
-        });
-        const response = await window.EvalogotorApi.apiRequest(`/api/catalog/search?${params.toString()}`, {
-          cache: "no-store",
-        });
-        const groups = groupSearchResults(response.items || []);
-        searchContainer.innerHTML = createSearchResultMarkup(groups, false, lang);
-        searchContainer.querySelectorAll(".task-search-open").forEach((button) => {
-          button.addEventListener("click", () => {
-            const groupIndex = Number(button.dataset.groupIndex);
-            const select = searchContainer.querySelector(`select[data-group-index="${groupIndex}"]`);
-            if (!select) {
-              return;
-            }
-            const [resolvedGroupIndex, itemIndex] = select.value.split(":").map(Number);
-            const item = groups[resolvedGroupIndex] && groups[resolvedGroupIndex].items[itemIndex];
-            if (item) {
-              selectHierarchy(item);
-            }
+        if (query.length < 2) {
+          searchContainer.innerHTML = "";
+          return;
+        }
+
+        searchTimer = setTimeout(async () => {
+          const params = new URLSearchParams({
+            page_key: config.pageKey,
+            q: query,
+            limit: "80",
           });
-        });
-      }, 180);
-    });
+          const response = await window.EvalogotorApi.apiRequest(`/api/catalog/search?${params.toString()}`, {
+            cache: "no-store",
+          });
+          const groups = groupSearchResults(response.items || []);
+          searchContainer.innerHTML = createSearchResultMarkup(groups, false, lang);
+          searchContainer.querySelectorAll(".task-search-open").forEach((button) => {
+            button.addEventListener("click", () => {
+              const groupIndex = Number(button.dataset.groupIndex);
+              const select = searchContainer.querySelector(`select[data-group-index="${groupIndex}"]`);
+              if (!select) {
+                return;
+              }
+
+              const [resolvedGroupIndex, itemIndex] = select.value.split(":").map(Number);
+              const item = groups[resolvedGroupIndex] && groups[resolvedGroupIndex].items[itemIndex];
+              if (item) {
+                selectHierarchy(item);
+              }
+            });
+          });
+        }, 180);
+      });
+    }
 
     async function init() {
       payload = await window.EvalogotorApi.apiRequest(`/api/catalog/page/${encodeURIComponent(config.pageKey)}`, {
@@ -642,26 +689,36 @@
       const requestedYear = params.get("year");
       const requestedLevel = params.get("level");
       const requestedTask = params.get("task");
+      let matchedRequestedTask = false;
 
       if (requestedYear && requestedTask) {
         for (const yearEntry of payload.years || []) {
           for (const levelEntry of yearEntry.levels || []) {
-            const match = (levelEntry.tasks || []).find(
-              (item) =>
+            const match = (levelEntry.tasks || []).find((item) => {
+              return (
                 item.year === requestedYear &&
                 item.level === (requestedLevel || item.level) &&
-                item.task === requestedTask,
-            );
+                item.task === requestedTask
+              );
+            });
+
             if (match) {
               selectedYear = match.year;
               selectedLevel = match.level;
               selectedTaskKey = selectedTaskIdentity(match);
+              matchedRequestedTask = true;
             }
           }
         }
       }
 
       updateText();
+
+      if (matchedRequestedTask && elements.hierarchySection) {
+        requestAnimationFrame(() => {
+          elements.hierarchySection.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
     }
 
     setupChrome({
@@ -670,9 +727,7 @@
 
     init().catch((error) => {
       elements.selectedTask.innerHTML = `
-        <div class="rounded-2xl border border-red-200 bg-red-50 p-5 text-sm text-red-700">
-          ${escapeHtml(String(error && error.message ? error.message : error))}
-        </div>
+        <div class="browser-empty">${escapeHtml(String(error && error.message ? error.message : error))}</div>
       `;
     });
   }
@@ -692,73 +747,91 @@
 
     function updateLandingText() {
       lang = getLanguage();
-      elements.pageTitle.textContent = tr(lang, "globalSearchTitle");
-      elements.pageIntro.textContent = tr(lang, "globalIntro");
-      elements.searchLabel.textContent = tr(lang, "searchLabel");
-      elements.searchInput.placeholder = tr(lang, "searchPlaceholder");
-      elements.searchHint.textContent = tr(lang, "searchHint");
-      elements.categoriesTitle.textContent = tr(lang, "categoriesTitle");
+
+      if (elements.pageTitle) {
+        elements.pageTitle.textContent = tr(lang, "globalSearchTitle");
+      }
+      if (elements.pageIntro) {
+        elements.pageIntro.textContent = tr(lang, "globalIntro");
+      }
+      if (elements.searchLabel) {
+        elements.searchLabel.textContent = tr(lang, "searchLabel");
+      }
+      if (elements.searchInput) {
+        elements.searchInput.placeholder = tr(lang, "searchPlaceholder");
+      }
+      if (elements.searchHint) {
+        elements.searchHint.textContent = tr(lang, "searchHint");
+      }
+      if (elements.categoriesTitle) {
+        elements.categoriesTitle.textContent = tr(lang, "categoriesTitle");
+      }
+
       renderCards();
     }
 
     function renderCards() {
       elements.cardsWrap.innerHTML = Object.entries(PAGE_DEFINITIONS)
         .map(([pageKey, definition], index) => {
-          const barColors = ["bg-blue-500", "bg-green-500", "bg-purple-500", "bg-red-500", "bg-yellow-500", "bg-indigo-500"];
           return `
-            <a href="${escapeHtml(definition.route)}" class="overflow-hidden rounded-2xl shadow-md transition hover:shadow-lg">
-              <div class="bg-white p-6 text-center text-gray-900">
-                <h3 class="text-lg font-semibold">${escapeHtml(pageTitle(pageKey, lang))}</h3>
+            <a href="${escapeHtml(definition.route)}" class="category-card">
+              <div class="category-card-body">
+                <h3>${escapeHtml(pageTitle(pageKey, lang))}</h3>
               </div>
-              <div class="h-2 ${barColors[index % barColors.length]}"></div>
+              <div class="category-card-bar ${CATEGORY_BAR_CLASSES[index % CATEGORY_BAR_CLASSES.length]}"></div>
             </a>
           `;
         })
         .join("");
     }
 
-    let searchTimer = null;
-    elements.searchInput.addEventListener("input", () => {
-      const query = elements.searchInput.value.trim();
-      clearTimeout(searchTimer);
+    if (elements.searchInput) {
+      let searchTimer = null;
 
-      if (query.length < 2) {
-        elements.searchResults.innerHTML = "";
-        return;
-      }
+      elements.searchInput.addEventListener("input", () => {
+        const query = elements.searchInput.value.trim();
+        clearTimeout(searchTimer);
 
-      searchTimer = setTimeout(async () => {
-        const params = new URLSearchParams({
-          q: query,
-          limit: "120",
-        });
-        const response = await window.EvalogotorApi.apiRequest(`/api/catalog/search?${params.toString()}`, {
-          cache: "no-store",
-        });
-        const groups = groupSearchResults(response.items || []);
-        elements.searchResults.innerHTML = createSearchResultMarkup(groups, true, lang);
-        elements.searchResults.querySelectorAll(".task-search-open").forEach((button) => {
-          button.addEventListener("click", () => {
-            const groupIndex = Number(button.dataset.groupIndex);
-            const select = elements.searchResults.querySelector(`select[data-group-index="${groupIndex}"]`);
-            if (!select) {
-              return;
-            }
-            const [resolvedGroupIndex, itemIndex] = select.value.split(":").map(Number);
-            const item = groups[resolvedGroupIndex] && groups[resolvedGroupIndex].items[itemIndex];
-            if (!item) {
-              return;
-            }
-            const params = new URLSearchParams({
-              year: item.year,
-              level: item.level,
-              task: item.task,
-            });
-            window.location.href = `${item.route}?${params.toString()}`;
+        if (query.length < 2) {
+          elements.searchResults.innerHTML = "";
+          return;
+        }
+
+        searchTimer = setTimeout(async () => {
+          const params = new URLSearchParams({
+            q: query,
+            limit: "120",
           });
-        });
-      }, 180);
-    });
+          const response = await window.EvalogotorApi.apiRequest(`/api/catalog/search?${params.toString()}`, {
+            cache: "no-store",
+          });
+          const groups = groupSearchResults(response.items || []);
+          elements.searchResults.innerHTML = createSearchResultMarkup(groups, true, lang);
+          elements.searchResults.querySelectorAll(".task-search-open").forEach((button) => {
+            button.addEventListener("click", () => {
+              const groupIndex = Number(button.dataset.groupIndex);
+              const select = elements.searchResults.querySelector(`select[data-group-index="${groupIndex}"]`);
+              if (!select) {
+                return;
+              }
+
+              const [resolvedGroupIndex, itemIndex] = select.value.split(":").map(Number);
+              const item = groups[resolvedGroupIndex] && groups[resolvedGroupIndex].items[itemIndex];
+              if (!item) {
+                return;
+              }
+
+              const params = new URLSearchParams({
+                year: item.year,
+                level: item.level,
+                task: item.task,
+              });
+              window.location.href = `${item.route}?${params.toString()}`;
+            });
+          });
+        }, 180);
+      });
+    }
 
     setupChrome({
       onLanguageChanged: updateLandingText,
