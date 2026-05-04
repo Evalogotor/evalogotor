@@ -10,11 +10,7 @@
   <script src="api-client.js"></script>
   <link rel="stylesheet" href="task-browser.css" />
   <style>
-    .highlight {
-      color: rgb(57, 220, 57);
-      font-size: 1.25rem;
-      font-weight: bold;
-    }
+    .highlight { font-weight: bold; font-size: 1.25rem; color: rgb(57, 220, 57); }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors" id="body">
@@ -53,41 +49,35 @@
   </header>
 
   <main class="browser-main">
-    <section class="browser-panel">
-      <div class="browser-toolbar">
-        <h1 id="pageTitle" class="browser-title">Fifth Grade</h1>
-        <div class="browser-search-block">
-          <label id="searchLabel" for="taskSearch" class="browser-search-label">Search tasks</label>
-          <input id="taskSearch" type="search" class="browser-search-input" />
-          <p id="taskSearchHint" class="browser-search-hint"></p>
-        </div>
-      </div>
-      <div id="taskSearchResults" class="browser-results"></div>
+    <h1 id="pageTitle" class="browser-hidden-label">Fifth Grade</h1>
+    <section class="grade-search-strip">
+      <label id="searchLabel" for="taskSearch" class="browser-search-label">Search tasks</label>
+      <input id="taskSearch" type="search" class="browser-search-input" />
+      <p id="taskSearchHint" class="browser-search-hint"></p>
     </section>
+    <div id="taskSearchResults" class="browser-results"></div>
 
-    <div id="hierarchySection" class="browser-grid">
-      <section class="browser-panel">
-        <h2 id="yearsHeading" class="browser-panel-title">Years</h2>
-        <div id="yearButtons" class="chip-wrap"></div>
-      </section>
-
-      <section class="browser-panel">
-        <h2 id="levelsHeading" class="browser-panel-title">Rounds</h2>
-        <div id="levelButtons" class="chip-wrap"></div>
-        <h2 id="tasksHeading" class="browser-panel-title mt-6">Tasks</h2>
-        <div id="taskButtons" class="chip-wrap"></div>
-      </section>
-
-      <section class="browser-panel">
-        <h2 id="selectedHeading" class="browser-panel-title">Selected task</h2>
-        <div id="selectedTask"></div>
-      </section>
+    <div class="Dynamic-section">
+      <h2 id="yearsHeading" class="browser-hidden-label">Years</h2>
+      <div id="yearButtons" class="button-line"></div>
+      <div id="hierarchySection" class="container">
+        <section>
+          <h2 id="levelsHeading" class="browser-hidden-label">Rounds</h2>
+          <div id="levelButtons" class="vertical-buttons"></div>
+        </section>
+        <section>
+          <h2 id="tasksHeading" class="browser-hidden-label">Tasks</h2>
+          <div id="taskButtons" class="task-buttons"></div>
+        </section>
+        <section>
+          <h2 id="selectedHeading" class="browser-hidden-label">Selected task</h2>
+          <div id="selectedTask" class="eval-basket"></div>
+        </section>
+      </div>
     </div>
   </main>
 
   <script src="task-browser.js"></script>
-  <script>
-    window.TaskBrowser.initPageBrowser({ pageKey: "Peti" });
-  </script>
+  <script>window.TaskBrowser.initPageBrowser({ pageKey: "Peti" });</script>
 </body>
 </html>

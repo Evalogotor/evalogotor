@@ -10,11 +10,7 @@
   <script src="api-client.js"></script>
   <link rel="stylesheet" href="task-browser.css" />
   <style>
-    .highlight {
-      color: rgb(57, 220, 57);
-      font-size: 1.25rem;
-      font-weight: bold;
-    }
+    .highlight { font-weight: bold; font-size: 1.25rem; color: rgb(57, 220, 57); }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col transition-colors" id="body">
@@ -23,71 +19,21 @@
       <span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">EVA</span><span class="highlight group-hover:text-[rgb(57,220,57)]">LOGO</span><span class="font-bold text-xl text-blue-600 group-hover:text-[rgb(57,220,57)]">TOR</span>
     </div>
     <nav class="flex items-center space-x-4">
-      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='index.html'">
-        <i data-lucide="home" class="w-4 h-4"></i> <span id="home">Home</span>
-      </button>
-      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='tasks.html'">
-        <i data-lucide="pen-tool" class="w-4 h-4"></i> <span id="tasksNav">Tasks</span>
-      </button>
-      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='scoreboard.html'">
-        <i data-lucide="bar-chart-3" class="w-4 h-4"></i> <span id="scoreboard">Scoreboard</span>
-      </button>
-      <button id="loginBtn" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1" onclick="location.href='login.html'">
-        <i data-lucide="user" class="w-4 h-4 mr-1"></i> <span id="login">Login</span>
-      </button>
-      <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1">
-        <i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span>
-      </button>
-      <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white">
-        <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
-        <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900">
-          <option value="en">EN</option>
-          <option value="de">DE</option>
-          <option value="it">IT</option>
-          <option value="hr">HR</option>
-          <option value="fr">FR</option>
-          <option value="ru">RU</option>
-        </select>
-      </div>
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='index.html'"><i data-lucide="home" class="w-4 h-4"></i> <span id="home">Home</span></button>
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='tasks.html'"><i data-lucide="pen-tool" class="w-4 h-4"></i> <span id="tasksNav">Tasks</span></button>
+      <button class="flex items-center space-x-1 rounded-xl px-3 py-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100" onclick="location.href='scoreboard.html'"><i data-lucide="bar-chart-3" class="w-4 h-4"></i> <span id="scoreboard">Scoreboard</span></button>
+      <button id="loginBtn" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1" onclick="location.href='login.html'"><i data-lucide="user" class="w-4 h-4 mr-1"></i> <span id="login">Login</span></button>
+      <button id="themeToggle" class="rounded-xl flex items-center bg-white text-gray-900 hover:bg-gray-100 border border-gray-300 px-3 py-1"><i id="themeIcon" data-lucide="moon" class="w-4 h-4 mr-1"></i> <span id="themeLabel">Dark</span></button>
+      <div class="flex items-center rounded-xl px-2 py-1 border border-gray-300 bg-white"><i data-lucide="globe" class="w-4 h-4 mr-1"></i><select id="langSelect" class="bg-transparent focus:outline-none text-gray-900"><option value="en">EN</option><option value="de">DE</option><option value="it">IT</option><option value="hr">HR</option><option value="fr">FR</option><option value="ru">RU</option></select></div>
     </nav>
   </header>
-
   <main class="browser-main">
-    <section class="browser-panel">
-      <div class="browser-toolbar">
-        <h1 id="pageTitle" class="browser-title">Eighth Grade</h1>
-        <div class="browser-search-block">
-          <label id="searchLabel" for="taskSearch" class="browser-search-label">Search tasks</label>
-          <input id="taskSearch" type="search" class="browser-search-input" />
-          <p id="taskSearchHint" class="browser-search-hint"></p>
-        </div>
-      </div>
-      <div id="taskSearchResults" class="browser-results"></div>
-    </section>
-
-    <div id="hierarchySection" class="browser-grid">
-      <section class="browser-panel">
-        <h2 id="yearsHeading" class="browser-panel-title">Years</h2>
-        <div id="yearButtons" class="chip-wrap"></div>
-      </section>
-
-      <section class="browser-panel">
-        <h2 id="levelsHeading" class="browser-panel-title">Rounds</h2>
-        <div id="levelButtons" class="chip-wrap"></div>
-        <h2 id="tasksHeading" class="browser-panel-title mt-6">Tasks</h2>
-        <div id="taskButtons" class="chip-wrap"></div>
-      </section>
-
-      <section class="browser-panel">
-        <h2 id="selectedHeading" class="browser-panel-title">Selected task</h2>
-        <div id="selectedTask"></div>
-      </section>
-    </div>
+    <h1 id="pageTitle" class="browser-hidden-label">Eighth Grade</h1>
+    <section class="grade-search-strip"><label id="searchLabel" for="taskSearch" class="browser-search-label">Search tasks</label><input id="taskSearch" type="search" class="browser-search-input" /><p id="taskSearchHint" class="browser-search-hint"></p></section>
+    <div id="taskSearchResults" class="browser-results"></div>
+    <div class="Dynamic-section"><h2 id="yearsHeading" class="browser-hidden-label">Years</h2><div id="yearButtons" class="button-line"></div><div id="hierarchySection" class="container"><section><h2 id="levelsHeading" class="browser-hidden-label">Rounds</h2><div id="levelButtons" class="vertical-buttons"></div></section><section><h2 id="tasksHeading" class="browser-hidden-label">Tasks</h2><div id="taskButtons" class="task-buttons"></div></section><section><h2 id="selectedHeading" class="browser-hidden-label">Selected task</h2><div id="selectedTask" class="eval-basket"></div></section></div></div>
   </main>
-
   <script src="task-browser.js"></script>
-  <script>
-    window.TaskBrowser.initPageBrowser({ pageKey: "Osmi" });
-  </script>
+  <script>window.TaskBrowser.initPageBrowser({ pageKey: "Osmi" });</script>
 </body>
 </html>

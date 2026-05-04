@@ -11,9 +11,9 @@
   <link rel="stylesheet" href="task-browser.css" />
   <style>
     .highlight {
-      color: rgb(57, 220, 57);
-      font-size: 1.25rem;
       font-weight: bold;
+      font-size: 1.25rem;
+      color: rgb(57, 220, 57);
     }
   </style>
 </head>
@@ -49,23 +49,18 @@
     </nav>
   </header>
 
-  <main class="browser-main">
-    <section class="browser-panel">
-      <div class="landing-toolbar">
-        <h1 id="globalSearchTitle" class="landing-title">Task Search</h1>
-        <div class="landing-search-block">
-          <label id="globalSearchLabel" for="globalTaskSearch" class="browser-search-label">Search tasks</label>
-          <input id="globalTaskSearch" type="search" class="browser-search-input" />
-          <p id="globalSearchHint" class="browser-search-hint"></p>
-        </div>
-      </div>
-      <div id="globalSearchResults" class="browser-results"></div>
+  <main class="browser-main tasks-browser-main">
+    <h2 id="categoriesTitle" class="instruction-title">Choose the desired competition to practice to continue</h2>
+
+    <section class="tasks-search-strip">
+      <label id="globalSearchLabel" for="globalTaskSearch" class="browser-search-label">Search tasks</label>
+      <input id="globalTaskSearch" type="search" class="browser-search-input" />
+      <p id="globalSearchHint" class="browser-search-hint"></p>
     </section>
 
-    <section class="browser-panel">
-      <h2 id="categoriesTitle" class="browser-panel-title">Competition Categories</h2>
-      <div id="categoryCards" class="category-grid"></div>
-    </section>
+    <div id="globalSearchResults" class="browser-results"></div>
+
+    <div id="categoryCards" class="tasks-category-grid"></div>
   </main>
 
   <script src="task-browser.js"></script>
