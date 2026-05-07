@@ -144,19 +144,26 @@
   align-items: flex-start;
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 34px;
   justify-content: center;
   margin-top: 20px;
   width: 100%;
 }
 
-.vertical-buttons,
-.task-buttons {
+.vertical-buttons {
   align-items: flex-end;
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-  width: 170px;
+  width: 190px;
+}
+
+.task-buttons {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 280px;
 }
 
 .eval-basket {
@@ -191,6 +198,13 @@
 .catalog-chip-active {
   background-color: #2584f2;
   color: #ffffff;
+}
+
+.vertical-buttons .catalog-chip,
+.task-buttons .catalog-chip {
+  min-width: 100%;
+  text-align: center;
+  white-space: normal;
 }
 
 .eval-basket-card {

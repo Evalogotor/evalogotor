@@ -457,10 +457,8 @@
       elements.yearButtons.querySelectorAll("[data-year]").forEach((button) => {
         button.addEventListener("click", () => {
           selectedYear = button.dataset.year;
-          const levels = currentYearEntry() ? currentYearEntry().levels : [];
-          selectedLevel = levels[0] ? levels[0].value : "";
-          const levelEntry = currentLevelEntry();
-          selectedTaskKey = levelEntry && levelEntry.tasks.length ? selectedTaskIdentity(levelEntry.tasks[0]) : "";
+          selectedLevel = "";
+          selectedTaskKey = "";
           renderAll();
         });
       });
@@ -480,10 +478,6 @@
         return;
       }
 
-      if (!selectedLevel && levels[0]) {
-        selectedLevel = levels[0].value;
-      }
-
       elements.levelButtons.innerHTML = levels
         .map((entry) => {
           return `
@@ -497,8 +491,7 @@
       elements.levelButtons.querySelectorAll("[data-level]").forEach((button) => {
         button.addEventListener("click", () => {
           selectedLevel = button.dataset.level;
-          const levelEntry = currentLevelEntry();
-          selectedTaskKey = levelEntry && levelEntry.tasks.length ? selectedTaskIdentity(levelEntry.tasks[0]) : "";
+          selectedTaskKey = "";
           renderAll();
         });
       });
@@ -509,10 +502,6 @@
       if (!levelEntry) {
         elements.taskButtons.innerHTML = "";
         return;
-      }
-
-      if (!selectedTaskKey && levelEntry.tasks[0]) {
-        selectedTaskKey = selectedTaskIdentity(levelEntry.tasks[0]);
       }
 
       elements.taskButtons.innerHTML = levelEntry.tasks
@@ -538,7 +527,7 @@
       const item = currentTaskEntry();
 
       if (!item) {
-        elements.selectedTask.innerHTML = `<div class="browser-empty">${escapeHtml(tr(lang, "chooseTask"))}</div>`;
+        elements.selectedTask.innerHTML = selectedYear ? `<div class="browser-empty">${escapeHtml(tr(lang, "chooseTask"))}</div>` : "";
         return;
       }
 
@@ -681,15 +670,6 @@
       payload = await window.EvalogotorApi.apiRequest(`/api/catalog/page/${encodeURIComponent(config.pageKey)}`, {
         cache: "no-store",
       });
-
-      if (payload.years && payload.years.length) {
-        selectedYear = payload.years[0].value;
-        selectedLevel = payload.years[0].levels[0] ? payload.years[0].levels[0].value : "";
-        selectedTaskKey =
-          payload.years[0].levels[0] && payload.years[0].levels[0].tasks[0]
-            ? selectedTaskIdentity(payload.years[0].levels[0].tasks[0])
-            : "";
-      }
 
       const params = new URLSearchParams(window.location.search);
       const requestedYear = params.get("year");
