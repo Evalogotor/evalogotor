@@ -446,8 +446,9 @@
 
       elements.yearButtons.innerHTML = payload.years
         .map((entry) => {
+          const isActive = entry.value === selectedYear;
           return `
-            <button class="catalog-chip ${entry.value === selectedYear ? "catalog-chip-active" : ""}" data-year="${escapeHtml(entry.value)}">
+            <button class="catalog-chip ${isActive ? "catalog-chip-active active" : ""}" data-year="${escapeHtml(entry.value)}">
               ${escapeHtml(entry.label)}
             </button>
           `;
@@ -480,8 +481,9 @@
 
       elements.levelButtons.innerHTML = levels
         .map((entry) => {
+          const isActive = entry.value === selectedLevel;
           return `
-            <button class="catalog-chip ${entry.value === selectedLevel ? "catalog-chip-active" : ""}" data-level="${escapeHtml(entry.value)}">
+            <button class="catalog-chip ${isActive ? "catalog-chip-active active" : ""}" data-level="${escapeHtml(entry.value)}">
               ${escapeHtml(entry.label || tr(lang, "levels"))}
             </button>
           `;
@@ -508,7 +510,7 @@
         .map((item) => {
           const isActive = selectedTaskIdentity(item) === selectedTaskKey;
           return `
-            <button class="catalog-chip ${isActive ? "catalog-chip-active" : ""}" data-task-key="${escapeHtml(selectedTaskIdentity(item))}">
+            <button class="catalog-chip ${isActive ? "catalog-chip-active active" : ""}" data-task-key="${escapeHtml(selectedTaskIdentity(item))}">
               ${escapeHtml(item.display_task)}
             </button>
           `;

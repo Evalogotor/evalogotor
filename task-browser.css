@@ -135,7 +135,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 1.35rem;
+  margin-top: 2.25rem;
   text-align: center;
   width: 100%;
 }
@@ -146,7 +146,7 @@
   flex-wrap: wrap;
   gap: 40px;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 52px;
   width: 100%;
 }
 
@@ -163,7 +163,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin-top: -65px;
+  margin-top: 0;
   text-align: center;
   width: 400px;
 }
@@ -188,9 +188,16 @@
   background-color: rgb(57, 220, 57);
 }
 
-.catalog-chip-active {
-  background-color: #2584f2;
-  color: #ffffff;
+.catalog-chip-active,
+.catalog-chip.active,
+.button-line .catalog-chip-active,
+.vertical-buttons .catalog-chip-active,
+.task-buttons .catalog-chip-active,
+.button-line .catalog-chip.active,
+.vertical-buttons .catalog-chip.active,
+.task-buttons .catalog-chip.active {
+  background-color: #2584f2 !important;
+  color: #ffffff !important;
 }
 
 .eval-basket-card {
@@ -332,9 +339,11 @@ body.light .catalog-chip {
 }
 
 body.light .catalog-chip-active,
-body.dark .catalog-chip-active {
-  background-color: #2584f2;
-  color: #ffffff;
+body.dark .catalog-chip-active,
+body.light .catalog-chip.active,
+body.dark .catalog-chip.active {
+  background-color: #2584f2 !important;
+  color: #ffffff !important;
 }
 
 body.dark .catalog-chip {
