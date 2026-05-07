@@ -63,7 +63,7 @@
       openHierarchy: "Open hierarchy",
       chooseHierarchy: "Choose hierarchy",
       globalSearchTitle: "Task Search",
-      categoriesTitle: "Competition Categories",
+      categoriesTitle: "Choose the desired competition to practice to continue",
       unavailable: "Unavailable",
     },
     hr: {
@@ -92,7 +92,7 @@
       openHierarchy: "Otvori hijerarhiju",
       chooseHierarchy: "Odaberi hijerarhiju",
       globalSearchTitle: "Pretraga zadataka",
-      categoriesTitle: "Kategorije natjecanja",
+      categoriesTitle: "Odaberite zeljeno natjecanje za vjezbu kako biste nastavili",
       unavailable: "Nedostupno",
     },
   };
@@ -544,22 +544,23 @@
 
       const token = ++renderToken;
       elements.selectedTask.innerHTML = `
-        <div class="selected-task-card">
-          <div class="selected-task-title">${escapeHtml(item.display_task)}</div>
-          <div class="selected-task-subtitle">${escapeHtml(buildHierarchyLabel(item, false, lang))}</div>
+        <div class="eval-basket-card">
+          <div class="selected-task-name">${escapeHtml(item.display_task)}</div>
+          <div class="selected-task-path">${escapeHtml(buildHierarchyLabel(item, false, lang))}</div>
+          <div id="selectedTaskScore" class="score">...</div>
           <div class="selected-task-actions">
             ${
               item.source_url
-                ? `<button id="openTaskBtn" class="selected-task-button selected-task-button-secondary">${escapeHtml(tr(lang, "openTask"))}</button>`
-                : `<button class="selected-task-button selected-task-button-disabled" disabled>${escapeHtml(tr(lang, "openTask"))}</button>`
+                ? `<button id="openTaskBtn" class="selected-task-action selected-task-action-open">${escapeHtml(tr(lang, "openTask"))}</button>`
+                : `<button class="selected-task-action selected-task-action-disabled" disabled>${escapeHtml(tr(lang, "openTask"))}</button>`
             }
             ${
               item.has_local_task
-                ? `<button id="evaluateTaskBtn" class="selected-task-button selected-task-button-primary">${escapeHtml(tr(lang, "evaluate"))}</button>`
-                : `<button class="selected-task-button selected-task-button-disabled" disabled>${escapeHtml(tr(lang, "unavailable"))}</button>`
+                ? `<button id="evaluateTaskBtn" class="selected-task-action selected-task-action-eval">${escapeHtml(tr(lang, "evaluate"))}</button>`
+                : `<button class="selected-task-action selected-task-action-disabled" disabled>${escapeHtml(tr(lang, "unavailable"))}</button>`
             }
           </div>
-          <div id="selectedTaskMeta" class="selected-task-meta">${escapeHtml(tr(lang, "chooseTask"))}</div>
+          <div id="selectedTaskMessage" class="selected-task-message"></div>
         </div>
       `;
 
@@ -591,20 +592,25 @@
           localStorage.removeItem("taskPoints");
         }
 
-        const meta = item.has_local_task
-          ? `${tr(lang, "points")}: ${bestPoints} / ${maxPoints != null ? maxPoints : "?"}`
-          : tr(lang, "evaluatorMissing");
-        const metaEl = document.getElementById("selectedTaskMeta");
-        if (metaEl) {
-          metaEl.textContent = meta;
+        const scoreEl = document.getElementById("selectedTaskScore");
+        const messageEl = document.getElementById("selectedTaskMessage");
+        if (scoreEl) {
+          scoreEl.textContent = item.has_local_task ? `${bestPoints} / ${maxPoints != null ? maxPoints : "?"}` : "? / ?";
+        }
+        if (messageEl) {
+          messageEl.textContent = item.has_local_task ? "" : tr(lang, "evaluatorMissing");
         }
       } catch (_error) {
         if (token !== renderToken) {
           return;
         }
-        const metaEl = document.getElementById("selectedTaskMeta");
-        if (metaEl) {
-          metaEl.textContent = item.has_local_task ? `${tr(lang, "points")}: ?` : tr(lang, "evaluatorMissing");
+        const scoreEl = document.getElementById("selectedTaskScore");
+        const messageEl = document.getElementById("selectedTaskMessage");
+        if (scoreEl) {
+          scoreEl.textContent = item.has_local_task ? "? / ?" : "? / ?";
+        }
+        if (messageEl) {
+          messageEl.textContent = item.has_local_task ? "" : tr(lang, "evaluatorMissing");
         }
       }
     }
