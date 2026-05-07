@@ -144,35 +144,28 @@
   align-items: flex-start;
   display: flex;
   flex-wrap: wrap;
-  gap: 34px;
+  gap: 40px;
   justify-content: center;
   margin-top: 20px;
   width: 100%;
 }
 
-.vertical-buttons {
+.vertical-buttons,
+.task-buttons {
   align-items: flex-end;
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-  width: 190px;
-}
-
-.task-buttons {
-  align-items: stretch;
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-  width: 280px;
+  width: 150px;
 }
 
 .eval-basket {
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin-top: -10px;
+  margin-top: -65px;
   text-align: center;
-  width: 420px;
+  width: 400px;
 }
 
 .browser-hidden-label {
@@ -198,13 +191,6 @@
 .catalog-chip-active {
   background-color: #2584f2;
   color: #ffffff;
-}
-
-.vertical-buttons .catalog-chip,
-.task-buttons .catalog-chip {
-  min-width: 100%;
-  text-align: center;
-  white-space: normal;
 }
 
 .eval-basket-card {
