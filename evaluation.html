@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EVALOGOTOR - Evaluate FMSLogo Code</title>
     <script src="theme-preload.js"></script>
-    
-    <!-- Tailwind CSS -->
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -35,12 +34,10 @@
             }
         }
     </script>
-    
-    <!-- Lucide Icons -->
+
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="api-client.js"></script>
-    
-    <!-- CodeMirror -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/fold/foldgutter.css">
@@ -52,16 +49,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/closebrackets.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/comment/comment.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/display/autorefresh.js"></script>
-    
-    <!-- Toast notifications -->
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    
-    <!-- Confetti animation -->
+
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    
+
     <style>
-        /* Custom scrollbar */
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -77,7 +71,7 @@
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: rgba(0, 0, 0, 0.3);
         }
-        
+
         .dark .custom-scrollbar::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.1);
         }
@@ -87,29 +81,26 @@
         .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 255, 255, 0.3);
         }
-        
-        /* Code editor */
+
         .cm-editor {
             height: 400px;
             border-radius: 10px;
             overflow: hidden;
         }
-        
+
         .cm-scroller {
             font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
             font-size: 14px;
         }
-        
-        /* Glowing effects */
+
         .glow {
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
         }
-        
+
         .dark .glow {
             box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
         }
-        
-        /* Status indicators */
+
         .status-dot {
             width: 10px;
             height: 10px;
@@ -117,91 +108,85 @@
             display: inline-block;
             margin-right: 8px;
         }
-        
+
         .status-pending { background-color: #f59e0b; }
         .status-processing { background-color: #3b82f6; }
         .status-completed { background-color: #10b981; }
         .status-error { background-color: #ef4444; }
-        
-        /* Test result cards */
+
         .test-card {
             transition: all 0.3s ease;
             border-left: 4px solid;
         }
-        
+
         .test-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
-        
+
         .dark .test-card:hover {
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
-        
+
         .test-pass { border-color: #10b981; }
         .test-fail { border-color: #ef4444; }
         .test-error { border-color: #f59e0b; }
-        
-        /* Progress bar */
+
         .progress-gradient {
             background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
             background-size: 300% 100%;
         }
-        
-        /* Loading skeleton */
+
         .skeleton {
-            background: linear-gradient(90deg, 
-                rgba(255, 255, 255, 0.1) 25%, 
-                rgba(255, 255, 255, 0.2) 50%, 
+            background: linear-gradient(90deg,
+                rgba(255, 255, 255, 0.1) 25%,
+                rgba(255, 255, 255, 0.2) 50%,
                 rgba(255, 255, 255, 0.1) 75%);
             background-size: 200% 100%;
             animation: skeleton-loading 1.5s infinite;
         }
-        
+
         .dark .skeleton {
-            background: linear-gradient(90deg, 
-                rgba(0, 0, 0, 0.1) 25%, 
-                rgba(0, 0, 0, 0.2) 50%, 
+            background: linear-gradient(90deg,
+                rgba(0, 0, 0, 0.1) 25%,
+                rgba(0, 0, 0, 0.2) 50%,
                 rgba(0, 0, 0, 0.1) 75%);
             background-size: 200% 100%;
             animation: skeleton-loading 1.5s infinite;
         }
-        
+
         @keyframes skeleton-loading {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
-        
-        /* Typewriter effect */
+
         .typewriter {
             overflow: hidden;
             border-right: .15em solid #3b82f6;
             white-space: nowrap;
             animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
         }
-        
+
         @keyframes typing {
             from { width: 0 }
             to { width: 100% }
         }
-        
+
         @keyframes blink-caret {
             from, to { border-color: transparent }
             50% { border-color: #3b82f6 }
         }
-        
-        /* Floating animation */
+
         @keyframes floating {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
         }
-        
+
         .floating {
             animation: floating 3s ease-in-out infinite;
         }
-    
 
-    /* Language selector (match index.html) */
+
     #langSelect option {
         background-color: white;
         color: black;
@@ -216,12 +201,10 @@
 </head>
 
 <body class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">
-    
-    <!-- Navigation -->
+
     <nav class="fixed top-0 left-0 right-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
                 <div class="flex items-center space-x-3">
                     <button onclick="location.href='index.html'" class="flex items-center space-x-2 group">
                         <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
@@ -233,18 +216,16 @@
                     </button>
                     <span id="navSubtitle" class="text-sm text-gray-500 dark:text-gray-400 hidden md:inline">FMSLogo Evaluator</span>
                 </div>
-                
-                <!-- Right buttons -->
+
                 <div class="flex items-center space-x-4">
-                    <button id="backToTasksButton" onclick="goBackToTasks()" 
+                    <button id="backToTasksButton" onclick="goBackToTasks()"
                             class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium flex items-center space-x-2 transition-all duration-300 hover:shadow-lg">
                         <i data-lucide="arrow-left" class="w-4 h-4"></i>
                         <span id="backToTasksText">Back to Tasks</span>
                     </button>
-                    
-                    
 
-<!-- Language selector -->
+
+
 <div class="flex items-center rounded-lg px-2 py-1 border border-gray-200 dark:border-gray-600 bg-white/70 dark:bg-gray-700/70">
     <i data-lucide="globe" class="w-4 h-4 mr-1"></i>
     <select id="langSelect" class="bg-transparent focus:outline-none text-gray-900 dark:text-gray-100 text-sm">
@@ -258,8 +239,8 @@
 </div>
 
 
-                    
-                    <button id="themeToggle" 
+
+                    <button id="themeToggle"
                             class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
                         <i id="themeIcon" data-lucide="moon" class="w-5 h-5"></i>
                     </button>
@@ -269,8 +250,7 @@
     </nav>
 
     <main class="pt-20 pb-8 px-4 max-w-7xl mx-auto">
-        
-        <!-- Task Header -->
+
         <div class="mb-8">
             <div class="bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 dark:from-blue-500/5 dark:via-purple-500/5 dark:to-pink-500/5 rounded-2xl p-6 border border-blue-200/50 dark:border-blue-500/20">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -305,9 +285,7 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Left Column: Code Editor -->
             <div class="lg:col-span-2 space-y-6">
-                <!-- Code Editor Card -->
                 <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
                     <div class="p-6 border-b border-gray-200 dark:border-gray-700">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -319,17 +297,17 @@
                                 <p id="codeEditorDesc" class="text-gray-500 dark:text-gray-400 text-sm mt-1">Write your FMSLogo solution below</p>
                             </div>
                             <div class="flex flex-wrap gap-2">
-                                <button onclick="loadExample()" 
+                                <button onclick="loadExample()"
                                         class="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center gap-2">
                                     <i data-lucide="lightbulb" class="w-4 h-4"></i>
                                     <span id="btnExample">Example</span>
                                 </button>
-                                <button onclick="loadTemplate()" 
+                                <button onclick="loadTemplate()"
                                         class="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center gap-2">
                                     <i data-lucide="file-text" class="w-4 h-4"></i>
                                     <span id="btnTemplate">Template</span>
                                 </button>
-                                <button onclick="clearCode()" 
+                                <button onclick="clearCode()"
                                         class="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center gap-2">
                                     <i data-lucide="trash-2" class="w-4 h-4"></i>
                                     <span id="btnClear">Clear</span>
@@ -337,13 +315,11 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Editor -->
+
                     <div id="editorContainer" class="p-4">
                         <div id="editor" class="border-0"></div>
                     </div>
-                    
-                    <!-- Editor Stats -->
+
                     <div class="px-6 py-3 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
                         <div class="flex justify-between items-center text-sm">
                             <div class="flex items-center gap-4">
@@ -367,8 +343,7 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Submission Section -->
+
                 <div class="bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 dark:from-blue-500/5 dark:via-purple-500/5 dark:to-pink-500/5 rounded-2xl p-6 border border-blue-200/50 dark:border-blue-500/20">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                         <div>
@@ -394,30 +369,29 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Code Snippets Library -->
+
                 <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6">
                     <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
                         <i data-lucide="library" class="w-5 h-5 text-green-500"></i>
                         <span id="codeSnippetsTitle">Code Snippets</span>
                     </h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <button onclick="insertSnippet('square')" 
+                        <button onclick="insertSnippet('square')"
                                 class="p-3 rounded-lg bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-colors text-left">
                             <div class="font-medium mb-1" id="snippetSquareTitle">Draw Square</div>
                             <div class="text-sm text-gray-500 font-mono">TO SQUARE :SIZE</div>
                         </button>
-                        <button onclick="insertSnippet('circle')" 
+                        <button onclick="insertSnippet('circle')"
                                 class="p-3 rounded-lg bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-colors text-left">
                             <div class="font-medium mb-1" id="snippetCircleTitle">Draw Circle</div>
                             <div class="text-sm text-gray-500 font-mono">CIRCLE :SIZE</div>
                         </button>
-                        <button onclick="insertSnippet('triangle')" 
+                        <button onclick="insertSnippet('triangle')"
                                 class="p-3 rounded-lg bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-colors text-left">
                             <div class="font-medium mb-1" id="snippetTriangleTitle">Draw Triangle</div>
                             <div class="text-sm text-gray-500 font-mono">REPEAT 3 [FD :SIZE RT 120]</div>
                         </button>
-                        <button onclick="insertSnippet('recursive')" 
+                        <button onclick="insertSnippet('recursive')"
                                 class="p-3 rounded-lg bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-colors text-left">
                             <div class="font-medium mb-1" id="snippetRecursiveTitle">Recursive Pattern</div>
                             <div class="text-sm text-gray-500 font-mono">IF :LEVEL = 0 [STOP]</div>
@@ -425,23 +399,20 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Right Column: Status & Results -->
+
             <div class="space-y-6">
-                <!-- Job Status Card -->
                 <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6">
                     <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
                         <i data-lucide="activity" class="w-5 h-5 text-blue-500"></i>
                                 <span id="evalStatusTitle">Evaluation Status</span>
                     </h3>
-                    
-                    <!-- Job Info -->
+
                     <div class="mb-6 p-4 rounded-xl bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 border border-blue-200 dark:border-blue-700/30">
                         <div class="text-center mb-4">
                             <div class="text-2xl font-bold mb-2" id="jobStatusTitle">Ready</div>
                             <div class="text-sm text-gray-600 dark:text-gray-300" id="jobStatusDesc">Waiting for submission</div>
                         </div>
-                        
+
                         <div class="grid grid-cols-2 gap-3 mb-4">
                             <div class="text-center p-3 rounded-lg bg-white dark:bg-gray-800 border">
                                 <div id="jobIdLabel" class="text-xs text-gray-500 mb-1">Job ID</div>
@@ -452,8 +423,7 @@
                                 <div class="font-bold" id="queuePos">-</div>
                             </div>
                         </div>
-                        
-                        <!-- Progress Bar -->
+
                         <div>
                             <div class="flex justify-between text-sm mb-2">
                                 <span id="progressLabel" class="text-gray-600 dark:text-gray-300">Progress</span>
@@ -464,8 +434,7 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Stats -->
+
                     <div class="grid grid-cols-3 gap-3">
                         <div class="text-center p-3 rounded-lg bg-gray-50 dark:bg-gray-900">
                             <div id="timeLabel" class="text-xs text-gray-500">Time</div>
@@ -481,14 +450,13 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Results Card -->
+
                 <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6">
                     <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
                         <i data-lucide="bar-chart-3" class="w-5 h-5 text-green-500"></i>
                             <span id="resultsTitle">Results</span>
                     </h3>
-                    
+
                     <div id="resultsPlaceholder" class="text-center py-8">
                         <div class="w-16 h-16 mx-auto mb-4 text-gray-300 dark:text-gray-600">
                             <i data-lucide="bar-chart-3" class="w-full h-full"></i>
@@ -496,9 +464,8 @@
                         <p id="resultsPlaceholderLine1" class="text-gray-500 dark:text-gray-400">Results will appear here after evaluation</p>
                         <p id="resultsPlaceholderLine2" class="text-sm text-gray-400 dark:text-gray-500 mt-1">Submit your code to see the results</p>
                     </div>
-                    
+
                     <div id="resultsContent" class="hidden">
-                        <!-- Score Summary -->
                         <div class="mb-6">
                             <div class="flex justify-between items-center mb-4">
                                 <div>
@@ -509,8 +476,7 @@
                                     <span id="passRate">0/0</span> <span id="testsSuffix">tests</span>
                                 </div>
                             </div>
-                            
-                            <!-- Score Bar -->
+
                             <div class="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-2">
                                 <div id="scoreBar" class="h-full bg-gradient-to-r from-green-400 to-blue-500 rounded-full transition-all duration-1000" style="width: 0%"></div>
                             </div>
@@ -534,37 +500,34 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Test Results -->
+
                         <div class="space-y-3 max-h-60 overflow-y-auto custom-scrollbar pr-2" id="testResults">
-                            <!-- Test results will be inserted here -->
                         </div>
                     </div>
                 </div>
-                
-                <!-- Quick Actions -->
+
                 <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6">
                     <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
                         <i data-lucide="zap" class="w-5 h-5 text-yellow-500"></i>
                             <span id="quickActionsTitle">Quick Actions</span>
                     </h3>
                     <div class="grid grid-cols-2 gap-3">
-                        <button onclick="saveCode()" 
+                        <button onclick="saveCode()"
                                 class="p-3 rounded-lg bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 hover:from-blue-100 hover:to-blue-200 dark:hover:from-blue-800/30 dark:hover:to-blue-700/30 border border-blue-200 dark:border-blue-700/30 transition-all flex flex-col items-center justify-center group">
                             <i data-lucide="save" class="w-6 h-6 mb-2 text-blue-500 group-hover:scale-110 transition-transform"></i>
                             <span id="qaSave" class="text-sm font-medium">Save Code</span>
                         </button>
-                        <button onclick="loadSavedCode()" 
+                        <button onclick="loadSavedCode()"
                                 class="p-3 rounded-lg bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 hover:from-green-100 hover:to-green-200 dark:hover:from-green-800/30 dark:hover:to-green-700/30 border border-green-200 dark:border-green-700/30 transition-all flex flex-col items-center justify-center group">
                             <i data-lucide="folder-open" class="w-6 h-6 mb-2 text-green-500 group-hover:scale-110 transition-transform"></i>
                             <span id="qaLoad" class="text-sm font-medium">Load Saved</span>
                         </button>
-                        <button onclick="exportCode()" 
+                        <button onclick="exportCode()"
                                 class="p-3 rounded-lg bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 hover:from-purple-100 hover:to-purple-200 dark:hover:from-purple-800/30 dark:hover:to-purple-700/30 border border-purple-200 dark:border-purple-700/30 transition-all flex flex-col items-center justify-center group">
                             <i data-lucide="download" class="w-6 h-6 mb-2 text-purple-500 group-hover:scale-110 transition-transform"></i>
                             <span id="qaExport" class="text-sm font-medium">Export</span>
                         </button>
-                        <button onclick="shareResults()" 
+                        <button onclick="shareResults()"
                                 class="p-3 rounded-lg bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-900/20 dark:to-pink-800/20 hover:from-pink-100 hover:to-pink-200 dark:hover:from-pink-800/30 dark:hover:to-pink-700/30 border border-pink-200 dark:border-pink-700/30 transition-all flex flex-col items-center justify-center group">
                             <i data-lucide="share-2" class="w-6 h-6 mb-2 text-pink-500 group-hover:scale-110 transition-transform"></i>
                             <span id="qaShare" class="text-sm font-medium">Share</span>
@@ -575,10 +538,8 @@
         </div>
     </main>
 
-    <!-- Toast Container -->
     <div id="toastContainer" class="fixed top-4 right-4 z-50 space-y-3"></div>
 
-    <!-- Modals -->
     <div id="detailedResultsModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
             <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
@@ -586,18 +547,16 @@
                     <i data-lucide="bar-chart-3" class="w-6 h-6 text-blue-500"></i>
                     <span id="detailedResultsTitle">Detailed Results</span>
                 </h2>
-                <button onclick="closeModal('detailedResultsModal')" 
+                <button onclick="closeModal('detailedResultsModal')"
                         class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
             <div class="p-6 overflow-y-auto max-h-[70vh] custom-scrollbar" id="detailedResultsContent">
-                <!-- Detailed results will be inserted here -->
             </div>
         </div>
     </div>
 
-    <!-- Code Snippets Modal -->
     <div id="snippetsModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden">
             <div class="p-6 border-b border-gray-200 dark:border-gray-700">
@@ -608,16 +567,12 @@
                 <p id="snippetsModalDesc" class="text-gray-500 dark:text-gray-400 text-sm mt-1">Click to insert into editor</p>
             </div>
             <div class="p-6 overflow-y-auto max-h-[60vh] custom-scrollbar" id="snippetsList">
-                <!-- Snippets will be loaded here -->
             </div>
         </div>
     </div>
 
     <script>
-        
-// ============================================
-// LANGUAGE / i18n (match index.html)
-// ============================================
+
 const translations = {
     en: {
         backToTasks: "Back to Tasks",
@@ -1027,7 +982,6 @@ translations.hr.loadingTask = "Ucitavanje zadatka...";
 translations.fr.loadingTask = "Chargement de la tache...";
 translations.ru.loadingTask = "Zagruzka zadachi...";
 
-// Treat some UI strings as stateful (so language switching doesn't get "stuck")
 function isReadyStatusText(txt) {
     const norm = (txt || '').trim().toLowerCase();
     if (!norm) return false;
@@ -1039,7 +993,6 @@ function isReadyStatusText(txt) {
             if (translations[l].ready) candidates.push(translations[l].ready);
         }
     }
-    // Legacy / fallback
     candidates.push('ready to submit');
 
     return candidates.some(c => (c || '').trim().toLowerCase() === norm);
@@ -1131,21 +1084,18 @@ function applyTranslations() {
     const taskTitleEl = document.getElementById('taskTitle');
     if (taskTitleEl && taskTitleEl.textContent === 'Loading task...') taskTitleEl.textContent = t('loadingTask');
 
-    // Only change statusText if we're currently idle/ready (avoid overwriting live status)
     const statusTextEl = document.getElementById('statusText');
     if (statusTextEl && isReadyStatusText(statusTextEl.textContent)) {
         statusTextEl.textContent = t('readyStatus');
     }
 
 
-    // Job status card: only translate when we're in the idle "ready" state
     const jobTitleEl = document.getElementById('jobStatusTitle');
     const jobDescEl = document.getElementById('jobStatusDesc');
     if (jobTitleEl && isReadyStatusText(jobTitleEl.textContent)) {
         jobTitleEl.textContent = t('ready');
         if (jobDescEl) jobDescEl.textContent = t('waitingSubmission');
     }
-    // Update <html lang="">
     document.documentElement.setAttribute('lang', lang);
 
     if (latestEvaluationResult) {
@@ -1155,9 +1105,6 @@ function applyTranslations() {
     lucide.createIcons();
 }
 
-// ============================================
-        // CONFIGURATION
-        // ============================================
         const API_BASE_OVERRIDE = (
             new URLSearchParams(window.location.search).get('api') ||
             localStorage.getItem('apiBaseUrl') ||
@@ -1234,10 +1181,7 @@ function applyTranslations() {
 
         throw new Error(t('noBackendConfigured'));
         }
-        
-        // ============================================
-        // GLOBAL VARIABLES
-        // ============================================
+
         let codeEditor = null;
         let currentJobId = null;
         let pollInterval = null;
@@ -1247,10 +1191,7 @@ function applyTranslations() {
         let latestEvaluationResult = null;
         let currentTaskInfoKey = null;
         const taskMetadataCache = new Map();
-        
-        // ============================================
-        // INITIALIZATION
-        // ============================================
+
         document.addEventListener('DOMContentLoaded', () => {
             initTheme();
             initLanguage();
@@ -1259,8 +1200,7 @@ function applyTranslations() {
             initSnippets();
             loadTaskInfo();
             updateUI();
-            
-            // Check for URL parameters
+
             const urlParams = new URLSearchParams(window.location.search);
             const jobId = urlParams.get('jobId');
             if (jobId) {
@@ -1306,14 +1246,11 @@ function applyTranslations() {
             const backHref = (backButton && backButton.dataset.href) || getBackToTasksHref();
             window.location.href = backHref;
         }
-        
-        // ============================================
-        // THEME MANAGEMENT
-        // ============================================
+
         function initTheme() {
-            isDarkMode = localStorage.getItem('theme') === 'dark' || 
+            isDarkMode = localStorage.getItem('theme') === 'dark' ||
                         (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
-            
+
             if (isDarkMode) {
                 document.documentElement.classList.add('dark');
                 document.getElementById('themeIcon').setAttribute('data-lucide', 'sun');
@@ -1321,15 +1258,15 @@ function applyTranslations() {
                 document.documentElement.classList.remove('dark');
                 document.getElementById('themeIcon').setAttribute('data-lucide', 'moon');
             }
-            
+
             document.getElementById('themeToggle').addEventListener('click', toggleTheme);
             lucide.createIcons();
         }
-        
+
         function toggleTheme() {
             isDarkMode = !isDarkMode;
             localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-            
+
             if (isDarkMode) {
                 document.documentElement.classList.add('dark');
                 document.getElementById('themeIcon').setAttribute('data-lucide', 'sun');
@@ -1337,18 +1274,15 @@ function applyTranslations() {
                 document.documentElement.classList.remove('dark');
                 document.getElementById('themeIcon').setAttribute('data-lucide', 'moon');
             }
-            
+
             if (codeEditor) {
                 codeEditor.setOption('theme', isDarkMode ? 'dracula' : 'default');
             }
-            
+
             lucide.createIcons();
             showToast(t('themeChanged'), 'info');
         }
-        
-        // ============================================
-        // CODE EDITOR
-        // ============================================
+
         function initCodeEditor() {
             codeEditor = CodeMirror(document.getElementById('editor'), {
                 mode: 'clike',
@@ -1370,43 +1304,38 @@ function applyTranslations() {
                     'Shift-Tab': 'indentLess',
                 }
             });
-            
+
             codeEditor.on('change', updateEditorStats);
-            
-            // Load default template
+
             loadTemplate();
         }
-        
+
         function updateEditorStats() {
             if (!codeEditor) return;
-            
+
             const content = codeEditor.getValue();
             const lines = content.split('\n').length;
             const chars = content.length;
             const words = content.split(/\s+/).filter(word => word.length > 0).length;
-            
+
             document.getElementById('lineCount').textContent = lines;
             document.getElementById('charCount').textContent = chars;
         }
-        
+
         function formatCode() {
             if (!codeEditor) return;
-            
+
             const content = codeEditor.getValue();
-            // Simple formatting: add newlines after procedures
             const formatted = content
                 .replace(/END/g, 'END\n\n')
                 .replace(/TO\s+(\w+)/g, '\nTO $1')
                 .replace(/^\s*\n/gm, '') // Remove empty lines at start
                 .trim() + '\n';
-            
+
             codeEditor.setValue(formatted);
             showToast(t('codeFormatted'), 'success');
         }
-        
-        // ============================================
-        // CODE TEMPLATES & EXAMPLES
-        // ============================================
+
         function loadExample() {
             const example = `; HLL Example: Draw a Recursive Pattern
 ; This example draws a recursive square pattern
@@ -1419,7 +1348,7 @@ END
 TO PATTERN :SIZE :LEVEL
   ; Recursive pattern drawing
   IF :LEVEL = 0 [STOP]
-  
+
   REPEAT 4 [
     SQUARE :SIZE
     FD :SIZE
@@ -1442,7 +1371,7 @@ PATTERN 100 3
             updateEditorStats();
             showToast(t('exampleLoaded'), 'info');
         }
-        
+
         function loadTemplate() {
             const template = `; FMSLogo Solution Template
 ; Define your main procedure here
@@ -1450,11 +1379,11 @@ TO MAIN :PARAM1 :PARAM2
   ; Clear screen and hide turtle
   CS
   HT
-  
+
   ; Your solution goes here
   ; Example: Draw a circle
   REPEAT 360 [FD 1 RT 1]
-  
+
   ; Return to starting position
   HOME
 END
@@ -1467,7 +1396,7 @@ END
             updateEditorStats();
             showToast(t('templateLoaded'), 'info');
         }
-        
+
         function clearCode() {
             if (confirm(t('clearEditorConfirm'))) {
                 codeEditor.setValue('');
@@ -1475,10 +1404,7 @@ END
                 showToast(t('editorCleared'), 'warning');
             }
         }
-        
-        // ============================================
-        // CODE SNIPPETS
-        // ============================================
+
         function initSnippets() {
             const snippets = {
                 square: 'TO SQUARE :SIZE\n  REPEAT 4 [FD :SIZE RT 90]\nEND',
@@ -1508,37 +1434,37 @@ END`,
   SNOWFLAKE :SIZE / 3 :LEVEL - 1
 END`
             };
-            
+
             window.snippets = snippets;
         }
-        
+
         function insertSnippet(key) {
             if (!codeEditor || !window.snippets || !window.snippets[key]) return;
-            
+
             const cursor = codeEditor.getCursor();
             const snippet = window.snippets[key];
-            
+
             codeEditor.replaceRange(snippet + '\n\n', cursor);
             showToast(tf('insertedSnippet', { name: key }), 'success');
         }
-        
+
         function showSnippetsModal() {
             const modal = document.getElementById('snippetsModal');
             const list = document.getElementById('snippetsList');
-            
+
             if (!window.snippets) {
                 list.innerHTML = `<p class="text-gray-500 text-center py-8">${t('noSnippets')}</p>`;
                 modal.classList.remove('hidden');
                 return;
             }
-            
+
             let html = '<div class="grid grid-cols-1 gap-3">';
             Object.entries(window.snippets).forEach(([key, code]) => {
                 const lines = code.split('\n');
                 const preview = lines[0] + (lines.length > 1 ? ' ...' : '');
-                
+
                 html += `
-                    <button onclick="insertSnippet('${key}'); closeModal('snippetsModal')" 
+                    <button onclick="insertSnippet('${key}'); closeModal('snippetsModal')"
                             class="p-4 rounded-lg bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-colors text-left">
                         <div class="font-medium mb-2 capitalize">${key.replace('_', ' ')}</div>
                         <div class="font-mono text-sm text-gray-500 bg-gray-100 dark:bg-gray-800 p-2 rounded">
@@ -1548,14 +1474,11 @@ END`
                 `;
             });
             html += '</div>';
-            
+
             list.innerHTML = html;
             modal.classList.remove('hidden');
         }
-        
-        // ============================================
-        // TASK MANAGEMENT
-        // ============================================
+
         function getTaskInfoKey(taskInfo) {
             return [taskInfo.category, taskInfo.year, taskInfo.level, taskInfo.task].join('::');
         }
@@ -1570,6 +1493,28 @@ END`
             document.getElementById('maxPoints').textContent = taskMetadata.max_points;
             document.getElementById('scoreMax').textContent = taskMetadata.max_points;
             localStorage.setItem('taskPoints', String(taskMetadata.max_points));
+        }
+
+        function loadTaskFromUrl() {
+            const query = new URLSearchParams(window.location.search);
+            let values = [
+                query.get('competition') || query.get('category'),
+                query.get('year'),
+                query.get('level'),
+                query.get('task')
+            ];
+
+            const pathMatch = window.location.pathname.match(/^\/(?:evaluation|e)\/([^/]+)\/([^/]+)\/([^/]+)\/([^/]+)\/?$/);
+            if (values.some((value) => !value) && pathMatch) {
+                values = pathMatch.slice(1).map((value) => decodeURIComponent(value));
+            }
+
+            if (values.every((value) => value)) {
+                localStorage.setItem('kategorija', values[0]);
+                localStorage.setItem('god', values[1]);
+                localStorage.setItem('kolo', values[2]);
+                localStorage.setItem('zadatak', values[3]);
+            }
         }
 
         async function syncTaskMetadata(taskInfo) {
@@ -1609,12 +1554,13 @@ END`
         }
 
         function loadTaskInfo() {
+            loadTaskFromUrl();
             const category = localStorage.getItem('kategorija') || 'HLL';
             const year = localStorage.getItem('god') || '2024';
             const level = localStorage.getItem('kolo') || '1.kolo';
             const task = localStorage.getItem('zadatak') || 'Unknown Task';
             const points = '...';
-            
+
             document.getElementById('taskTitle').textContent = task;
             document.getElementById('taskCategory').textContent = category;
             document.getElementById('taskYear').textContent = year;
@@ -1626,10 +1572,7 @@ END`
             syncTaskMetadata(taskInfo);
             return taskInfo;
         }
-        
-        // ============================================
-        // CODE SUBMISSION & EVALUATION
-        // ============================================
+
         async function submitCode() {
             const code = codeEditor.getValue();
             if (!code.trim()) {
@@ -1641,7 +1584,6 @@ END`
             const submitBtn = document.getElementById('submitBtn');
             const submitText = document.getElementById('submitText');
 
-            // Disable button and show loading state
             if (submitBtn) {
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 mr-2 animate-spin"></i><span id="submitText">${t('submitting')}</span>`;
@@ -1651,13 +1593,11 @@ END`
                 submitText.textContent = t('submitting');
             }
 
-            // Update status
             updateJobStatus('pending', t('submitting'), 10);
             jobStartTime = Date.now();
             pollCount = 0;
 
             try {
-                // Submit directly to the Flask backend.
                 updateJobStatus('processing', t('sendingToEvaluator'), 25);
 
                 const payload = {
@@ -1684,7 +1624,6 @@ END`
 
                 const data = await response.json();
 
-                // Add processing time
                 if (jobStartTime) {
                     data.processingTime = ((Date.now() - jobStartTime) / 1000).toFixed(2);
                 }
@@ -1698,7 +1637,6 @@ END`
                 );
                 resetSubmitButton();
 
-                // Render results using existing UI
                 displayResults(data);
 
             } catch (error) {
@@ -1706,30 +1644,26 @@ END`
                 updateJobStatus('error', tf('submissionFailed', { message: error.message }), 0);
                 showToast(tf('submissionFailed', { message: error.message }), 'error');
 
-                // Re-enable button
                 resetSubmitButton();
             }
         }
-        
+
         function startPolling() {
             if (pollInterval) clearInterval(pollInterval);
-            
+
             pollCount = 0;
-            
+
             pollInterval = setInterval(async () => {
                 pollCount++;
-                
-                // Update elapsed time
+
                 if (jobStartTime) {
                     const elapsed = Math.floor((Date.now() - jobStartTime) / 1000);
                     document.getElementById('elapsedTime').textContent = `${elapsed}s`;
-                    
-                    // Update progress based on time
+
                     const progress = Math.min(30 + (pollCount * 2), 90);
                     updateProgress(progress);
                 }
-                
-                // Check if max polls reached
+
                 if (pollCount > MAX_POLL_ATTEMPTS) {
                     clearInterval(pollInterval);
                     pollInterval = null;
@@ -1738,67 +1672,59 @@ END`
                     resetSubmitButton(); // Make sure this is called
                     return;
                 }
-                
+
                 try {
                     console.log(`Polling for job ${currentJobId}, attempt ${pollCount}`);
                     const response = await fetchFromBackend(`/api/hll/status?id=${encodeURIComponent(currentJobId)}`);
-                    
+
                     const data = await response.json();
                     console.log('Poll response:', data);
-                    
-                    // Check if data has "success" property (completed result)
+
                     if (data.success !== undefined) {
-                        // This is a complete result
                         clearInterval(pollInterval);
                         pollInterval = null;
                         updateJobStatus('completed', t('evaluationCompleted'), 100);
                         resetSubmitButton();
-                        
-                        // Add processing time
+
                         if (jobStartTime) {
                             const processingTime = ((Date.now() - jobStartTime) / 1000).toFixed(2);
                             data.processingTime = processingTime;
                         }
-                        
+
                         displayResults(data);
-                        
-                        // Celebrate if good score
+
                         if (data.total_points && data.max_points) {
                             const scorePercent = (data.total_points / data.max_points) * 100;
                             if (scorePercent >= 80) {
                                 celebrate();
                             }
                         }
-                        
+
                         showToast(t('evaluationCompleted'), 'success');
                     } else if (data.status === 'completed' && data.result) {
-                        // Alternative response format
                         clearInterval(pollInterval);
                         pollInterval = null;
                         updateJobStatus('completed', t('evaluationCompleted'), 100);
                         resetSubmitButton();
-                        
+
                         if (jobStartTime) {
                             const processingTime = ((Date.now() - jobStartTime) / 1000).toFixed(2);
                             data.result.processingTime = processingTime;
                         }
-                        
+
                         displayResults(data.result);
                         showToast(t('evaluationCompleted'), 'success');
                     } else if (data.status === 'processing' || data.status === 'pending') {
-                        // Still processing
-                        updateJobStatus(data.status, 
-                            data.status === 'processing' ? t('processing') : t('pending'), 
+                        updateJobStatus(data.status,
+                            data.status === 'processing' ? t('processing') : t('pending'),
                             data.status === 'processing' ? 60 : 40);
                     } else if (data.status === 'error') {
-                        // Error occurred
                         clearInterval(pollInterval);
                         pollInterval = null;
                         updateJobStatus('error', `${t('errorState')}: ${data.error || t('unknownEvaluationError')}`, 0);
                         resetSubmitButton();
                         showToast(tf('evaluationApiError', { message: data.error || t('unknownEvaluationError') }), 'error');
                     } else if (data.status === 'not_found') {
-                        // Job not found, something went wrong
                         clearInterval(pollInterval);
                         pollInterval = null;
                         updateJobStatus('error', t('jobLost'), 0);
@@ -1807,44 +1733,37 @@ END`
                     }
                 } catch (error) {
                     console.error('Polling error:', error);
-                    // Don't stop polling on network errors
                 }
             }, POLL_INTERVAL);
         }
-        
+
         function resetSubmitButton() {
             const submitBtn = document.getElementById('submitBtn');
             const submitText = document.getElementById('submitText');
-            
+
             if (submitBtn) {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = `<i data-lucide="play" class="w-5 h-5 mr-2"></i><span id="submitText">${t('submit')}</span>`;
             }
-            
+
             if (submitText) {
                 submitText.textContent = t('submit');
             }
-            
-            // Recreate icons
+
             lucide.createIcons();
         }
-        
-        // ============================================
-        // UI UPDATES
-        // ============================================
+
         function updateJobStatus(status, message, progress) {
             const statusIcon = document.getElementById('statusIcon');
             const statusPulse = document.getElementById('statusPulse');
             const statusText = document.getElementById('statusText');
             const jobStatusTitle = document.getElementById('jobStatusTitle');
             const jobStatusDesc = document.getElementById('jobStatusDesc');
-            
-            // Update progress
+
             updateProgress(progress);
-            
-            // Remove all classes
+
             statusIcon.className = 'w-4 h-4';
-            
+
             switch (status) {
                 case 'pending':
                     statusIcon.setAttribute('data-lucide', 'clock');
@@ -1876,16 +1795,16 @@ END`
                     statusPulse.classList.add('hidden');
                     jobStatusTitle.textContent = t('ready');
             }
-            
+
             statusText.textContent = message;
             jobStatusDesc.textContent = message;
             lucide.createIcons();
         }
-        
+
         function updateProgress(percent) {
             const progressBar = document.getElementById('progressBar');
             const progressPercent = document.getElementById('progressPercent');
-            
+
             progressBar.style.width = `${percent}%`;
             progressPercent.textContent = `${Math.round(percent)}%`;
         }
@@ -2007,20 +1926,18 @@ END`
 
         function displayResults(result) {
             latestEvaluationResult = result;
-            // Hide placeholder, show results
             document.getElementById('resultsPlaceholder').classList.add('hidden');
             const resultsContent = document.getElementById('resultsContent');
             resultsContent.classList.remove('hidden');
-            
+
             if (result.error || !result.success) {
                 renderReviewRequestBox(result);
-                // Show error
                 document.getElementById('scoreValue').textContent = '0';
                 document.getElementById('scoreMax').textContent = document.getElementById('maxPoints').textContent;
                 document.getElementById('elapsedTime').textContent = formatDuration(getResultRuntimeSeconds(result));
                 document.getElementById('passRateBadge').textContent = t('errorState');
                 document.getElementById('passRateBadge').className = 'px-4 py-2 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300';
-                
+
                 const testResults = document.getElementById('testResults');
                 testResults.innerHTML = `
                     <div class="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700/30">
@@ -2033,27 +1950,24 @@ END`
                         </div>
                     </div>
                 `;
-                
+
                 updateScoreBar(0);
                 prepareDetailedResults(result);
                 return;
             }
-            
-            // Calculate scores
+
             const totalPoints = result.total_points || 0;
             const maxPoints = result.max_points || document.getElementById('maxPoints').textContent;
             const passedTests = result.passed_tests || result.results.filter(r => r.status === 'PASS').length;
             const totalTests = result.total_tests || result.results.length;
             const passRate = totalTests > 0 ? (passedTests / totalTests) : 0;
-            
-            // Update UI
+
             document.getElementById('scoreValue').textContent = totalPoints;
             document.getElementById('scoreMax').textContent = maxPoints;
             document.getElementById('currentScore').textContent = totalPoints;
             document.getElementById('testCount').textContent = totalTests;
             document.getElementById('elapsedTime').textContent = formatDuration(getResultRuntimeSeconds(result));
-            
-            // Update pass rate badge
+
             const passRateBadge = document.getElementById('passRateBadge');
             passRateBadge.textContent = `${passedTests}/${totalTests} ${t('testsWord')}`;
             passRateBadge.className = `px-4 py-2 rounded-full ${
@@ -2061,15 +1975,13 @@ END`
                 passRate >= 0.5 ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300' :
                 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300'
             }`;
-            
-            // Update score bar
+
             const scorePercent = maxPoints ? (totalPoints / maxPoints * 100) : 0;
             updateScoreBar(scorePercent);
-            
-            // Display test results
+
             const testResults = document.getElementById('testResults');
             testResults.innerHTML = '';
-            
+
             if (result.results && result.results.length > 0) {
                 result.results.forEach(test => {
                     const testDiv = document.createElement('div');
@@ -2078,10 +1990,10 @@ END`
                         test.status === 'FAIL' ? 'test-fail bg-red-50 dark:bg-red-900/20' :
                         'test-error bg-yellow-50 dark:bg-yellow-900/20'
                     }`;
-                    
+
                     let statusIcon = 'check-circle';
                     let statusColor = 'text-green-500';
-                    
+
                     if (test.status === 'FAIL') {
                         statusIcon = 'x-circle';
                         statusColor = 'text-red-500';
@@ -2089,7 +2001,7 @@ END`
                         statusIcon = 'alert-circle';
                         statusColor = 'text-yellow-500';
                     }
-                    
+
                     testDiv.innerHTML = `
                         <div class="flex justify-between items-center">
                             <div class="font-semibold flex items-center gap-2">
@@ -2143,44 +2055,37 @@ END`
                             </div>
                         ` : ''}
                     `;
-                    
+
                     testResults.appendChild(testDiv);
                 });
             }
-            
+
             renderReviewRequestBox(result);
-            // Prepare detailed results
             prepareDetailedResults(result);
-            
-            // Update icons
+
             lucide.createIcons();
         }
-        
+
         function updateScoreBar(percent) {
             const scoreBar = document.getElementById('scoreBar');
             scoreBar.style.width = `${percent}%`;
         }
-        
+
         function updateUI() {
-            // Update editor theme if needed
             if (codeEditor) {
                 codeEditor.setOption('theme', isDarkMode ? 'dracula' : 'default');
             }
         }
-        
-        // ============================================
-        // SAVE/LOAD CODE
-        // ============================================
+
         function saveCode() {
             if (!codeEditor) return;
-            
+
             const code = codeEditor.getValue();
             const taskInfo = loadTaskInfo();
             const key = `saved_code_${taskInfo.category}_${taskInfo.year}_${taskInfo.level}_${taskInfo.task}`;
-            
+
             localStorage.setItem(key, code);
-            
-            // Also save to code history
+
             const historyKey = 'code_history';
             let history = JSON.parse(localStorage.getItem(historyKey)) || [];
             history.unshift({
@@ -2189,19 +2094,18 @@ END`
                 timestamp: new Date().toISOString(),
                 score: document.getElementById('scoreValue').textContent
             });
-            
-            // Keep only last 20 entries
+
             history = history.slice(0, 20);
             localStorage.setItem(historyKey, JSON.stringify(history));
-            
+
             showToast(t('codeSaved'), 'success');
         }
-        
+
         function loadSavedCode() {
             const taskInfo = loadTaskInfo();
             const key = `saved_code_${taskInfo.category}_${taskInfo.year}_${taskInfo.level}_${taskInfo.task}`;
             const savedCode = localStorage.getItem(key);
-            
+
             if (savedCode && codeEditor) {
                 codeEditor.setValue(savedCode);
                 updateEditorStats();
@@ -2210,34 +2114,31 @@ END`
                 showToast(t('noSavedCode'), 'warning');
             }
         }
-        
+
         function exportCode() {
             if (!codeEditor) return;
-            
+
             const code = codeEditor.getValue();
             const taskInfo = loadTaskInfo();
             const filename = `${taskInfo.task}_${Date.now()}.lgo`;
-            
+
             const blob = new Blob([code], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
-            
+
             a.href = url;
             a.download = filename;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            
+
             showToast(tf('codeExported', { filename }), 'success');
         }
-        
-        // ============================================
-        // RESULTS MANAGEMENT
-        // ============================================
+
         function prepareDetailedResults(result) {
             const content = document.getElementById('detailedResultsContent');
-            
+
             let html = `
                 <div class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -2259,7 +2160,7 @@ END`
                         </div>
                     </div>
             `;
-            
+
             if (result.results && result.results.length > 0) {
                 html += `
                     <div>
@@ -2279,12 +2180,12 @@ END`
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                 `;
-                
+
                 result.results.forEach((test, index) => {
                     const statusColor = test.status === 'PASS' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
                                       test.status === 'FAIL' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' :
                                       'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
-                    
+
                     html += `
                         <tr class="${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-900'}">
                             <td class="p-3 font-mono">${test.test}</td>
@@ -2311,7 +2212,7 @@ END`
                         </tr>
                     `;
                 });
-                
+
                 html += `
                                 </tbody>
                             </table>
@@ -2319,40 +2220,36 @@ END`
                     </div>
                 `;
             }
-            
+
             html += '</div>';
             content.innerHTML = html;
             lucide.createIcons();
         }
-        
+
         function viewDetailedResults() {
             document.getElementById('detailedResultsModal').classList.remove('hidden');
         }
-        
+
         function loadJobResults(jobId) {
             currentJobId = jobId;
             updateJobStatus('pending', t('loadingPreviousResults'), 10);
-            
-            // You could implement loading previous job results here
+
             showToast(t('loadingPreviousResults'), 'info');
         }
-        
-        // ============================================
-        // SHARE FUNCTIONALITY
-        // ============================================
+
         async function shareResults() {
             if (!currentJobId) {
                 showToast(t('noResultsToShare'), 'warning');
                 return;
             }
-            
+
             const score = document.getElementById('scoreValue').textContent;
             const maxScore = document.getElementById('scoreMax').textContent;
             const taskName = document.getElementById('taskTitle').textContent;
             const passRate = document.getElementById('passRateBadge').textContent;
-            
+
             const shareText = tf('shareText', { score, maxScore, taskName, passRate });
-            
+
             if (navigator.share) {
                 try {
                     await navigator.share({
@@ -2370,7 +2267,7 @@ END`
                 fallbackShare(shareText);
             }
         }
-        
+
         function fallbackShare(text) {
             navigator.clipboard.writeText(text).then(() => {
                 showToast(t('resultsCopied'), 'success');
@@ -2378,10 +2275,7 @@ END`
                 showToast(t('clipboardError'), 'error');
             });
         }
-        
-        // ============================================
-        // UTILITY FUNCTIONS
-        // ============================================
+
         function showToast(message, type = 'info') {
             const backgroundColor = {
                 success: '#10b981',
@@ -2389,7 +2283,7 @@ END`
                 warning: '#f59e0b',
                 info: '#3b82f6'
             }[type];
-            
+
             Toastify({
                 text: message,
                 duration: 3000,
@@ -2400,16 +2294,14 @@ END`
                 className: 'rounded-lg shadow-lg'
             }).showToast();
         }
-        
+
         function celebrate() {
-            // Launch confetti
             confetti({
                 particleCount: 100,
                 spread: 70,
                 origin: { y: 0.6 }
             });
-            
-            // Add some more confetti after delay
+
             setTimeout(() => {
                 confetti({
                     particleCount: 50,
@@ -2425,20 +2317,16 @@ END`
                 });
             }, 250);
         }
-        
+
         function closeModal(modalId) {
             document.getElementById(modalId).classList.add('hidden');
         }
-        
-        // ============================================
-        // HELPER FUNCTIONS
-        // ============================================
+
         window.insertSnippet = insertSnippet;
         window.viewDetailedResults = viewDetailedResults;
         window.closeModal = closeModal;
         window.showSnippetsModal = showSnippetsModal;
-        
-        // Initialize Lucide icons
+
         lucide.createIcons();
     </script>
 </body>

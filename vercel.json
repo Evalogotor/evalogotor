@@ -3,6 +3,8 @@
     { "source": "/health", "destination": "https://followed-kevin-interests-basis.trycloudflare.com/health" },
     { "source": "/api/:path*", "destination": "https://followed-kevin-interests-basis.trycloudflare.com/api/:path*" },
     { "source": "/", "destination": "/index.html" },
+    { "source": "/evaluation/:competition/:year/:level/:task", "destination": "/evaluation.html?competition=:competition&year=:year&level=:level&task=:task" },
+    { "source": "/e/:competition/:year/:level/:task", "destination": "/evaluation.html?competition=:competition&year=:year&level=:level&task=:task" },
     { "source": "/:path*", "destination": "/:path*.html" }
   ]
 }

@@ -312,6 +312,13 @@
     localStorage.setItem("taskSourcePage", PAGE_DEFINITIONS[pageKey].route);
   }
 
+  function buildEvaluationUrl(item, short = false) {
+    const prefix = short ? "e" : "evaluation";
+    const parts = [item.category, item.year, item.level, item.task]
+      .map((value) => encodeURIComponent(String(value || "")));
+    return `${prefix}/${parts.join("/")}`;
+  }
+
   function createSearchResultMarkup(groups, includePage, lang) {
     if (!groups.length) {
       return `<div class="browser-empty">${escapeHtml(tr(lang, "noResults"))}</div>`;
@@ -547,7 +554,7 @@
             }
             ${
               item.has_local_task
-                ? `<button id="evaluateTaskBtn" class="selected-task-action selected-task-action-eval">${escapeHtml(tr(lang, "evaluate"))}</button>`
+                ? `<a id="evaluateTaskBtn" href="${escapeHtml(buildEvaluationUrl(item))}" class="selected-task-action selected-task-action-eval">${escapeHtml(tr(lang, "evaluate"))}</a>`
                 : `<button class="selected-task-action selected-task-action-disabled" disabled>${escapeHtml(tr(lang, "unavailable"))}</button>`
             }
           </div>
@@ -564,7 +571,6 @@
       if (item.has_local_task) {
         elements.selectedTask.querySelector("#evaluateTaskBtn").addEventListener("click", () => {
           setSelectedTaskStorage(item, config.pageKey);
-          window.location.href = "evaluation";
         });
       }
 
