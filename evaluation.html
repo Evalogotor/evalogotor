@@ -1195,6 +1195,7 @@ function applyTranslations() {
         document.addEventListener('DOMContentLoaded', () => {
             initTheme();
             initLanguage();
+            loadTaskFromUrl();
             initBackToTasksButton();
             initCodeEditor();
             initSnippets();
@@ -1211,7 +1212,7 @@ function applyTranslations() {
         function getBackToTasksHref() {
             const storedPage = (localStorage.getItem('taskSourcePage') || '').trim();
             if (storedPage) {
-                return storedPage;
+                return storedPage.startsWith('/') ? storedPage : `/${storedPage}`;
             }
 
             const category = (localStorage.getItem('kategorija') || '').trim();
@@ -1228,7 +1229,8 @@ function applyTranslations() {
                 '8r': 'Osmi.html'
             };
 
-            return fallbackPages[category] || 'tasks.html';
+            const page = fallbackPages[category] || 'tasks.html';
+            return page.startsWith('/') ? page : `/${page}`;
         }
 
         function initBackToTasksButton() {
@@ -1514,6 +1516,18 @@ END`
                 localStorage.setItem('god', values[1]);
                 localStorage.setItem('kolo', values[2]);
                 localStorage.setItem('zadatak', values[3]);
+
+                const sourcePages = {
+                    '5r': 'Peti.html',
+                    '6r': 'Sesti.html',
+                    '7r': 'Sedmi.html',
+                    '8r': 'Osmi.html',
+                    'HLL': 'hll.html',
+                    'HLOZ': 'HLOZ.html'
+                };
+                if (sourcePages[values[0]]) {
+                    localStorage.setItem('taskSourcePage', sourcePages[values[0]]);
+                }
             }
         }
 
