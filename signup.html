@@ -119,20 +119,6 @@
         margin-top: 24px;
     }
 
-    .captcha-group {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-        width: min(80%, 320px);
-    }
-
-    .captcha-note {
-        font-size: 0.9em;
-        opacity: 0.85;
-        text-align: left;
-    }
-
     #continueBtn {
         background-color: #007BFF;
         color: white;
@@ -313,14 +299,6 @@
         <input type="text" id="website" tabindex="-1" autocomplete="url">
     </div>
 
-    <div class="input-container" id="captchaWrap">
-        <label for="recaptchaWidget" id="captchaLabel">reCAPTCHA</label>
-        <div class="captcha-group">
-            <div id="recaptchaWidget" aria-live="polite"></div>
-            <div class="captcha-note" id="captchaNote">Loading reCAPTCHA...</div>
-        </div>
-    </div>
-
     <div class="input-container" id="verificationWrap" style="display:none;">
         <label for="verificationCode" id="verificationLabel">Verification code</label>
         <input type="text" id="verificationCode" inputmode="numeric" maxlength="6" autocomplete="one-time-code">
@@ -358,9 +336,6 @@ const translations = {
         placeholderPass: "Enter password",
         placeholderPass2: "Repeat password",
         placeholderCode: "Enter 6-digit code",
-        captchaLabel: "reCAPTCHA",
-        captchaLoading: "Loading reCAPTCHA...",
-        captchaUnavailable: "reCAPTCHA is not available right now.",
         verificationLabel: "Verification code",
         continue: "Continue",
         sendCode: "Send verification code",
@@ -372,7 +347,6 @@ const translations = {
         warnPass: "Please enter a password with at least 6 characters",
         warnPass2: "Please repeat the password",
         warnMismatch: "Passwords do not match",
-        warnCaptcha: "Please complete reCAPTCHA",
         warnCode: "Please enter the 6-digit code from your email",
         codeSent: "Verification code sent. Check your email and enter the code below.",
         resendHint: "If the email does not arrive, wait a bit and press the button again."
@@ -393,9 +367,6 @@ const translations = {
         placeholderPass: "Passwort eingeben",
         placeholderPass2: "Passwort wiederholen",
         placeholderCode: "6-stelligen Code eingeben",
-        captchaLabel: "reCAPTCHA",
-        captchaLoading: "reCAPTCHA wird geladen...",
-        captchaUnavailable: "reCAPTCHA ist gerade nicht verfuegbar.",
         verificationLabel: "Bestatigungscode",
         continue: "Weiter",
         sendCode: "Bestatigungscode senden",
@@ -407,7 +378,6 @@ const translations = {
         warnPass: "Bitte ein Passwort mit mindestens 6 Zeichen eingeben",
         warnPass2: "Bitte das Passwort wiederholen",
         warnMismatch: "Passwoerter stimmen nicht ueberein",
-        warnCaptcha: "Bitte reCAPTCHA abschliessen",
         warnCode: "Bitte gib den 6-stelligen Code aus der E-Mail ein",
         codeSent: "Der Bestatigungscode wurde gesendet. Prufe deine E-Mail und trage ihn unten ein.",
         resendHint: "Falls die E-Mail nicht ankommt, warte kurz und drucke den Knopf erneut."
@@ -428,9 +398,6 @@ const translations = {
         placeholderPass: "Inserisci password",
         placeholderPass2: "Ripeti password",
         placeholderCode: "Inserisci codice a 6 cifre",
-        captchaLabel: "reCAPTCHA",
-        captchaLoading: "Caricamento reCAPTCHA...",
-        captchaUnavailable: "reCAPTCHA non e disponibile in questo momento.",
         verificationLabel: "Codice di verifica",
         continue: "Continua",
         sendCode: "Invia codice di verifica",
@@ -442,7 +409,6 @@ const translations = {
         warnPass: "Inserisci una password di almeno 6 caratteri",
         warnPass2: "Ripeti la password",
         warnMismatch: "Le password non corrispondono",
-        warnCaptcha: "Completa il reCAPTCHA",
         warnCode: "Inserisci il codice di 6 cifre ricevuto via email",
         codeSent: "Codice inviato. Controlla la tua email e inseriscilo qui sotto.",
         resendHint: "Se l'email non arriva, aspetta un attimo e premi di nuovo il pulsante."
@@ -463,9 +429,6 @@ const translations = {
         placeholderPass: "Upisite lozinku",
         placeholderPass2: "Ponovite lozinku",
         placeholderCode: "Upisite 6-znamenkasti kod",
-        captchaLabel: "reCAPTCHA",
-        captchaLoading: "Ucitam reCAPTCHA...",
-        captchaUnavailable: "reCAPTCHA trenutno nije dostupan.",
         verificationLabel: "Verifikacijski kod",
         continue: "Nastavi",
         sendCode: "Posalji verifikacijski kod",
@@ -477,7 +440,6 @@ const translations = {
         warnPass: "Molim unesite lozinku od barem 6 znakova",
         warnPass2: "Molim ponovite lozinku",
         warnMismatch: "Lozinke se ne podudaraju",
-        warnCaptcha: "Molim dovrsite reCAPTCHA",
         warnCode: "Molim upisite 6-znamenkasti kod iz emaila",
         codeSent: "Kod je poslan. Provjeri email i upisi ga ispod.",
         resendHint: "Ako email ne stigne, pricekaj malo pa ponovno pritisni gumb."
@@ -498,9 +460,6 @@ const translations = {
         placeholderPass: "Entrez mot de passe",
         placeholderPass2: "Repetez le mot de passe",
         placeholderCode: "Entrez le code a 6 chiffres",
-        captchaLabel: "reCAPTCHA",
-        captchaLoading: "Chargement de reCAPTCHA...",
-        captchaUnavailable: "reCAPTCHA n'est pas disponible pour le moment.",
         verificationLabel: "Code de verification",
         continue: "Continuer",
         sendCode: "Envoyer le code de verification",
@@ -512,7 +471,6 @@ const translations = {
         warnPass: "Veuillez entrer un mot de passe d'au moins 6 caracteres",
         warnPass2: "Veuillez repeter le mot de passe",
         warnMismatch: "Les mots de passe ne correspondent pas",
-        warnCaptcha: "Veuillez completer le reCAPTCHA",
         warnCode: "Veuillez entrer le code a 6 chiffres recu par email",
         codeSent: "Code envoye. Verifiez votre email et saisissez-le ci-dessous.",
         resendHint: "Si l'email n'arrive pas, attendez un peu puis appuyez de nouveau sur le bouton."
@@ -533,9 +491,6 @@ const translations = {
         placeholderPass: "Vvedite parol",
         placeholderPass2: "Povtorite parol",
         placeholderCode: "Vvedite 6-znachnyy kod",
-        captchaLabel: "reCAPTCHA",
-        captchaLoading: "Zagruzka reCAPTCHA...",
-        captchaUnavailable: "reCAPTCHA seychas nedostupen.",
         verificationLabel: "Kod podtverzhdeniya",
         continue: "Prodolzhit",
         sendCode: "Otpravit kod podtverzhdeniya",
@@ -547,7 +502,6 @@ const translations = {
         warnPass: "Pozhaluysta, vvedite parol ne koroche 6 simvolov",
         warnPass2: "Pozhaluysta, povtorite parol",
         warnMismatch: "Paroli ne sovpadayut",
-        warnCaptcha: "Pozhaluysta, proydite reCAPTCHA",
         warnCode: "Pozhaluysta, vvedite 6-znachnyy kod iz email",
         codeSent: "Kod otpravlen. Proverte pochtu i vvedite ego nizhe.",
         resendHint: "Esli email ne prishel, nemnogo podozhdite i nazhmite knopku eshche raz."
@@ -558,10 +512,6 @@ let darkMode = true;
 let currentLang = localStorage.getItem("lang") || "en";
 const savedTheme = localStorage.getItem("theme") || "dark";
 const SIGNUP_DEVICE_ID_KEY = "evalogotor_signup_device_id";
-let recaptchaSiteKey = "";
-let recaptchaWidgetId = null;
-let recaptchaApiPromise = null;
-let recaptchaLanguageLoaded = "";
 let availableGroups = [];
 
 function t(key) {
@@ -583,8 +533,6 @@ function updateLanguage(lang) {
     document.getElementById("password").placeholder = t("placeholderPass");
     document.getElementById("password2").placeholder = t("placeholderPass2");
     renderGroupOptions();
-    document.getElementById("captchaLabel").textContent = t("captchaLabel");
-    document.getElementById("captchaNote").textContent = recaptchaSiteKey ? "" : t("captchaLoading");
     document.getElementById("verificationLabel").textContent = t("verificationLabel");
     document.getElementById("verificationCode").placeholder = t("placeholderCode");
     document.getElementById("continueBtn").textContent = t("continue");
@@ -601,9 +549,6 @@ function applyTheme() {
         document.getElementById("themeIcon").setAttribute("data-lucide", "moon");
     }
     lucide.createIcons();
-    if (recaptchaSiteKey && window.grecaptcha) {
-        renderRecaptchaWidget();
-    }
 }
 
 function showMessage(message, type = "error") {
@@ -707,85 +652,6 @@ async function buildSignupDevicePayload() {
     };
 }
 
-async function loadRecaptchaConfig() {
-    const data = await window.EvalogotorApi.apiRequest("/api/auth/signup/recaptcha-config", {
-        method: "GET",
-        auth: false,
-        cache: "no-store"
-    });
-    if (!data || !data.enabled || !data.site_key) {
-        throw new Error(t("captchaUnavailable"));
-    }
-    recaptchaSiteKey = data.site_key;
-    document.getElementById("captchaNote").textContent = "";
-}
-
-function loadRecaptchaApi(languageCode) {
-    if (window.grecaptcha && recaptchaLanguageLoaded === languageCode) {
-        return Promise.resolve(window.grecaptcha);
-    }
-    if (recaptchaApiPromise && recaptchaLanguageLoaded === languageCode) {
-        return recaptchaApiPromise;
-    }
-
-    recaptchaApiPromise = new Promise((resolve, reject) => {
-        const previousScript = document.getElementById("recaptchaApiScript");
-        if (previousScript) {
-            previousScript.remove();
-        }
-
-        window.__evalogotorRecaptchaOnload = () => {
-            recaptchaLanguageLoaded = languageCode;
-            resolve(window.grecaptcha);
-        };
-
-        const script = document.createElement("script");
-        script.id = "recaptchaApiScript";
-        script.src = `https://www.google.com/recaptcha/api.js?onload=__evalogotorRecaptchaOnload&render=explicit&hl=${encodeURIComponent(languageCode)}`;
-        script.async = true;
-        script.defer = true;
-        script.onerror = () => reject(new Error(t("captchaUnavailable")));
-        document.head.appendChild(script);
-    });
-
-    return recaptchaApiPromise;
-}
-
-function renderRecaptchaWidget() {
-    if (!window.grecaptcha || !recaptchaSiteKey) {
-        return;
-    }
-    const container = document.getElementById("recaptchaWidget");
-    container.innerHTML = "";
-    recaptchaWidgetId = window.grecaptcha.render(container, {
-        sitekey: recaptchaSiteKey,
-        theme: darkMode ? "dark" : "light"
-    });
-}
-
-function getRecaptchaResponseToken() {
-    if (!window.grecaptcha || recaptchaWidgetId === null) {
-        return "";
-    }
-    return window.grecaptcha.getResponse(recaptchaWidgetId);
-}
-
-function resetRecaptchaWidget() {
-    if (window.grecaptcha && recaptchaWidgetId !== null) {
-        window.grecaptcha.reset(recaptchaWidgetId);
-    }
-}
-
-async function ensureRecaptchaReady() {
-    document.getElementById("captchaNote").textContent = t("captchaLoading");
-    if (!recaptchaSiteKey) {
-        await loadRecaptchaConfig();
-    }
-    await loadRecaptchaApi(currentLang);
-    renderRecaptchaWidget();
-    document.getElementById("captchaNote").textContent = "";
-}
-
 function validateFields(username, email, password, password2) {
     if (username.length < 3) {
         return t("warnUser");
@@ -827,14 +693,6 @@ async function filledYet() {
     continueBtn.textContent = t("creating");
 
     try {
-        await ensureRecaptchaReady();
-        const recaptchaToken = getRecaptchaResponseToken();
-        if (!recaptchaToken) {
-            showMessage(t("warnCaptcha"));
-            continueBtn.disabled = false;
-            continueBtn.textContent = originalLabel;
-            return;
-        }
         const devicePayload = await buildSignupDevicePayload();
         const data = await window.EvalogotorApi.apiRequest("/api/auth/signup", {
             method: "POST",
@@ -845,7 +703,6 @@ async function filledYet() {
                 group_id: groupId,
                 password,
                 website,
-                recaptcha_token: recaptchaToken,
                 ...devicePayload
             }
         });
@@ -858,7 +715,6 @@ async function filledYet() {
         window.location.href = "account";
     } catch (error) {
         showMessage(window.EvalogotorApi.getFriendlyErrorMessage(error));
-        resetRecaptchaWidget();
         continueBtn.disabled = false;
         continueBtn.textContent = originalLabel;
     }
@@ -871,10 +727,6 @@ function goHome() {
 document.getElementById("langSelect").value = currentLang;
 updateLanguage(currentLang);
 loadGroups();
-ensureRecaptchaReady().catch((error) => {
-    document.getElementById("captchaNote").textContent =
-        error && error.message ? error.message : t("captchaUnavailable");
-});
 
 darkMode = savedTheme === "dark";
 applyTheme();
