@@ -581,10 +581,12 @@
       historyWrap.classList.add("hidden");
 
       try {
-        const [meData, historyData] = await Promise.all([
-          window.EvalogotorApi.apiRequest("/api/auth/me"),
-          window.EvalogotorApi.apiRequest("/api/users/history?limit=25")
-        ]);
+        const meData = await window.EvalogotorApi.apiRequest("/api/auth/me");
+        if (meData.user && meData.user.is_temporary) {
+          window.location.href = "scoreboard";
+          return;
+        }
+        const historyData = await window.EvalogotorApi.apiRequest("/api/users/history?limit=25");
 
         await loadGroups();
 

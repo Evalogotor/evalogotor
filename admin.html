@@ -382,6 +382,7 @@
                   <div class="text-sm text-gray-500 dark:text-gray-400">${escapeHtml(user.email)}</div>
                   <div class="mt-2 flex flex-wrap gap-2">
                     ${user.is_admin ? '<span class="inline-flex rounded-full px-3 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 text-xs font-semibold">Admin</span>' : ''}
+                    ${user.is_temporary ? '<span class="inline-flex rounded-full px-3 py-1 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300 text-xs font-semibold">Temporary</span>' : ''}
                     ${isSelf ? '<span class="inline-flex rounded-full px-3 py-1 bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300 text-xs font-semibold">You</span>' : ''}
                   </div>
                 </div>
@@ -426,8 +427,10 @@
               </div>
             </div>
             <div class="flex flex-wrap items-center gap-2">
+              ${group.is_private ? '<span class="inline-flex rounded-full px-3 py-1 bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 text-xs font-semibold">Private</span>' : '<span class="inline-flex rounded-full px-3 py-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300 text-xs font-semibold">Public</span>'}
               ${group.is_fallback ? '<span class="inline-flex rounded-full px-3 py-1 bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300 text-xs font-semibold">Fallback group</span>' : ''}
-              <button class="rename-group-btn rounded-xl border border-blue-300 px-3 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50 dark:border-blue-700 dark:text-blue-300 dark:hover:bg-blue-900/20" data-group-id="${escapeHtml(group.id)}" data-group-name="${escapeHtml(group.name)}" ${group.is_fallback ? "disabled" : ""}>
+              ${group.can_manage ? '<span class="inline-flex rounded-full px-3 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 text-xs font-semibold">Can manage</span>' : '<span class="inline-flex rounded-full px-3 py-1 bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300 text-xs font-semibold">View only</span>'}
+              <button class="rename-group-btn rounded-xl border border-blue-300 px-3 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50 dark:border-blue-700 dark:text-blue-300 dark:hover:bg-blue-900/20" data-group-id="${escapeHtml(group.id)}" data-group-name="${escapeHtml(group.name)}" data-is-private="${group.is_private ? "true" : "false"}" ${group.is_fallback || !group.can_manage ? "disabled" : ""}>
                 Rename
               </button>
             </div>
@@ -437,12 +440,29 @@
               <div class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Create account in ${escapeHtml(group.name)}</div>
               <div class="mt-3 grid gap-3 lg:grid-cols-4">
                 <input id="create-username-${group.id}" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" placeholder="Username">
-                <input id="create-email-${group.id}" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" placeholder="Email">
+                <input id="create-email-${group.id}" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" placeholder="Email (optional for temporary)">
                 <input id="create-password-${group.id}" type="password" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" placeholder="Password">
-                <button class="create-user-btn rounded-xl border border-emerald-300 px-3 py-2 text-sm font-medium text-emerald-700 hover:bg-emerald-50 dark:border-emerald-700 dark:text-emerald-300 dark:hover:bg-emerald-900/20" data-group-id="${escapeHtml(group.id)}" data-group-name="${escapeHtml(group.name)}">
+                <label class="flex items-center gap-2 rounded-xl border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 ${!group.can_manage ? "opacity-50" : ""}"><input id="create-temporary-${group.id}" type="checkbox" ${!group.can_manage ? "disabled" : ""}> Temporary account</label>
+                <button class="create-user-btn rounded-xl border border-emerald-300 px-3 py-2 text-sm font-medium text-emerald-700 hover:bg-emerald-50 dark:border-emerald-700 dark:text-emerald-300 dark:hover:bg-emerald-900/20 ${!group.can_manage ? "opacity-50 cursor-not-allowed" : ""}" data-group-id="${escapeHtml(group.id)}" data-group-name="${escapeHtml(group.name)}" ${!group.can_manage ? "disabled" : ""}>
                   Create user
                 </button>
               </div>
+            </div>
+            <div class="rounded-2xl border border-dashed border-gray-300 px-4 py-4 dark:border-gray-700 ${!group.can_manage ? "opacity-60" : ""}">
+              <div class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Assigned tasks for temporary accounts</div>
+              <div class="mt-3 grid gap-3 md:grid-cols-4">
+                <input id="task-category-${group.id}" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" placeholder="Category, e.g. HLL">
+                <input id="task-year-${group.id}" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" placeholder="Year">
+                <input id="task-level-${group.id}" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" placeholder="Level">
+                <input id="task-name-${group.id}" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" placeholder="Task">
+              </div>
+              <button class="assign-task-btn mt-3 rounded-xl border border-cyan-300 px-3 py-2 text-sm font-medium text-cyan-700 hover:bg-cyan-50 dark:border-cyan-700 dark:text-cyan-300 dark:hover:bg-cyan-900/20 ${!group.can_manage ? "opacity-50 cursor-not-allowed" : ""}" data-group-id="${escapeHtml(group.id)}" ${!group.can_manage ? "disabled" : ""}>Assign task</button>
+              <div class="mt-3 flex flex-wrap gap-2">${(group.tasks || []).map((task) => `<span class="inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1 text-xs dark:bg-gray-800">${escapeHtml(`${task.category}/${task.year}/${task.level}/${task.task}`)}${group.can_manage ? `<button class="remove-task-btn text-red-600 dark:text-red-300" data-group-id="${group.id}" data-category="${escapeHtml(task.category)}" data-year="${escapeHtml(task.year)}" data-level="${escapeHtml(task.level)}" data-task="${escapeHtml(task.task)}">x</button>` : ""}</span>`).join("") || '<span class="text-sm text-gray-500 dark:text-gray-400">No tasks assigned yet.</span>'}</div>
+            </div>
+            <div class="rounded-2xl border border-dashed border-gray-300 px-4 py-4 dark:border-gray-700 ${!group.can_manage ? "opacity-60" : ""}">
+              <div class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Group admin access</div>
+              <div class="mt-2 flex flex-wrap gap-2">${(group.admins || []).map((admin) => `<span class="inline-flex items-center gap-2 rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">${escapeHtml(admin.username)}${admin.id !== group.owner_id && group.can_manage ? `<button class="remove-group-admin-btn text-red-600 dark:text-red-300" data-group-id="${group.id}" data-user-id="${admin.id}">x</button>` : ""}</span>`).join("") || '<span class="text-sm text-gray-500 dark:text-gray-400">No shared admins.</span>'}</div>
+              ${group.can_manage ? `<div class="mt-3 flex flex-wrap gap-2"><input id="share-admin-${group.id}" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" placeholder="Admin username"><button class="share-group-admin-btn rounded-xl border border-blue-300 px-3 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50 dark:border-blue-700 dark:text-blue-300 dark:hover:bg-blue-900/20" data-group-id="${group.id}">Share control</button></div>` : ""}
             </div>
             <div class="space-y-3">
               ${usersMarkup || '<div class="rounded-2xl border border-dashed border-gray-300 px-4 py-6 text-center text-sm text-gray-500 dark:border-gray-700 dark:text-gray-400">No users in this group yet.</div>'}
@@ -466,7 +486,7 @@
           button.addEventListener("click", (event) => {
             event.preventDefault();
             event.stopPropagation();
-            renameGroup(Number(button.dataset.groupId), button.dataset.groupName || "");
+            renameGroup(Number(button.dataset.groupId), button.dataset.groupName || "", button.dataset.isPrivate === "true");
           });
         });
 
@@ -474,6 +494,22 @@
           button.addEventListener("click", () => {
             createUserInGroup(Number(button.dataset.groupId), button.dataset.groupName || "");
           });
+        });
+
+        details.querySelectorAll(".assign-task-btn").forEach((button) => {
+          button.addEventListener("click", () => assignTask(Number(button.dataset.groupId)));
+        });
+
+        details.querySelectorAll(".remove-task-btn").forEach((button) => {
+          button.addEventListener("click", () => updateGroupTask(button.dataset.groupId, "remove", button.dataset));
+        });
+
+        details.querySelectorAll(".share-group-admin-btn").forEach((button) => {
+          button.addEventListener("click", () => shareGroupAdmin(Number(button.dataset.groupId)));
+        });
+
+        details.querySelectorAll(".remove-group-admin-btn").forEach((button) => {
+          button.addEventListener("click", () => shareGroupAdmin(Number(button.dataset.groupId), "remove", button.dataset.userId));
         });
 
         details.querySelectorAll(".move-user-btn").forEach((button) => {
@@ -504,11 +540,13 @@
         return;
       }
 
+      const isPrivate = confirm("Make this group private? Only members and admins will see its leaderboard.");
+
       try {
         clearMessage();
         await window.EvalogotorApi.apiRequest("/api/admin/groups", {
           method: "POST",
-          body: { name },
+          body: { name, is_private: isPrivate },
         });
         await Promise.all([loadUsers(), loadOverview()]);
         showMessage("Group created.", "success");
@@ -517,7 +555,7 @@
       }
     }
 
-    async function renameGroup(groupId, currentName) {
+    async function renameGroup(groupId, currentName, currentlyPrivate) {
       const name = prompt(`Rename group ${currentName}:`, currentName);
       if (name === null) {
         return;
@@ -528,11 +566,13 @@
         return;
       }
 
+      const isPrivate = confirm("Make this group private? Choose Cancel for public.");
+
       try {
         clearMessage();
         await window.EvalogotorApi.apiRequest(`/api/admin/groups/${groupId}`, {
           method: "POST",
-          body: { name },
+          body: { name, is_private: isPrivate },
         });
         await loadUsers();
         showMessage("Group renamed.", "success");
@@ -545,11 +585,13 @@
       const usernameInput = document.getElementById(`create-username-${groupId}`);
       const emailInput = document.getElementById(`create-email-${groupId}`);
       const passwordInput = document.getElementById(`create-password-${groupId}`);
+      const temporaryInput = document.getElementById(`create-temporary-${groupId}`);
       const username = usernameInput ? usernameInput.value.trim() : "";
       const email = emailInput ? emailInput.value.trim() : "";
       const password = passwordInput ? passwordInput.value : "";
 
-      if (!username || !email || !password) {
+      const isTemporary = Boolean(temporaryInput && temporaryInput.checked);
+      if (!username || !password || (!email && !isTemporary)) {
         showMessage(`Fill in username, email, and password to create an account in ${groupName}.`);
         return;
       }
@@ -558,13 +600,61 @@
         clearMessage();
         await window.EvalogotorApi.apiRequest(`/api/admin/groups/${groupId}/users`, {
           method: "POST",
-          body: { username, email, password },
+          body: { username, email, password, is_temporary: isTemporary },
         });
         if (usernameInput) usernameInput.value = "";
         if (emailInput) emailInput.value = "";
         if (passwordInput) passwordInput.value = "";
+        if (temporaryInput) temporaryInput.checked = false;
         await Promise.all([loadUsers(), loadOverview()]);
         showMessage(`User created in ${groupName}.`, "success");
+      } catch (error) {
+        showMessage(window.EvalogotorApi.getFriendlyErrorMessage(error));
+      }
+    }
+
+    async function updateGroupTask(groupId, action, task) {
+      try {
+        clearMessage();
+        await window.EvalogotorApi.apiRequest(`/api/admin/groups/${groupId}/tasks`, {
+          method: "POST",
+          body: { action, category: task.category, year: task.year, level: task.level, task: task.task },
+        });
+        await loadUsers();
+        showMessage(action === "remove" ? "Task access removed." : "Task assigned.", "success");
+      } catch (error) {
+        showMessage(window.EvalogotorApi.getFriendlyErrorMessage(error));
+      }
+    }
+
+    async function assignTask(groupId) {
+      const values = ["category", "year", "level", "name"].map((part) => {
+        const input = document.getElementById(`task-${part}-${groupId}`);
+        return input ? input.value.trim() : "";
+      });
+      if (values.some((value) => !value)) {
+        showMessage("Fill in category, year, level, and task.");
+        return;
+      }
+      await updateGroupTask(groupId, "add", { category: values[0], year: values[1], level: values[2], task: values[3] });
+    }
+
+    async function shareGroupAdmin(groupId, action = "add", userId = null) {
+      const input = document.getElementById(`share-admin-${groupId}`);
+      const username = input ? input.value.trim() : "";
+      if (action === "add" && !username) {
+        showMessage("Enter an admin username first.");
+        return;
+      }
+      try {
+        clearMessage();
+        await window.EvalogotorApi.apiRequest(`/api/admin/groups/${groupId}/admins`, {
+          method: "POST",
+          body: action === "remove" ? { action, user_id: Number(userId) } : { action, username },
+        });
+        if (input) input.value = "";
+        await loadUsers();
+        showMessage(action === "remove" ? "Admin access removed." : "Group control shared.", "success");
       } catch (error) {
         showMessage(window.EvalogotorApi.getFriendlyErrorMessage(error));
       }
