@@ -722,6 +722,10 @@
 
   function initTasksLanding() {
     let lang = getLanguage();
+    const currentUser = window.EvalogotorApi && window.EvalogotorApi.getCurrentUser
+      ? window.EvalogotorApi.getCurrentUser()
+      : null;
+    let visiblePageKeys = currentUser && currentUser.is_temporary ? [] : Object.keys(PAGE_DEFINITIONS);
     const elements = {
       pageTitle: document.getElementById("globalSearchTitle"),
       pageIntro: document.getElementById("globalSearchIntro"),
@@ -760,6 +764,7 @@
 
     function renderCards() {
       elements.cardsWrap.innerHTML = Object.entries(PAGE_DEFINITIONS)
+        .filter(([pageKey]) => visiblePageKeys.includes(pageKey))
         .map(([pageKey, definition], index) => {
           return `
             <a href="${escapeHtml(definition.route)}" class="category-card">
@@ -771,6 +776,22 @@
           `;
         })
         .join("");
+    }
+
+    async function loadVisiblePages() {
+      try {
+        const response = await window.EvalogotorApi.apiRequest("/api/catalog/visible-pages", {
+          cache: "no-store",
+        });
+        visiblePageKeys = (response.items || [])
+          .map((item) => item.page_key)
+          .filter((pageKey) => PAGE_DEFINITIONS[pageKey]);
+      } catch (_error) {
+        if (!currentUser || !currentUser.is_temporary) {
+          visiblePageKeys = Object.keys(PAGE_DEFINITIONS);
+        }
+      }
+      renderCards();
     }
 
     if (elements.searchInput) {
@@ -825,6 +846,7 @@
       onLanguageChanged: updateLandingText,
     });
     updateLandingText();
+    loadVisiblePages();
   }
 
   window.TaskBrowser = {
