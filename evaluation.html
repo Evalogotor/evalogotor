@@ -36,7 +36,7 @@
     </script>
 
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="api-client.js"></script>
+    <script src="/api-client.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
@@ -1153,6 +1153,10 @@ function applyTranslations() {
                 addCandidate(window.location.origin);
             }
 
+            if (!isLocalFrontend && !isFlaskServedFrontend) {
+                addCandidate(window.location.origin);
+            }
+
             if (isLocalFrontend) {
                 addCandidate('http://127.0.0.1:5000');
                 addCandidate('http://localhost:5000');
@@ -1200,6 +1204,7 @@ function applyTranslations() {
         let latestEvaluationResult = null;
         let currentTaskInfoKey = null;
         const taskMetadataCache = new Map();
+        let currentTaskMetadataPromise = null;
 
         document.addEventListener('DOMContentLoaded', () => {
             initTheme();
@@ -1592,8 +1597,29 @@ END`
             document.getElementById('scoreMax').textContent = points;
 
             const taskInfo = { category, year, level, task, points };
-            syncTaskMetadata(taskInfo);
+            currentTaskMetadataPromise = syncTaskMetadata(taskInfo).then((taskMetadata) => {
+                if (taskMetadata) {
+                    Object.assign(taskInfo, taskMetadata, {
+                        points: taskMetadata.max_points
+                    });
+                }
+                return taskMetadata;
+            });
             return taskInfo;
+        }
+
+        async function loadTaskInfoForSubmission() {
+            const taskInfo = loadTaskInfo();
+            const taskMetadata = await currentTaskMetadataPromise;
+            if (!taskMetadata || !taskMetadata.success || taskMetadata.max_points == null) {
+                throw new Error('Could not load task metadata. Please refresh the page and try again.');
+            }
+
+            return {
+                ...taskInfo,
+                ...taskMetadata,
+                points: taskMetadata.max_points
+            };
         }
 
         async function submitCode() {
@@ -1603,7 +1629,6 @@ END`
                 return;
             }
 
-            const taskInfo = loadTaskInfo();
             const submitBtn = document.getElementById('submitBtn');
             const submitText = document.getElementById('submitText');
 
@@ -1621,6 +1646,7 @@ END`
             pollCount = 0;
 
             try {
+                const taskInfo = await loadTaskInfoForSubmission();
                 updateJobStatus('processing', t('sendingToEvaluator'), 25);
 
                 const payload = {
