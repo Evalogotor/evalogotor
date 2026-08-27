@@ -82,24 +82,6 @@
     </section>
 
     <section class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden">
-      <div class="border-b border-gray-100 dark:border-gray-700 px-6 py-5">
-        <h2 class="text-xl font-semibold">Text I/O task</h2>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Create or update a text input/output task. The JSON is validated before it is saved.</p>
-      </div>
-      <form id="textTaskForm" class="grid gap-4 px-6 py-6 lg:grid-cols-4">
-        <input id="textTaskCategory" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" placeholder="Category, e.g. HLL" required>
-        <input id="textTaskYear" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" placeholder="Year, e.g. 2026_2027" required>
-        <input id="textTaskLevel" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" placeholder="Level, e.g. 1.kolo" required>
-        <input id="textTaskName" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" placeholder="Task name" required>
-        <textarea id="textTaskConfig" class="min-h-72 rounded-xl border border-gray-300 bg-white px-3 py-2 font-mono text-xs dark:border-gray-600 dark:bg-gray-900 lg:col-span-3" placeholder='{"mode":"text_stdio","entrypoint":"MAIN","tests":[{"test":1,"input":"5\\n","output":"10","points":10}]}' required></textarea>
-        <div class="space-y-3">
-          <button type="submit" class="w-full rounded-xl border border-blue-300 px-4 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50 dark:border-blue-700 dark:text-blue-300 dark:hover:bg-blue-900/20">Save text task</button>
-          <p class="text-xs leading-5 text-gray-500 dark:text-gray-400">Use <code>READWORD</code>, <code>READLIST</code>, or <code>READCHAR</code> for input and <code>PRINT</code>, <code>TYPE</code>, or <code>SHOW</code> for output. Keep <code>show_expected_on_failure</code> false for hidden tests.</p>
-        </div>
-      </form>
-    </section>
-
-    <section class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden">
       <div class="flex flex-col gap-4 border-b border-gray-100 dark:border-gray-700 px-6 py-5 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <h2 class="text-xl font-semibold">Manual review queue</h2>
@@ -903,27 +885,6 @@
     });
 
     document.getElementById("createGroupBtn").addEventListener("click", createGroup);
-    document.getElementById("textTaskForm").addEventListener("submit", async (event) => {
-      event.preventDefault();
-      try {
-        clearMessage();
-        const config = JSON.parse(document.getElementById("textTaskConfig").value);
-        const response = await window.EvalogotorApi.apiRequest("/api/admin/text-task", {
-          method: "POST",
-          body: {
-            category: document.getElementById("textTaskCategory").value.trim(),
-            year: document.getElementById("textTaskYear").value.trim(),
-            level: document.getElementById("textTaskLevel").value.trim(),
-            task: document.getElementById("textTaskName").value.trim(),
-            config,
-          },
-        });
-        await loadOverview();
-        showMessage(`Text task saved: ${response.category}/${response.year}/${response.level}/${response.task}.`, "success");
-      } catch (error) {
-        showMessage(window.EvalogotorApi.getFriendlyErrorMessage(error));
-      }
-    });
     document.getElementById("reloadReviewsBtn").addEventListener("click", loadReviews);
     document.getElementById("reloadUsersBtn").addEventListener("click", async () => {
       await Promise.all([loadOverview(), loadUsers()]);
