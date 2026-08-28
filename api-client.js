@@ -140,7 +140,7 @@
     if (currentUser && currentUser.username) {
       loginLabel.textContent = currentUser.username;
       loginBtn.onclick = () => {
-        window.location.href = currentUser.is_temporary ? "scoreboard" : "account";
+        window.location.href = "/account";
       };
       loginBtn.title = "Open account";
       return;
@@ -148,7 +148,7 @@
 
     loginLabel.textContent = defaultLabel;
     loginBtn.onclick = () => {
-      window.location.href = "login";
+      window.location.href = "/login";
     };
     loginBtn.title = defaultLabel;
   }

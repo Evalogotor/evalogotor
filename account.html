@@ -111,7 +111,7 @@
           </div>
         </div>
 
-        <div class="mt-4 rounded-2xl bg-gray-50 dark:bg-gray-900/70 border border-gray-100 dark:border-gray-700 p-5">
+        <div id="groupPanel" class="mt-4 rounded-2xl bg-gray-50 dark:bg-gray-900/70 border border-gray-100 dark:border-gray-700 p-5">
           <div class="text-sm text-gray-500 dark:text-gray-400" id="groupLabel">Group</div>
           <div class="mt-3 flex flex-col gap-3 md:flex-row md:items-center">
             <select id="groupSelect" class="rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm dark:border-gray-600 dark:bg-gray-800"></select>
@@ -209,6 +209,7 @@
     const messageBox = document.getElementById("messageBox");
     const groupSelect = document.getElementById("groupSelect");
     const saveGroupBtn = document.getElementById("saveGroupBtn");
+    const groupPanel = document.getElementById("groupPanel");
     const codeModal = document.getElementById("codeModal");
     const codeModalTitle = document.getElementById("codeModalTitle");
     const codeModalMeta = document.getElementById("codeModalMeta");
@@ -378,6 +379,18 @@
         groupSelect.value = String(user.group.id);
       }
       renderGroupOptions();
+      if (user.is_temporary) {
+        groupSelect.disabled = true;
+        saveGroupBtn.classList.add("hidden");
+        if (groupPanel) {
+          groupPanel.classList.add("opacity-80");
+        }
+      } else {
+        saveGroupBtn.classList.remove("hidden");
+        if (groupPanel) {
+          groupPanel.classList.remove("opacity-80");
+        }
+      }
       const adminLink = document.getElementById("adminLink");
       if (adminLink) {
         adminLink.classList.toggle("hidden", !user.is_admin);
@@ -582,10 +595,6 @@
 
       try {
         const meData = await window.EvalogotorApi.apiRequest("/api/auth/me");
-        if (meData.user && meData.user.is_temporary) {
-          window.location.href = "scoreboard";
-          return;
-        }
         const historyData = await window.EvalogotorApi.apiRequest("/api/users/history?limit=25");
 
         await loadGroups();
